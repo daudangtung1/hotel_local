@@ -1,0 +1,795 @@
+/* =======================
+
+CSS Style Structure
+- Base Style
+- Header
+    - Navigation
+    - Slide
+- Footer
+
+=======================*/
+
+
+/* ==========================================================================
+   normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css
+   ========================================================================== */
+
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+    display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+
+[hidden],
+template {
+    display: none;
+}
+
+a {
+    background-color: transparent;
+}
+
+a i {
+    font-family: FontAwesome;
+    font-style: normal;
+}
+
+ul {
+    padding-left: 0;
+}
+
+a:active,
+a:hover {
+    outline: 0;
+}
+
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+b,
+strong {
+    font-weight: bold;
+}
+
+dfn {
+    font-style: italic;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+mark {
+    background: #ff0;
+    color: #000;
+}
+
+small {
+    font-size: 80%;
+}
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+img {
+    border: 0;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+figure {
+    margin: 1em 40px;
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0;
+}
+
+pre {
+    overflow: auto;
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace, monospace;
+    font-size: 1em;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    overflow: visible;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+    cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+input {
+    line-height: normal;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+}
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+    box-sizing: content-box;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
+
+legend {
+    border: 0;
+    padding: 0;
+}
+
+textarea {
+    overflow: auto;
+}
+
+optgroup {
+    font-weight: bold;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td,
+th {
+    padding: 0;
+}
+
+a,
+button,
+img,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+}
+
+a:hover,
+a:active,
+a:focus,
+div:hover,
+div:active,
+div:focus,
+input:hover,
+input:active,
+input:focus,
+textarea:hover,
+textarea:active,
+textarea:focus,
+li:hover,
+li:active,
+li:focus,
+button:hover,
+button:active,
+button:focus,
+img:focus {
+    outline: 0 !important;
+}
+
+
+
+
+/* ==========================================================================
+   Base styles
+   ========================================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+    font-family: Montserrat;
+    font-weight: 300;
+    /* position: relative; */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+.browserupgrade {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+.clear {
+    clear: both;
+    float: none;
+}
+
+.clearfix::before,
+.clearfix::after {
+    content: " ";
+    /* 1 */
+    display: table;
+    /* 2 */
+}
+
+.clearfix::after {
+    clear: both;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.container {
+    max-width: 1366px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+ 
+
+.item-tab-row .fl {
+    text-align: center;
+}
+
+.item-tab-row .fr {
+    padding-left: 86px;
+}
+
+.btn-readmore a {
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 22px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffffff;
+    background: #1100d1;
+    padding: 9px 25px;
+    display: inline-block;
+    transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+}
+
+.item-servces-home .fl {
+    padding-right: 147px;
+}
+
+.item-servces-home .btn-readmore {
+    margin-top: 30px;
+}
+
+.item-servces-home {
+    position: relative;
+    padding-bottom: 85px; 
+}
+ 
+.home .item-servces-home .left-1 {
+	padding-top:20px;
+}
+.item-servces-home:after {
+    content: '';
+    position: absolute; 
+    width: 140px;
+    height: 100%;
+    background: #f1f1f1;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    bottom: -40px;
+    z-index: -1;
+}
+
+.fa-arrow-right.slick-arrow {
+    position: absolute;
+    bottom: 35px;
+    left: calc(50% + 15px);
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    color: #1100d1;
+    cursor: pointer;
+}
+
+.fa-arrow-left.slick-arrow {
+    position: absolute;
+    bottom: 35px;
+    left: calc(50% - 15px);
+    z-index: 1;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    color: #1100d1;
+    cursor: pointer;
+}
+
+.list-service-home .fa-arrow-left.slick-arrow {
+    left: calc(50% - 25px);
+}
+.list-service-home .fa-arrow-right.slick-arrow {
+    left: calc(50% + 25px);
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+
+/* Main Navigation
+   ========================================================================== */
+.dv-wrap-main-navigation {
+    text-align: right;
+}
+
+.dv-main-navigation {
+    background: #ffffff;
+    text-align: center;
+}
+
+
+
+.dv-main-navigation ul li a {
+    line-height: 50px;
+    position: relative;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.dv-main-navigation ul li a:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -9px;
+    background: transparent;
+    transition: all .2s ease;
+    width: 0;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    height: 2px;
+}
+
+.dv-main-navigation ul ul li {
+    padding: 0;
+    text-align: left;
+}
+
+div.dv-main-navigation ul ul ul {
+    padding-top: 10px;
+}
+
+.dv-main-navigation ul ul li a:after
+
+.dv-main-navigation ul li a:hover:after,
+.dv-main-navigation ul li.current-menu-item a:after,
+.dv-main-navigation ul li.current-menu-parent > a:after {
+    background: #1100D1;
+    width: 100%;
+}
+
+.dv-main-navigation ul li.current-menu-item a,
+.dv-main-navigation ul li a:hover,
+.dv-main-navigation ul li.current-menu-parent > a {
+    color: #1100D1;
+}
+
+.dv-main-navigation ul li.logo-menu a:after {
+    display: none;
+}
+
+.dv-main-navigation ul {
+    padding: 0;
+    margin: 0;
+    letter-spacing: -0.3em;
+    text-align: center;
+    display: inline-flex;
+}
+
+.dv-main-navigation>ul>li {
+    display: inline-block;
+}
+
+.dv-main-navigation ul li {
+    position: relative;
+    list-style: none;
+    letter-spacing: normal;
+    padding: 0px 20px;
+}
+
+.dv-main-navigation ul ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 9;
+    width: 520px;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s ease;
+    -webkit-transform: translateY(20px);
+    transform: translateY(20px);
+}
+
+.dv-main-navigation ul ul ul {
+    top: -12px;
+    left: 100%;
+}
+
+.dv-main-navigation ul li:hover>ul {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
+}
+
+/* Menu Mobile
+------------------------------------------------------- */
+
+
+.dv-toggle-menu {
+    padding: 0 10px;
+    overflow: hidden;
+    width: 50px;
+    height: auto;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    display: none;
+}
+
+
+.dv-toggle-menu span {
+    display: block;
+    transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+    width: 100%;
+    height: 3px;
+    background: #000;
+    margin-bottom: 6px;
+}
+
+.dv-main-navigation .dv-toggle-menu span {
+    background: #fff;
+}
+
+.dv-toggle-menu span:last-child {
+    margin-bottom: 0;
+}
+
+.csstransforms3d .dv-toggle-menu.active span:nth-child(2) {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+    opacity: 0;
+}
+
+.dv-toggle-menu.active span:nth-child(2) {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+    opacity: 0;
+}
+
+.dv-toggle-menu.active span:first-child {
+    -webkit-transform: rotate(41deg) translate3d(0px, 0, 0);
+    transform: rotate(41deg) translate3d(0px, 0, 0);
+}
+
+.dv-toggle-menu.active span:last-child {
+    -webkit-transform: rotate(-41deg) translate3d(-3px, 0, 0);
+    transform: rotate(-41deg) translate3d(-3px, 0, 0);
+}
+
+.dv-open-menu-mobile {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40px;
+    height: 44px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    display: none;
+}
+
+.dv-open-menu-mobile::after,
+.dv-open-menu-mobile::before {
+    content: '';
+    display: block;
+    width: 12px;
+    position: absolute;
+    top: 50%;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    z-index: 999;
+}
+
+.dv-open-menu-mobile::before {
+    border-right: 1px solid #000000;
+    height: 12px;
+    right: 18px;
+    margin-top: -5px;
+}
+
+.dv-open-menu-mobile.active::before {
+    display: none;
+}
+
+.dv-open-menu-mobile::after {
+    border-top: 1px solid #000000;
+    width: 12px;
+    right: 13px;
+}
+
+/* START: CSS SVG MENU */
+.dv-toggle-menu button,
+.dv-toggle-menu input[type="button"] {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    padding: 1em 1.5em;
+    text-transform: uppercase;
+    transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+}
+
+.dv-toggle-menu .menu-toggle {
+    font-size: 0.875em;
+    padding: 0;
+}
+
+.dv-toggle-menu .menu-toggle:focus {
+    outline: thin dotted;
+    outline-offset: -2px;
+}
+
+.dv-toggle-menu .icon {
+    display: inline-block;
+    fill: currentColor;
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
+    position: relative;
+    /* Align more nicely with capital letters */
+    top: -0.0625em;
+}
+
+/* Menu toggle styles. */
+
+.dv-toggle-menu .icon-menu-toggle {
+    width: 2em;
+    height: 2em;
+    top: 0;
+}
+
+
+/* Animate menu icon (lines). */
+.dv-toggle-menu .svg-menu-toggle .line {
+    opacity: 1;
+    -webkit-transform: rotate(0) translateY(0) translateX(0);
+    transform: rotate(0) translateY(0) translateX(0);
+    -webkit-transform-origin: 1em 1em;
+    transform-origin: 1em 1em;
+    transition: opacity 0.2s ease-in-out, -webkit-transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out, -webkit-transform 0.3s ease-in-out;
+}
+
+.dv-toggle-menu .svg-menu-toggle .line-1 {
+    -webkit-transform-origin: 1em 2.5em;
+    transform-origin: 1em 2.5em;
+}
+
+.dv-toggle-menu .svg-menu-toggle .line-3 {
+    -webkit-transform-origin: 1em 4.5em;
+    transform-origin: 1em 4.5em;
+}
+
+.dv-toggle-menu .menu-toggle.opened .svg-menu-toggle .line-1 {
+    transform: rotate(45deg) translateY(0) translateX(0);
+    -webkit-transform: rotate(45deg) translateY(0) translateX(0);
+}
+
+.menu-toggle.opened .svg-menu-toggle .line-2 {
+    opacity: 0;
+}
+
+.menu-toggle.opened .svg-menu-toggle .line-3 {
+    transform: rotate(-45deg) translateY(0em) translateX(0em);
+    -webkit-transform: rotate(-45deg) translateY(0em) translateX(0em);
+}
+
+/* Text meant only for screen readers. */
+.dv-toggle-menu .screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.dv-toggle-menu .svg-menu-toggle path {
+    fill: black;
+}
+
+/* END: CSS SVG MENU */
+
+/* CSS header */
+.logo {
+    float: left;
+    width: 27%;
+    text-align: center;
+    display: none;
+}
+
+.logo img {
+    width: 162px;
+    display: block;
+}
+
+.main-header {
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    background: #ffffff;
+    padding: 26px 0 20px 0;
+}
+
+.main-header {
+    /*position: fixed;*/
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    z-index: 9;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    /* opacity: 0.9; */
+}
+
+.main-header.fixed-menu {
+    padding: 5px 0;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    /*opacity: 0.9;*/
+}
+
+.admin-bar .main-header {
+    top: 46px;
+}
+
+/* End main navigation
+-------------------------------------------------------------------------- */
+/*Start Main css */
+ 
