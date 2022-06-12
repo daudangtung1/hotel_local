@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\RoomRepository;
 use Illuminate\Http\Request;
-use App\Services\RoomService;
 
 class RoomController extends Controller
 {
-    public $roomService;
+    public $roomRepository;
 
-    public function __construct(RoomService $roomService)
+    public function __construct(RoomRepository $roomRepository)
     {
-        $this->roomService = $roomService;
+        $this->roomRepository = $roomRepository;
     }
 
     public function index()
     {
-        $floors = $this->roomService->getAll();
+        $floors = $this->roomRepository->getAll();
 
         return view('room.index', compact('floors'));
     }
@@ -25,5 +25,14 @@ class RoomController extends Controller
     {
         $menuSetup = true;
         return view('room.create', compact('menuSetup'));
+    }
+
+    public function store(Request $request)
+    {
+        // TODO: validate
+        $result = $this->roomRepository->store($request);
+        if ($result) {
+            return redirect()->back()->with('success', 'Đăng ký thành công');
+        }
     }
 }

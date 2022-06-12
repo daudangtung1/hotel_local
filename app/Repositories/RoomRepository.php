@@ -40,4 +40,14 @@ class RoomRepository extends ModelRepository
 
         return $data;
     }
+
+    public function store($request)
+    {
+        return $this->model->create([
+            'name'  => $request->name,
+            'floor' => $request->floor,
+            'type'  => $request->type,
+            'price' => $request->price
+        ]);
+    }
 }

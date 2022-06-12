@@ -7,7 +7,7 @@
                     <h3>{{$k}}</h3>
                     <ul>
                         @foreach($rooms as $room)
-                            <li>
+                            <li class="booking-room" data-room-id="{{$room->id}}"  data-bs-toggle="modal" data-bs-target="#booking-modal">
                                 <h5>{{$room->name ?? ''}}</h5>
                                 <div class="in-room">
                                     <div class="icon">
@@ -47,4 +47,31 @@
             @endforeach
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="booking-modal" tabindex="-1" aria-labelledby="booking-modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="booking-modalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+@section('script')
+    <script>
+        $(document).ready(function () {
+            $('.booking-room').on('click', function(){
+                var roomId= $(this).attr('data-room-id');
+            });
+        })
+    </script>
+    @endsection

@@ -18,24 +18,10 @@
                             <div class="form-group">
                                 <label>Tài khoản</label>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Tên đăng nhập" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                @error('email')
-                                    <script>
-                                        $(document).ready(function(){
-                                            toastr.warning('{{ $message }}')
-                                        })
-                                    </script>
-                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Mật khẩu</label>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"  placeholder="Mật khẩu">
-                                @error('password')
-                                    <script>
-                                        $(document).ready(function(){
-                                            toastr.warning('{{ $message }}')
-                                        })
-                                    </script>
-                                @enderror
                                 <div class="in-form-group">
                                     <input class="form-check-input" type="checkbox" name="remember" id="luumatkhau" {{ old('remember') ? 'checked' : '' }}>
 
@@ -44,7 +30,7 @@
                                     </label>
                                 </div>
                             </div>
-                            
+
                             <input type="submit" value="Đăng nhập" class="form-submit">
                             @if (Route::has('password.request'))
                                 <a class="btn btn-link" href="{{ route('password.request') }}">

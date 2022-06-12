@@ -15,7 +15,7 @@ use App\Controller\RoomController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('rooms.index');
 });
 
 Auth::routes();
