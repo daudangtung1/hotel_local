@@ -22,4 +22,5 @@ Auth::routes();
 
 Route::resources([
     'rooms' => \App\Http\Controllers\RoomController::class,
+    'services' => \App\Http\Controllers\ServiceController::class,
 ]);

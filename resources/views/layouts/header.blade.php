@@ -37,7 +37,7 @@
                                     <span>Nhập hàng</span>
                                 </li>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{route('services.create')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/banhang.png"></a>
                                     <span>Bán hàng</span>
                                 </li>
