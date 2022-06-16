@@ -16,12 +16,12 @@ class CreateBookingRoomTable extends Migration
         Schema::create('booking_rooms', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('room_id');
+            $table->bigInteger('customer_id');
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

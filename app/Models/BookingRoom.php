@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class BookingRoom extends Model
 {
     use HasFactory;
 
+    protected $table = 'booking_rooms';
     /**
      * The attributes that should be mutated to dates.
      *
@@ -34,4 +36,10 @@ class BookingRoom extends Model
             return $this->start_date->format('d/m/Y');
         }
     }
+
+    public function bookingRoom($data)
+    {
+        return DB::table($this->table)->insert($data);
+    }
+    
 }

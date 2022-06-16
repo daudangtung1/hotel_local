@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Controller\RoomController;
+use App\Http\Controllers\BookingRoomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,11 @@ Route::get('/', function () {
     return redirect()->route('rooms.index');
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::resources([
     'rooms' => \App\Http\Controllers\RoomController::class,
     'services' => \App\Http\Controllers\ServiceController::class,
 ]);
+
+Route::post('/booking',  [BookingRoomController::class, 'store'])->name('booking');
