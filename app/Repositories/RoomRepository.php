@@ -41,6 +41,11 @@ class RoomRepository extends ModelRepository
         return $data;
     }
 
+    public function find($request)
+    {
+        return $this->model->find($request->room_id);
+    }
+
     public function store($request)
     {
         return $this->model->create([

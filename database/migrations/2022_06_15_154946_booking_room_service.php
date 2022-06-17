@@ -13,7 +13,7 @@ class BookingRoomService extends Migration
      */
     public function up()
     {
-        Schema::create('booking_rooms_service', function (Blueprint $table) {
+        Schema::create('booking_room_services', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('booking_room_id');
             $table->bigInteger('service_id');

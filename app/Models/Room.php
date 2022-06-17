@@ -8,12 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     const READY = 0;
-    const BUSY = 1;
-    const GUEST_OUT = 2;
-    const DIRTY = 3;
-    const CLEANING = 4;
-    const FIXING = 5;
-    const BOOKING_ROOM = 6;
+    const HAVE_GUEST = 1;
+    const DIRTY = 2;
 
     use HasFactory;
 
@@ -36,43 +32,27 @@ class Room extends Model
         return $this->hasMany(BookingRoom::class);
     }
 
-    public function getStatus()
+    public function getStatusText()
     {
         switch ($this->status) {
-            case self::BOOKING_ROOM:
-                return 'Đặt phòng';
-            case self::BUSY:
-                return 'Có khách';
-            case self::GUEST_OUT:
-                return 'Khách ra ngoài';
-            case self::DIRTY:
-                return 'Bẩn';
-            case self::CLEANING:
-                return 'Đang dọn';
-            case self::FIXING:
-                return 'Đang sửa';
-            default:
+            case self::HAVE_GUEST:
                 return 'Phòng trống';
+            case self::DIRTY:
+                return 'Có khách';
+            default:
+                return 'Phòng bẩn';
         }
     }
 
-    public function getStatusBackgroundColor()
+    public function getTextButton()
     {
         switch ($this->status) {
-            case self::BOOKING_ROOM:
-                return 'black';
-            case self::BUSY:
-                return 'green';
-            case self::GUEST_OUT:
-                return '#ccc';
+            case self::HAVE_GUEST:
+                return 'Trả phòng';
             case self::DIRTY:
-                return 'red';
-            case self::CLEANING:
-                return 'orange';
-            case self::FIXING:
-                return 'brown';
+                return 'Dọn xong';
             default:
-                return '#bfdbff';
+                return 'Đặt phòng';
         }
     }
 }

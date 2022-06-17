@@ -11,6 +11,22 @@ class BookingRoom extends Model
     use HasFactory;
 
     protected $table = 'booking_rooms';
+
+    const READY = 0;
+    const BUSY = 1;
+    const GUEST_OUT = 2;
+    const DIRTY = 3;
+    const CLEANING = 4;
+    const FIXING = 5;
+    const BOOKING_ROOM = 6;
+
+    protected $fillable = [
+        'room_id',
+        'customer_id',
+        'start_date',
+        'end_date',
+        'id_card'
+    ];
     /**
      * The attributes that should be mutated to dates.
      *
@@ -21,6 +37,16 @@ class BookingRoom extends Model
     public function room()
     {
         return $this->belongsTo(Room::class);
+    }
+
+    public function bookingRoomCustomers()
+    {
+        return $this->hasMany(BookingRoomCustomer::class, 'booking_room_id', 'id');
+    }
+
+    public function bookingRoomServices()
+    {
+        return $this->hasMany(BookingRoomService::class, 'booking_room_id', 'id');
     }
 
     public function getTimeStartDate()
@@ -37,9 +63,43 @@ class BookingRoom extends Model
         }
     }
 
-    public function bookingRoom($data)
+    public function getStatus()
     {
-        return DB::table($this->table)->insert($data);
+        switch ($this->status) {
+            case self::BOOKING_ROOM:
+                return 'Đặt phòng';
+            case self::BUSY:
+                return 'Có khách';
+            case self::GUEST_OUT:
+                return 'Khách ra ngoài';
+            case self::DIRTY:
+                return 'Bẩn';
+            case self::CLEANING:
+                return 'Đang dọn';
+            case self::FIXING:
+                return 'Đang sửa';
+            default:
+                return 'Phòng trống';
+        }
     }
-    
+
+    public function getStatusBackgroundColor()
+    {
+        switch ($this->status) {
+            case self::BOOKING_ROOM:
+                return 'black';
+            case self::BUSY:
+                return 'green';
+            case self::GUEST_OUT:
+                return '#ccc';
+            case self::DIRTY:
+                return 'red';
+            case self::CLEANING:
+                return 'orange';
+            case self::FIXING:
+                return 'brown';
+            default:
+                return '#bfdbff';
+        }
+    }
 }

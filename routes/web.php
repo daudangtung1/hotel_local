@@ -24,6 +24,6 @@ Route::get('/', function () {
 Route::resources([
     'rooms' => \App\Http\Controllers\RoomController::class,
     'services' => \App\Http\Controllers\ServiceController::class,
+    'booking-room' => \App\Http\Controllers\BookingRoomController::class,
+    'booking-room-service' => \App\Http\Controllers\BookingRoomServiceController::class,
 ]);
-
-Route::post('/booking',  [BookingRoomController::class, 'store'])->name('booking');
