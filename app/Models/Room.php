@@ -35,24 +35,36 @@ class Room extends Model
     public function getStatusText()
     {
         switch ($this->status) {
-            case self::HAVE_GUEST:
+            case self::READY:
                 return 'Phòng trống';
             case self::DIRTY:
-                return 'Có khách';
-            default:
                 return 'Phòng bẩn';
+            default:
+                return 'Đang có khách';
+        }
+    }
+
+    public function getBgButton()
+    {
+        switch ($this->status) {
+            case self::READY:
+                return 'primary';
+            case self::DIRTY:
+                return 'danger';
+            default:
+                return 'warning';
         }
     }
 
     public function getTextButton()
     {
         switch ($this->status) {
+            case self::READY:
+                return 'Đặt phòng';
             case self::HAVE_GUEST:
                 return 'Trả phòng';
-            case self::DIRTY:
-                return 'Dọn xong';
             default:
-                return 'Đặt phòng';
+                return 'Dọn xong';
         }
     }
 }

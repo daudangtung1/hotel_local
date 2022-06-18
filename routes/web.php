@@ -27,3 +27,5 @@ Route::resources([
     'booking-room' => \App\Http\Controllers\BookingRoomController::class,
     'booking-room-service' => \App\Http\Controllers\BookingRoomServiceController::class,
 ]);
+Route::POST('room/change-status/{room_id}', [\App\Http\Controllers\RoomController::class, 'changeStatus'] )->name('room.change-status');
+Route::get('room/get-minutes',  [\App\Http\Controllers\RoomController::class, 'getMinutes'])->name('rooms.getMinutes');

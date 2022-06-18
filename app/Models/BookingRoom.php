@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +26,8 @@ class BookingRoom extends Model
         'customer_id',
         'start_date',
         'end_date',
-        'id_card'
+        'id_card',
+        'status'
     ];
     /**
      * The attributes that should be mutated to dates.
@@ -101,5 +103,38 @@ class BookingRoom extends Model
             default:
                 return '#bfdbff';
         }
+    }
+
+    public function getDiffMinutes()
+    {
+        $now = Carbon::now();
+
+        $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date);
+
+        return $createdAt->diffInMinutes($now);
+    }
+
+    public function getTotalMinutes()
+    {
+        return $this->getDiffMinutes();
+    }
+
+    public function getTotalServices()
+    {
+        $services = $this->bookingRoomServices()->get();
+        $total = 0;
+        if (!empty($services)) {
+            foreach ($services as $service) {
+                $total = $total + ($service->quantity * $service->price);
+            }
+        }
+        return $total;
+    }
+
+    public function getTotalPrice()
+    {
+        $price = $this->getDiffMinutes() * $this->room->price + $this->getTotalServices();
+
+        return get_price($price, 'vnđ');
     }
 }

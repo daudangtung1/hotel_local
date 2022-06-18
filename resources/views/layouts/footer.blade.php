@@ -2,16 +2,16 @@
     <div class="container">
         <ul class="list-item">
             <li>
-                <p>Sẵn sàng: 15</p>
+                <p>Sẵn sàng: {{\App\Models\Room::where('status', 0)->count()}}</p>
             </li>
             <li>
-                <p>Có khách: 0</p>
+                <p>Có khách:  {{\App\Models\Room::where('status', 1)->count()}}</p>
             </li>
             <li>
                 <p>Khách ra ngoài: 0</p>
             </li>
             <li>
-                <p>Bẩn: 0</p>
+                <p>Bẩn:  {{\App\Models\Room::where('status', 2)->count()}}</p>
             </li>
             <li>
                 <p>Đang dọn: 0</p>

@@ -18,6 +18,7 @@ class CreateBookingRoomTable extends Migration
             $table->bigInteger('room_id');
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

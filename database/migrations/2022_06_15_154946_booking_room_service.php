@@ -30,6 +30,6 @@ class BookingRoomService extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('booking_rooms_service');
+        Schema::dropIfExists('booking_room_services');
     }
 }

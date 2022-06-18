@@ -64,6 +64,7 @@ class BookingRoomRepository extends ModelRepository
         } else {
             $this->storeByCustomer($request);
         }
+        $this->room->where('id', $request->room_id)->update(['status' => $this->room::HAVE_GUEST]);
     }
 
     public function storeByCustomer($request)
@@ -76,22 +77,23 @@ class BookingRoomRepository extends ModelRepository
 
         if (!empty($room) && $room->status != $this->room::READY) {
             $bookingRoom = $room->bookingRooms()->orderBy('id', 'DESC')->first();
-            if (!empty($bookingRoom)) {
-                $this->bookingRoomCustomer->create([
-                    'booking_room_id' => $bookingRoom->id,
-                    'customer_id'     => $customer->id,
-                ]);
 
-            }
         } else {
             $bookingRoom = $this->bookingRoom->create([
                 'end_date'   => $request->end_date ?? '',
                 'start_date' => $request->start_date ?? '',
                 'room_id'    => $request->room_id ?? '',
+                'status'    => 1,
             ]);
         }
 
-        $this->room->where('id', $request->room_id)->update(['status' => $this->room::HAVE_GUEST]);
+        if (!empty($bookingRoom)) {
+            $this->bookingRoomCustomer->create([
+                'booking_room_id' => $bookingRoom->id,
+                'customer_id'     => $customer->id,
+            ]);
+
+        }
     }
 
     public function storeByService($request)
@@ -106,9 +108,10 @@ class BookingRoomRepository extends ModelRepository
                 'end_date'   => $request->end_date ?? '',
                 'start_date' => $request->start_date ?? '',
                 'room_id'    => $request->room_id ?? '',
+                'status'    => 1,
             ]);
-
         }
+
         $bookingRoomService = $this->bookingRoomService->where([
             'booking_room_id' => $bookingRoom->id,
             'service_id'      => $service->id,
@@ -126,5 +129,22 @@ class BookingRoomRepository extends ModelRepository
         }
 
         $service->decrement('stock', 1);
+    }
+
+    public function getMinutes()
+    {
+        $rooms = $this->room->where('status', $this->room::HAVE_GUEST)->get();
+        $data = [];
+        foreach ($rooms as $room) {
+            $bookingRoom = $room->bookingRooms()->orderBy('id', 'DESC')->first();
+            $data[] = [
+                'room_id'    => $room->id,
+                'start_date' => $bookingRoom->getTimeStartDate() . ' ' . $bookingRoom->getDateStartDate(),
+                'minutes'    => $bookingRoom->getTotalMinutes(),
+                'price'      => $bookingRoom->getTotalPrice()
+            ];
+        }
+
+        return $data;
     }
 }

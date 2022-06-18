@@ -71,8 +71,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if($room->bookingRooms()->first())
-                        @forelse($room->bookingRooms()->first()->bookingRoomServices()->get() as $key => $bookingRoomService)
+                    @if($room->bookingRooms()->where('status', 1)->first())
+                        @forelse($room->bookingRooms()->where('status', 1)->first()->bookingRoomServices()->get() as $key => $bookingRoomService)
                             <tr>
                                 <td>{{$bookingRoomService->service->name ??''}}</td>
                                 <td>{{$bookingRoomService->quantity ?? ''}}</td>
@@ -91,6 +91,10 @@
                                 <td colspan="4">Không có dịch vụ nào</td>
                             </tr>
                         @endforelse
+                    @else
+                        <tr>
+                            <td colspan="4">Không có dịch vụ nào</td>
+                        </tr>
                     @endif
                     </tbody>
                 </table>
@@ -104,8 +108,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if($room->bookingRooms()->first())
-                        @forelse($room->bookingRooms()->orderBy('id','DESC')->first()->bookingRoomCustomers()->get() as $key => $bookingRoom)
+                    @if($room->bookingRooms()->where('status', 1)->first())
+                        @forelse($room->bookingRooms()->where('status', 1)->first()->bookingRoomCustomers()->get() as $key => $bookingRoom)
                             <tr>
                                 <td>{{$bookingRoom->Customer->name ??''}}</td>
                                 <td>{{$bookingRoom->Customer->id_card ??''}}</td>
@@ -117,6 +121,10 @@
                                 <td colspan="4">Không có khách hàng nào</td>
                             </tr>
                         @endforelse
+                    @else
+                        <tr>
+                            <td colspan="4">Không có khách hàng nào</td>
+                        </tr>
                     @endif
                     </tbody>
                 </table>
@@ -162,7 +170,7 @@
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 Đóng
             </button>
-            <button type="submit" class="btn btn-primary save-booking-room">{{$room->getTextButton()}}</button>
+            <button data-bg="{{$room->getBgButton()}}" type="submit" @if($room->status != \App\Models\Room::READY) data-action="{{route('room.change-status', ['room_id' => $room->id])}}"  @endif class="btn btn-{{$room->getBgButton()}} @if($room->status == \App\Models\Room::READY) btn-booking-room @else btn-change-status @endif">{{$room->getTextButton()}}</button>
         </div>
     </div>
 </div>
