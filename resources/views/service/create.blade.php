@@ -27,7 +27,7 @@
                             <input type="number" class="form-control" id="price" name="price" value="0" required>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Tạo dichj vuj</button>
+                            <button type="submit" class="btn btn-primary">Tạo dịch vụ</button>
                         </div>
                     </form>
                 </div>
