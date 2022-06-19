@@ -74,21 +74,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($floors as $key => $rooms)
-                            @foreach($rooms as $room)
+                        @if(!empty($floors))
+                            @forelse($floors as $key => $rooms)
+                                @foreach($rooms as $room)
+                                    <tr>
+                                        <td><input type="checkbox" name="room_ids[]" value="{{$room->id ??''}}"></td>
+                                        <td>{{$room->name ??''}}</td>
+                                        <td>{{$room->floor ??''}}</td>
+                                        <td>{{get_price($room->hour_price ?? 0, 'vnđ')}}</td>
+                                        <td>{{get_price($room->day_price ?? 0, 'vnđ')}}</td>
+                                    </tr>
+                                @endforeach
+                            @empty
                                 <tr>
-                                    <td><input type="checkbox" name="room_ids[]" value="{{$room->id ??''}}"></td>
-                                    <td>{{$room->name ??''}}</td>
-                                    <td>{{$room->floor ??''}}</td>
-                                    <td>{{get_price($room->hour_price ?? 0, 'vnđ')}}</td>
-                                    <td>{{get_price($room->day_price ?? 0, 'vnđ')}}</td>
+                                    <td colspan="2">Không có phòng nào</td>
                                 </tr>
-                            @endforeach
-                        @empty
-                            <tr>
-                                <td colspan="2">Không có phòng nào</td>
-                            </tr>
-                        @endforelse
+                            @endforelse
+                        @endif
                         </tbody>
                     </table>
                 </div>
@@ -109,24 +111,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($bookingRooms as $key => $bookingRoom)
-                            <tr>
-                                <td>{{$bookingRoom->room->name ??''}}</td>
-                                <td>{{$bookingRoom->room->floor ??''}}</td>
-                                <td>{{$bookingRoom->start_date ?? ''}}</td>
-                                <td>{{$bookingRoom->end_date ?? ''}}</td>
-                                <td>
-                                    @foreach($bookingRoom->bookingRoomCustomers()->get() as $customer)
-                                        <p>{{$customer->customer->name ?? ''}}</p>
-                                    @endforeach
-                                </td>
-                                <td>{{$bookingRoom->note ?? ''}}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4">Không có phòng nào</td>
-                            </tr>
-                        @endforelse
+                        @if(!empty($bookingRooms))
+                            @forelse($bookingRooms as $key => $bookingRoom)
+                                <tr>
+                                    <td>{{$bookingRoom->room->name ??''}}</td>
+                                    <td>{{$bookingRoom->room->floor ??''}}</td>
+                                    <td>{{$bookingRoom->start_date ?? ''}}</td>
+                                    <td>{{$bookingRoom->end_date ?? ''}}</td>
+                                    <td>
+                                        @foreach($bookingRoom->bookingRoomCustomers()->get() as $customer)
+                                            <p>{{$customer->customer->name ?? ''}}</p>
+                                        @endforeach
+                                    </td>
+                                    <td>{{$bookingRoom->note ?? ''}}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4">Không có phòng nào</td>
+                                </tr>
+                            @endforelse
+                        @endif
                         </tbody>
                     </table>
                 </div>

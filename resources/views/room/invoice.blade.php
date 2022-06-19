@@ -1,6 +1,5 @@
 <html lang="en">
-<head itemscope="" itemtype="http://schema.org/WebSite"><title itemprop="name">Preview Bootstrap snippets. white
-        invoice</title>
+<head itemscope="" itemtype="http://schema.org/WebSite"><title itemprop="name">Invoice</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="description"
           content="Preview Bootstrap snippets. white invoice. Copy and paste the html, css and js code for save time, build your app faster and responsive">
@@ -44,20 +43,19 @@
                                                                                         class="invoice-logo">{{request()->getHost()}}</a>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6">
+
                                     </div>
                                 </div>
                                 <div class="row gutters">
-                                    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                                        <div class="invoice-details">
-                                            <address>Địa chỉ: 182 Trường Chinh <br/> Thành phố Vinh - Tỉnh Nghệ An</address>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                                        <div class="invoice-details">
-                                            <div class="invoice-num">
-                                                <div>Hóa đơn sử dụng - #00{{$bookingRoom->id}}</div>
-                                                <div>Thời gian: {{\Carbon\Carbon::now()->format('d-m-Y')}}</div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="invoice-details d-flex justify-content-between">
+                                            <div>
+                                                <address>Địa chỉ: 182 Trường Chinh <br/> Thành phố Vinh - Tỉnh Nghệ An</address>
+                                                <address>Hóa đơn sử dụng - #00{{$bookingRoom->id}}</address>
+                                                <address>Thời gian: {{\Carbon\Carbon::now()->format('d-m-Y')}}</address>
                                             </div>
+                                            <img class="momo-special-code" style="max-width:120px;display:inline-block;" alt="" src="https://chart.googleapis.com/chart?chs=350x350&amp;cht=qr&amp;choe=UTF-8&amp;chl=https://khachsan.sbaygroup.net/booking-room/invoice/{{$bookingRoom->id ?? 0}}">
+
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +68,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Dịch vụ</th>
-                                                    <th>Số lượng</th>
+                                                    <th>SL</th>
                                                     <th>Đơn giá</th>
                                                     <th>Tổng tiền</th>
                                                 </tr>
@@ -80,8 +78,13 @@
                                                     $total = 0;
                                                 @endphp
                                                 <tr>
-                                                    <td colspan="1"><b>Dịch vụ sử dụng nhà nghỉ</b></td>
-                                                    <td><b>{{$bookingRoom->getTime(true)}}</b></td>
+                                                    <td colspan="1">
+                                                        <p>Tiền phòng</p>
+                                                        <p> {{$bookingRoom->room->name ?? ''}}</p>
+                                                        @if(!empty($bookingRoom->start_date))<p> Giờ vào: {{$bookingRoom->start_date ?? ''}}</p>@endif
+                                                        @if(!empty($bookingRoom->checkout_date))<p> Giờ ra: {{$bookingRoom->checkout_date ?? ''}}</p>@endif
+                                                    </td>
+                                                    <td><b>{{$bookingRoom->getTime(false)}}</b></td>
                                                     <td><b>{{$bookingRoom->getTime(true)}}</b></td>
                                                     <td><b>{{$bookingRoom->getTotalPrice(false)}}</b></td>
                                                     @php
@@ -94,9 +97,9 @@
                                                     @endphp
                                                     <tr>
                                                         <td>{{$bookingRoomService->service->name ??''}}</td>
-                                                        <td>{{$bookingRoomService->quantity ?? ''}} cái</td>
-                                                        <td>{{get_price($bookingRoomService->price ?? 0, 'vnđ')}}</td>
-                                                        <td>{{get_price(($bookingRoomService->price ?? 0) * ($bookingRoomService->quantity ?? 0), 'vnđ') ??''}}</td>
+                                                        <td>{{$bookingRoomService->quantity ?? ''}} </td>
+                                                        <td>{{get_price($bookingRoomService->price ?? 0, 'đ')}}</td>
+                                                        <td>{{get_price(($bookingRoomService->price ?? 0) * ($bookingRoomService->quantity ?? 0), 'đ') ??''}}</td>
                                                     </tr>
                                                 @endforeach
                                                 <tr>
@@ -110,7 +113,7 @@
                                                     </td>
                                                     <td><h5
                                                             class="text-success">
-                                                            <strong>{{get_price($total, 'vnđ')}}</strong></h5></td>
+                                                            <strong>{{get_price($total, 'đ')}}</strong></h5></td>
                                                 </tr>
                                                 </tbody>
                                             </table>

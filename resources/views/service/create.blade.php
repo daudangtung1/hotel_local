@@ -19,6 +19,7 @@
                             <select id="type" name="type" class="form-select" required>
                                 <option selected value="0">Đồ ăn</option>
                                 <option value="1">Đồ uống</option>
+                                <option value="2">Dịch vụ khác</option>
                             </select>
                         </div>
                         <div class="col-md-12">

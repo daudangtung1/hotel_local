@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\serviceRepository;
+use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
