@@ -49,8 +49,8 @@
                             <tr>
                                 <td>{{$room->name ??''}}</td>
                                 <td>{{$room->floor ??''}}</td>
-                                <td>{{get_price($room->hour_price, 'vnđ') ??''}}</td>
-                                <td>{{get_price($room->day_price, 'vnđ') ??''}}</td>
+                                <td>{{get_price($room->hour_price, 'đ') ??''}}</td>
+                                <td>{{get_price($room->day_price, 'đ') ??''}}</td>
                             </tr>
                         @empty
                             <tr>

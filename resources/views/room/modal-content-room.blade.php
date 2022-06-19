@@ -81,7 +81,7 @@
                                     <input type="hidden" name="booking_room_id" value="{{$bookingRoom->id}}">
                                 </td>
                                 <td>{{$bookingRoomService->quantity ?? ''}}</td>
-                                <td>{{get_price(($bookingRoomService->price ?? 0) * ($bookingRoomService->quantity ?? 0), 'vnđ') ??''}}</td>
+                                <td>{{get_price(($bookingRoomService->price ?? 0) * ($bookingRoomService->quantity ?? 0), 'đ') ??''}}</td>
                                 <td>
                                     <a href="{{route('booking-room-service.destroy',['booking_room_service' => $bookingRoomService])}}"
                                        class="btn-remove-service"
@@ -142,14 +142,14 @@
                             <input class="form-check-input rentType" type="radio" name="rent_type" id="exampleRadios2"
                                    value="0" @if($bookingRoom && $bookingRoom->rent_type == 0) checked @endif >
                             <label class="form-check-label" for="exampleRadios2">
-                                Thuê theo giờ ({{get_price($room->hour_price, 'vnđ') ?? 0}}/giờ)
+                                Thuê theo giờ ({{get_price($room->hour_price, 'đ') ?? 0}}/giờ)
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input rentType" type="radio" name="rent_type" id="exampleRadios1"
                                    value="1" @if($bookingRoom && $bookingRoom->rent_type == 1) checked @endif>
                             <label class="form-check-label" for="exampleRadios1">
-                                Thuê theo ngày ({{get_price($room->day_price, 'vnđ') ?? 0}}/ngày)
+                                Thuê theo ngày ({{get_price($room->day_price, 'đ') ?? 0}}/ngày)
                             </label>
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                         <input type="text" class="form-control price" name="price" id="price"
                                value="@if(!empty($bookingRoom)){!! $bookingRoom->price ??0 !!}@endif" min="0">
                         <div class="input-group-append">
-                            <span class="input-group-text">VNĐ</span>
+                            <span class="input-group-text">đ</span>
                         </div>
                     </div>
                 </div>
@@ -178,7 +178,7 @@
                         <input type="text" class="form-control extra_price" name="extra_price" id="extra_price"
                                value="@if(!empty($bookingRoom)){!! $bookingRoom->extra_price ?? 0 !!}@endif" min="0">
                         <div class="input-group-append">
-                            <span class="input-group-text">VNĐ</span>
+                            <span class="input-group-text">đ</span>
                         </div>
                     </div>
                 </div>
@@ -205,7 +205,7 @@
                         <tr>
                             <td>{{$service->name ??''}}</td>
                             <td>{{$service->stock ??''}}</td>
-                            <td>{{get_price($service->price, 'vnđ') ??''}}</td>
+                            <td>{{get_price($service->price, 'đ') ??''}}</td>
                             @if($bookingRoom)
                                 <td><a href="" class="btn-add-service" data-service_id="{{$service->id}}">
                                         <svg xmlns="http://www.w3.org/2000/svg"

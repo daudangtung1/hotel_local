@@ -45,7 +45,7 @@
                             <tr>
                                 <td>{{$service->name ??''}}</td>
                                 <td>{{$service->stock ??''}}</td>
-                                <td>{{get_price($service->price, 'vnđ') ??''}}</td>
+                                <td>{{get_price($service->price, 'đ') ??''}}</td>
                             </tr>
                         @empty
                             <tr>
