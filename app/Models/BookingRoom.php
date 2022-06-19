@@ -194,13 +194,13 @@ class BookingRoom extends Model
             if (!$format) {
                 return $price;
             }
-            return get_price($price, 'vnđ');
+            return get_price($price, 'đ');
         }
 
 
         $price = ($this->getTime() * $price) + $this->getTotalServices() + $this->getExtraPrice();
 
-        return get_price($price, 'vnđ');
+        return get_price($price, 'đ');
     }
 
     public function getExtraPrice()

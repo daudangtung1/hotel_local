@@ -32,5 +32,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('booking-room/update-note', [\App\Http\Controllers\BookingRoomController::class, 'updateNote'])->name('booking-room.update_note');
     Route::post('booking-room/update-booking-room', [\App\Http\Controllers\BookingRoomController::class, 'updateBookingRoom'])->name('booking-room.update_booking_room');
     Route::post('booking-room/booking-rooms', [\App\Http\Controllers\BookingRoomController::class, 'BookingRooms'])->name('booking-room.booking_rooms');
-    Route::get('booking-room/invoice/{id}', [\App\Http\Controllers\BookingRoomController::class, 'showInvoice'])->name('booking-room.show_invoice');
 });
+
+Route::get('booking-room/invoice/{id}', [\App\Http\Controllers\BookingRoomController::class, 'showInvoice'])->name('booking-room.show_invoice');

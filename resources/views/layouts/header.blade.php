@@ -67,9 +67,19 @@
                                     <span>Đăng xuất</span>
                                 </li>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
-                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/thoat.png"></a>
-                                    <span>Thoát</span>
+                                    <form action="{{route('logout')}}" method="post">
+                                        @csrf
+                                        <a href="#" class="logout"><img class="image-svg" alt=""
+                                                                        src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/thoat.png"></a>
+                                        <span>Thoát</span>
+                                    </form>
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('.logout').on('click', function(){
+                                               $(this).closest('form').submit();
+                                            });
+                                        });
+                                    </script>
                                 </li>
                             </ul>
                             <span class="text_tlc">Hệ thống</span>
@@ -224,7 +234,7 @@
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{route('rooms.index')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qldatphong01.png"></a>
                                     <span>QL Đặt Phòng</span>
                                 </li>
