@@ -18,7 +18,8 @@ class Room extends Model
         'status',
         'floor',
         'type',
-        'price'
+        'hour_price',
+        'day_price'
     ];
 
     /**

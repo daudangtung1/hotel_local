@@ -22,10 +22,32 @@
             }
         });
         $(document).ready(function () {
-            $('.datetime-picker').datetimepicker({
+            var date = $('.datetime-picker');
+            date.datetimepicker({
                 todayHighlight: true,
-                format: 'Y-m-d H:i:s',
+                format: 'Y-m-d H:i',
                 startDate: new Date()
+            });
+
+            $('body').on('change', '.rentType', function (e) {
+                e.preventDefault();
+                var _this = $(this);
+                var modal = _this.closest('.modal');
+                var rentType = _this.val();
+
+                if (rentType == 1) {
+                    var now = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i', \Carbon\Carbon::now()->format('Y-m-d') . ' 12:00')}}';
+                    modal.find('#start_date').val(now);
+                    modal.find('#end_date').val(now);
+                    modal.find('#box-end-date').removeClass('d-none');
+                    modal.find('.extra-price-box').removeClass('d-none');
+                } else {
+                    var now = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i', \Carbon\Carbon::now()->format('Y-m-d H:i'))}}';
+                    modal.find('#start_date').val(now);
+                    modal.find('#end_date').val(now);
+                    modal.find('#box-end-date').addClass('d-none');
+                    modal.find('.extra-price-box').addClass('d-none');
+                }
             });
 
             $('body').on('click', '.booking-room', function (e) {
@@ -54,7 +76,7 @@
                         console.log(e);
                     }
                 });
-            }, 1000);
+            }, 2000);
 
             $('body').on('click', '.btn-add-customer', function (e) {
                 e.preventDefault();
@@ -115,6 +137,10 @@
                 var customerAddress = modal.find('#customer_address').val();
                 var startDate = modal.find('#start_date').val();
                 var endDate = modal.find('#end_date').val();
+                var note = modal.find('.note').val();
+                var price = modal.find('.price').val();
+                var rentType = modal.find('input[name="rent_type"]:checked').val();
+                var extraPrice = modal.find('input[name="extra_price"]').val();
 
                 if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '') {
                     $.toast({
@@ -136,6 +162,10 @@
                         customer_address: customerAddress,
                         start_date: startDate,
                         end_date: endDate,
+                        note: note,
+                        price: price,
+                        rent_type: rentType,
+                        extra_price: extraPrice,
                     },
                     success: function (data) {
                         _this.closest('.modal').find('.modal-dialog').html(data);
@@ -268,6 +298,80 @@
                 })
             });
 
+
+            $('body').on('click', '.btn-update', function (e) {
+                e.preventDefault();
+
+                var _this = $(this);
+                var modal = _this.closest('.modal');
+                var bookingRoomId = _this.data('booking_room_id');
+                var note = modal.find('.note').val();
+                var roomId = modal.find('input[name="room_id"]').val();
+                var price = modal.find('.price').val();
+                var rentType = modal.find('input[name="rent_type"]:checked').val();
+                var extraPrice = modal.find('input[name="extra_price"]').val();
+                console.log(rentType);
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('booking-room.update_booking_room')}}",
+                    data: {
+                        booking_room_id: bookingRoomId,
+                        note: note,
+                        price: price,
+                        room_id: roomId,
+                        rent_type: rentType,
+                        extra_price: extraPrice,
+                    },
+                    success: function (data) {
+                        _this.closest('.modal').find('.modal-dialog').html(data);
+                        $.toast({
+                            text: 'Cập nhật thành công',
+                            icon: 'success',
+                            position: 'top-right'
+                        });
+
+                        changeBgLi(_this, roomId);
+                        refreshView();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                })
+            });
+
+            {{--$('body').on('change', '.note', function (e) {--}}
+            {{--    e.preventDefault();--}}
+            {{--    var _this = $(this);--}}
+            {{--    var modal = _this.closest('.modal');--}}
+            {{--    var roomId = modal.find('input[name="room_id"]').val();--}}
+            {{--    var bookingRoomId = modal.find('input[name="booking_room_id"]').val();--}}
+            {{--    var val = _this.val();--}}
+
+            {{--    $.ajax({--}}
+            {{--        type: "POST",--}}
+            {{--        url: '{{route('booking-room.update_note')}}',--}}
+            {{--        data: {--}}
+            {{--            note: val,--}}
+            {{--            booking_room_id: bookingRoomId,--}}
+            {{--            room_id: roomId,--}}
+            {{--        },--}}
+            {{--        success: function (data) {--}}
+            {{--            // _this.closest('.modal').find('.modal-dialog').html(data);--}}
+            {{--            $.toast({--}}
+            {{--                text: 'Cập nhật thành công',--}}
+            {{--                icon: 'success',--}}
+            {{--                position: 'top-right'--}}
+            {{--            });--}}
+
+            {{--            refreshView();--}}
+            {{--        },--}}
+            {{--        error: function (e) {--}}
+            {{--            console.log(e);--}}
+            {{--        }--}}
+            {{--    })--}}
+            {{--});--}}
+
             function changeBgLi(_this, roomId) {
                 // var nextBg = _this.attr('data-bg');
                 // var text = 'phòng trống';
@@ -287,8 +391,7 @@
             }
         });
 
-        function refreshView()
-        {
+        function refreshView() {
             $.ajax({
                 type: "get",
                 url: "{{route('rooms.index')}}",

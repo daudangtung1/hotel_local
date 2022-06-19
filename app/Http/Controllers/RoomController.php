@@ -24,13 +24,14 @@ class RoomController extends Controller
     {
         $floors = $this->roomRepository->getAll();
         $services = $this->serviceRepository->getAll();
+        $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking();
         $menuSystem = true;
 
         if ($request->ajax()) {
-            return view('room.list', compact('floors', 'services', 'menuSystem'))->render();
+            return view('room.list', compact('floors', 'services', 'menuSystem', 'bookingRooms'))->render();
         }
 
-        return view('room.index', compact('floors', 'services', 'menuSystem'));
+        return view('room.index', compact('floors', 'services', 'menuSystem', 'bookingRooms'));
     }
 
     public function create()

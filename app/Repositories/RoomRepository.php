@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Room;
+use Carbon\Carbon;
 use DB;
 
 /**
@@ -63,7 +64,7 @@ class RoomRepository extends ModelRepository
         if (!empty($room)) {
             if ($room->status == 1) {
                 $room->update(['status' => $this->model::DIRTY]);
-                $room->bookingRooms()->where('status', 1)->update(['status' => 2]);
+                $room->bookingRooms()->where('status', 1)->update(['status' => 2, 'checkout_date'=> Carbon::now()]);
             } else if ($room->status == 2) {
                 $room->update(['status' => $this->model::READY]);
                 $room->bookingRooms()->where('status', 2)->update(['status' => 3]);
@@ -74,10 +75,11 @@ class RoomRepository extends ModelRepository
     public function store($request)
     {
         return $this->model->create([
-            'name'  => $request->name,
-            'floor' => $request->floor,
-            'type'  => $request->type,
-            'price' => $request->price
+            'name'       => $request->name,
+            'floor'      => $request->floor,
+            'type'       => $request->type,
+            'day_price'  => $request->day_price,
+            'hour_price' => $request->hour_price
         ]);
     }
 }

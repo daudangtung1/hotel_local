@@ -23,7 +23,8 @@ class RoomSeeder extends Seeder
                 'name' => 'Phòng số ' . $i,
                 'status' => 0,
                 'floor' => 'Tầng ' . rand(1, 5),
-                'price' => rand(10, 20) . '000',
+                'hour_price' => rand(10, 20) . '000',
+                'day_price' => rand(20, 30) . '0000',
             ]);
 //
 //            for($j = 0; $j <= 20; $j++) {

@@ -22,8 +22,12 @@
                             </select>
                         </div>
                         <div class="col-md-12">
-                            <label for="price" class="form-label">Giá phòng</label>
-                            <input type="number" class="form-control" id="price" name="price" value="0" required>
+                            <label for="hour_price" class="form-label">Giá phòng / giờ</label>
+                            <input type="number" class="form-control" id="hour_price" name="hour_price" value="0" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="day_price" class="form-label">Giá phòng / ngày</label>
+                            <input type="number" class="form-control" id="day_price" name="day_price" value="0" required>
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Tạo phòng</button>
@@ -36,7 +40,8 @@
                         <tr>
                             <th scope="col">Tên phòng </th>
                             <th scope="col">Tầng</th>
-                            <th scope="col">Giá</th>
+                            <th scope="col">Giá / giờ</th>
+                            <th scope="col">Giá / ngày</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -44,7 +49,8 @@
                             <tr>
                                 <td>{{$room->name ??''}}</td>
                                 <td>{{$room->floor ??''}}</td>
-                                <td>{{get_price($room->price, 'VNĐ') ??''}}</td>
+                                <td>{{get_price($room->hour_price, 'vnđ') ??''}}</td>
+                                <td>{{get_price($room->day_price, 'vnđ') ??''}}</td>
                             </tr>
                         @empty
                             <tr>

@@ -45,7 +45,15 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
-
+    <style>
+        .div-scroll{
+            max-height: 500px;
+            overflow-y: scroll;
+        }
+        .max-height-300{
+            max-height: 300px;
+        }
+    </style>
 </head>
 <body>
 

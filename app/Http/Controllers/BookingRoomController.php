@@ -59,6 +59,16 @@ class BookingRoomController extends Controller
         return view('room.modal-content-room', compact('room', 'services', 'floors'))->render();
     }
 
+    public function BookingRooms(Request $request)
+    {
+        $this->bookingRoomRepository->store($request);
+
+        $floors = $this->roomRepository->getAll();
+        $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking();
+
+        return view('room.model-booking-room', compact('floors', 'bookingRooms'))->render();
+    }
+
     /**
      * Display the specified resource.
      *
@@ -92,6 +102,28 @@ class BookingRoomController extends Controller
     {
     }
 
+    public function updateNote(Request $request)
+    {
+        $this->bookingRoomRepository->updateNote($request);
+
+        $floors = $this->roomRepository->getAll();
+        $services = $this->serviceRepository->getAll();
+        $room = $this->roomRepository->find($request);
+
+        return view('room.modal-content-room', compact('room', 'services', 'floors'))->render();
+    }
+
+    public function updateBookingRoom(Request $request)
+    {
+        $this->bookingRoomRepository->updateBookingRoom($request);
+
+        $floors = $this->roomRepository->getAll();
+        $services = $this->serviceRepository->getAll();
+        $room = $this->roomRepository->find($request);
+
+        return view('room.modal-content-room', compact('room', 'services', 'floors'))->render();
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -101,5 +133,15 @@ class BookingRoomController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showInvoice(Request $request)
+    {
+        if(empty($request->id)) {
+            abort(404);
+        }
+        $bookingRoom = $this->bookingRoomRepository->firstOrFail($request);
+
+        return view('room.invoice', compact('bookingRoom'));
     }
 }

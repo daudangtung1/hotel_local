@@ -26,8 +26,12 @@ class BookingRoom extends Model
         'customer_id',
         'start_date',
         'end_date',
-        'id_card',
-        'status'
+        'status',
+        'note',
+        'price',
+        'rent_type',
+        'checkout_date',
+        'extra_price'
     ];
     /**
      * The attributes that should be mutated to dates.
@@ -39,6 +43,11 @@ class BookingRoom extends Model
     public function room()
     {
         return $this->belongsTo(Room::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customers::class);
     }
 
     public function bookingRoomCustomers()
@@ -62,6 +71,20 @@ class BookingRoom extends Model
     {
         if ($this->start_date) {
             return $this->start_date->format('d/m/Y');
+        }
+    }
+
+    public function getTimeCheckoutDate()
+    {
+        if (!empty($this->checkout_date)) {
+            return date('H:i', strtotime($this->checkout_date));
+        }
+    }
+
+    public function getDateCheckoutDate()
+    {
+        if (!empty($this->checkout_date)) {
+            return date('d/m/Y', strtotime($this->checkout_date));
         }
     }
 
@@ -105,18 +128,42 @@ class BookingRoom extends Model
         }
     }
 
-    public function getDiffMinutes()
+    public function getDiffHours()
     {
         $now = Carbon::now();
 
         $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date);
 
-        return $createdAt->diffInMinutes($now);
+        return floor($createdAt->floatDiffInHours($now) + 1);
     }
 
-    public function getTotalMinutes()
+    public function getDiffDay()
     {
-        return $this->getDiffMinutes();
+        $now = Carbon::now();
+
+        $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date);
+
+        return floor($createdAt->floatDiffInDays($now) + 1);
+    }
+
+    public function getTime($suffixes = false)
+    {
+        if ($this->rent_type) {
+            $time = $this->getDiffDay();
+        } else {
+            $time = $this->getDiffHours();
+        }
+
+        if ($suffixes) {
+            if ($this->rent_type) {
+                $suffixes = ' ngày';
+            } else {
+                $suffixes = ' giờ';
+            }
+
+            return $time . ' ' . $suffixes;
+        }
+        return $time;
     }
 
     public function getTotalServices()
@@ -131,10 +178,52 @@ class BookingRoom extends Model
         return $total;
     }
 
-    public function getTotalPrice()
+    public function getTotalPrice($addTotalService = true, $format = true)
     {
-        $price = $this->getDiffMinutes() * $this->room->price + $this->getTotalServices();
+        $price = $this->price ?? 0;
+        if ($price <= 0) {
+            if ($this->rent_type) {
+                $price = $this->room->day_price ?? 0;
+            } else {
+                $price = $this->room->hour_price ?? 0;
+            }
+        }
+
+        if (!$addTotalService) {
+            $price = ($this->getTime() * $price) + $this->getExtraPrice();
+            if (!$format) {
+                return $price;
+            }
+            return get_price($price, 'vnđ');
+        }
+
+
+        $price = ($this->getTime() * $price) + $this->getTotalServices() + $this->getExtraPrice();
 
         return get_price($price, 'vnđ');
+    }
+
+    public function getExtraPrice()
+    {
+        $checkoutDate = $this->checkout_date;
+        $endDate = $this->end_date;
+
+        if (empty($checkoutDate) || empty($endDate)) {
+            return 0;
+        }
+        $checkoutDate = Carbon::createFromFormat('Y-m-d H:i:s', $checkoutDate);
+        $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $endDate);
+
+        $hours = 0;
+        if ($checkoutDate > $endDate) {
+            $hours = floor($endDate->floatDiffInHours($checkoutDate) + 1);
+        }
+
+        $price = 0;
+        if ($this->extra_price > 0) {
+            $price = $this->extra_price;
+        }
+
+        return $price * $hours;
     }
 }

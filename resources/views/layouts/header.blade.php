@@ -13,16 +13,16 @@
                                 </g></svg>
                             <span>Hệ Thống</span></a></li>
                     <li class="@if(!empty($menuCategoryManager)) is_active  @endif"><a href="#"><img class="" alt=""
-                                                  src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/icon-quanly.png"><span>Danh Mục Quản Lý</span></a>
+                                                                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/icon-quanly.png"><span>Danh Mục Quản Lý</span></a>
                     </li>
                     <li class="@if(!empty($menuReport)) is_active  @endif"><a href="#"><img class="" alt=""
-                                                  src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/icon-bcthongke.png"><span>Báo cáo - thống kê</span></a>
+                                                                                            src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/icon-bcthongke.png"><span>Báo cáo - thống kê</span></a>
                     </li>
                     <li class="@if(!empty($menuSetup)) is-active @endif"><a href="#"><img class="" alt=""
-                                                  src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/icon-thietlapbandau.png"><span>Thiết lập ban đầu</span></a>
+                                                                                          src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/icon-thietlapbandau.png"><span>Thiết lập ban đầu</span></a>
                     </li>
                     <li class="@if(!empty($menuHelp)) is_active  @endif"><a href="#"><img class="" alt=""
-                                                           src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/icon-trogiup.png"><span>Trợ giúp</span></a>
+                                                                                          src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/icon-trogiup.png"><span>Trợ giúp</span></a>
                     </li>
                 </ul>
             </div>
@@ -38,7 +38,7 @@
                                 </li>
                                 <li>
                                     <a href="{{route('services.create')}}"><img class="image-svg" alt=""
-                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/banhang.png"></a>
+                                                                                src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/banhang.png"></a>
                                     <span>Bán hàng</span>
                                 </li>
                             </ul>
@@ -303,7 +303,7 @@
                         </div>
                         <div class="ql_tk">
                             <a href="{{route('rooms.create')}}"><img class="image-svg" alt=""
-                                             src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qlphong.png"></a>
+                                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qlphong.png"></a>
                             <span>QL Phòng</span>
                         </div>
                         <div class="ql_tk tl_chung">
