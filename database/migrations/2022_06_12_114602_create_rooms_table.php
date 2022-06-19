@@ -18,7 +18,8 @@ class CreateRoomsTable extends Migration
             $table->string('name');
             $table->string('floor', 100)->nullable();
             $table->tinyinteger('status')->default(0);
-            $table->integer('price')->default(0);
+            $table->integer('hour_price')->default(0);
+            $table->integer('day_price')->default(0);
             $table->tinyinteger('type')->default(0);
             $table->timestamps();
         });

@@ -32,7 +32,7 @@ class ServiceRepository extends ModelRepository
 
     public function getAll()
     {
-        return $this->model->orderBy('floor', 'ASC')->get();
+        return $this->model->orderBy('ID', 'ASC')->get();
     }
 
     public function store($request)

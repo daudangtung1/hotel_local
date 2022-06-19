@@ -1,77 +1,416 @@
 @extends('layouts.app')
 @section('content')
     <div class="wrap-main">
-        <div class="container">
-            @foreach($floors as $k => $rooms)
-                <div class="row-room">
-                    <h3>{{$k}}</h3>
-                    <ul>
-                        @foreach($rooms as $room)
-                            <li class="booking-room" data-room-id="{{$room->id}}"  data-bs-toggle="modal" data-bs-target="#booking-modal">
-                                <h5>{{$room->name ?? ''}}</h5>
-                                <div class="in-room">
-                                    <div class="icon">
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px"
-                                                 y="0px"
-                                                 viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000"
-                                                 xml:space="preserve" id="svg-replaced-40"
-                                                 class="image-svg replaced-svg svg-replaced-40">
-<metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon</metadata>
-                                                <g>
-                                                    <path
-                                                        d="M935.5,486.4V336.7c0-30.1-24.4-54.4-54.4-54.4H336.6c-30.1,0-54.4,24.4-54.4,54.4v149.7c-30.1,0-54.4,24.4-54.4,54.4v313c0,7.5,6.1,13.7,13.6,13.7H255c7.5,0,13.6-6.1,13.6-13.7v-67.9h680.5v67.9c0,7.5,6.1,13.7,13.7,13.7h13.6c7.5,0,13.7-6.1,13.7-13.7v-313C989.9,510.7,965.6,486.4,935.5,486.4z M323,350.3c0-15.1,12.2-27.2,27.2-27.2h517.2c15,0,27.2,12.2,27.2,27.2v136.1h-54.4v-81.6c0-15-12.2-27.2-27.2-27.2H663.3c-15.1,0-27.2,12.2-27.2,27.2v81.6h-54.4v-81.6c0-15-12.2-27.2-27.3-27.2H404.7c-15,0-27.2,12.2-27.2,27.2v81.6H323V350.3z M826.6,410.2v76.2H649.7v-76.2c0-10.5,8.8-19,19.7-19h137.6C817.8,391.1,826.6,399.6,826.6,410.2z M568,410.2v76.2H391.1v-76.2c0-10.5,8.8-19,19.7-19h137.6C559.2,391.1,568,399.6,568,410.2z M949.1,745H268.6v-40.8h680.5V745z M949.1,663.4H268.6v-109c0-15,12.2-27.2,27.2-27.2h626.1c15.1,0,27.2,12.2,27.2,27.2L949.1,663.4L949.1,663.4z M214.1,377.5c15,0,27.2-12.2,27.2-27.2l-27.2-190.6c0-15-12.2-27.2-27.3-27.2H64.4c-15,0-27.2,12.2-27.2,27.2L10,350.3c0,15,12.2,27.2,27.2,27.2h68v449.1H78c-7.5,0-13.7,6.1-13.7,13.7v13.5c0,7.5,6.1,13.7,13.7,13.7h95.2c7.5,0,13.6-6.1,13.6-13.7v-13.5c0-7.5-6.1-13.7-13.6-13.7h-27.2V377.5H214.1z M83.5,336.7c-10.5,0-19.1-8.8-19.1-19.7l19.1-124c0-10.8,8.5-19.7,19-19.7h46.2c10.5,0,19,8.8,19,19.7l19,124c0,10.8-8.5,19.7-19,19.7L83.5,336.7L83.5,336.7z"></path>
-                                                </g> </svg>
-                                        </a>
-                                    </div>
-                                    <div class="info-room">
-                                        <a href="#"><span>{{$room->getStatus()}}</span></a>
-                                        @php
-                                        $bookingRoom = $room->bookingRooms()->orderBy('id','DESC')->first();
-                                        @endphp
-                                        @if(!empty($bookingRoom))
-                                            <p>
-                                                <a href="#">
-                                                    <strong class="time">{{$bookingRoom->getTimeStartDate()}}</strong>
-                                                    <span class="time">{{$bookingRoom->getDateStartDate()}}</span>
-                                                </a>
-                                            </p>
-                                        @endif
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endforeach
+        <div id="room-list" class="container">
+            @include('room.list')
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="booking-modal" tabindex="-1" aria-labelledby="booking-modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="booking-modalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @foreach($floors as $k => $rooms)
+        @foreach($rooms as $room)
+            @include('room.modal-room')
+        @endforeach
+    @endforeach
 @endsection
 @section('script')
-    <script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"
+          rel="stylesheet"/>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $(document).ready(function () {
-            $('.booking-room').on('click', function(){
-                var roomId= $(this).attr('data-room-id');
+            var date = $('.datetime-picker');
+            date.datetimepicker({
+                todayHighlight: true,
+                format: 'Y-m-d H:i',
+                startDate: new Date()
             });
-        })
+
+            $('body').on('change', '.rentType', function (e) {
+                e.preventDefault();
+                var _this = $(this);
+                var modal = _this.closest('.modal');
+                var rentType = _this.val();
+
+                if (rentType == 1) {
+                    var now = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i', \Carbon\Carbon::now()->format('Y-m-d') . ' 12:00')}}';
+                    modal.find('#start_date').val(now);
+                    modal.find('#end_date').val(now);
+                    modal.find('#box-end-date').removeClass('d-none');
+                    modal.find('.extra-price-box').removeClass('d-none');
+                } else {
+                    var now = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i', \Carbon\Carbon::now()->format('Y-m-d H:i'))}}';
+                    modal.find('#start_date').val(now);
+                    modal.find('#end_date').val(now);
+                    modal.find('#box-end-date').addClass('d-none');
+                    modal.find('.extra-price-box').addClass('d-none');
+                }
+            });
+
+            $('body').on('click', '.booking-room', function (e) {
+                e.preventDefault();
+                var roomTitle = $(this).find('.room-title').text();
+                var floor = $(this).closest('.row-room').find('>h3').text();
+                var roomId = $(this).attr('data-room-id');
+
+                $('input[name="room_id"]').val(roomId);
+                $('#booking-modal-' + roomId + ' .modal-title').text(roomTitle + ' - ' + floor);
+            });
+
+            setInterval(function () {
+                $.ajax({
+                    type: "get",
+                    url: "{{route('rooms.getMinutes')}}",
+                    dataType: "json",
+                    success: function (data) {
+                        data.map(function (el, key) {
+                            $('#room-' + el.room_id).find('#start_date .text').html(el.start_date);
+                            $('#room-' + el.room_id).find('#minutes .text').html(el.minutes);
+                            $('#room-' + el.room_id).find('#total_price .text').html(el.price);
+                        });
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }, 2000);
+
+            $('body').on('click', '.btn-add-customer', function (e) {
+                e.preventDefault();
+                var _this = $(this);
+                var modal = _this.closest('.modal');
+                var roomId = modal.find('input[name="room_id"]').val();
+                var customerName = modal.find('#customer_name').val();
+                var customerIdCard = modal.find('#customer_id_card').val();
+                var customerPhone = modal.find('#customer_phone').val();
+                var customerAddress = modal.find('#customer_address').val();
+                var startDate = modal.find('#start_date').val();
+                var endDate = modal.find('#end_date').val();
+
+                if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '') {
+                    $.toast({
+                        text: 'Vui lòng nhập thông tin khách hàng',
+                        icon: 'error',
+                        position: 'top-right'
+                    });
+                    return false;
+                }
+
+                $.ajax({
+                    type: "post",
+                    url: "{{route('booking-room.store')}}",
+                    data: {
+                        room_id: roomId,
+                        customer_name: customerName,
+                        customer_id_card: customerIdCard,
+                        customer_phone: customerPhone,
+                        customer_address: customerAddress,
+                        start_date: startDate,
+                        end_date: endDate,
+                    },
+                    success: function (data) {
+                        _this.closest('.modal').find('.modal-dialog').html(data);
+                        $.toast({
+                            text: 'Cập nhật thành công',
+                            icon: 'success',
+                            position: 'top-right'
+                        });
+                        refreshView();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                })
+            });
+
+            $('body').on('click', '.btn-booking-room', function (e) {
+                e.preventDefault();
+                var _this = $(this);
+                var modal = _this.closest('.modal');
+                var roomId = modal.find('input[name="room_id"]').val();
+                var customerName = modal.find('#customer_name').val();
+                var customerIdCard = modal.find('#customer_id_card').val();
+                var customerPhone = modal.find('#customer_phone').val();
+                var customerAddress = modal.find('#customer_address').val();
+                var startDate = modal.find('#start_date').val();
+                var endDate = modal.find('#end_date').val();
+                var note = modal.find('.note').val();
+                var price = modal.find('.price').val();
+                var rentType = modal.find('input[name="rent_type"]:checked').val();
+                var extraPrice = modal.find('input[name="extra_price"]').val();
+
+                if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '') {
+                    $.toast({
+                        text: 'Vui lòng nhập thông tin khách hàng',
+                        icon: 'error',
+                        position: 'top-right'
+                    });
+                    return false;
+                }
+
+                $.ajax({
+                    type: "post",
+                    url: "{{route('booking-room.store')}}",
+                    data: {
+                        room_id: roomId,
+                        customer_name: customerName,
+                        customer_id_card: customerIdCard,
+                        customer_phone: customerPhone,
+                        customer_address: customerAddress,
+                        start_date: startDate,
+                        end_date: endDate,
+                        note: note,
+                        price: price,
+                        rent_type: rentType,
+                        extra_price: extraPrice,
+                    },
+                    success: function (data) {
+                        _this.closest('.modal').find('.modal-dialog').html(data);
+                        $.toast({
+                            text: 'Cập nhật thành công',
+                            icon: 'success',
+                            position: 'top-right'
+                        });
+
+                        // changeBgLi(_this, roomId);
+                        refreshView();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                })
+            });
+
+            $('body').on('click', '.btn-add-service', function (e) {
+                e.preventDefault();
+
+                var _this = $(this);
+                var modal = _this.closest('.modal');
+                var roomId = modal.find('input[name="room_id"]').val();
+                var serviceId = _this.data('service_id');
+                var startDate = modal.find('#start_date').val();
+                var endDate = modal.find('#end_date').val();
+                var customerName = modal.find('#customer_name').val();
+                var customerIdCard = modal.find('#customer_id_card').val();
+                var customerPhone = modal.find('#customer_phone').val();
+                var customerAddress = modal.find('#customer_address').val();
+                var startDate = modal.find('#start_date').val();
+                var endDate = modal.find('#end_date').val();
+                //
+                // if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '') {
+                //     $.toast({
+                //         text: 'Vui lòng nhập thông tin khách hàng',
+                //         icon: 'error',
+                //         position: 'top-right'
+                //     });
+                //     return false;
+                // }
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('booking-room.store')}}",
+                    data: {
+                        room_id: roomId,
+                        service_id: serviceId,
+                        start_date: startDate,
+                        end_date: endDate,
+                    },
+                    success: function (data) {
+                        _this.closest('.modal').find('.modal-dialog').html(data);
+                        $.toast({
+                            text: 'Cập nhật thành công',
+                            icon: 'success',
+                            position: 'top-right'
+                        });
+
+                        changeBgLi(_this, roomId);
+                        refreshView();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                })
+            });
+
+            $('body').on('click', '.btn-remove-service', function (e) {
+                e.preventDefault();
+                var _this = $(this);
+                var modal = _this.closest('.modal');
+                var bookingRoomServiceId = _this.data('booking_room_service_id');
+                var roomId = modal.find('input[name="room_id"]').val();
+                var href = _this.attr('href');
+
+                $.ajax({
+                    type: "POST",
+                    url: href,
+                    data: {
+                        "_method": 'DELETE',
+                        room_id: roomId,
+                        booking_room_service_id: bookingRoomServiceId,
+                    },
+                    success: function (data) {
+                        _this.closest('.modal').find('.modal-dialog').html(data);
+                        $.toast({
+                            text: 'Cập nhật thành công',
+                            icon: 'success',
+                            position: 'top-right'
+                        });
+
+                        changeBgLi(_this, roomId);
+                        refreshView();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                })
+            });
+
+            $('body').on('click', '.btn-change-status', function (e) {
+                e.preventDefault();
+                var _this = $(this);
+                var modal = _this.closest('.modal');
+                var roomId = modal.find('input[name="room_id"]').val();
+                var href = _this.data('action');
+
+                $.ajax({
+                    type: "POST",
+                    url: href,
+                    data: {
+                        room_id: roomId,
+                    },
+                    success: function (data) {
+                        _this.closest('.modal').find('.modal-dialog').html(data);
+
+                        $.toast({
+                            text: 'Cập nhật thành công',
+                            icon: 'success',
+                            position: 'top-right'
+                        });
+                        // changeBgLi(_this, roomId);
+                        refreshView();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                })
+            });
+
+
+            $('body').on('click', '.btn-update', function (e) {
+                e.preventDefault();
+
+                var _this = $(this);
+                var modal = _this.closest('.modal');
+                var bookingRoomId = _this.data('booking_room_id');
+                var note = modal.find('.note').val();
+                var roomId = modal.find('input[name="room_id"]').val();
+                var price = modal.find('.price').val();
+                var rentType = modal.find('input[name="rent_type"]:checked').val();
+                var extraPrice = modal.find('input[name="extra_price"]').val();
+                console.log(rentType);
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('booking-room.update_booking_room')}}",
+                    data: {
+                        booking_room_id: bookingRoomId,
+                        note: note,
+                        price: price,
+                        room_id: roomId,
+                        rent_type: rentType,
+                        extra_price: extraPrice,
+                    },
+                    success: function (data) {
+                        _this.closest('.modal').find('.modal-dialog').html(data);
+                        $.toast({
+                            text: 'Cập nhật thành công',
+                            icon: 'success',
+                            position: 'top-right'
+                        });
+
+                        changeBgLi(_this, roomId);
+                        refreshView();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                })
+            });
+
+            {{--$('body').on('change', '.note', function (e) {--}}
+            {{--    e.preventDefault();--}}
+            {{--    var _this = $(this);--}}
+            {{--    var modal = _this.closest('.modal');--}}
+            {{--    var roomId = modal.find('input[name="room_id"]').val();--}}
+            {{--    var bookingRoomId = modal.find('input[name="booking_room_id"]').val();--}}
+            {{--    var val = _this.val();--}}
+
+            {{--    $.ajax({--}}
+            {{--        type: "POST",--}}
+            {{--        url: '{{route('booking-room.update_note')}}',--}}
+            {{--        data: {--}}
+            {{--            note: val,--}}
+            {{--            booking_room_id: bookingRoomId,--}}
+            {{--            room_id: roomId,--}}
+            {{--        },--}}
+            {{--        success: function (data) {--}}
+            {{--            // _this.closest('.modal').find('.modal-dialog').html(data);--}}
+            {{--            $.toast({--}}
+            {{--                text: 'Cập nhật thành công',--}}
+            {{--                icon: 'success',--}}
+            {{--                position: 'top-right'--}}
+            {{--            });--}}
+
+            {{--            refreshView();--}}
+            {{--        },--}}
+            {{--        error: function (e) {--}}
+            {{--            console.log(e);--}}
+            {{--        }--}}
+            {{--    })--}}
+            {{--});--}}
+
+            function changeBgLi(_this, roomId) {
+                // var nextBg = _this.attr('data-bg');
+                // var text = 'phòng trống';
+                // $('li[data-bs-target="#booking-modal-' + roomId + '"]').removeClass('bg-' + nextBg);
+                // if (nextBg == 'primary') {
+                //     nextBg = 'warning';
+                //     text = 'Đang có khách';
+                // } else if (nextBg == 'warning') {
+                //     nextBg = 'danger';
+                //     text = 'Đang dọn phòng';
+                // } else {
+                //     nextBg = 'primary';
+                //     text = 'phòng trống';
+                // }
+                // $('li[data-bs-target="#booking-modal-' + roomId + '"]').addClass('bg-' + nextBg);
+                // $('li[data-bs-target="#booking-modal-' + roomId + '"]').find('.info-room a span').text(text);
+            }
+        });
+
+        function refreshView() {
+            $.ajax({
+                type: "get",
+                url: "{{route('rooms.index')}}",
+                success: function (data) {
+                    // $('.modal-backdrop').remove();
+                    $('#room-list').html('').html(data);
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        }
     </script>
-    @endsection
+    <style>
+        @media (min-width: 1200px) {
+            .modal-xl {
+                max-width: 1300px;
+            }
+        }
+    </style>
+@endsection
+

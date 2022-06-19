@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class BookingRoomService extends Migration
+class BookingRoomCustomer extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class BookingRoomService extends Migration
      */
     public function up()
     {
-        Schema::create('booking_room_services', function (Blueprint $table) {
+        Schema::create('booking_room_customers', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('booking_room_id');
-            $table->bigInteger('service_id');
-            $table->integer('quantity');
-            $table->integer('price');
+            $table->bigInteger('customer_id');
             $table->timestamps();
         });
     }
@@ -30,6 +28,8 @@ class BookingRoomService extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('booking_room_services');
+        Schema::dropIfExists('booking_room_customers');
     }
+
+
 }

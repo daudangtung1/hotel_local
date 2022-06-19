@@ -8,12 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     const READY = 0;
-    const BUSY = 1;
-    const GUEST_OUT = 2;
-    const DIRTY = 3;
-    const CLEANING = 4;
-    const FIXING = 5;
-    const BOOKING_ROOM = 6;
+    const HAVE_GUEST = 1;
+    const DIRTY = 2;
 
     use HasFactory;
 
@@ -22,7 +18,8 @@ class Room extends Model
         'status',
         'floor',
         'type',
-        'price'
+        'hour_price',
+        'day_price'
     ];
 
     /**
@@ -36,43 +33,39 @@ class Room extends Model
         return $this->hasMany(BookingRoom::class);
     }
 
-    public function getStatus()
+    public function getStatusText()
     {
         switch ($this->status) {
-            case self::BOOKING_ROOM:
-                return 'Đặt phòng';
-            case self::BUSY:
-                return 'Có khách';
-            case self::GUEST_OUT:
-                return 'Khách ra ngoài';
-            case self::DIRTY:
-                return 'Bẩn';
-            case self::CLEANING:
-                return 'Đang dọn';
-            case self::FIXING:
-                return 'Đang sửa';
-            default:
+            case self::READY:
                 return 'Phòng trống';
+            case self::DIRTY:
+                return 'Phòng bẩn';
+            default:
+                return 'Đang có khách';
         }
     }
 
-    public function getStatusBackgroundColor()
+    public function getBgButton()
     {
         switch ($this->status) {
-            case self::BOOKING_ROOM:
-                return 'black';
-            case self::BUSY:
-                return 'green';
-            case self::GUEST_OUT:
-                return '#ccc';
+            case self::READY:
+                return 'primary';
             case self::DIRTY:
-                return 'red';
-            case self::CLEANING:
-                return 'orange';
-            case self::FIXING:
-                return 'brown';
+                return 'danger';
             default:
-                return '#bfdbff';
+                return 'warning';
+        }
+    }
+
+    public function getTextButton()
+    {
+        switch ($this->status) {
+            case self::READY:
+                return 'Đặt phòng';
+            case self::HAVE_GUEST:
+                return 'Trả phòng';
+            default:
+                return 'Dọn xong';
         }
     }
 }
