@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-md-12">
                             <label for="floor" class="form-label">Tầng</label>
-                            <input type="text" class="form-control" id="floor" id="floor" required>
+                            <input type="text" class="form-control" id="floor" name="floor" required>
                         </div>
                         <div class="col-md-12">
                             <label for="inputState" class="form-label">Loại phòng</label>
@@ -28,6 +28,14 @@
                         <div class="col-md-12">
                             <label for="day_price" class="form-label">Giá phòng / ngày</label>
                             <input type="number" class="form-control" id="day_price" name="day_price" value="0" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputState" class="form-label">Trạng thái</label>
+                            <select id="type" name="status" class="form-select" required>
+                                @foreach (\App\Models\Room::ARRAY_STATUS as $key => $status)
+                                    <option {{ old('status') == $key ? 'selected' : ''}} value="{{ $key }}">{{ $status  }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Tạo phòng</button>

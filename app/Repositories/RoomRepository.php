@@ -79,7 +79,8 @@ class RoomRepository extends ModelRepository
             'floor'      => $request->floor,
             'type'       => $request->type,
             'day_price'  => $request->day_price,
-            'hour_price' => $request->hour_price
+            'hour_price' => $request->hour_price,
+            'status'     => $request->status,
         ]);
     }
 }

@@ -10,6 +10,17 @@ class Room extends Model
     const READY = 0;
     const HAVE_GUEST = 1;
     const DIRTY = 2;
+    const GUEST_OUTDOOR = 3;
+    const CLEAN_ROOM = 4;
+    const FIXING_ROOM = 5;
+    const ARRAY_STATUS = [
+        self::READY => "Sẵn sàng",
+        self::HAVE_GUEST => "Có khách",
+        self::GUEST_OUTDOOR => "Khách ra ngoài",
+        self::DIRTY => "Bẩn",
+        self::CLEAN_ROOM => "Đang dọn",
+        self::FIXING_ROOM => "Đang sửa",
+    ];
 
     use HasFactory;
 
