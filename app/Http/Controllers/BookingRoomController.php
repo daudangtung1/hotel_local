@@ -61,6 +61,14 @@ class BookingRoomController extends Controller
 
     public function BookingRooms(Request $request)
     {
+        if (Carbon::parse($request->start_date)->gte(Carbon::parse($request->end_date))) {
+            return [
+                'response' => [
+                    'code' => 400,
+                    'message' => "Vui lòng nhập kết thúc lớn hơn ngày bắt đầu"
+                ]
+            ];
+        }
         $this->bookingRoomRepository->store($request);
 
         $floors = $this->roomRepository->getAll();
