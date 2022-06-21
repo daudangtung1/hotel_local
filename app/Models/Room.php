@@ -49,10 +49,16 @@ class Room extends Model
         switch ($this->status) {
             case self::READY:
                 return 'Phòng trống';
+            case self::HAVE_GUEST:
+                return 'Đang có khách';
+            case self::GUEST_OUTDOOR:
+                return 'Phòng khách ra ngoài';
             case self::DIRTY:
                 return 'Phòng bẩn';
+            case self::CLEAN_ROOM:
+                return 'Phòng đang dọn';
             default:
-                return 'Đang có khách';
+                return 'Phòng đang sửa';
         }
     }
 
@@ -61,10 +67,16 @@ class Room extends Model
         switch ($this->status) {
             case self::READY:
                 return 'primary';
+            case self::HAVE_GUEST:
+                return 'success';
+            case self::GUEST_OUTDOOR:
+                return 'default';
             case self::DIRTY:
                 return 'danger';
-            default:
+            case self::CLEAN_ROOM:
                 return 'warning';
+            default:
+                return 'secondary';
         }
     }
 
