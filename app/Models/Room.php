@@ -10,6 +10,17 @@ class Room extends Model
     const READY = 0;
     const HAVE_GUEST = 1;
     const DIRTY = 2;
+    const GUEST_OUTDOOR = 3;
+    const CLEAN_ROOM = 4;
+    const FIXING_ROOM = 5;
+    const ARRAY_STATUS = [
+        self::READY => "Sẵn sàng",
+        self::HAVE_GUEST => "Có khách",
+        self::GUEST_OUTDOOR => "Khách ra ngoài",
+        self::DIRTY => "Bẩn",
+        self::CLEAN_ROOM => "Đang dọn",
+        self::FIXING_ROOM => "Đang sửa",
+    ];
 
     use HasFactory;
 
@@ -38,10 +49,16 @@ class Room extends Model
         switch ($this->status) {
             case self::READY:
                 return 'Phòng trống';
+            case self::HAVE_GUEST:
+                return 'Đang có khách';
+            case self::GUEST_OUTDOOR:
+                return 'Phòng khách ra ngoài';
             case self::DIRTY:
                 return 'Phòng bẩn';
+            case self::CLEAN_ROOM:
+                return 'Phòng đang dọn';
             default:
-                return 'Đang có khách';
+                return 'Phòng đang sửa';
         }
     }
 
@@ -50,10 +67,16 @@ class Room extends Model
         switch ($this->status) {
             case self::READY:
                 return 'primary';
+            case self::HAVE_GUEST:
+                return 'success';
+            case self::GUEST_OUTDOOR:
+                return 'default';
             case self::DIRTY:
                 return 'danger';
-            default:
+            case self::CLEAN_ROOM:
                 return 'warning';
+            default:
+                return 'secondary';
         }
     }
 

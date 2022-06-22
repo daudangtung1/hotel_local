@@ -353,16 +353,16 @@ body.aos-animate {
 	background:orange;
 }
 .site-footer ul.list-item li:nth-child(6) {
-	border-left:5px solid brown;
+	border-left:5px solid #6c757d;
 }
 .site-footer ul.list-item li:nth-child(6):hover {
-	background:brown;
+	background:#6c757d;
 }
 .site-footer ul.list-item li:nth-child(7) {
-	border-left:5px solid black;
+	border-left:5px solid #6c757d;
 }
 .site-footer ul.list-item li:nth-child(7):hover {
-	background:black;
+	background:#6c757d;
 }
 /*book room*/
 .info-room-dp {
