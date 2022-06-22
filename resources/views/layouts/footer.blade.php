@@ -56,6 +56,14 @@
                 });
                 return false;
             }
+            if (startDate >= endDate) {
+                $.toast({
+                    text: 'Vui lòng nhập kết thúc lớn hơn ngày bắt đầu',
+                    icon: 'error',
+                    position: 'top-right'
+                });
+                return false;
+            }
 
             if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '' || startDate == '' || endDate == '' ) {
                 $.toast({
@@ -80,6 +88,14 @@
                     note: note,
                 },
                 success: function (data) {
+                    if (typeof data.response !== 'undefined') {
+                        $.toast({
+                            text: data.response.message,
+                            icon: 'error',
+                            position: 'top-right'
+                        });
+                        return false;
+                    }
                     modal.find('.modal-dialog').html(data);
                     $.toast({
                         text: 'Cập nhật thành công',
