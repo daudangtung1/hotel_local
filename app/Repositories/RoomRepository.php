@@ -61,15 +61,22 @@ class RoomRepository extends ModelRepository
     {
         $room = $this->model->find($request->room_id);
 
+        if (!in_array($room->status, [1, 2])) {
+            return 'Trạng thái phòng không hợp lệ.';
+        }
+
         if (!empty($room)) {
             if ($room->status == 1) {
                 $room->update(['status' => $this->model::DIRTY]);
                 $room->bookingRooms()->where('status', 1)->update(['status' => 2, 'checkout_date' => Carbon::now()]);
             } else if ($room->status == 2) {
                 $room->update(['status' => $this->model::READY]);
-                $room->bookingRooms()->where('status', 2)->update(['status' => 3]);
+                $room->bookingRooms()->where('status', 2)->update([
+                    'status' => 3,
+                ]);
             }
         }
+        return true;
     }
 
     public function delete($room_id)

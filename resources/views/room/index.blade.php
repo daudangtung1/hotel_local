@@ -282,6 +282,14 @@
                         room_id: roomId,
                     },
                     success: function (data) {
+                        if( data.status == 0 ){
+                            $.toast({
+                                text: data.massage,
+                                icon: 'warning',
+                                position: 'top-right'
+                            });
+                            return false;
+                        }
                         _this.closest('.modal').find('.modal-dialog').html(data);
 
                         $.toast({

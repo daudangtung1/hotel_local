@@ -102,6 +102,19 @@
         });
     });
 </script>
+<style>
+    li.bg-success svg,
+    li.bg-success *,
+    li.bg-secondary svg,
+    li.bg-secondary *,
+    li.bg-danger svg,
+    li.bg-danger *,
+    li.bg-primary svg,
+    li.bg-primary * {
+        color: #fff !important;
+        fill: #fff !important;
+    }
+</style>
 @yield('script')
 </body>
 </html>

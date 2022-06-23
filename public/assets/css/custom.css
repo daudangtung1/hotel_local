@@ -314,6 +314,9 @@ body {
 }
 .site-footer ul.list-item li {
 	border-left:5px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .site-footer ul.list-item li:hover {
 	background:blue;
@@ -323,46 +326,46 @@ body {
 	color:#fff;
 }
 .site-footer ul.list-item li:nth-child(1) {
-	border-left:5px solid blue;
+	border-left:5px solid #0d6efd!important;
 }
 .site-footer ul.list-item li:nth-child(1):hover {
-	background:blue;
+	background:#0d6efd!important;
 }
 .site-footer ul.list-item li:nth-child(2) {
-	border-left:5px solid green;
+	border-left:5px solid #198754!important;
 }
 .site-footer ul.list-item li:nth-child(2):hover {
-	background:green;
+	background:#198754;
 }
 .site-footer ul.list-item li:nth-child(3) {
-	border-left:5px solid #ccc;
+	border-left:5px solid #0dcaf0!important;
 }
 .site-footer ul.list-item li:nth-child(3):hover {
-	background:#ccc;
+	background:#0dcaf0!important;
 }
 .site-footer ul.list-item li:nth-child(4) {
-	border-left:5px solid red;
+	border-left:5px solid #dc3545!important;
 }
 .site-footer ul.list-item li:nth-child(4):hover {
-	background:red;
+	background:#dc3545!important;
 }
 .site-footer ul.list-item li:nth-child(5) {
-	border-left: 5px solid orange;
+	border-left: 5px solid #ffc107!important;
 }
 .site-footer ul li:nth-child(5):hover {
-	background:orange;
+	background:#ffc107!important;
 }
 .site-footer ul.list-item li:nth-child(6) {
-	border-left:5px solid #6c757d;
+	border-left:5px solid #6c757d!important;
 }
 .site-footer ul.list-item li:nth-child(6):hover {
-	background:#6c757d;
+	background:#6c757d!important;
 }
 .site-footer ul.list-item li:nth-child(7) {
-	border-left:5px solid #6c757d;
+	border-left:5px solid #cd4c00;
 }
 .site-footer ul.list-item li:nth-child(7):hover {
-	background:#6c757d;
+	background:#cd4c00;
 }
 /*book room*/
 .info-room-dp {

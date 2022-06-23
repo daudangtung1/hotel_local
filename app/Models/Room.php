@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Room extends Model
 {
@@ -13,6 +14,7 @@ class Room extends Model
     const GUEST_OUTDOOR = 3;
     const CLEAN_ROOM = 4;
     const FIXING_ROOM = 5;
+    const BOOKED = 6;
     const ARRAY_STATUS = [
         self::READY => "Sẵn sàng",
         self::HAVE_GUEST => "Có khách",
@@ -23,6 +25,7 @@ class Room extends Model
     ];
 
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -53,7 +56,7 @@ class Room extends Model
             case self::HAVE_GUEST:
                 return 'Đang có khách';
             case self::GUEST_OUTDOOR:
-                return 'Phòng khách ra ngoài';
+                return 'Khách ra ngoài';
             case self::DIRTY:
                 return 'Phòng bẩn';
             case self::CLEAN_ROOM:
@@ -71,11 +74,13 @@ class Room extends Model
             case self::HAVE_GUEST:
                 return 'success';
             case self::GUEST_OUTDOOR:
-                return 'default';
+                return 'info';
             case self::DIRTY:
                 return 'danger';
             case self::CLEAN_ROOM:
                 return 'warning';
+            case self::BOOKED  :
+                return 'light';
             default:
                 return 'secondary';
         }

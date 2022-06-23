@@ -71,7 +71,11 @@ class RoomController extends Controller
 
     public function changeStatus(Request $request)
     {
-        $this->roomRepository->changeStatus($request);
+        $result = $this->roomRepository->changeStatus($request);
+
+        if ($result !== true) {
+            return ['status' => 0, 'massage' => $result];
+        }
 
         $floors = $this->roomRepository->getAll();
         $services = $this->serviceRepository->getAll();
@@ -87,11 +91,19 @@ class RoomController extends Controller
 
     public function destroy(Request $request, $room_id)
     {
-        $currentRoom = $this->roomRepository->delete($room_id);
+        $request->merge(['room_id' => $room_id]);
+        $currentRoom = $this->roomRepository->find($request);
         if (!empty($currentRoom)) {
+            if (!empty($currentRoom->bookingRooms()->get())) {
+                foreach ($currentRoom->bookingRooms()->get() as $bookingRoom) {
+                    $bookingRoom->delete();
+                }
+            }
+            $currentRoom->delete();
+
             return redirect()->back()->with('success', 'Đã xoá thành công');
         }
 
-        return redirect()->back()->withErrors( 'Vui lòng thử lại');
+        return redirect()->back()->withErrors('Vui lòng thử lại');
     }
 }

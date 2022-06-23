@@ -3,7 +3,7 @@
     <div class="wrap-main">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <form class="row g-3" method="POST"
                           action="@if(!empty($currentRoom)){{route('rooms.update', ['room'=>$currentRoom])}} @else{{route('rooms.store')}}@endif">
                         @if(!empty($currentRoom))
@@ -54,7 +54,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
@@ -62,6 +62,7 @@
                             <th scope="col">Tầng</th>
                             <th scope="col">Giá / giờ</th>
                             <th scope="col">Giá / ngày</th>
+                            <th scope="col">Tình trạng</th>
                             <th scope="col">Thao tác</th>
                         </tr>
                         </thead>
@@ -72,6 +73,7 @@
                                 <td>{{$room->floor ??''}}</td>
                                 <td>{{get_price($room->hour_price, 'đ') ??''}}</td>
                                 <td>{{get_price($room->day_price, 'đ') ??''}}</td>
+                                <td><span class="badge badge-light bg-{{$room->getBgButton()}}">{{\App\Models\Room::ARRAY_STATUS[$room->status ?? 0]}}</span></td>
                                 <td>
                                     <div class="d-flex">
                                         <a class="btn btn-warning mr-2 d-inline-block" style="margin-right: 5px;"
