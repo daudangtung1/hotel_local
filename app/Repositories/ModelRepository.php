@@ -12,11 +12,11 @@ abstract class ModelRepository
 
         return [
             '_current' => $page,
-            '_next' => ($page * $limit) < $total ? $page + 1 : null,
-            '_prev' => $page > 1 ? $page - 1 : null,
-            '_last' => $object->lastPage(),
-            '_limit' => $object->perPage(),
-            '_total' => $total,
+            '_next'    => ($page * $limit) < $total ? $page + 1 : null,
+            '_prev'    => $page > 1 ? $page - 1 : null,
+            '_last'    => $object->lastPage(),
+            '_limit'   => $object->perPage(),
+            '_total'   => $total,
         ];
     }
 }

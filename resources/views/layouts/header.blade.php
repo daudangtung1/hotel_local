@@ -49,11 +49,11 @@
                                              src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/inhoadon.png"></a>
                             <span>In hóa đơn</span>
                         </div>
-                        <div class="ql_tk">
-                            <a href="#"><img class="image-svg" alt=""
-                                             src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/giaodien.png"></a>
-                            <span>Giao diện</span>
-                        </div>
+{{--                        <div class="ql_tk">--}}
+{{--                            <a href="#"><img class="image-svg" alt=""--}}
+{{--                                             src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/giaodien.png"></a>--}}
+{{--                            <span>Giao diện</span>--}}
+{{--                        </div>--}}
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
@@ -176,37 +176,37 @@
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/thuchi01.png"></a>
                                     <span>Thu chi</span>
                                 </li>
-                                <li>
-                                    <a href="#"><img class="image-svg" alt=""
-                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qlquy01.png"></a>
-                                    <span>QL Quỹ</span>
-                                </li>
-                                <li>
-                                    <a href="#"><img class="image-svg" alt=""
-                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/giaoca01.png"></a>
-                                    <span>Giao ca</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px"
-                                             y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000"
-                                             xml:space="preserve" id="svg-replaced-14"
-                                             class="image-svg replaced-svg svg-replaced-14">
-<metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon</metadata>
-                                            <g>
-                                                <path
-                                                    d="M500,122.5l377.1,376h-50.4h-46.7v46.7v351.5H218.6V545.2v-46.7h-46.7h-49L500,122.5 M500,56.6L10,545.2h161.9v398.2h654.8V545.2H990L500,56.6L500,56.6z"></path>
-                                                <path d="M290,540.8h417.1v46.7H290V540.8L290,540.8z"></path>
-                                                <path d="M290,648.8h417.1v46.7H290V648.8L290,648.8z"></path>
-                                                <path d="M476.7,549.6h46.7v291.7h-46.7V549.6L476.7,549.6z"></path>
-                                                <path d="M359,375.6l157.5,157.5l-33,33L326,408.6L359,375.6z"></path>
-                                                <path d="M641,375.6l33,33L516.5,566.1l-33-33L641,375.6z"></path>
-                                            </g>
-</svg>
-                                    </a>
-                                    <span>Tỷ giá</span>
-                                </li>
+{{--                                <li>--}}
+{{--                                    <a href="#"><img class="image-svg" alt=""--}}
+{{--                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qlquy01.png"></a>--}}
+{{--                                    <span>QL Quỹ</span>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a href="#"><img class="image-svg" alt=""--}}
+{{--                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/giaoca01.png"></a>--}}
+{{--                                    <span>Giao ca</span>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a href="#">--}}
+{{--                                        <svg xmlns="http://www.w3.org/2000/svg"--}}
+{{--                                             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px"--}}
+{{--                                             y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000"--}}
+{{--                                             xml:space="preserve" id="svg-replaced-14"--}}
+{{--                                             class="image-svg replaced-svg svg-replaced-14">--}}
+{{--<metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon</metadata>--}}
+{{--                                            <g>--}}
+{{--                                                <path--}}
+{{--                                                    d="M500,122.5l377.1,376h-50.4h-46.7v46.7v351.5H218.6V545.2v-46.7h-46.7h-49L500,122.5 M500,56.6L10,545.2h161.9v398.2h654.8V545.2H990L500,56.6L500,56.6z"></path>--}}
+{{--                                                <path d="M290,540.8h417.1v46.7H290V540.8L290,540.8z"></path>--}}
+{{--                                                <path d="M290,648.8h417.1v46.7H290V648.8L290,648.8z"></path>--}}
+{{--                                                <path d="M476.7,549.6h46.7v291.7h-46.7V549.6L476.7,549.6z"></path>--}}
+{{--                                                <path d="M359,375.6l157.5,157.5l-33,33L326,408.6L359,375.6z"></path>--}}
+{{--                                                <path d="M641,375.6l33,33L516.5,566.1l-33-33L641,375.6z"></path>--}}
+{{--                                            </g>--}}
+{{--</svg>--}}
+{{--                                    </a>--}}
+{{--                                    <span>Tỷ giá</span>--}}
+{{--                                </li>--}}
                             </ul>
                             <span class="text_tlc">Quản lý thu chi</span>
                         </div>

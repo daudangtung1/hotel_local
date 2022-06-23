@@ -79,8 +79,8 @@
                                 @foreach($rooms as $room)
                                     <tr>
                                         <td><input type="checkbox" name="room_ids[]" value="{{$room->id ??''}}"></td>
-                                        <td>{{$room->name ??''}}</td>
-                                        <td>{{$room->floor ??''}}</td>
+                                        <td>{{$room->name ??'Đã xóa'}}</td>
+                                        <td>{{$room->floor ??'Đã xóa'}}</td>
                                         <td>{{get_price($room->hour_price ?? 0, 'đ')}}</td>
                                         <td>{{get_price($room->day_price ?? 0, 'đ')}}</td>
                                     </tr>

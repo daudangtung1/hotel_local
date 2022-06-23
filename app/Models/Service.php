@@ -13,6 +13,7 @@ class Service extends Model
         'name',
         'stock',
         'price',
-        'type'
+        'type',
+        'user_id'
     ];
 }

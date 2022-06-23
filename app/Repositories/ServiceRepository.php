@@ -43,10 +43,11 @@ class ServiceRepository extends ModelRepository
     public function store($request)
     {
         return $this->model->create([
-            'name'  => $request->name,
-            'stock' => $request->stock,
-            'price'  => $request->price,
-            'type' => $request->type
+            'name'    => $request->name,
+            'stock'   => $request->stock,
+            'price'   => $request->price,
+            'type'    => $request->type,
+            'user_id' => \Auth::user()->id
         ]);
     }
 }

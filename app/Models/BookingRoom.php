@@ -31,7 +31,8 @@ class BookingRoom extends Model
         'price',
         'rent_type',
         'checkout_date',
-        'extra_price'
+        'extra_price',
+        'user_id'
     ];
     /**
      * The attributes that should be mutated to dates.

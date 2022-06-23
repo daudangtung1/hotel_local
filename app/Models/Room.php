@@ -30,7 +30,8 @@ class Room extends Model
         'floor',
         'type',
         'hour_price',
-        'day_price'
+        'day_price',
+        'user_id'
     ];
 
     /**

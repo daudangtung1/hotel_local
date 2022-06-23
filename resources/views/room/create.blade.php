@@ -24,8 +24,8 @@
                         <div class="col-md-12">
                             <label for="inputState" class="form-label">Loại phòng</label>
                             <select id="type" name="type" class="form-select" required>
-                                <option @if($currentRoom && $currentRoom->type == 0) selected @endif value="0">Phòng đơn</option>
-                                <option @if($currentRoom && $currentRoom->type == 1) selected @endif value="1">Phòng đôi</option>
+                                <option @if(!empty($currentRoom) && $currentRoom->type == 0) selected @endif value="0">Phòng đơn</option>
+                                <option @if(!empty($currentRoom) && $currentRoom->type == 1) selected @endif value="1">Phòng đôi</option>
                             </select>
                         </div>
                         <div class="col-md-12">

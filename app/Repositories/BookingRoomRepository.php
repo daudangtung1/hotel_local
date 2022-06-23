@@ -88,13 +88,14 @@ class BookingRoomRepository extends ModelRepository
         foreach ($request->room_ids as $roomId) {
             $data = [
                 'start_date'    => $request->start_date ?? '',
-                'end_date'    => $request->end_date ?? '',
+                'end_date'      => $request->end_date ?? '',
                 'checkout_date' => null,
                 'room_id'       => $roomId,
                 'note'          => $request->note ?? '',
                 'price'         => 0,
                 'rent_type'     => 1, // theo ngày
                 'status'        => 6,
+                'user_id'       => \Auth::user()->id
             ];
 
             $bookingRoom = $this->bookingRoom->create($data);
@@ -130,6 +131,7 @@ class BookingRoomRepository extends ModelRepository
                 'price'         => $request->price ?? 0,
                 'rent_type'     => $request->rent_type ?? 0,
                 'status'        => 1,
+                'user_id'       => \Auth::user()->id
             ];
 
             if ($request->rent_type == 1) {
@@ -164,6 +166,7 @@ class BookingRoomRepository extends ModelRepository
                 'rent_type'  => $request->rent_type ?? 0,
                 'price'      => $request->price ?? 0,
                 'status'     => 1,
+                'user_id'    => \Auth::user()->id
             ]);
         }
 

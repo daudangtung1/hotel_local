@@ -21,9 +21,9 @@
                         <div class="col-md-12">
                             <label for="inputState" class="form-label">Loại dịch vụ</label>
                             <select id="type" name="type" class="form-select" required>
-                                <option @if($currentItem && $currentItem->type == 0) selected @endif value="0">Đồ ăn</option>
-                                <option @if($currentItem && $currentItem->type == 1) selected @endif value="1">Đồ uống</option>
-                                <option @if($currentItem && $currentItem->type == 2) selected @endif value="2">Dịch vụ khác</option>
+                                <option @if(!empty($currentItem) && $currentItem->type == 0) selected @endif value="0">Đồ ăn</option>
+                                <option @if(!empty($currentItem) && $currentItem->type == 1) selected @endif value="1">Đồ uống</option>
+                                <option @if(!empty($currentItem) && $currentItem->type == 2) selected @endif value="2">Dịch vụ khác</option>
                             </select>
                         </div>
                         <div class="col-md-12">
