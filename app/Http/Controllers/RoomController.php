@@ -26,12 +26,12 @@ class RoomController extends Controller
         $services = $this->serviceRepository->getAll();
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking();
         $menuSystem = true;
-
+        $currentRoom = null;
         if ($request->ajax()) {
-            return view('room.list', compact('floors', 'services', 'menuSystem', 'bookingRooms'))->render();
+            return view('room.list', compact('floors', 'services', 'menuSystem', 'bookingRooms', 'currentRoom'))->render();
         }
 
-        return view('room.index', compact('floors', 'services', 'menuSystem', 'bookingRooms'));
+        return view('room.index', compact('floors', 'services', 'menuSystem', 'bookingRooms', 'currentRoom'));
     }
 
     public function create()
@@ -50,6 +50,25 @@ class RoomController extends Controller
         }
     }
 
+    public function update(Request $request)
+    {
+        // TODO: validate
+        $result = $this->roomRepository->update($request);
+        if ($result) {
+            return redirect()->back()->with('success', 'Đăng ký thành công');
+        }
+    }
+
+    public function edit(Request $request, $room_id)
+    {
+        $request->merge(['room_id' => $room_id]);
+        $currentRoom = $this->roomRepository->find($request);
+
+        $menuSetup = true;
+        $rooms = $this->roomRepository->getAll(false);
+        return view('room.create', compact('menuSetup', 'rooms', 'currentRoom'));
+    }
+
     public function changeStatus(Request $request)
     {
         $this->roomRepository->changeStatus($request);
@@ -63,6 +82,16 @@ class RoomController extends Controller
 
     public function getMinutes(Request $request)
     {
-        return  response()->json( $this->bookingRoomRepository->getMinutes());
+        return response()->json($this->bookingRoomRepository->getMinutes());
+    }
+
+    public function destroy(Request $request, $room_id)
+    {
+        $currentRoom = $this->roomRepository->delete($room_id);
+        if (!empty($currentRoom)) {
+            return redirect()->back()->with('success', 'Đã xoá thành công');
+        }
+
+        return redirect()->back()->withErrors( 'Vui lòng thử lại');
     }
 }

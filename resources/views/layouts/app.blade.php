@@ -79,7 +79,6 @@
         crossorigin="anonymous"></script>
 <script src='https://npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js'
         id='isotope-js-js'></script>
-<script src='{{asset('assets/js/wow.min.js')}}' id='wow-js-js'></script>
 <script src='{{asset('assets/js/main.js')}}' id='mainjs-js'></script>
 
 <script src='{{asset('assets/js/custom.js')}}' id='custom-js-js'></script>

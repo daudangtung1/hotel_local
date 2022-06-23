@@ -35,6 +35,11 @@ class ServiceRepository extends ModelRepository
         return $this->model->orderBy('ID', 'ASC')->get();
     }
 
+    public function find($request)
+    {
+        return $this->model->find($request->service_id);
+    }
+
     public function store($request)
     {
         return $this->model->create([

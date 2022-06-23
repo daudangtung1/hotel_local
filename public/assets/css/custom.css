@@ -2,14 +2,14 @@
     clear: both;
 }
 body {
-    opacity: 0;
-    transition-timing-function: cubic-bezier(.47,0,.745,.715);
-    transition-duration: 1.2s;
-    transition-property: opacity,transform;
+    /*opacity: 0;*/
+    /*transition-timing-function: cubic-bezier(.47,0,.745,.715);*/
+    /*transition-duration: 1.2s;*/
+    /*transition-property: opacity,transform;*/
 }
-body.aos-animate {
-    opacity: 1;
-}
+/*body.aos-animate {*/
+/*    opacity: 1;*/
+/*}*/
 /*top header*/
 .wrap-tab {
 	border-left: 1px solid #3b5a82;

@@ -72,6 +72,11 @@ class RoomRepository extends ModelRepository
         }
     }
 
+    public function delete($room_id)
+    {
+        return $this->model->findOrFail($room_id)->delete();
+    }
+
     public function store($request)
     {
         return $this->model->create([
@@ -81,6 +86,18 @@ class RoomRepository extends ModelRepository
             'day_price'  => $request->day_price,
             'hour_price' => $request->hour_price,
             'status'     => $request->status,
+        ]);
+    }
+
+    public function update($request)
+    {
+        return $this->model->where('id', $request->room_id)->update([
+            'name'       => $request->name ?? '',
+            'floor'      => $request->floor ?? '',
+            'type'       => $request->type ?? 0,
+            'day_price'  => $request->day_price ?? 0,
+            'hour_price' => $request->hour_price ?? 0,
+            'status'     => $request->status ?? 0,
         ]);
     }
 }
