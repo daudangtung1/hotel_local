@@ -121,16 +121,6 @@
                             <input type="number" min="0" class="form-control  form-control-sm" id="day_price" name="day_price"
                                    value="{{$currentRoom->day_price ??'0'}}" required>
                         </div>
-
-                        <div class="col-md-12">
-                            <label for="inputState" class="form-label">Trạng thái</label>
-                            <select id="type" name="status" class="form-select" required>
-                                @foreach (\App\Models\Room::ARRAY_STATUS as $key => $status)
-                                    <option
-                                        {{ old('status') == $key || (!empty($currentRoom) && $currentRoom->status == $key) ? 'selected' : ''}} value="{{ $key }}">{{ $status  }}</option>
-                                @endforeach
-                            </select>
-                        </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentRoom)) Cập nhật @else Tạo
                                 phòng @endif</button>
