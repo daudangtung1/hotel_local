@@ -229,4 +229,19 @@ class BookingRoom extends Model
 
         return $price * $hours;
     }
+
+    public static function boot() {
+        parent::boot();
+        static::created(function($item) {
+            create_log('Tạo mới đặt phòng');
+        });
+
+        static::updated(function($item) {
+            create_log('Cập nhật đặt phòng');
+        });
+
+        static::deleted(function($item) {
+            create_log('Xóa đặt phòng');
+        });
+    }
 }

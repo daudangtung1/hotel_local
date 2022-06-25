@@ -23,7 +23,10 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::resources([
         'rooms'                => \App\Http\Controllers\RoomController::class,
+        'users'                => \App\Http\Controllers\UserController::class,
         'services'             => \App\Http\Controllers\ServiceController::class,
+        'logs'                 => \App\Http\Controllers\LogController::class,
+        'type-rooms'           => \App\Http\Controllers\TypeRoomController::class,
         'booking-room'         => \App\Http\Controllers\BookingRoomController::class,
         'booking-room-service' => \App\Http\Controllers\BookingRoomServiceController::class,
     ]);

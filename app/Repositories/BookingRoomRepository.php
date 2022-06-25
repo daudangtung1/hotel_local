@@ -39,7 +39,7 @@ class BookingRoomRepository extends ModelRepository
     public static function getInstance()
     {
         if (empty(self::$instance)) {
-            self::$instance = new RoomRepository(new Room());
+            self::$instance = new BookingRoomRepository(new BookingRoom(), new Customers(), new BookingRoomCustomer(), new Room(), new Service(), new BookingRoomService());
         }
 
         return self::$instance;
@@ -76,6 +76,7 @@ class BookingRoomRepository extends ModelRepository
             }
             $this->room->where('id', $request->room_id)->update(['status' => $this->room::HAVE_GUEST]);
         }
+
     }
 
     public function bookingRooms($request)
@@ -219,6 +220,7 @@ class BookingRoomRepository extends ModelRepository
             'extra_price' => $request->extra_price ?? 0,
         ]);
     }
+
 
     function firstOrFail($request)
     {

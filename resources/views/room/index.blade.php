@@ -16,11 +16,6 @@
           rel="stylesheet"/>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
         $(document).ready(function () {
             var date = $('.datetime-picker');
             date.datetimepicker({

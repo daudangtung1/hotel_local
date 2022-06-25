@@ -64,6 +64,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        create_log('Đăng ký người dùng');
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

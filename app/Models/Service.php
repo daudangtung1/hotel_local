@@ -18,4 +18,19 @@ class Service extends Model
         'type',
         'user_id'
     ];
+
+    public static function boot() {
+        parent::boot();
+        static::created(function($item) {
+            create_log('Tạo mới dịch vụ');
+        });
+
+        static::updated(function($item) {
+            create_log('Cập nhật dịch vụ');
+        });
+
+        static::deleted(function($item) {
+            create_log('Xóa dịch vụ');
+        });
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Room;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +19,20 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        Room::class => [
+            'App\Listeners\EventListener',
+        ],
+        'item.created' => [
+            'App\Events\RoomEvent@itemCreated',
+        ],
+        'item.updated' => [
+            'App\Events\RoomEvent@itemUpdated',
+        ],
+        'item.deleted' => [
+            'App\Events\RoomEvent@itemDeleted',
+        ]
+
+
     ];
 
     /**

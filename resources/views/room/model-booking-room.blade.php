@@ -10,23 +10,23 @@
                 <h5>Thông tin khách hàng</h5>
                 <div class="row mt-3">
                     <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control" id="customer_name"
+                        <input type="text" class="form-control  form-control-sm" id="customer_name"
                                name="customer_name" required
                                placeholder="Tên khách hàng">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control" id="customer_id_card"
+                        <input type="text" class="form-control  form-control-sm" id="customer_id_card"
                                name="customer_id_card" required
                                placeholder="Số giấy tờ">
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control" id="customer_phone"
+                        <input type="text" class="form-control  form-control-sm" id="customer_phone"
                                name="customer_phone" required
                                placeholder="Điện thoại">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control" id="customer_address"
+                        <input type="text" class="form-control  form-control-sm" id="customer_address"
                                name="customer_address" required placeholder="Địa chỉ">
                     </div>
                     <div class="col-md-12">
@@ -37,7 +37,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <input type="text" id="start_date"
-                                               class="form-control datetime-picker"
+                                               class="form-control  form-control-sm datetime-picker"
                                                value="{{\Carbon\Carbon::now()}}">
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                     thúc:</label>
                                 <div class="input-group date">
                                     <input type="text" id="end_date"
-                                           class="form-control datetime-picker"
+                                           class="form-control  form-control-sm datetime-picker"
                                            value="{{\Carbon\Carbon::now()}}">
                                 </div>
                             </div>
@@ -57,13 +57,15 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="price" class="form-label">Ghi chú:</label>
-                        <textarea name="note" class="form-control note" cols="30" rows="2"
+                        <textarea name="note" class="form-control  form-control-sm note" cols="30" rows="2"
                                   placeholder="Ghi chú">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-6">
                 <h5>Danh sách phòng</h5>
                 <div class="div-scroll max-height-300 mb-3">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-sm table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -94,54 +96,16 @@
                         </tbody>
                     </table>
                 </div>
-
-            </div>
-            <div class="col-md-6">
-                <h5>Phòng đã đặt</h5>
-                <div class="div-scroll">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">Tên phòng</th>
-                            <th scope="col">Tầng</th>
-                            <th scope="col">Ngày nhận phòng</th>
-                            <th scope="col">Ngày trả phòng</th>
-                            <th scope="col">Tên khách hàng</th>
-                            <th scope="col">Ghi chú</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @if(!empty($bookingRooms))
-                            @forelse($bookingRooms as $key => $bookingRoom)
-                                <tr>
-                                    <td>{{$bookingRoom->room->name ??''}}</td>
-                                    <td>{{$bookingRoom->room->floor ??''}}</td>
-                                    <td>{{$bookingRoom->start_date ?? ''}}</td>
-                                    <td>{{$bookingRoom->end_date ?? ''}}</td>
-                                    <td>
-                                        @foreach($bookingRoom->bookingRoomCustomers()->get() as $customer)
-                                            <p>{{$customer->customer->name ?? ''}}</p>
-                                        @endforeach
-                                    </td>
-                                    <td>{{$bookingRoom->note ?? ''}}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4">Không có phòng nào</td>
-                                </tr>
-                            @endforelse
-                        @endif
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
                 Đóng
             </button>
 
-            <button class="btn btn-primary btn-booking-multiple-room">Đặt phòng</button>
+            <a href="{{route('booking-room.index')}}" class="btn btn-sm btn-success">Quản lý đặt phòng</a>
+
+            <button class="btn btn-sm btn-primary btn-booking-multiple-room">Đặt phòng</button>
         </div>
     </div>
 </div>

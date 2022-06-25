@@ -62,16 +62,11 @@
                                     <span>Đổi mật khẩu</span>
                                 </li>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
-                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/dangxuat.png"></a>
-                                    <span>Đăng xuất</span>
-                                </li>
-                                <li>
                                     <form action="{{route('logout')}}" method="post">
                                         @csrf
                                         <a href="#" class="logout"><img class="image-svg" alt=""
-                                                                        src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/thoat.png"></a>
-                                        <span>Thoát</span>
+                                                                        src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/dangxuat.png"></a>
+                                        <span>Đăng xuất</span>
                                     </form>
                                     <script>
                                         $(document).ready(function(){
@@ -295,7 +290,7 @@
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{route('logs.index')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/hethong.png"></a>
                                     <span>Hệ thống</span>
                                 </li>
@@ -307,7 +302,7 @@
                 <div class="info-content @if(!empty($menuSetup)) active  @endif">
                     <div class="inner-info-content">
                         <div class="ql_tk">
-                            <a href="#"><img class="image-svg" alt=""
+                            <a href="{{route('users.index')}}"><img class="image-svg" alt=""
                                              src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qltaikhoan.png"></a>
                             <span>QL Tài khoản</span>
                         </div>

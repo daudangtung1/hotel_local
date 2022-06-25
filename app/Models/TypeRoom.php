@@ -4,27 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
-class Customers extends Model
+class TypeRoom extends Model
 {
     use HasFactory;
 
-    protected $table = 'customers';
-    protected $fillable = ['name', 'id_card', 'phone', 'address', 'created_at', 'updated_at'];
+    protected $fillable = [
+        'name'
+    ];
 
     public static function boot() {
         parent::boot();
         static::created(function($item) {
-            create_log('Tạo mới khách hàng');
+            create_log('Tạo mới loại');
         });
 
         static::updated(function($item) {
-            create_log('Cập nhật khách hàng');
+            create_log('Cập nhật loại phòng');
         });
 
         static::deleted(function($item) {
-            create_log('Xóa khách hàng');
+            create_log('Xóa loại phòng');
         });
     }
 }

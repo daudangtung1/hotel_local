@@ -11,23 +11,23 @@
         <div class="modal-body row">
             <div class="col-md-2">
                 <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control" id="customer_name"
+                    <input type="text" class="form-control  form-control-sm" id="customer_name"
                            name="customer_name" required
                            placeholder="Tên khách hàng">
                 </div>
                 <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control" id="customer_id_card"
+                    <input type="text" class="form-control  form-control-sm" id="customer_id_card"
                            name="customer_id_card" required
                            placeholder="Số giấy tờ">
                 </div>
 
                 <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control" id="customer_phone"
+                    <input type="text" class="form-control  form-control-sm" id="customer_phone"
                            name="customer_phone" required
                            placeholder="Điện thoại">
                 </div>
                 <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control" id="customer_address"
+                    <input type="text" class="form-control  form-control-sm" id="customer_address"
                            name="customer_address" required placeholder="Địa chỉ">
                 </div>
                 <div class="col-md-12">
@@ -38,7 +38,7 @@
                             <div class="form-group">
                                 <div class="input-group date">
                                     <input type="text" id="start_date"
-                                           class="form-control datetime-picker"
+                                           class="form-control  form-control-sm datetime-picker"
                                            value="@if(!empty($bookingRoom) && !empty($bookingRoom->start_date)){{$bookingRoom->start_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 thúc:</label>
                             <div class="input-group date">
                                 <input type="text" id="end_date"
-                                       class="form-control datetime-picker"
+                                       class="form-control  form-control-sm datetime-picker"
                                        value="@if(!empty($bookingRoom) && !empty($bookingRoom->end_date) && $bookingRoom->rent_type == 1){{$bookingRoom->end_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
                             </div>
                         </div>
@@ -58,12 +58,12 @@
 
                 @if(!empty($bookingRoom))
                     <div class="col-md-12 mt-3">
-                        <button class="btn btn-success btn-add-customer">Thêm khách hàng</button>
+                        <button class="btn btn-sm btn-success btn-add-customer">Thêm khách hàng</button>
                     </div>
                 @endif
             </div>
             <div class="col-md-5">
-                <table class="table table-bordered table-hover">
+                <table class="table table-sm table-bordered table-hover">
                     <thead>
                     <tr>
                         <th scope="col">Tên dịch vụ</th>
@@ -106,7 +106,7 @@
                     @endif
                     </tbody>
                 </table>
-                <table class="table table-bordered table-hover">
+                <table class="table table-sm table-bordered table-hover">
                     <thead>
                     <tr>
                         <th scope="col">Tên khách hàng̣</th>
@@ -160,7 +160,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input type="text" class="form-control price" name="price" id="price"
+                        <input type="text" class="form-control  form-control-sm price" name="price" id="price"
                                value="@if(!empty($bookingRoom)){!! $bookingRoom->price ??0 !!}@endif" min="0">
                         <div class="input-group-append">
                             <span class="input-group-text">đ</span>
@@ -175,7 +175,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input type="text" class="form-control extra_price" name="extra_price" id="extra_price"
+                        <input type="text" class="form-control  form-control-sm extra_price" name="extra_price" id="extra_price"
                                value="@if(!empty($bookingRoom)){!! $bookingRoom->extra_price ?? 0 !!}@endif" min="0">
                         <div class="input-group-append">
                             <span class="input-group-text">đ</span>
@@ -184,12 +184,12 @@
                 </div>
                 <div class="col-md-12 mt-3">
                     <label for="price" class="form-label">Ghi chú:</label>
-                    <textarea name="note" class="form-control note" cols="30" rows="2"
+                    <textarea name="note" class="form-control  form-control-sm note" cols="30" rows="2"
                               placeholder="Ghi chú">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
                 </div>
             </div>
             <div class="col-md-5">
-                <table class="table table-bordered table-hover">
+                <table class="table table-sm table-bordered table-hover">
                     <thead>
                     <tr>
                         <th scope="col">Tên dịch vụ</th>
@@ -230,11 +230,11 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
                 Đóng
             </button>
             @if(!empty($bookingRoom))
-                <button type="button" class="btn btn-default btn-success btn-update"
+                <button type="button" class="btn btn-sm btn-default btn-success btn-update"
                         data-booking_room_id="{{$bookingRoom->id}}">
                     Cập nhật
                 </button>
@@ -243,13 +243,13 @@
                 $bookingRoomCleaning = $room->bookingRooms()->where('status', 2)->first();
             @endphp
             @if(!empty($bookingRoomCleaning ))
-                <a href="{{route('booking-room.show_invoice',['id' => $bookingRoomCleaning->id])}}" target="_blank" class="btn btn-default btn-success">
+                <a href="{{route('booking-room.show_invoice',['id' => $bookingRoomCleaning->id])}}" target="_blank" class="btn btn-sm btn-default btn-success">
                     Xem hóa đơn
                 </a>
             @endif
             <button data-bg="{{$room->getBgButton()}}" type="submit"
                     @if($room->status != \App\Models\Room::READY) data-action="{{route('room.change-status', ['room_id' => $room->id])}}"
-                    @endif class="btn btn-{{$room->getBgButton()}} @if($room->status == \App\Models\Room::READY) btn-booking-room @else btn-change-status @endif">{{$room->getTextButton()}}</button>
+                    @endif class="btn btn-sm btn-{{$room->getBgButton()}} @if($room->status == \App\Models\Room::READY) btn-booking-room @else btn-change-status @endif">{{$room->getTextButton()}}</button>
         </div>
     </div>
 </div>

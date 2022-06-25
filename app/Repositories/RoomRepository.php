@@ -57,6 +57,11 @@ class RoomRepository extends ModelRepository
         return $this->model->find($request->room_id);
     }
 
+    public function findByTypeRoomId($type_room_id)
+    {
+        return $this->model->where('type_room_id', $type_room_id)->exists();
+    }
+
     public function changeStatus($request)
     {
         $room = $this->model->find($request->room_id);
@@ -93,7 +98,8 @@ class RoomRepository extends ModelRepository
             'day_price'  => $request->day_price,
             'hour_price' => $request->hour_price,
             'status'     => $request->status,
-            'user_id'    => \Auth::user()->id
+            'user_id'    => \Auth::user()->id,
+            'type_room_id' => $request->type ?? null
         ]);
     }
 
@@ -106,6 +112,7 @@ class RoomRepository extends ModelRepository
             'day_price'  => $request->day_price ?? 0,
             'hour_price' => $request->hour_price ?? 0,
             'status'     => $request->status ?? 0,
+            'type_room_id' => $request->type ?? null
         ]);
     }
 }

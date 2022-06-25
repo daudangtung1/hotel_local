@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Event;
 
 class Room extends Model
 {
@@ -34,7 +35,8 @@ class Room extends Model
         'type',
         'hour_price',
         'day_price',
-        'user_id'
+        'user_id',
+        'type_room_id'
     ];
 
     /**
@@ -96,5 +98,20 @@ class Room extends Model
             default:
                 return 'Dọn xong';
         }
+    }
+
+    public static function boot() {
+        parent::boot();
+        static::created(function($item) {
+            create_log('Tạo mới phòng');
+        });
+
+        static::updated(function($item) {
+            create_log('Cập nhật phòng');
+        });
+
+        static::deleted(function($item) {
+            create_log('Xóa phòng');
+        });
     }
 }

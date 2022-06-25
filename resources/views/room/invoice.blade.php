@@ -34,7 +34,7 @@
                                 <div class="row gutters">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                         <div class="custom-actions-btns mb-5"><a href="#"
-                                                                                 class="btn btn-secondary noPrint" onclick="window.print();" >
+                                                                                 class="btn btn-sm btn-secondary noPrint" onclick="window.print();" >
                                                 <i class="icon-printer"></i> In hóa đơn </a></div>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                                 <div class="row gutters">
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <div class="table-responsive">
-                                            <table class="table custom-table m-0">
+                                            <table class="table table-sm custom-table m-0">
                                                 <thead>
                                                 <tr>
                                                     <th>Dịch vụ</th>

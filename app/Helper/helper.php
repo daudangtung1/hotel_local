@@ -7,4 +7,9 @@ function get_price($price, $suffixes = '')
     return number_format($price) . ' ' . $suffixes;
 }
 
+function create_log($subject)
+{
+    \App\Repositories\LogRepository::instance()->store($subject);
+}
+
 ?>
