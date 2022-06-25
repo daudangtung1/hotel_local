@@ -1,5 +1,5 @@
 @php
-    $bookingRoom = $room->bookingRooms()->where('status', 1)->first();
+    $bookingRoom = $room->bookingRooms()->whereIn('status', [1,3,5])->where('status', '<>', 7)->first();
 @endphp
 <div class="modal-dialog modal-xl">
     <div class="modal-content">
@@ -65,7 +65,7 @@
             <div class="col-md-5">
                 @if($bookingRoom)
                     <input type="hidden" name="booking_room_id" value="{{$bookingRoom->id}}">
-                    @if($room->bookingRooms()->where('status', 1)->first()->bookingRoomServices()->count() > 0)
+                    @if($bookingRoom->bookingRoomServices()->count() > 0)
                         <table class="table table-sm table-bordered table-hover">
                             <thead>
                             <tr>
@@ -76,7 +76,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse($room->bookingRooms()->where('status', 1)->first()->bookingRoomServices()->get() as $key => $bookingRoomService)
+                            @forelse($bookingRoom->bookingRoomServices()->get() as $key => $bookingRoomService)
                                 <tr>
                                     <td>
                                         {{$bookingRoomService->service->name ??''}}
@@ -127,7 +127,7 @@
                                 @if($bookingRoom->bookingRoomCustomers()->count() > 1)
                                     <td>
                                         <a href="{{route('booking-room-customers.destroy', ['booking_room_customer' => $bookingRoomCustomer])}}"
-                                           class="btn-ajax-delete-customer btn btn-danger  btn-sm ">
+                                           class="btn-ajax-delete-customer text-danger  btn-sm ">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                  fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                 <path
@@ -199,6 +199,20 @@
                     <textarea name="note" class="form-control  form-control-sm note" cols="30" rows="2"
                               placeholder="Ghi chú">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
                 </div>
+                @if(!empty($bookingRoom) && in_array($bookingRoom->status, [1,3,5]))
+                    <div class="col-md-12 mt-3">
+                        <label for="price" class="form-label">Tình trạng:</label>
+                        <select name="booking_room_status" id="booking_room_status" class="form-control">
+                            <option value="" selected>Không</option>
+                            @foreach(\App\Models\Room::ARRAY_STATUS as $key => $status)
+                                @if(!in_array($key, [1,2,0,4]))
+                                    <option @if($bookingRoom->status == $key) selected
+                                            @endif value="{{$key}}">{{$status}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
             </div>
             <div class="col-md-5">
                 <table class="table table-sm table-bordered table-hover">
@@ -262,7 +276,7 @@
             @endif
             <button data-bg="{{$room->getBgButton()}}" type="submit"
                     @if($room->status != \App\Models\Room::READY) data-action="{{route('room.change-status', ['room_id' => $room->id])}}"
-                    @endif class="btn btn-sm btn-{{$room->getBgButton()}} @if($room->status == \App\Models\Room::READY) btn-booking-room @else btn-change-status @endif">{{$room->getTextButton()}}</button>
+                    @endif class="btn btn-sm btn-{{$room->getBgButtonSubmit()}} @if($room->status == \App\Models\Room::READY) btn-booking-room @else btn-change-status @endif">{{$room->getTextButton()}}</button>
         </div>
     </div>
 </div>

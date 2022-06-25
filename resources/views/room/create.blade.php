@@ -39,9 +39,9 @@
                         @forelse($typeRooms as $key => $typeRoom)
                             <tr>
                                 <td>{{$typeRoom->name ??''}}</td>
-                                <td style="width:80px">
+                                <td style="width:40px">
                                     <div class="d-flex">
-                                        <a class="btn btn-sm btn-warning mr-2 d-inline-block" style="margin-right: 5px;"
+                                        <a class=" text-warning mr-2 d-inline-block" style="margin-right: 5px;"
                                            href="{{route('type-rooms.edit',['type_room' => $typeRoom])}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                  fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -52,7 +52,7 @@
                                         <form action="{{route('type-rooms.destroy',['type_room' => $typeRoom])}}" method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
-                                            <a href="" class="btn-ajax-delete btn btn-danger  btn-sm ">
+                                            <a href="" class="btn-ajax-delete text-danger  btn-sm ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                      fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                     <path
@@ -160,9 +160,9 @@
                                 <td>{{get_price($room->hour_price, 'đ') ??''}}</td>
                                 <td>{{get_price($room->day_price, 'đ') ??''}}</td>
                                 <td><span class="badge badge-light bg-{{$room->getBgButton()}}">{{\App\Models\Room::ARRAY_STATUS[$room->status ?? 0]}}</span></td>
-                                <td style="width:80px">
+                                <td style="width:40px">
                                     <div class="d-flex">
-                                        <a class="btn btn-sm btn-warning mr-2 d-inline-block" style="margin-right: 5px;"
+                                        <a class=" text-warning mr-2 d-inline-block" style="margin-right: 5px;"
                                            href="{{route('rooms.edit',['room' => $room])}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                  fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -173,7 +173,7 @@
                                         <form action="{{route('rooms.destroy',['room' => $room])}}" method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
-                                            <a href="" class="btn-ajax-delete btn btn-danger  btn-sm ">
+                                            <a href="" class="btn-ajax-delete text-danger  btn-sm ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                      fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                     <path

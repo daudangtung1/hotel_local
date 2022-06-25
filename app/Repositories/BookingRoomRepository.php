@@ -59,7 +59,7 @@ class BookingRoomRepository extends ModelRepository
 
     public function getHistory()
     {
-        return $this->bookingRoom->where('status', 3)->orderBy('start_date', 'ASC')->paginate(10);
+        return $this->bookingRoom->where('status', $this->room::CLOSED)->orderBy('start_date', 'ASC')->paginate(10);
     }
 
     public function getAllRoomsBooking()
@@ -222,11 +222,18 @@ class BookingRoomRepository extends ModelRepository
 
     public function updateBookingRoom($request)
     {
-        $this->bookingRoom->where('id', $request->booking_room_id)->update([
+        $data = [
             'note'        => $request->note ?? '',
             'price'       => $request->price ?? 0,
             'extra_price' => $request->extra_price ?? 0,
-        ]);
+        ];
+
+        if(!empty($request->booking_room_status) && $request->booking_room_status > 0) {
+            $this->room->where('id',$request->room_id)->update(['status' => $request->booking_room_status]);
+            $data['status'] = $request->booking_room_status;
+        }
+
+        $this->bookingRoom->where('id', $request->booking_room_id)->update($data);
     }
 
     function firstOrFail($request)

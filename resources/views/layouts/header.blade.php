@@ -57,7 +57,7 @@
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{route('users.edit',['user' => auth()->user()])}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/doimatkhau.png"></a>
                                     <span>Đổi mật khẩu</span>
                                 </li>

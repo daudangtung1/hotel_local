@@ -16,6 +16,7 @@ class Room extends Model
     const CLEAN_ROOM = 4;
     const FIXING_ROOM = 5;
     const BOOKED = 6;
+    const CLOSED = 7;
     const ARRAY_STATUS = [
         self::READY => "Sẵn sàng",
         self::HAVE_GUEST => "Có khách",
@@ -90,14 +91,48 @@ class Room extends Model
 
     public function getTextButton()
     {
-        switch ($this->status) {
-            case self::READY:
-                return 'Đặt phòng';
-            case self::HAVE_GUEST:
-                return 'Trả phòng';
-            default:
-                return 'Dọn xong';
+        if ($this->status == 0) {
+            return 'Đặt phòng';
+        } else if ($this->status == 1) {
+            return 'Trả phòng';
+        } else if ($this->status == 2) {
+            return 'Dọn xong';
+        } else if (in_array($this->status, [3, 5])) {
+            return 'Trả phòng';
+        } else {
+
         }
+    }
+
+    public function getBgButtonSubmit()
+    {
+        if ($this->status == 0) {
+            return 'primary';
+        } else if ($this->status == 1) {
+            return 'success';
+        } else if ($this->status == 2) {
+            return 'danger';
+        } else if (in_array($this->status, [3, 5])) {
+            return 'success';
+        } else {
+
+        }
+//        switch ($this->status) {
+//            case self::READY:
+//                return 'primary';
+//            case self::HAVE_GUEST:
+//                return 'success';
+//            case self::GUEST_OUTDOOR:
+//                return 'info';
+//            case self::DIRTY:
+//                return 'danger';
+//            case self::CLEAN_ROOM:
+//                return 'warning';
+//            case self::BOOKED  :
+//                return 'light';
+//            default:
+//                return 'secondary';
+//        }
     }
 
     public static function boot() {

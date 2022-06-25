@@ -6,6 +6,7 @@ use App\Models\Room;
 use App\Models\User;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class AccountRepository
@@ -15,43 +16,23 @@ use DB;
 class UserRepository extends ModelRepository
 {
     protected $model;
+    protected $room;
     private static $instance;
 
-    public function __construct(User $model)
+    public function __construct(User $model, Room $room)
     {
         $this->model = $model;
+        $this->room = $room;
     }
 
     public function getAll()
     {
-        return $this->model->orderBy('ID', 'DESC')->paginate(10);
+        return $this->model->orderBy('ID', 'DESC')->where('id', '<>', Auth::user()->id)->paginate(10);
     }
 
     public function find($request)
     {
         return $this->model->find($request->user_id);
-    }
-
-    public function changeStatus($request)
-    {
-        $room = $this->model->find($request->user_id);
-
-        if (!in_array($room->status, [1, 2])) {
-            return 'Trạng thái phòng không hợp lệ.';
-        }
-
-        if (!empty($room)) {
-            if ($room->status == 1) {
-                $room->update(['status' => $this->model::DIRTY]);
-                $room->bookingRooms()->where('status', 1)->update(['status' => 2, 'checkout_date' => Carbon::now()]);
-            } else if ($room->status == 2) {
-                $room->update(['status' => $this->model::READY]);
-                $room->bookingRooms()->where('status', 2)->update([
-                    'status' => 3,
-                ]);
-            }
-        }
-        return true;
     }
 
     public function delete($user_id)

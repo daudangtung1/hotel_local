@@ -550,7 +550,7 @@
             var price = modal.find('.price').val();
             var rentType = modal.find('input[name="rent_type"]:checked').val();
             var extraPrice = modal.find('input[name="extra_price"]').val();
-            console.log(rentType);
+            var bookingRoomStatus = modal.find('#booking_room_status').val();
 
             $.ajax({
                 type: "POST",
@@ -562,6 +562,7 @@
                     room_id: roomId,
                     rent_type: rentType,
                     extra_price: extraPrice,
+                    booking_room_status: bookingRoomStatus,
                 },
                 success: function (data) {
                     _this.closest('.modal').find('.modal-dialog').html(data);

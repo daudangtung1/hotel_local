@@ -34,9 +34,9 @@
                                         @endforeach
                                     </td>
                                     <td>{{$bookingRoom->note ?? ''}}</td>
-                                    <td style="width:80px">
+                                    <td style="width:40px">
                                         <div class="d-flex">
-                                            <a class="btn btn-sm btn-warning mr-2 d-inline-block" style="margin-right: 5px;"
+                                            <a class=" text-warning mr-2 d-inline-block" style="margin-right: 5px;"
                                                href="{{route('booking-room.edit',['booking_room' => $bookingRoom])}}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                      fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -47,7 +47,7 @@
                                             <form action="{{route('booking-room.destroy',['booking_room' => $bookingRoom])}}" method="POST">
                                                 @csrf
                                                 {{ method_field('DELETE') }}
-                                                <a href="" class="btn-ajax-delete btn btn-danger  btn-sm ">
+                                                <a href="" class="btn-ajax-delete text-danger  btn-sm ">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                          fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                         <path

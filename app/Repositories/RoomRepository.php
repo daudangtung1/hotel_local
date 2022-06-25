@@ -66,21 +66,27 @@ class RoomRepository extends ModelRepository
     {
         $room = $this->model->find($request->room_id);
 
-        if (!in_array($room->status, [1, 2])) {
-            return 'Trạng thái phòng không hợp lệ.';
-        }
+//        if (!in_array($room->status, [1, 2])) {
+//            return 'Trạng thái phòng không hợp lệ.';
+//        }
 
-        if (!empty($room)) {
-            if ($room->status == 1) {
+        if (!empty($room) && $room->status > 0) {
+            if ($room->status == $this->model::HAVE_GUEST) {
                 $room->update(['status' => $this->model::DIRTY]);
-                $room->bookingRooms()->where('status', 1)->update(['status' => 2, 'checkout_date' => Carbon::now()]);
-            } else if ($room->status == 2) {
-                $room->update(['status' => $this->model::READY]);
-                $room->bookingRooms()->where('status', 2)->update([
-                    'status' => 3,
+                $room->bookingRooms()->where('status', $this->model::HAVE_GUEST)->update([
+                    'status'        => $this->model::DIRTY,
+                    'checkout_date' => Carbon::now()
                 ]);
+            } else if (in_array($room->status, [2, 3, 5])) {
+                $room->update(['status' => $this->model::READY]);
+                $room->bookingRooms()->whereIn('status',[2, 3, 5])->update([
+                    'status' => $this->model::CLOSED,
+                ]);
+            } else {
+
             }
         }
+
         return true;
     }
 
@@ -92,13 +98,13 @@ class RoomRepository extends ModelRepository
     public function store($request)
     {
         return $this->model->create([
-            'name'       => $request->name,
-            'floor'      => $request->floor,
-            'type'       => $request->type,
-            'day_price'  => $request->day_price,
-            'hour_price' => $request->hour_price,
-            'status'     => $request->status,
-            'user_id'    => \Auth::user()->id,
+            'name'         => $request->name,
+            'floor'        => $request->floor,
+            'type'         => $request->type,
+            'day_price'    => $request->day_price,
+            'hour_price'   => $request->hour_price,
+            'status'       => $request->status,
+            'user_id'      => \Auth::user()->id,
             'type_room_id' => $request->type ?? null
         ]);
     }
@@ -106,12 +112,12 @@ class RoomRepository extends ModelRepository
     public function update($request)
     {
         return $this->model->where('id', $request->room_id)->update([
-            'name'       => $request->name ?? '',
-            'floor'      => $request->floor ?? '',
-            'type'       => $request->type ?? 0,
-            'day_price'  => $request->day_price ?? 0,
-            'hour_price' => $request->hour_price ?? 0,
-            'status'     => $request->status ?? 0,
+            'name'         => $request->name ?? '',
+            'floor'        => $request->floor ?? '',
+            'type'         => $request->type ?? 0,
+            'day_price'    => $request->day_price ?? 0,
+            'hour_price'   => $request->hour_price ?? 0,
+            'status'       => $request->status ?? 0,
             'type_room_id' => $request->type ?? null
         ]);
     }
