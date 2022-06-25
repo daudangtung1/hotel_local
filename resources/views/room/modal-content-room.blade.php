@@ -63,79 +63,90 @@
                 @endif
             </div>
             <div class="col-md-5">
-                <table class="table table-sm table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">Tên dịch vụ</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col">Tổng tiền</th>
-                        <th>Hành động</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @if($bookingRoom)
-                        @forelse($room->bookingRooms()->where('status', 1)->first()->bookingRoomServices()->get() as $key => $bookingRoomService)
+                @if($bookingRoom)
+                    <input type="hidden" name="booking_room_id" value="{{$bookingRoom->id}}">
+                    @if($room->bookingRooms()->where('status', 1)->first()->bookingRoomServices()->count() > 0)
+                        <table class="table table-sm table-bordered table-hover">
+                            <thead>
                             <tr>
-                                <td>
-                                    {{$bookingRoomService->service->name ??''}}
-                                    <input type="hidden" name="booking_room_id" value="{{$bookingRoom->id}}">
-                                </td>
-                                <td>{{$bookingRoomService->quantity ?? ''}}</td>
-                                <td>{{get_price(($bookingRoomService->price ?? 0) * ($bookingRoomService->quantity ?? 0), 'đ') ??''}}</td>
-                                <td>
-                                    <a href="{{route('booking-room-service.destroy',['booking_room_service' => $bookingRoomService])}}"
-                                       class="btn-remove-service"
-                                       data-booking_room_service_id="{{$bookingRoomService->id}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             width="16" height="16" fill="currentColor"
-                                             class="bi bi-trash3" viewBox="0 0 16 16">
-                                            <path
-                                                d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                                        </svg>
-                                    </a></td>
+                                <th scope="col">Tên dịch vụ</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Tổng tiền</th>
+                                <th></th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4">Không có dịch vụ nào</td>
-                            </tr>
-                        @endforelse
-                    @else
-                        <tr>
-                            <td colspan="4">Không có dịch vụ nào</td>
-                        </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($room->bookingRooms()->where('status', 1)->first()->bookingRoomServices()->get() as $key => $bookingRoomService)
+                                <tr>
+                                    <td>
+                                        {{$bookingRoomService->service->name ??''}}
+                                    </td>
+                                    <td>{{$bookingRoomService->quantity ?? ''}}</td>
+                                    <td>{{get_price(($bookingRoomService->price ?? 0) * ($bookingRoomService->quantity ?? 0), 'đ') ??''}}</td>
+                                    <td>
+                                        <a href="{{route('booking-room-service.destroy',['booking_room_service' => $bookingRoomService])}}"
+                                           class="btn-remove-service"
+                                           data-booking_room_service_id="{{$bookingRoomService->id}}">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 width="16" height="16" fill="currentColor"
+                                                 class="bi bi-trash3" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                            </svg>
+                                        </a></td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4">Không có dịch vụ nào</td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
                     @endif
-                    </tbody>
-                </table>
-                <table class="table table-sm table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">Tên khách hàng̣</th>
-                        <th scope="col">Số giấy tờ</th>
-                        <th scope="col">Điện thoại</th>
-                        <th>Địa chỉ</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @if($room->bookingRooms()->where('status', 1)->first())
-                        @forelse($room->bookingRooms()->where('status', 1)->first()->bookingRoomCustomers()->get() as $key => $bookingRoomCustomer)
+                @endif
+                @if(!empty($bookingRoom))
+                    <table class="table table-sm table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Tên khách hàng̣</th>
+                            <th scope="col">Số giấy tờ</th>
+                            <th scope="col">Điện thoại</th>
+                            <th>Địa chỉ</th>
+                            @if($bookingRoom->bookingRoomCustomers()->count() > 1)
+                                <th></th>
+                            @endif
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($bookingRoom->bookingRoomCustomers()->get() as $key => $bookingRoomCustomer)
                             <tr>
                                 <td>{{$bookingRoomCustomer->Customer->name ??''}}</td>
                                 <td>{{$bookingRoomCustomer->Customer->id_card ??''}}</td>
                                 <td>{{$bookingRoomCustomer->Customer->phone ??''}}</td>
                                 <td>{{$bookingRoomCustomer->Customer->address ??''}}</td>
+                                @if($bookingRoom->bookingRoomCustomers()->count() > 1)
+                                    <td>
+                                        <a href="{{route('booking-room-customers.destroy', ['booking_room_customer' => $bookingRoomCustomer])}}"
+                                           class="btn-ajax-delete-customer btn btn-danger  btn-sm ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                <path fill-rule="evenodd"
+                                                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">Không có khách hàng nào</td>
+                                <td colspan="5">Không có khách hàng nào</td>
                             </tr>
                         @endforelse
-                    @else
-                        <tr>
-                            <td colspan="4">Không có khách hàng nào</td>
-                        </tr>
-                    @endif
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                @endif
                 @if(empty($bookingRoom))
                     <div class="col-md-12 mt-3">
                         <div class="form-check">
@@ -175,7 +186,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input type="text" class="form-control  form-control-sm extra_price" name="extra_price" id="extra_price"
+                        <input type="text" class="form-control  form-control-sm extra_price" name="extra_price"
+                               id="extra_price"
                                value="@if(!empty($bookingRoom)){!! $bookingRoom->extra_price ?? 0 !!}@endif" min="0">
                         <div class="input-group-append">
                             <span class="input-group-text">đ</span>
@@ -196,7 +208,7 @@
                         <th scope="col">Tồn kho</th>
                         <th scope="col">Giá</th>
                         @if($bookingRoom)
-                            <th>Hành động</th>
+                            <th></th>
                         @endif
                     </tr>
                     </thead>
@@ -243,7 +255,8 @@
                 $bookingRoomCleaning = $room->bookingRooms()->where('status', 2)->first();
             @endphp
             @if(!empty($bookingRoomCleaning ))
-                <a href="{{route('booking-room.show_invoice',['id' => $bookingRoomCleaning->id])}}" target="_blank" class="btn btn-sm btn-default btn-success">
+                <a href="{{route('booking-room.show_invoice',['id' => $bookingRoomCleaning->id])}}" target="_blank"
+                   class="btn btn-sm btn-default btn-success">
                     Xem hóa đơn
                 </a>
             @endif

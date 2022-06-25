@@ -57,6 +57,11 @@ class BookingRoomRepository extends ModelRepository
         return $data;
     }
 
+    public function getHistory()
+    {
+        return $this->bookingRoom->where('status', 3)->orderBy('start_date', 'ASC')->paginate(10);
+    }
+
     public function getAllRoomsBooking()
     {
         return $this->bookingRoom->where('status', 6)->orderBy('start_date', 'ASC')->get();
@@ -196,6 +201,9 @@ class BookingRoomRepository extends ModelRepository
         $data = [];
         foreach ($rooms as $room) {
             $bookingRoom = $room->bookingRooms()->orderBy('id', 'DESC')->first();
+            if (empty($bookingRoom)) {
+                continue;
+            }
             $data[] = [
                 'room_id'    => $room->id,
                 'start_date' => $bookingRoom->getTimeStartDate() . ' ' . $bookingRoom->getDateStartDate(),
@@ -220,7 +228,6 @@ class BookingRoomRepository extends ModelRepository
             'extra_price' => $request->extra_price ?? 0,
         ]);
     }
-
 
     function firstOrFail($request)
     {

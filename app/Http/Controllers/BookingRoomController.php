@@ -54,35 +54,18 @@ class BookingRoomController extends Controller
         return view('room.model-booking-room', compact('floors', 'bookingRooms'))->render();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function getHistory(Request $request)
     {
-        //
+        $bookingRooms = $this->bookingRoomRepository->getHistory();
+
+        return view('booking-room.history', compact('bookingRooms'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
     }

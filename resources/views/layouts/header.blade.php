@@ -32,15 +32,15 @@
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{route('services.create')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/nhaphang.png"></a>
                                     <span>Nhập hàng</span>
                                 </li>
-                                <li>
-                                    <a href="{{route('services.create')}}"><img class="image-svg" alt=""
-                                                                                src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/banhang.png"></a>
-                                    <span>Bán hàng</span>
-                                </li>
+{{--                                <li>--}}
+{{--                                    <a href="{{route('services.create')}}"><img class="image-svg" alt=""--}}
+{{--                                                                                src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/banhang.png"></a>--}}
+{{--                                    <span>Bán hàng</span>--}}
+{{--                                </li>--}}
                             </ul>
                             <span class="text_tlc">Quản lý kho</span>
                         </div>
@@ -208,7 +208,7 @@
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{route('customers.index')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/danhsach01.png"></a>
                                     <span>Danh sách</span>
                                 </li>
@@ -331,11 +331,11 @@
                             </ul>
                             <span class="text_tlc">Thiết lập chung</span>
                         </div>
-                        <div class="ql_tk">
-                            <a href="#"><img class="image-svg" alt=""
-                                             src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/sos.png"></a>
-                            <span>SOS</span>
-                        </div>
+{{--                        <div class="ql_tk">--}}
+{{--                            <a href="#"><img class="image-svg" alt=""--}}
+{{--                                             src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/sos.png"></a>--}}
+{{--                            <span>SOS</span>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
                 <div class="info-content @if(!empty($menuHelp)) active  @endif">
@@ -355,26 +355,26 @@
                             </ul>
                             <span class="text_tlc">Thông tin sử dụng</span>
                         </div>
-                        <div class="ql_tk tl_chung">
-                            <ul>
-                                <li>
-                                    <a href="#"><img class="image-svg" alt=""
-                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/phanmem01.png"></a>
-                                    <span>Phần mềm</span>
-                                </li>
-                                <li>
-                                    <a href="#"><img class="image-svg" alt=""
-                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/banquyen.png"></a>
-                                    <span>Bản quyền</span>
-                                </li>
-                                <li>
-                                    <a href="#"><img class="image-svg" alt=""
-                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/capnhat.png"></a>
-                                    <span>Cập nhật</span>
-                                </li>
-                            </ul>
-                            <span class="text_tlc">Thông tin phần mềm</span>
-                        </div>
+{{--                        <div class="ql_tk tl_chung">--}}
+{{--                            <ul>--}}
+{{--                                <li>--}}
+{{--                                    <a href="#"><img class="image-svg" alt=""--}}
+{{--                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/phanmem01.png"></a>--}}
+{{--                                    <span>Phần mềm</span>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a href="#"><img class="image-svg" alt=""--}}
+{{--                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/banquyen.png"></a>--}}
+{{--                                    <span>Bản quyền</span>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a href="#"><img class="image-svg" alt=""--}}
+{{--                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/capnhat.png"></a>--}}
+{{--                                    <span>Cập nhật</span>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                            <span class="text_tlc">Thông tin phần mềm</span>--}}
+{{--                        </div>--}}
 
                         <div class="ql_tk tl_chung">
                             <ul>

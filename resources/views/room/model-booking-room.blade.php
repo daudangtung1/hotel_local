@@ -109,3 +109,17 @@
         </div>
     </div>
 </div>
+@section('script')
+    <script>
+        $(document).ready(function () {
+            var date = $('.datetime-picker');
+            if (date) {
+                date.datetimepicker({
+                    todayHighlight: true,
+                    format: 'Y-m-d H:i',
+                    startDate: new Date()
+                });
+            }
+        });
+    </script>
+@endsection

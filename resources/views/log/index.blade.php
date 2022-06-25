@@ -29,6 +29,9 @@
                             @endforeach
                         @endif
                     </table>
+                    <div class="d-flex justify-content-center mt-2 mb-2">
+                        {{ $logs->links('pagination::bootstrap-4') }}
+                    </div>
                     <script>
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {

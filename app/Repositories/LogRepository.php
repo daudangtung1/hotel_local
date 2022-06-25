@@ -35,7 +35,7 @@ class LogRepository extends ModelRepository
 
     public function getAll()
     {
-        return $this->model->orderBy('ID', 'DESC')->get();
+        return $this->model->orderBy('ID', 'DESC')->paginate(10);
     }
 
     public function find($request)

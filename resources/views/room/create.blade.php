@@ -32,7 +32,7 @@
                         <thead>
                         <tr>
                             <th scope="col">Tên loại phòng</th>
-                            <th scope="col">Thao tác</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -72,6 +72,10 @@
                         @endforelse
                         </tbody>
                     </table>
+
+                    <div class="d-flex justify-content-center mt-2 mb-2">
+                        {{ $typeRooms->links('pagination::bootstrap-4') }}
+                    </div>
                 </div>
             </div>
             <hr>
@@ -130,6 +134,9 @@
                         <div class="col-12">
                             <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentRoom)) Cập nhật @else Tạo
                                 phòng @endif</button>
+                            @if(!empty($currentRoom))
+                                <a href="{{route('rooms.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                            @endif
                         </div>
                     </form>
                 </div>
@@ -142,7 +149,7 @@
                             <th scope="col">Giá / giờ</th>
                             <th scope="col">Giá / ngày</th>
                             <th scope="col">Tình trạng</th>
-                            <th scope="col">Thao tác</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -186,6 +193,9 @@
                         @endforelse
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center mt-2 mb-2">
+                        {{ $rooms->links('pagination::bootstrap-4') }}
+                    </div>
                     <script>
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {

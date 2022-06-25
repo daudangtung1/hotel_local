@@ -32,7 +32,7 @@ class RoomRepository extends ModelRepository
 
     public function getAll($sortByFloor = true)
     {
-        $rooms = $this->model->orderBy('floor', 'ASC')->whereNotNull('floor')->get();
+        $rooms = $this->model->orderBy('floor', 'ASC')->whereNotNull('floor')->paginate(10);
         if (!$sortByFloor) {
             return $rooms;
         }

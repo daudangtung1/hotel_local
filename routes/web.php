@@ -22,14 +22,20 @@ Route::get('/', function () {
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::resources([
-        'rooms'                => \App\Http\Controllers\RoomController::class,
-        'users'                => \App\Http\Controllers\UserController::class,
-        'services'             => \App\Http\Controllers\ServiceController::class,
-        'logs'                 => \App\Http\Controllers\LogController::class,
-        'type-rooms'           => \App\Http\Controllers\TypeRoomController::class,
-        'booking-room'         => \App\Http\Controllers\BookingRoomController::class,
-        'booking-room-service' => \App\Http\Controllers\BookingRoomServiceController::class,
+        'rooms'                  => \App\Http\Controllers\RoomController::class,
+        'users'                  => \App\Http\Controllers\UserController::class,
+        'services'               => \App\Http\Controllers\ServiceController::class,
+        'logs'                   => \App\Http\Controllers\LogController::class,
+        'type-rooms'             => \App\Http\Controllers\TypeRoomController::class,
+        'booking-room'           => \App\Http\Controllers\BookingRoomController::class,
+        'booking-room-service'   => \App\Http\Controllers\BookingRoomServiceController::class,
+        'booking-room-customers' => \App\Http\Controllers\BookingRoomCustomerController::class,
+        'customers'              => \App\Http\Controllers\CustomersController::class,
     ]);
+
+    Route::get('history', [\App\Http\Controllers\BookingRoomController::class, 'getHistory'])->name('booking-room.history');
+
+
     Route::POST('room/change-status/{room_id}', [\App\Http\Controllers\RoomController::class, 'changeStatus'])->name('room.change-status');
     Route::get('room/get-minutes', [\App\Http\Controllers\RoomController::class, 'getMinutes'])->name('rooms.getMinutes');
     Route::post('booking-room/update-note', [\App\Http\Controllers\BookingRoomController::class, 'updateNote'])->name('booking-room.update_note');

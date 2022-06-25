@@ -23,10 +23,10 @@ class ServiceController extends Controller
 
     public function create()
     {
-        $menuSetup = true;
+        $menuSystem = true;
         $services = $this->serviceRepository->getAll();
         $currentItem = null;
-        return view('service.create', compact('menuSetup', 'services', 'currentItem'));
+        return view('service.create', compact('menuSystem', 'services', 'currentItem'));
     }
 
     public function store(Request $request)

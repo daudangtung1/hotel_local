@@ -8,54 +8,41 @@
                 </div>
                 <div class="col-md-4">
                     <form class="row g-3" method="POST"
-                          action="@if(!empty($currentItem)){{route('users.update', ['user'=>$currentItem])}} @else{{route('users.store')}}@endif">
+                          action="@if(!empty($currentItem)){{route('customers.update', ['customer'=>$currentItem])}} @else{{route('customers.store')}}@endif">
                         @if(!empty($currentItem))
                             {{method_field('PUT')}}
                         @endif
-                        <input type="hidden" name="user_id" value="{{$currentItem->id ??''}}"/>
+                        <input type="hidden" name="customer_id" value="{{$currentItem->id ??''}}"/>
                         @csrf
                         <div class="col-md-12">
-                            <label for="name" class="form-label">Tên tài khoản</label>
+                            <label for="name" class="form-label">Tên</label>
                             <input type="text" class="form-control  form-control-sm" id="name" name="name"
-                                   value="{{$currentItem->name ??''}}" required @if(!empty($currentItem)) readonly @endif>
+                                   value="{{$currentItem->name ??''}}" required
+                                   @if(!empty($currentItem)) readonly @endif>
                         </div>
                         <div class="col-md-12">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control  form-control-sm" id="email" name="email"
-                                   value="{{$currentItem->email ??''}}" required>
+                            <label for="id_card" class="form-label">CMND</label>
+                            <input type="text" class="form-control  form-control-sm" id="id_card" name="id_card"
+                                   value="{{$currentItem->id_card ??''}}" required>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="phone" class="form-label">Điện thoại</label>
+                            <input type="text" class="form-control  form-control-sm" id="phone" name="phone"
+                                   value="{{$currentItem->phone ??''}}" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="password" class="form-label">Mật khẩu</label>
-                            <input type="password" class="form-control  form-control-sm" id="password" name="password"
-                                   value="" minlength="6">
-                        </div>
-                        <div class="col-md-12">
-                            <label for="re_password" class="form-label">Xác nhận mật khẩu</label>
-                            <input type="password" class="form-control  form-control-sm" id="re_password" name="re_password"
-                                   value="" minlength="6">
+                            <label for="address" class="form-label">Địa chỉ</label>
+                            <input type="text" class="form-control  form-control-sm" id="address" name="address"
+                                   value="{{$currentItem->address ??''}}" required>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentItem)) Cập nhật @else Tạo
-                                phòng @endif</button>
+                            <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentItem)) Cập nhật @else
+                                    Tạo khách hàng @endif</button>
                             @if(!empty($currentItem))
-                                <a href="{{route('users.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                                <a href="{{route('customers.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
                             @endif
                         </div>
-                        <script>
-                            var password = document.getElementById("password");
-                            var confirm_password = document.getElementById("re_password");
-
-                            function validatePassword() {
-                                if (password.value != confirm_password.value) {
-                                    confirm_password.setCustomValidity("Passwords Don't Match");
-                                } else {
-                                    confirm_password.setCustomValidity('');
-                                }
-                            }
-
-                            password.onchange = validatePassword;
-                            confirm_password.onkeyup = validatePassword;
-                        </script>
                     </form>
                 </div>
                 <div class="col-md-8">
@@ -63,26 +50,31 @@
                         <thead>
                         <tr>
                             <th scope="col">Tên</th>
-                            <th scope="col">Email</th>
-                            <th scope="col"></th>
+                            <th scope="col">CMND/HC</th>
+                            <th scope="col">Điện thoại</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($users as $key => $user)
+                        @forelse($customers as $key => $customer)
                             <tr>
-                                <td>{{$user->name ??''}}</td>
-                                <td>{{$user->email ??''}}</td>
+                                <td>{{$customer->name ??''}}</td>
+                                <td>{{$customer->id_card ??''}}</td>
+                                <td>{{$customer->phone ??''}}</td>
+                                <td>{{$customer->address ??''}}</td>
                                 <td style="width:80px">
                                     <div class="d-flex">
                                         <a class="btn btn-sm btn-warning mr-2 d-inline-block" style="margin-right: 5px;"
-                                           href="{{route('users.edit',['user' => $user])}}">
+                                           href="{{route('customers.edit',['customer' => $customer])}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                  fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                                 <path
                                                     d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                             </svg>
                                         </a>
-                                        <form action="{{route('users.destroy',['user' => $user])}}" method="POST">
+                                        <form action="{{route('customers.destroy',['customer' => $customer])}}"
+                                              method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
                                             <a href="" class="btn-ajax-delete btn btn-danger  btn-sm ">
@@ -100,13 +92,13 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">Không có khách hàng nào</td>
+                                <td colspan="5">Không có khách hàng nào</td>
                             </tr>
                         @endforelse
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-center mt-2 mb-2">
-                        {{ $users->links('pagination::bootstrap-4') }}
+                        {{ $customers->links('pagination::bootstrap-4') }}
                     </div>
                     <script>
                         $(document).ready(function () {

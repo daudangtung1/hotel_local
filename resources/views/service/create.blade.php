@@ -32,6 +32,9 @@
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentItem)) Cập nhật @else Tạo mới @endif</buttonon>
+                                @if(!empty($currentItem))
+                                    <a href="{{route('services.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                            @endif
                         </div>
                     </form>
                 </div>
@@ -42,7 +45,7 @@
                             <th scope="col">Tên dịch vụ</th>
                             <th scope="col">Tồn kho</th>
                             <th scope="col">Giá</th>
-                            <td>Hành động</td>
+                            <td></td>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,7 +54,7 @@
                                 <td>{{$service->name ??''}}</td>
                                 <td>{{$service->stock ??''}}</td>
                                 <td>{{get_price($service->price, 'đ') ??''}}</td>
-                                <td>
+                                <td style="width: 80px">
                                     <div class="d-flex">
                                         <a class="btn btn-sm btn-warning mr-2 d-inline-block" style="margin-right: 5px;" href="{{route('services.edit',['service' => $service])}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -78,6 +81,9 @@
                         @endforelse
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center mt-2 mb-2">
+                        {{ $services->links('pagination::bootstrap-4') }}
+                    </div>
                     <script>
                         $(document).ready(function(){
                             $('body').on('click', '.btn-ajax-delete', function(e){

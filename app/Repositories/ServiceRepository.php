@@ -32,7 +32,7 @@ class ServiceRepository extends ModelRepository
 
     public function getAll()
     {
-        return $this->model->orderBy('ID', 'ASC')->get();
+        return $this->model->orderBy('ID', 'ASC')->paginate(10);
     }
 
     public function find($request)

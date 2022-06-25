@@ -115,6 +115,8 @@ body {
 .content-tab .info-content .inner-info-content .ql_tk.tl_chung ul {
 	display:flex;
 	margin:0;
+    justify-content: center;
+    width: 100%;
 }
 .content-tab .info-content .inner-info-content .ql_tk.tl_chung ul li {
 	list-style:none;

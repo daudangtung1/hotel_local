@@ -4,7 +4,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h5>Quản lý đặt phòng</h5>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5>Quản lý đặt phòng</h5>
+                        <a href="{{route('booking-room.history')}}" class="btn btn-info">Lịch sử đặt phòng</a>
+                    </div>
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                         <tr>
@@ -14,7 +17,7 @@
                             <th scope="col">Ngày trả phòng</th>
                             <th scope="col">Tên khách hàng</th>
                             <th scope="col">Ghi chú</th>
-                            <th scope="col">Hành động</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>

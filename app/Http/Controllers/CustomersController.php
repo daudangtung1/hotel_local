@@ -2,84 +2,75 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customers;
+use App\Repositories\BookingRoomRepository;
+use App\Repositories\CustomerRepository;
+use App\Repositories\RoomRepository;
+use App\Repositories\ServiceRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public $customerRepository;
+
+    public $serviceRepository;
+
+    public $userRepository;
+
+    public function __construct(customerRepository $customerRepository, UserRepository $userRepository)
     {
-        //
+        $this->userRepository = $userRepository;
+        $this->customerRepository = $customerRepository;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index(Request $request)
     {
-        //
+        $customers = $this->customerRepository->getAll();
+        $menuCategoryManager = true;
+
+        return view('customers.create', compact('customers', 'menuCategoryManager'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $result = $this->customerRepository->store($request);
+
+        if (isset($result['status']) && $result['status'] == false) {
+            return redirect()->back()->withErrors($result['message']);
+        }
+        return redirect()->back()->with('success', 'Đăng ký thành công');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Customers $customers)
+    public function edit(Request $request, $customer_id)
     {
-        //
+        $request->merge(['customer_id' => $customer_id]);
+        $currentItem = $this->customerRepository->find($request);
+
+        $menuCategoryManager = true;
+        $customers = $this->customerRepository->getAll();
+        return view('customers.create', compact('menuCategoryManager', 'customers', 'currentItem'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Customers $customers)
+    public function update(Request $request)
     {
-        //
+        $result = $this->customerRepository->update($request);
+        if (isset($result['status']) && $result['status'] == false) {
+            return redirect()->back()->withErrors($result['message']);
+        }
+
+        return redirect()->back()->with('success', 'Cập nhật thành công');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Customers $customers)
+    public function destroy(Request $request, $customer_id)
     {
-        //
-    }
+        $request->merge(['customer_id' => $customer_id]);
+        $currentItem = $this->customerRepository->find($request);
+        if (!empty($currentItem)) {
+            $currentItem->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Customers $customers)
-    {
-        //
+            return redirect()->back()->with('success', 'Đã xoá thành công');
+        }
+
+        return redirect()->back()->withErrors('Vui lòng thử lại');
     }
 }

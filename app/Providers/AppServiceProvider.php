@@ -8,6 +8,7 @@ use App\Models\Service;
 use App\Repositories\BookingRoomRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\ServiceRepository;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
 
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->load();
+        Paginator::useBootstrap();
     }
 
     public function load() {
