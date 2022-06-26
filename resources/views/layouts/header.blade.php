@@ -56,11 +56,13 @@
 {{--                        </div>--}}
                         <div class="ql_tk tl_chung">
                             <ul>
+                                @if ( auth()->check())
                                 <li>
                                     <a href="{{route('users.edit',['user' => auth()->user()])}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/doimatkhau.png"></a>
                                     <span>Đổi mật khẩu</span>
                                 </li>
+                                @endif
                                 <li>
                                     <form action="{{route('logout')}}" method="post">
                                         @csrf

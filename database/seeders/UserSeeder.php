@@ -14,8 +14,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 11; $i < 30; $i++) {
-            User::create(['name' => 'admin' . $i, 'email' => 'guest' . $i . '@gmail.com', 'email_verified_at' => now(), 'password' => bcrypt('guest@#')]);
-        }
+        // for ($i = 11; $i < 30; $i++) {
+        //     User::create(['name' => 'admin' . $i, 'email' => 'guest' . $i . '@gmail.com', 'email_verified_at' => now(), 'password' => bcrypt('guest@#')]);
+        // }
     }
 }

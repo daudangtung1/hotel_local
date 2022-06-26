@@ -8,26 +8,26 @@
         <div class="modal-body row">
             <div class="col-md-6">
                 <h5>Thông tin khách hàng</h5>
-                <div class="row mt-3">
+                <div class="row mt-3" id="form-booking-multiple">
                     <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control  form-control-sm" id="customer_name"
-                               name="customer_name" required
-                               placeholder="Tên khách hàng">
+                        <input type="text" class="form-control  form-control-sm validate" id="customer_name"
+                            name="customer_name" required
+                            placeholder="Tên khách hàng">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control  form-control-sm" id="customer_id_card"
-                               name="customer_id_card" required
-                               placeholder="Số giấy tờ">
+                        <input type="text" class="form-control  form-control-sm validate" id="customer_id_card"
+                            name="customer_id_card" required
+                            placeholder="Số giấy tờ">
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control  form-control-sm" id="customer_phone"
-                               name="customer_phone" required
-                               placeholder="Điện thoại">
+                        <input type="text" class="form-control  form-control-sm validate" id="customer_phone"
+                            name="customer_phone" required
+                            placeholder="Điện thoại">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control  form-control-sm" id="customer_address"
-                               name="customer_address" required placeholder="Địa chỉ">
+                        <input type="text" class="form-control  form-control-sm validate" id="customer_address"
+                            name="customer_address" required placeholder="Địa chỉ">
                     </div>
                     <div class="col-md-12">
                         <div class="row">
@@ -37,8 +37,8 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <input type="text" id="start_date"
-                                               class="form-control  form-control-sm datetime-picker"
-                                               value="{{\Carbon\Carbon::now()}}">
+                                            class="form-control  form-control-sm datetime-picker validate-date "
+                                            value="{{\Carbon\Carbon::now()}}">
                                     </div>
                                 </div>
                             </div>
@@ -48,9 +48,9 @@
                                 <label for="end_date" class="form-label">Thời gian kết
                                     thúc:</label>
                                 <div class="input-group date">
-                                    <input type="text" id="end_date"
-                                           class="form-control  form-control-sm datetime-picker"
-                                           value="{{\Carbon\Carbon::now()}}">
+                                    <input type="text" id="end_date" name="end_date"
+                                        class="form-control  form-control-sm datetime-picker validate-date "
+                                        value="{{\Carbon\Carbon::now()}}">
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                     <div class="col-md-12 mb-3">
                         <label for="price" class="form-label">Ghi chú:</label>
                         <textarea name="note" class="form-control  form-control-sm note" cols="30" rows="2"
-                                  placeholder="Ghi chú">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
+                                placeholder="Ghi chú">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
                     </div>
                 </div>
             </div>

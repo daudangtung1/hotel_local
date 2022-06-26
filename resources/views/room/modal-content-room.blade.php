@@ -8,26 +8,26 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
         </div>
-        <div class="modal-body row">
+        <div class="modal-body row " id="form-booking">
             <div class="col-md-2">
                 <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control  form-control-sm" id="customer_name"
+                    <input type="text" class="form-control  form-control-sm validate " id="customer_name"
                            name="customer_name" required
                            placeholder="Tên khách hàng">
                 </div>
                 <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control  form-control-sm" id="customer_id_card"
+                    <input type="text" class="form-control  form-control-sm validate " id="customer_id_card"
                            name="customer_id_card" required
                            placeholder="Số giấy tờ">
                 </div>
 
                 <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control  form-control-sm" id="customer_phone"
+                    <input type="text" class="form-control  form-control-sm validate " id="customer_phone"
                            name="customer_phone" required
                            placeholder="Điện thoại">
                 </div>
                 <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control  form-control-sm" id="customer_address"
+                    <input type="text" class="form-control  form-control-sm validate " id="customer_address"
                            name="customer_address" required placeholder="Địa chỉ">
                 </div>
                 <div class="col-md-12">
