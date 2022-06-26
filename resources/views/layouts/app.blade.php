@@ -53,6 +53,15 @@
         .max-height-300{
             max-height: 300px;
         }
+         /* ADD by Quan */
+        .boder-validate {
+            border: 1px solid #dc3545 !important;
+            
+        }
+        .boder-validate:focus {
+            outline: rgba(255, 7, 7, 0.4) solid 4px !important;
+        }
+        /* end Add */
     </style>
     <script>
         $.ajaxSetup({
@@ -157,23 +166,42 @@
                 });
                 return false;
             }
+
             if (startDate >= endDate) {
                 $.toast({
                     text: 'Vui lòng nhập kết thúc lớn hơn ngày bắt đầu',
                     icon: 'error',
                     position: 'top-right'
                 });
+                $('input[name="end_date"]').map(function () {
+                    $(this).addClass('boder-validate');
+                });
                 return false;
+            }else if(startDate < endDate) {
+                $('input[name="end_date"]').map(function () {
+                    $(this).removeClass('boder-validate');
+                });
             }
-
+            
             if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '' || startDate == '' || endDate == '') {
                 $.toast({
                     text: 'Vui lòng nhập thông tin khách hàng',
                     icon: 'error',
                     position: 'top-right'
                 });
+                
+                $("#form-booking-multiple input[type=text]").each(function () {
+                    if ($(this).hasClass('validate')) {
+                        if ($(this).val() == '') {
+                            $(this).addClass('boder-validate');
+                        } else if ($(this).hasClass('boder-validate')) {
+                            $(this).removeClass('boder-validate');
+                        }
+                    }
+                });
                 return false;
             }
+            
 
             $.ajax({
                 type: "post",
@@ -340,15 +368,25 @@
             var rentType = modal.find('input[name="rent_type"]:checked').val();
             var extraPrice = modal.find('input[name="extra_price"]').val();
 
+            
             if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '') {
                 $.toast({
                     text: 'Vui lòng nhập thông tin khách hàng',
                     icon: 'error',
                     position: 'top-right'
                 });
+                $("#form-booking input[type=text]").each(function () {
+                    if ($(this).hasClass('validate')) {
+                        if ($(this).val() == '') {
+                            $(this).addClass('boder-validate');
+                        } else if ($(this).hasClass('boder-validate')) {
+                            $(this).removeClass('boder-validate');
+                        }
+                    }
+                });
                 return false;
             }
-
+           
             $.ajax({
                 type: "post",
                 url: "{{route('booking-room.store')}}",

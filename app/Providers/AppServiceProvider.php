@@ -41,12 +41,6 @@ class AppServiceProvider extends ServiceProvider
     }
 
     public function load() {
-        $floors = RoomRepository::getInstance()->getAll();
-        $services = ServiceRepository::getInstance()->getAll();
-        $bookingRooms = BookingRoomRepository::getInstance()->getAllRoomsBooking();
-
-        \Illuminate\Support\Facades\View::share('floors', $floors);
-        \Illuminate\Support\Facades\View::share('services', $services);
-        \Illuminate\Support\Facades\View::share('bookingRooms', $bookingRooms);
+        
     }
 }

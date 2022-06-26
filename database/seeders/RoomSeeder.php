@@ -19,9 +19,9 @@ class RoomSeeder extends Seeder
      */
     public function run()
     {
-        // User::create(['name'=>'admin', 'email'=>'admin@gmail.com', 'email_verified_at'=> now(), 'password'=> bcrypt('admin@#')]);
-//        User::create(['name'=>'admin', 'email'=>'guest@gmail.com', 'email_verified_at'=> now(), 'password'=> bcrypt('guest@#')]);
-//        User::create(['name'=>'admin', 'email'=>'staff@gmail.com', 'email_verified_at'=> now(), 'password'=> bcrypt('staff@#')]);
+        User::create(['name'=>'admin', 'email'=>'admin@gmail.com', 'email_verified_at'=> now(), 'password'=> bcrypt('admin@#')]);
+       User::create(['name'=>'admin', 'email'=>'guest@gmail.com', 'email_verified_at'=> now(), 'password'=> bcrypt('guest@#')]);
+       User::create(['name'=>'admin', 'email'=>'staff@gmail.com', 'email_verified_at'=> now(), 'password'=> bcrypt('staff@#')]);
 
          for($i = 0; $i <= 10; $i++) {
              $room = Room::create([
