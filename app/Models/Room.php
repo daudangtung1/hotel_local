@@ -24,6 +24,7 @@ class Room extends Model
         self::DIRTY => "Bẩn",
         self::CLEAN_ROOM => "Đang dọn",
         self::FIXING_ROOM => "Đang sửa",
+        self::BOOKED => "Đã đặt",
     ];
 
     use HasFactory;
