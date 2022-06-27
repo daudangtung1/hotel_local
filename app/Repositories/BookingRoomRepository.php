@@ -8,6 +8,7 @@ use App\Models\BookingRoomService;
 use App\Models\Customers;
 use App\Models\Room;
 use App\Models\Service;
+use Carbon\Carbon;
 use DB;
 
 /**
@@ -228,8 +229,8 @@ class BookingRoomRepository extends ModelRepository
             'extra_price' => $request->extra_price ?? 0,
         ];
 
-        if(!empty($request->booking_room_status) && $request->booking_room_status > 0) {
-            $this->room->where('id',$request->room_id)->update(['status' => $request->booking_room_status]);
+        if (!empty($request->booking_room_status) && $request->booking_room_status > 0) {
+            $this->room->where('id', $request->room_id)->update(['status' => $request->booking_room_status]);
             $data['status'] = $request->booking_room_status;
         }
 
@@ -239,5 +240,27 @@ class BookingRoomRepository extends ModelRepository
     function firstOrFail($request)
     {
         return $this->bookingRoom->findOrFail($request->id);
+    }
+
+    public function filter($request)
+    {
+        $data = $this->bookingRoom->where('note', 'LIKE' , '%' . $request->s . '%');
+        if (!empty($request->start_date)) {
+            $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->start_date . ' 00:00:00');
+            $data->where('start_date', '>', $startDate);
+        }
+
+        if (!empty($request->end_date)) {
+            $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->end_date . ' 00:00:00');
+            $data->where('end_date', '<', $endDate);
+        }
+
+        if (!empty($request->status)) {
+            $data->where('status', $request->status);
+        }
+//        dd($data->toSql());
+        $data = $data->get();
+
+        return $data;
     }
 }

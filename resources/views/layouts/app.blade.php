@@ -56,7 +56,7 @@
          /* ADD by Quan */
         .boder-validate {
             border: 1px solid #dc3545 !important;
-            
+
         }
         .boder-validate:focus {
             outline: rgba(255, 7, 7, 0.4) solid 4px !important;
@@ -182,14 +182,14 @@
                     $(this).removeClass('boder-validate');
                 });
             }
-            
+
             if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '' || startDate == '' || endDate == '') {
                 $.toast({
                     text: 'Vui lòng nhập thông tin khách hàng',
                     icon: 'error',
                     position: 'top-right'
                 });
-                
+
                 $("#form-booking-multiple input[type=text]").each(function () {
                     if ($(this).hasClass('validate')) {
                         if ($(this).val() == '') {
@@ -201,7 +201,7 @@
                 });
                 return false;
             }
-            
+
 
             $.ajax({
                 type: "post",
@@ -368,7 +368,7 @@
             var rentType = modal.find('input[name="rent_type"]:checked').val();
             var extraPrice = modal.find('input[name="extra_price"]').val();
 
-            
+
             if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '') {
                 $.toast({
                     text: 'Vui lòng nhập thông tin khách hàng',
@@ -386,7 +386,7 @@
                 });
                 return false;
             }
-           
+
             $.ajax({
                 type: "post",
                 url: "{{route('booking-room.store')}}",

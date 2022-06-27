@@ -41,7 +41,7 @@ class BookingRoom extends Model
      *
      * @var array
      */
-    protected $dates = ['start_date', 'end_date'];
+    protected $dates = ['created_at', 'updated_at', 'start_date', 'end_date'];
 
     public function room()
     {

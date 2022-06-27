@@ -22,7 +22,9 @@ Route::get('/', function () {
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::resources([
+        'home'                   => \App\Http\Controllers\RoomController::class,
         'rooms'                  => \App\Http\Controllers\RoomController::class,
+        'reports'                => \App\Http\Controllers\ReportController::class,
         'users'                  => \App\Http\Controllers\UserController::class,
         'services'               => \App\Http\Controllers\ServiceController::class,
         'logs'                   => \App\Http\Controllers\LogController::class,
@@ -41,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('booking-room/update-note', [\App\Http\Controllers\BookingRoomController::class, 'updateNote'])->name('booking-room.update_note');
     Route::post('booking-room/update-booking-room', [\App\Http\Controllers\BookingRoomController::class, 'updateBookingRoom'])->name('booking-room.update_booking_room');
     Route::post('booking-room/booking-rooms', [\App\Http\Controllers\BookingRoomController::class, 'BookingRooms'])->name('booking-room.booking_rooms');
+    Route::get('reports/filter', [\App\Http\Controllers\ReportController::class, 'filter'])->name('reports.filter');
 });
 
 Route::get('booking-room/invoice/{id}', [\App\Http\Controllers\BookingRoomController::class, 'showInvoice'])->name('booking-room.show_invoice');
