@@ -30,7 +30,7 @@ class BookingRoomController extends Controller
         $this->bookingRoomRepository->store($request);
 
         $floors = $this->roomRepository->getAll();
-        $services = $this->serviceRepository->getAll(true);
+        $services = $this->serviceRepository->getAll();
         $room = $this->roomRepository->find($request);
 
         return view('room.modal-content-room', compact('room', 'services', 'floors'))->render();
@@ -75,7 +75,7 @@ class BookingRoomController extends Controller
         $this->bookingRoomRepository->updateNote($request);
 
         $floors = $this->roomRepository->getAll();
-        $services = $this->serviceRepository->getAll(true);
+        $services = $this->serviceRepository->getAll();
         $room = $this->roomRepository->find($request);
 
         return view('room.modal-content-room', compact('room', 'services', 'floors'))->render();
@@ -86,7 +86,7 @@ class BookingRoomController extends Controller
         $this->bookingRoomRepository->updateBookingRoom($request);
 
         $floors = $this->roomRepository->getAll();
-        $services = $this->serviceRepository->getAll(true);
+        $services = $this->serviceRepository->getAll();
         $room = $this->roomRepository->find($request);
 
         return view('room.modal-content-room', compact('room', 'services', 'floors'))->render();

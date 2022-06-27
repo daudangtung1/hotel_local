@@ -16,7 +16,7 @@ class ServiceController extends Controller
 
     public function index()
     {
-        $floors = $this->serviceRepository->getAll();
+        $floors = $this->serviceRepository->getAll(true);
 
         return view('service.index', compact('floors'));
     }
@@ -44,7 +44,7 @@ class ServiceController extends Controller
         $currentItem = $this->serviceRepository->find($request);
 
         $menuSetup = true;
-        $services = $this->serviceRepository->getAll(false);
+        $services = $this->serviceRepository->getAll();
         return view('service.create', compact('menuSetup', 'services', 'currentItem'));
     }
 

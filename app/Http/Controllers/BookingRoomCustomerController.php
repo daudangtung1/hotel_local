@@ -99,7 +99,7 @@ class BookingRoomCustomerController extends Controller
         $this->bookingRoomCustomerRepository->delete($booking_room_customer_id);
 
         $floors = $this->roomRepository->getAll();
-        $services = $this->serviceRepository->getAll(true);
+        $services = $this->serviceRepository->getAll();
         $room = $this->roomRepository->find($request);
 
         return view('room.modal-content-room', compact('room', 'services', 'floors'))->render();

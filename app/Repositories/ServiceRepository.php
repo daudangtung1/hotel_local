@@ -30,13 +30,13 @@ class ServiceRepository extends ModelRepository
         return self::$instance;
     }
 
-    public function getAll($in_stock = true)
+    public function getAll($in_stock = false)
     {
         $services = $this->model->orderBy('ID', 'ASC');
-
         if (!$in_stock) {
-            $services->where('stock', '>', 0);
+            $services = $services->where('stock', '>', 0);
         }
+        dump($in_stock);
         return $services->paginate(10);;
     }
 
