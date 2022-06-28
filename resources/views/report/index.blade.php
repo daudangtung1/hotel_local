@@ -18,7 +18,7 @@
                                 <input type="text" class="form-control me-2 filter-date" placeholder="Ngày bắt đầu" name="start_date" value="@if(!empty(request()->start_date)) {{request()->start_date}} @endif"  autocomplete="false">
                                 <input type="text" class="form-control me-2 filter-date" placeholder="Ngày kết thúc" name="end_date" value="@if(!empty(request()->end_date)) {{request()->end_date}} @endif" autocomplete="false">
                                 <button class="btn btn-success me-2">Lọc</button>
-                                <button class="btn btn-danger" type="submit" name="export" value="export">Xuất Excel</button>
+                                <button class="btn btn-danger" type="submit" name="export" value="export" >Xuất Excel</button>
                             </form>
                         </div>
                     </div>

@@ -68,6 +68,11 @@ class BookingRoomRepository extends ModelRepository
         return $this->bookingRoom->where('status', 6)->orderBy('start_date', 'ASC')->get();
     }
 
+    public function getAllRoomsBookingFinish()
+    {
+        return $this->bookingRoom->where('status', 7)->orderBy('start_date', 'ASC')->get();
+    }
+
     public function store($request)
     {
         // đặt phòng trước
