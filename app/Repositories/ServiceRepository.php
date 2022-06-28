@@ -36,7 +36,6 @@ class ServiceRepository extends ModelRepository
         if (!$in_stock) {
             $services = $services->where('stock', '>', 0);
         }
-        dump($in_stock);
         return $services->paginate(10);;
     }
 

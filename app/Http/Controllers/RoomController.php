@@ -42,7 +42,7 @@ class RoomController extends Controller
     public function create()
     {
         $menuSetup = true;
-        $rooms = $this->roomRepository->getAll(false);
+        $rooms = $this->roomRepository->getAll(false, true);
         $typeRooms = $this->typeRoomRepository->getAll();
 
         return view('room.create', compact('typeRooms','menuSetup', 'rooms'));
