@@ -30,13 +30,13 @@ class RoomController extends Controller
         $services = $this->serviceRepository->getAll();
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking();
         $typeRooms = $this->typeRoomRepository->getAll();
-        $menuSystem = true;
+        $menuCategoryManager = true;
         $currentRoom = null;
         if ($request->ajax()) {
-            return view('room.list', compact('typeRooms', 'floors', 'services', 'menuSystem', 'bookingRooms', 'currentRoom'))->render();
+            return view('room.list', compact('typeRooms', 'floors', 'services', 'menuCategoryManager', 'bookingRooms', 'currentRoom'))->render();
         }
 
-        return view('room.index', compact('typeRooms', 'floors', 'services', 'menuSystem', 'bookingRooms', 'currentRoom'));
+        return view('room.index', compact('typeRooms', 'floors', 'services', 'menuCategoryManager', 'bookingRooms', 'currentRoom'));
     }
 
     public function create()
