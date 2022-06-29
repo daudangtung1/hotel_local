@@ -36,6 +36,8 @@ class ReportController extends Controller
         }
 
         $bookingRooms = $this->bookingRoomRepository->filter($request);
-        return view('report.index', compact('bookingRooms'));
+        $title = 'Quản lý báo cáo';
+
+        return view('report.index', compact('bookingRooms', 'title'));
     }
 }

@@ -1,5 +1,6 @@
 <!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLong" aria-hidden="true">
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLong"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,19 +10,20 @@
                 <div class="form-group">
                     <select name="booking_room_id" id="booking_room_id" class="form-control booking_room_id mb-3">
                         <option value="">Chọn phòng</option>
-                            @forelse($bookingRooms as $key => $bookingRoom)
-                                <option value="{{$bookingRoom->id}}">
-                                    {{$bookingRoom->room->name ?? ''}} -
-                                    {{$bookingRoom->room->floor ?? ''}} -
-                                    {{$bookingRoom->start_date ?? ''}} -
-                                    {{$bookingRoom->end_date ?? ''}}
-                                </option>
-                            @empty
-                            @endforelse
+                        @forelse($bookingRooms as $key => $bookingRoom)
+                            <option value="{{$bookingRoom->id}}">
+                                {{$bookingRoom->room->name ?? ''}} -
+                                {{$bookingRoom->room->floor ?? ''}} -
+                                {{$bookingRoom->start_date ?? ''}} -
+                                {{$bookingRoom->end_date ?? ''}}
+                            </option>
+                        @empty
+                        @endforelse
                     </select>
                 </div>
                 <div class="form-group">
-                    <textarea name="note" id="note" cols="30" rows="5" class="form-control validate note" placeholder="Ghi chú"></textarea>
+                    <textarea name="note" id="note" cols="30" rows="5" class="form-control validate note"
+                              placeholder="Ghi chú"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -48,13 +50,20 @@
                 <td>{{$lostItem->id}}</td>
                 <td>{{$lostItem->bookingRoom->room->name ?? '-'}}</td>
                 <td>{{$lostItem->bookingRoom->room->floor ?? '-'}}</td>
-                <td  style="width: 200px">{{$lostItem->pay_date ?? '-'}}</td>
-                <td>{{$lostItem->note ?? '-'}}</td>
+                <td style="width: 200px">{{$lostItem->pay_date ?? '-'}}</td>
+                <td>
+                    <textarea name="note" class="form-control note" cols="30"
+                              rows="2">{{$lostItem->note ?? '-'}}</textarea>
+                </td>
                 <td style="width: 120px">
-                    <select name="status" id="status" class="form-control status">
-                        <option value="0" @if(empty($lostItem->pay_date)) selected @endif>Chưa trả</option>
-                        <option value="1" @if(!empty($lostItem->pay_date)) selected @endif>Đã trả</option>
-                    </select>
+                    @if(empty($lostItem->pay_date))
+                        <select name="status" id="status" class="form-control status">
+                            <option value="0" @if(empty($lostItem->pay_date)) selected @endif>Chưa trả</option>
+                            <option value="1" @if(!empty($lostItem->pay_date)) selected @endif>Đã trả</option>
+                        </select>
+                    @else
+                        <span class="text-success">Đã trả</span>
+                    @endif
                 </td>
             </tr>
         @empty

@@ -34,8 +34,9 @@ class LostItemController extends Controller
         $lostItems = $this->lostItemRepository->getAll();
         $menuCategoryManager = true;
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBookingFinish();
+        $title = 'Quản lý đồ thất lạc';
 
-        return view('lost_item.index', compact('lostItems', 'menuCategoryManager', 'bookingRooms'));
+        return view('lost_item.index', compact('lostItems', 'menuCategoryManager', 'bookingRooms', 'title'));
     }
 
     public function store(Request $request)
@@ -49,7 +50,7 @@ class LostItemController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $this->lostItemRepository->updateStatus($id);
+        $this->lostItemRepository->updateStatus($request, $id);
         $lostItems = $this->lostItemRepository->getAll();
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBookingFinish();
 

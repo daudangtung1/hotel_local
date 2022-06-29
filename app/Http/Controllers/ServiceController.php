@@ -17,8 +17,9 @@ class ServiceController extends Controller
     public function index()
     {
         $floors = $this->serviceRepository->getAll(true);
+        $title = 'Quản lý dịch vụ';
 
-        return view('service.index', compact('floors'));
+        return view('service.index', compact('floors', 'title'));
     }
 
     public function create()
@@ -26,7 +27,9 @@ class ServiceController extends Controller
         $menuSystem = true;
         $services = $this->serviceRepository->getAll();
         $currentItem = null;
-        return view('service.create', compact('menuSystem', 'services', 'currentItem'));
+        $title = 'Tạo dịch vụ';
+
+        return view('service.create', compact('menuSystem', 'services', 'currentItem', 'title'));
     }
 
     public function store(Request $request)
@@ -45,7 +48,9 @@ class ServiceController extends Controller
 
         $menuSetup = true;
         $services = $this->serviceRepository->getAll();
-        return view('service.create', compact('menuSetup', 'services', 'currentItem'));
+        $title = 'Cập nhật dịch vụ';
+
+        return view('service.create', compact('menuSetup', 'services', 'currentItem', 'title'));
     }
 
     public function destroy(Request $request, $service_id)

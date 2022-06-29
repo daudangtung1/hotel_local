@@ -220,7 +220,7 @@
                                     <span>BC khách</span>
                                 </li>
                                 <li>
-                                    <a href="{{route('lost-items.index')}}"><img class="image-svg" alt=""
+                                    <a href="{{route('lost-items.create')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/dothatlac01.png"></a>
                                     <span>Đồ thất lạc</span>
                                 </li>

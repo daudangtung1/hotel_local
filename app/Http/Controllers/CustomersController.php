@@ -27,8 +27,9 @@ class CustomersController extends Controller
     {
         $customers = $this->customerRepository->getAll();
         $menuCategoryManager = true;
+        $title = 'Quản lý thành viên';
 
-        return view('customers.create', compact('customers', 'menuCategoryManager'));
+        return view('customers.create', compact('customers', 'menuCategoryManager', 'title'));
     }
 
     public function store(Request $request)
@@ -48,7 +49,9 @@ class CustomersController extends Controller
 
         $menuCategoryManager = true;
         $customers = $this->customerRepository->getAll();
-        return view('customers.create', compact('menuCategoryManager', 'customers', 'currentItem'));
+        $title = 'Cập nhật thành viên';
+
+        return view('customers.create', compact('menuCategoryManager', 'customers', 'currentItem', 'title'));
     }
 
     public function update(Request $request)

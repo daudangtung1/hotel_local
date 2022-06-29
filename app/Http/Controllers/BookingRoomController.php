@@ -22,7 +22,8 @@ class BookingRoomController extends Controller
 
     public function index()
     {
-        return view('booking-room.index');
+        $title = 'Quản lý đặt phòng';
+        return view('booking-room.index', compact('title'));
     }
 
     public function store(Request $request)
@@ -57,8 +58,9 @@ class BookingRoomController extends Controller
     public function getHistory(Request $request)
     {
         $bookingRooms = $this->bookingRoomRepository->getHistory();
+        $title = 'Lịch sử đặt phòng';
 
-        return view('booking-room.history', compact('bookingRooms'));
+        return view('booking-room.history', compact('bookingRooms', 'title'));
     }
 
     public function edit($id)
@@ -117,14 +119,16 @@ class BookingRoomController extends Controller
             abort(404);
         }
         $bookingRoom = $this->bookingRoomRepository->firstOrFail($request);
+        $title = 'Hóa đơn';
 
-        return view('room.invoice', compact('bookingRoom'));
+        return view('room.invoice', compact('bookingRoom', 'title'));
     }
 
     public function getBookingRoomUsed(Request $request)
     {
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBookingUsed();
+        $title = 'Quản lý đặt phòng';
 
-        return view('booking-room.used', compact('bookingRooms'));
+        return view('booking-room.used', compact('bookingRooms', 'title'));
     }
 }

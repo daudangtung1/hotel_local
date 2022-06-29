@@ -24,7 +24,9 @@ class UserController extends Controller
         $users = $this->userRepository->getAll();
         $menuSystem = true;
 
-        return view('user.create', compact('users', 'menuSystem'));
+        $title = 'Quản lý người dùng';
+
+        return view('user.create', compact('users', 'menuSystem', 'title'));
     }
 
     public function store(Request $request)
@@ -43,7 +45,9 @@ class UserController extends Controller
 
         $menuSetup = true;
         $users = $this->userRepository->getAll();
-        return view('user.create', compact('menuSetup', 'users', 'currentItem'));
+        $title = 'Cập nhật người dùng';
+
+        return view('user.create', compact('menuSetup', 'users', 'currentItem', 'title'));
     }
 
     public function update(Request $request)

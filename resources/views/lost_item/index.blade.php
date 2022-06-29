@@ -67,18 +67,51 @@
             })
         });
 
-        $('body').on('change', 'tr .status', function (e) {
+        $('body').on('change', '.note', function (e) {
             e.preventDefault();
 
             var _this = $(this);
             var tr = _this.closest('tr');
             var id = tr.data('lost_item_id');
+            var note = _this.val();
+            var status = tr.find('.status').val();
 
             $.ajax({
                 type: "GET",
                 url: "/lost-items/update-status/" + id,
                 data: {
                     id: id,
+                    note:note,
+                    status:status,
+                },
+                success: function (data) {
+                    $('.table-ajax').html(data);
+                    $.toast({
+                        text: 'Cập nhật thành công',
+                        icon: 'success',
+                        position: 'top-right'
+                    });
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        });
+
+        $('body').on('change', 'tr .status', function (e) {
+            e.preventDefault();
+
+            var _this = $(this);
+            var tr = _this.closest('tr');
+            var id = tr.data('lost_item_id');
+            var status = _this.val();
+
+            $.ajax({
+                type: "GET",
+                url: "/lost-items/update-status/" + id,
+                data: {
+                    id: id,
+                    status: status,
                 },
                 success: function (data) {
                     $('.table-ajax').html(data);

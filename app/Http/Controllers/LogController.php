@@ -24,8 +24,9 @@ class LogController extends Controller
     {
         $logs = $this->logRepository->getAll();
         $menuReport = true;
+        $title = 'Quản lý hoạt động';
 
-        return view('log.index', compact('logs', 'menuReport'));
+        return view('log.index', compact('logs', 'menuReport', 'title'));
     }
 
     /**

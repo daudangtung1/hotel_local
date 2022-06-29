@@ -50,16 +50,26 @@ class LostItemRepository extends ModelRepository
         ]);
     }
 
-    public function updateStatus($id)
+    public function updateStatus($request, $id)
     {
         $lostItem = $this->model->find($id);
 
-        if (empty($lostItem->pay_date)) {
-            $pay_date = Carbon::now();
-        } else {
-            $pay_date = null;
+        if(empty($lostItem->pay_date)) {
+            if ($request->status == 1) {
+                $data = [
+                    'pay_date' => Carbon::now()
+                ];
+            } else if ($request->status == 0) {
+                $data = [
+                    'pay_date' => null
+                ];
+            }
         }
 
-        $this->model->where('id', $id)->update(['pay_date' => $pay_date]);
+        if (!empty($request->note)) {
+            $data['note'] = $request->note ?? '';
+        }
+
+        $this->model->where('id', $id)->update($data);
     }
 }
