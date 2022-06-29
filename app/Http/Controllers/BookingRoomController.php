@@ -120,4 +120,11 @@ class BookingRoomController extends Controller
 
         return view('room.invoice', compact('bookingRoom'));
     }
+
+    public function getBookingRoomUsed(Request $request)
+    {
+        $bookingRooms = $this->bookingRoomRepository->getAllRoomsBookingUsed();
+
+        return view('booking-room.used', compact('bookingRooms'));
+    }
 }

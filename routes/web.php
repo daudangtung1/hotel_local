@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     Route::get('history', [\App\Http\Controllers\BookingRoomController::class, 'getHistory'])->name('booking-room.history');
+    Route::get('booking-room-used', [\App\Http\Controllers\BookingRoomController::class, 'getBookingRoomUsed'])->name('booking-room.booking_room_used');
 
 
     Route::POST('room/change-status/{room_id}', [\App\Http\Controllers\RoomController::class, 'changeStatus'])->name('room.change-status');
