@@ -22,4 +22,9 @@ class BookingRoomService extends Model
     {
         return $this->belongsTo(Service::class);
     }
+
+    public function bookingRoom()
+    {
+        return $this->belongsTo(BookingRoom::class);
+    }
 }
