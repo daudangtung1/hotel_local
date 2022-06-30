@@ -81,7 +81,11 @@
                                     <td>
                                         {{$bookingRoomService->service->name ??''}}
                                     </td>
-                                    <td>{{$bookingRoomService->quantity ?? ''}}</td>
+                                    <td>
+                                        <input data-url_update="{{route('booking-room-service.update', ['booking_room_service' => $bookingRoomService])}}"
+                                               type="text" class="form-control form-control-sm quantity_service" name="quantity_service" id="quantity_service"
+                                               value="@if(!empty($bookingRoomService)){!! $bookingRoomService->quantity ??0 !!}@endif" min="0">
+                                    </td>
                                     <td>{{get_price(($bookingRoomService->price ?? 0) * ($bookingRoomService->quantity ?? 0), 'đ') ??''}}</td>
                                     <td>
                                         <a href="{{route('booking-room-service.destroy',['booking_room_service' => $bookingRoomService])}}"

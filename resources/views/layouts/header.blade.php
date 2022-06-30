@@ -45,7 +45,7 @@
                             <span class="text_tlc">Quản lý kho</span>
                         </div>
                         <div class="ql_tk">
-                            <a href="#"><img class="image-svg" alt=""
+                            <a href="{{ route('booking-room.booking_room_used') }}"><img class="image-svg" alt=""
                                              src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/inhoadon.png"></a>
                             <span>In hóa đơn</span>
                         </div>

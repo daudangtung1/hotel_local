@@ -39,7 +39,7 @@ class BookingRoomServiceRepository extends ModelRepository
     public static function getInstance()
     {
         if (empty(self::$instance)) {
-            self::$instance = new RoomRepository(new Room());
+            self::$instance = app(BookingRoomServiceRepository::class);
         }
 
         return self::$instance;
@@ -52,6 +52,25 @@ class BookingRoomServiceRepository extends ModelRepository
         if (!empty($bookingRoomService)) {
             $bookingRoomService->service->increment('stock', $bookingRoomService->quantity);
             $bookingRoomService->delete();
+        }
+    }
+
+    public function getById($id)
+    {
+        return $this->bookingRoomService->find($id);
+    }
+
+    public function update($request, $id)
+    {
+        $bookingRoomService = $this->bookingRoomService->find($id);
+        $oldQuantity = $bookingRoomService->quantity;
+
+        if (!empty($bookingRoomService)) {
+            $service = $bookingRoomService->service;
+            $totalQuantity = $oldQuantity + $service->stock;
+
+            $bookingRoomService->service->update(['stock' => ($totalQuantity - $request->quantity)]);
+            $bookingRoomService->update(['quantity' => $request->quantity]);
         }
     }
 }

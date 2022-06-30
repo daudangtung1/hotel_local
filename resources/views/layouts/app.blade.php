@@ -420,6 +420,44 @@
             })
         });
 
+        $('body').on('keyup', '#quantity_service', function (e) {
+            var _this = $(this);
+            var modal = _this.closest('.modal');
+            var quantityService = modal.find('input[name="quantity_service"]').val();
+            var href = _this.data('url_update');
+
+            $.ajax({
+                type: "POST",
+                url: href,
+                data: {
+                    "_method": 'PUT',
+                    quantity: quantityService,
+                },
+                success: function (data) {
+                    if (typeof data.response !== 'undefined') {
+                        $.toast({
+                            text: data.response.message,
+                            icon: 'error',
+                            position: 'top-right'
+                        });
+                        return false;
+                    }
+                    _this.closest('.modal').find('.modal-dialog').html(data);
+                    $.toast({
+                        text: 'Cập nhật thành công',
+                        icon: 'success',
+                        position: 'top-right'
+                    });
+
+                    changeBgLi(_this, roomId);
+                    refreshView();
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        });
+
         $('body').on('click', '.btn-add-service', function (e) {
             e.preventDefault();
 
