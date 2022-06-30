@@ -75,7 +75,7 @@ class RoomController extends Controller
         $currentRoom = $this->roomRepository->find($request);
         $typeRooms = $this->typeRoomRepository->getAll();
         $menuSetup = true;
-        $rooms = $this->roomRepository->getAll(false);
+        $rooms = $this->roomRepository->getAll(false, true);
         $title = 'Cập nhật phòng';
 
         return view('room.create', compact('menuSetup', 'typeRooms', 'rooms', 'currentRoom', 'title'));

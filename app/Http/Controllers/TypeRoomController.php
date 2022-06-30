@@ -46,7 +46,7 @@ class TypeRoomController extends Controller
         $request->merge(['type_room_id' => $type_room_id]);
         $currentTypeRoom = $this->typeRoomRepository->find($request);
         $menuSetup = true;
-        $rooms = $this->roomRepository->getAll(false);
+        $rooms = $this->roomRepository->getAll(false, true);
         $typeRooms = $this->typeRoomRepository->getAll();
         $title = 'Quản lý phòng';
 

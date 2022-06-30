@@ -147,8 +147,8 @@
                             <tr>
                                 <td>{{$room->name ??''}}</td>
                                 <td>{{$room->floor ??''}}</td>
-                                <td>{{get_price($room->hour_price, 'đ') ??''}}</td>
-                                <td>{{get_price($room->day_price, 'đ') ??''}}</td>
+                                <td>{{get_price($room->hour_price ?? '', 'đ') ??''}}</td>
+                                <td>{{get_price($room->day_price ?? '', 'đ') ??''}}</td>
                                 <td><span class="badge badge-light bg-{{$room->getBgButton()}}">{{\App\Models\Room::ARRAY_STATUS[$room->status ?? 0]}}</span></td>
                                 <td style="width:40px">
                                     <div class="d-flex">
