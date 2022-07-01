@@ -76,4 +76,11 @@ class CustomersController extends Controller
 
         return redirect()->back()->withErrors('Vui lòng thử lại');
     }
+
+    public function report(Request $request)
+    {
+        $customers = $this->customerRepository->filter($request);
+
+        return view('customers.report', compact('customers'));
+    }
 }
