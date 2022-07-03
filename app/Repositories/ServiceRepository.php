@@ -32,7 +32,7 @@ class ServiceRepository extends ModelRepository
 
     public function getAll($in_stock = false)
     {
-        $services = $this->model->orderBy('ID', 'ASC');
+        $services = $this->model->orderBy('ID', 'DESC');
         if (!$in_stock) {
             $services = $services->where('stock', '>', 0);
         }

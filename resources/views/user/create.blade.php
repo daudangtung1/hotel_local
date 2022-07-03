@@ -62,6 +62,7 @@
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>#</th>
                             <th scope="col">Tên</th>
                             <th scope="col">Email</th>
                             <th scope="col"></th>
@@ -70,6 +71,7 @@
                         <tbody>
                         @forelse($users as $key => $user)
                             <tr>
+                                <td>{{$user->id}}</td>
                                 <td>{{$user->name ??''}}</td>
                                 <td>{{$user->email ??''}}</td>
                                 <td style="width:40px">

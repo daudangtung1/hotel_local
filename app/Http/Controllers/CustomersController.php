@@ -80,7 +80,7 @@ class CustomersController extends Controller
     public function report(Request $request)
     {
         $customers = $this->customerRepository->filter($request);
-
-        return view('customers.report', compact('customers'));
+        $menuCategoryManager = true;
+        return view('customers.report', compact('customers', 'menuCategoryManager'));
     }
 }

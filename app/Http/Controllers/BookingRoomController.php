@@ -128,7 +128,7 @@ class BookingRoomController extends Controller
     {
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBookingUsed();
         $title = 'Quản lý đặt phòng';
-
-        return view('booking-room.used', compact('bookingRooms', 'title'));
+        $menuSystem = true;
+        return view('booking-room.used', compact('bookingRooms', 'menuSystem','title'));
     }
 }

@@ -22,11 +22,11 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = $this->userRepository->getAll();
-        $menuSystem = true;
+        $menuSetup = true;
 
         $title = 'Quản lý người dùng';
 
-        return view('user.create', compact('users', 'menuSystem', 'title'));
+        return view('user.create', compact('users', 'menuSetup', 'title'));
     }
 
     public function store(Request $request)

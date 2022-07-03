@@ -111,6 +111,6 @@ class CustomerRepository extends ModelRepository
             $query = $query->where('id_card', 'LIKE', "%{$request->id_card}%");
         }
 
-        return $query->paginate(10);
+        return $query->orderBy('id','DESC')->paginate(10);
     }
 }

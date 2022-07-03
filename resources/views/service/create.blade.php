@@ -42,6 +42,7 @@
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>#</th>
                             <th scope="col">Tên dịch vụ</th>
                             <th scope="col">Tồn kho</th>
                             <th scope="col">Giá</th>
@@ -51,6 +52,7 @@
                         <tbody>
                         @forelse($services as $key => $service)
                             <tr>
+                                <td>{{$service->id ??''}}</td>
                                 <td>{{$service->name ??''}}</td>
                                 <td>{{$service->stock ??''}}</td>
                                 <td>{{get_price($service->price, 'đ') ??''}}</td>
