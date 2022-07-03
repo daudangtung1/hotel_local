@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BookingRoom;
 use App\Repositories\BookingRoomRepository;
+use App\Repositories\OptionRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
@@ -13,11 +14,12 @@ use Illuminate\Support\Carbon;
 
 class BookingRoomController extends Controller
 {
-    public function __construct(RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository)
+    public function __construct(OptionRepository $optionRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository)
     {
         $this->bookingRoomRepository = $bookingRoomRepository;
         $this->roomRepository = $roomRepository;
         $this->serviceRepository = $serviceRepository;
+        $this->optionRepository = $optionRepository;
     }
 
     public function index()
@@ -118,10 +120,11 @@ class BookingRoomController extends Controller
         if(empty($request->id)) {
             abort(404);
         }
+        $option = $this->optionRepository->find();
         $bookingRoom = $this->bookingRoomRepository->firstOrFail($request);
         $title = 'Hóa đơn';
 
-        return view('room.invoice', compact('bookingRoom', 'title'));
+        return view('room.invoice', compact('bookingRoom', 'option', 'title'));
     }
 
     public function getBookingRoomUsed(Request $request)

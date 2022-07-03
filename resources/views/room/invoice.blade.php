@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="row gutters">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6"><a href="index.html"
-                                                                                        class="invoice-logo">{{request()->getHost()}}</a>
+                                                                                        class="invoice-logo">{{$option->name ??''}}</a>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6">
 
@@ -50,7 +50,8 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="invoice-details d-flex justify-content-between">
                                             <div>
-                                                <address>Địa chỉ: 182 Trường Chinh <br/> Thành phố Vinh - Tỉnh Nghệ An</address>
+                                                <address>Địa chỉ: {{$option->address ??''}}</address>
+                                                <address>Số điện thoại: {{$option->phone ??''}}, Email: {{$option->email ??''}}, Fax: {{$option->fax ??''}}</address>
                                                 <address>Hóa đơn sử dụng - #00{{$bookingRoom->id}}</address>
                                                 <address>Thời gian: {{\Carbon\Carbon::now()->format('d-m-Y')}}</address>
                                             </div>
