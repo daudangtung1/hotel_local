@@ -247,14 +247,14 @@ class BookingRoomRepository extends ModelRepository
         $this->bookingRoom->where('id', $request->booking_room_id)->update($data);
     }
 
-    function firstOrFail($request)
+    function firstOrFail($request, $paginate = true)
     {
         return $this->bookingRoom->findOrFail($request->id);
     }
 
-    public function filter($request)
+    public function filter($request, $paginate = true)
     {
-        $data = $this->bookingRoom->where('note', 'LIKE' , '%' . $request->s . '%');
+        $data = $this->bookingRoom->where('note', 'LIKE', '%' . $request->s . '%');
         if (!empty($request->start_date)) {
             $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->start_date . ' 00:00:00');
             $data->where('start_date', '>', $startDate);
@@ -268,8 +268,12 @@ class BookingRoomRepository extends ModelRepository
         if (!empty($request->status)) {
             $data->where('status', $request->status);
         }
-//        dd($data->toSql());
-        $data = $data->get();
+
+        if ($paginate) {
+            $data = $data->paginate(10);
+        } else {
+            $data = $data->get();
+        }
 
         return $data;
     }

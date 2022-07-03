@@ -26,6 +26,13 @@ class Room extends Model
         self::FIXING_ROOM => "Đang sửa",
         self::BOOKED => "Đã đặt",
     ];
+    const FILTER_BY_ROOM = 0;
+    const FILTER_BY_RAE = 1;
+
+    const Filter = [
+        self::FILTER_BY_ROOM => "Phòng đã sử dụng",
+        self::FILTER_BY_RAE => "Thu chi",
+    ];
 
     use HasFactory;
     use SoftDeletes;

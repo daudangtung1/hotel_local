@@ -3,8 +3,10 @@
 namespace App\Exports;
 
 use App\Models\BookingRoom;
+use App\Models\RevenueAndExpenditure;
 use App\Models\Room;
 use App\Repositories\BookingRoomRepository;
+use App\Repositories\RevenueAndExpenditureRepository;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -15,7 +17,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class BookingRoomExport implements WithHeadings, FromCollection, WithMapping
+class ReaExport implements WithHeadings, FromCollection, WithMapping
 {
     use Exportable;
 
@@ -30,16 +32,11 @@ class BookingRoomExport implements WithHeadings, FromCollection, WithMapping
     {
         return [
             'ID',
-            'Tên phòng',
-            'Tầng',
-            'Ngày nhận phòng',
-            'Ngày trả phòng',
-            'Tình trạng',
-            'Thời gian',
-            'Phí dịch vụ thuê phòng',
-            'Phí dịch vụ',
-            'Tổng phí',
-            'Ghi chú',
+            'Tiêu đề',
+            'Số tiền',
+            'Phân loại',
+            'Người tạo',
+            'Ngày tạo',
         ];
     }
 
@@ -48,7 +45,7 @@ class BookingRoomExport implements WithHeadings, FromCollection, WithMapping
      */
     public function collection()
     {
-        return BookingRoomRepository::getInstance()->filter($this->request);
+        return RevenueAndExpenditureRepository::instance()->filter($this->request, false);
     }
 
     /**
@@ -57,17 +54,12 @@ class BookingRoomExport implements WithHeadings, FromCollection, WithMapping
     public function map($data): array
     {
         return [
-            $data->id,
-            $data->room->name ?? '',
-            $data->room->floor ?? '',
-            Date::dateTimeFromTimestamp($data->start_date ?? ''),
-            Date::dateTimeFromTimestamp($data->end_date ?? ''),
-            $data->status == 7 ? 'Đã trả phòng' : Room::ARRAY_STATUS[$data->status],
-            $data->getTime(true),
-            $data->getTotalPrice(false),
-            $data->getTotalServices(),
-            $data->getTotalPrice(),
-            $data->note ?? '',
+            $data->id ?? '',
+            $data->name ?? '',
+            get_price($data->money ?? 0, 'đ'),
+            \App\Models\RevenueAndExpenditure::STATUS[$data->type],
+            $data->user->name ?? '',
+            $data->created_at ?? '',
         ];
     }
 

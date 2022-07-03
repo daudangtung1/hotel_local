@@ -347,7 +347,7 @@ img {
     margin: 0 auto;
     padding: 0 15px;
 }
- 
+
 
 .item-tab-row .fl {
     text-align: center;
@@ -382,15 +382,15 @@ img {
 
 .item-servces-home {
     position: relative;
-    padding-bottom: 85px; 
+    padding-bottom: 85px;
 }
- 
+
 .home .item-servces-home .left-1 {
 	padding-top:20px;
 }
 .item-servces-home:after {
     content: '';
-    position: absolute; 
+    position: absolute;
     width: 140px;
     height: 100%;
     background: #f1f1f1;
@@ -792,4 +792,9 @@ div.dv-main-navigation ul ul ul {
 /* End main navigation
 -------------------------------------------------------------------------- */
 /*Start Main css */
- 
+
+.form-control{
+    -webkit-appearance: auto !important;
+    -moz-appearance: auto !important;
+ appearance: auto !important;
+}

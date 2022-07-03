@@ -21,26 +21,30 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('reports/filter-form', [\App\Http\Controllers\ReportController::class, 'filterForm'])->name('reports.filter_form');
+
     Route::resources([
-        'home'                   => \App\Http\Controllers\RoomController::class,
-        'rooms'                  => \App\Http\Controllers\RoomController::class,
-        'reports'                => \App\Http\Controllers\ReportController::class,
-        'users'                  => \App\Http\Controllers\UserController::class,
-        'services'               => \App\Http\Controllers\ServiceController::class,
-        'logs'                   => \App\Http\Controllers\LogController::class,
-        'type-rooms'             => \App\Http\Controllers\TypeRoomController::class,
-        'lost-items'             => \App\Http\Controllers\LostItemController::class,
-        'booking-room'           => \App\Http\Controllers\BookingRoomController::class,
-        'booking-room-service'   => \App\Http\Controllers\BookingRoomServiceController::class,
-        'booking-room-customers' => \App\Http\Controllers\BookingRoomCustomerController::class,
-        'customers'              => \App\Http\Controllers\CustomersController::class,
+        'home'                     => \App\Http\Controllers\RoomController::class,
+        'rooms'                    => \App\Http\Controllers\RoomController::class,
+        'reports'                  => \App\Http\Controllers\ReportController::class,
+        'options'                  => \App\Http\Controllers\OptionController::class,
+        'users'                    => \App\Http\Controllers\UserController::class,
+        'services'                 => \App\Http\Controllers\ServiceController::class,
+        'logs'                     => \App\Http\Controllers\LogController::class,
+        'type-rooms'               => \App\Http\Controllers\TypeRoomController::class,
+        'lost-items'               => \App\Http\Controllers\LostItemController::class,
+        'booking-room'             => \App\Http\Controllers\BookingRoomController::class,
+        'booking-room-service'     => \App\Http\Controllers\BookingRoomServiceController::class,
+        'booking-room-customers'   => \App\Http\Controllers\BookingRoomCustomerController::class,
+        'customers'                => \App\Http\Controllers\CustomersController::class,
+        'revenue-and-expenditures' => \App\Http\Controllers\RevenueAndExpenditureController::class,
     ]);
 
     Route::get('history', [\App\Http\Controllers\BookingRoomController::class, 'getHistory'])->name('booking-room.history');
     Route::get('booking-room-used', [\App\Http\Controllers\BookingRoomController::class, 'getBookingRoomUsed'])->name('booking-room.booking_room_used');
 
-
     Route::POST('room/change-status/{room_id}', [\App\Http\Controllers\RoomController::class, 'changeStatus'])->name('room.change-status');
+    Route::POST('options', [\App\Http\Controllers\OptionController::class, 'updateAll'])->name('options.update_all');
     Route::get('room/get-minutes', [\App\Http\Controllers\RoomController::class, 'getMinutes'])->name('rooms.getMinutes');
     Route::post('booking-room/update-note', [\App\Http\Controllers\BookingRoomController::class, 'updateNote'])->name('booking-room.update_note');
     Route::post('booking-room/update-booking-room', [\App\Http\Controllers\BookingRoomController::class, 'updateBookingRoom'])->name('booking-room.update_booking_room');

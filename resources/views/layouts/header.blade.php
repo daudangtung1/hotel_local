@@ -169,7 +169,7 @@
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{route('revenue-and-expenditures.index')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/thuchi01.png"></a>
                                     <span>Thu chi</span>
                                 </li>
@@ -316,11 +316,11 @@
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{route('options.index')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/ttcoso.png"></a>
                                     <span>TT Cơ sở</span>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="#"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/email.png"></a>
                                     <span>E-Mail</span>
@@ -329,7 +329,7 @@
                                     <a href="#"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/caidat.png"></a>
                                     <span>Cài đặt</span>
-                                </li>
+                                </li> -->
                             </ul>
                             <span class="text_tlc">Thiết lập chung</span>
                         </div>
