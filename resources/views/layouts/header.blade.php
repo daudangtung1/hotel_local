@@ -215,7 +215,7 @@
                                     <span>Danh sách</span>
                                 </li>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{ route('customers.report') }}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/bckhach01.png"></a>
                                     <span>BC khách</span>
                                 </li>

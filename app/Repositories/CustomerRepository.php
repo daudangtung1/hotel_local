@@ -99,4 +99,18 @@ class CustomerRepository extends ModelRepository
 
         return $this->model->where('id', $request->customer_id)->update($data);
     }
+
+    public function filter($request)
+    {
+        $query = $this->model;
+        if (!empty($request->name)) {
+            $query = $query->where('name', 'LIKE', "%{$request->name}%");
+        }
+
+        if (!empty($request->id_card)) {
+            $query = $query->where('id_card', 'LIKE', "%{$request->id_card}%");
+        }
+
+        return $query->paginate(10);
+    }
 }
