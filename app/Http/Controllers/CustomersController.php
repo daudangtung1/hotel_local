@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomerExport;
 use App\Repositories\BookingRoomRepository;
 use App\Repositories\CustomerRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\ServiceRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 
 class CustomersController extends Controller
 {
@@ -17,10 +19,13 @@ class CustomersController extends Controller
 
     public $userRepository;
 
-    public function __construct(customerRepository $customerRepository, UserRepository $userRepository)
+    public $excel;
+
+    public function __construct(customerRepository $customerRepository, UserRepository $userRepository, Excel $excel)
     {
         $this->userRepository = $userRepository;
         $this->customerRepository = $customerRepository;
+        $this->excel = $excel;
     }
 
     public function index(Request $request)
@@ -79,6 +84,9 @@ class CustomersController extends Controller
 
     public function report(Request $request)
     {
+        if(!empty($request->export)) {
+            return $this->excel->download(new CustomerExport($request), 'customers.xlsx');
+        }
         $customers = $this->customerRepository->filter($request);
         $menuCategoryManager = true;
         return view('customers.report', compact('customers', 'menuCategoryManager'));
