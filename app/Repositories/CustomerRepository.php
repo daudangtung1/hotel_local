@@ -23,6 +23,15 @@ class CustomerRepository extends ModelRepository
         $this->model = $model;
     }
 
+    public static function getInstance()
+    {
+        if (empty(self::$instance)) {
+            self::$instance = new CustomerRepository(new Customers());
+        }
+
+        return self::$instance;
+    }
+
     public function getAll()
     {
         return $this->model->orderBy('ID', 'DESC')->paginate(10);
