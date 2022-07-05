@@ -53,7 +53,7 @@
         .max-height-300{
             max-height: 300px;
         }
-         /* ADD by Quan */
+        /* ADD by Quan */
         .boder-validate {
             border: 1px solid #dc3545 !important;
 
@@ -420,12 +420,12 @@
             })
         });
 
-        $('body').on('keyup', '#quantity_service', function (e) {
+        $('body').on('keyup', 'input[name="quantity_service"]', function (e) {
             var _this = $(this);
             var modal = _this.closest('.modal');
-            var quantityService = modal.find('input[name="quantity_service"]').val();
+            var quantityService = _this.val();
             var href = _this.data('url_update');
-
+            var roomId = modal.find('input[name="room_id"]').val();
             $.ajax({
                 type: "POST",
                 url: href,
@@ -443,14 +443,14 @@
                         return false;
                     }
                     _this.closest('.modal').find('.modal-dialog').html(data);
+
+                    changeBgLi(_this, roomId);
+                    refreshView();
                     $.toast({
                         text: 'Cập nhật thành công',
                         icon: 'success',
                         position: 'top-right'
                     });
-
-                    changeBgLi(_this, roomId);
-                    refreshView();
                 },
                 error: function (e) {
                     console.log(e);

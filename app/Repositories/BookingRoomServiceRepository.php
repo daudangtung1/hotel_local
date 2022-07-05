@@ -50,7 +50,9 @@ class BookingRoomServiceRepository extends ModelRepository
     {
         $bookingRoomService = $this->bookingRoomService->find($request->booking_room_service_id);
         if (!empty($bookingRoomService)) {
-            $bookingRoomService->service->increment('stock', $bookingRoomService->quantity);
+            if(!empty($bookingRoomService->service)) {
+                $bookingRoomService->service->increment('stock', $bookingRoomService->quantity);
+            }
             $bookingRoomService->delete();
         }
     }
