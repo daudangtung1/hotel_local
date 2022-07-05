@@ -71,6 +71,10 @@ class RevenueAndExpenditureRepository extends ModelRepository
             $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->end_date . ' 00:00:00');
             $data->where('created_at', '<', $endDate);
         }
+          
+        if ($request->type != '') {
+            $data->where('type', $request->type);
+        }
 
         if ($paginate) {
             $data = $data->paginate(10);
