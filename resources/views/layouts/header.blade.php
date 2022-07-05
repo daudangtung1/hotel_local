@@ -281,7 +281,7 @@
                                     <span>BC bán hàng</span>
                                 </li>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{route('services.create')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qlkho.png"></a>
                                     <span>Quản lý kho</span>
                                 </li>
