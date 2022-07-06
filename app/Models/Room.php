@@ -143,6 +143,10 @@ class Room extends Model
 //        }
     }
 
+    public static function getUniqueFloor() {
+        return self::select('floor as name')->distinct()->orderBy('name', 'ASC')->get();
+    }
+
     public static function boot() {
         parent::boot();
         static::created(function($item) {
