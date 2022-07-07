@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('customers/report/filter', [\App\Http\Controllers\CustomersController::class, 'report'])->name('customers.report');
     Route::get('booking-room-service/report/filter', [\App\Http\Controllers\BookingRoomServiceController::class, 'report'])->name('booking-room-service.report');
+    Route::get('services/report/filter', [\App\Http\Controllers\ServiceController::class, 'report'])->name('services.report');
 });
 
 Route::get('booking-room/invoice/{id}', [\App\Http\Controllers\BookingRoomController::class, 'showInvoice'])->name('booking-room.show_invoice');

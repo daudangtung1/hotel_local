@@ -11,6 +11,15 @@ class Service extends Model
     use HasFactory;
     use SoftDeletes;
 
+    const DO_AN = 0;
+    const DO_UONG = 1;
+    const DICH_VU_KHAC = 2;
+    const ARRAY_SERVICE_TYPE = [
+        self::DO_AN        => 'Đồ ăn',
+        self::DO_UONG      => 'Đồ uống',
+        self::DICH_VU_KHAC => 'Dịch vụ khác',
+    ];
+
     protected $fillable = [
         'name',
         'stock',
@@ -32,5 +41,10 @@ class Service extends Model
         static::deleted(function($item) {
             create_log('Xóa dịch vụ');
         });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
