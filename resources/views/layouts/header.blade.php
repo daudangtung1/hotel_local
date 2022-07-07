@@ -350,7 +350,7 @@
                                     <span>Hướng dẫn</span>
                                 </li>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a class="contact"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/lienhe.png"></a>
                                     <span>Liên hệ</span>
                                 </li>
@@ -381,7 +381,7 @@
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
-                                    <a href="#">
+                                    <a href="https://start.teamviewer.com/device/authorization/password/mode/control">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                              xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px"
                                              y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000"
@@ -414,7 +414,7 @@
                                     <span>Teamviewer</span>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="https://go.anydesk.com/">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="144px"
                                              height="144px" id="svg-replaced-39"
                                              class="image-svg replaced-svg svg-replaced-39">
