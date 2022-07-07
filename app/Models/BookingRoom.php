@@ -22,6 +22,7 @@ class BookingRoom extends Model
     const CLEANING = 4;
     const FIXING = 5;
     const BOOKING_ROOM = 6;
+    const CHECKOUT = 7;
 
     protected $fillable = [
         'room_id',
