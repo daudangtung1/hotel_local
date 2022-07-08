@@ -91,7 +91,7 @@
                                     <select id="select-type-room" class="form-select" aria-label="Default select example">
                                         <option value="">Tất cả loai phòng</option>
                                         @foreach (\App\Models\Room::ARRAY_STATUS as $key => $item)
-                                        <option value="{{ $key }}">{{$item}}</option> 
+                                        <option value="{{ $key }}">{{$item}}</option>
                                         @endforeach
                                     </select>
                                 </li>
@@ -142,7 +142,7 @@
                                     <select id="select-area" class="form-select" aria-label="Default select example">
                                       <option value="">Tất cả các tầng</option>
                                      @foreach(\App\Models\Room::getUniqueFloor() as $floor)
-                                      <option value="{{ $floor->name ?? '' }}">{{ $floor->name ?? ''}}</option> 
+                                      <option value="{{ $floor->name ?? '' }}">{{ $floor->name ?? ''}}</option>
                                      @endforeach
                                     </select>
                                 </li>
@@ -194,11 +194,11 @@
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/thuchi01.png"></a>
                                     <span>Thu chi</span>
                                 </li>
-{{--                                <li>--}}
-{{--                                    <a href="#"><img class="image-svg" alt=""--}}
-{{--                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qlquy01.png"></a>--}}
-{{--                                    <span>QL Quỹ</span>--}}
-{{--                                </li>--}}
+                                <li>
+                                    <a href="#"><img class="image-svg" alt=""
+                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qlquy01.png"></a>
+                                    <span>QL Quỹ</span>
+                                </li>
 {{--                                <li>--}}
 {{--                                    <a href="#"><img class="image-svg" alt=""--}}
 {{--                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/giaoca01.png"></a>--}}
