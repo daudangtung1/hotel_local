@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BookingRoomServiceExport;
 use App\Repositories\BookingRoomRepository;
 use App\Repositories\BookingRoomServiceRepository;
 use App\Repositories\RoomRepository;
@@ -80,5 +81,15 @@ class BookingRoomServiceController extends Controller
                 ]
             ];
         }
+    }
+
+    public function report(Request $request)
+    {
+        if(!empty($request->export)) {
+            return (app(BookingRoomServiceExport::class))->download('booking-room-services.xlsx');
+        }
+        $bookingRoomServices = $this->bookingRoomServiceRepository->filter($request);
+
+        return view('booking-room-service.report', compact('bookingRoomServices'));
     }
 }

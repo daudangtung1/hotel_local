@@ -8,6 +8,7 @@ use App\Models\BookingRoomService;
 use App\Models\Customers;
 use App\Models\Room;
 use App\Models\Service;
+use Carbon\Carbon;
 use DB;
 
 /**
@@ -74,5 +75,24 @@ class BookingRoomServiceRepository extends ModelRepository
             $bookingRoomService->service->update(['stock' => ($totalQuantity - $request->quantity)]);
             $bookingRoomService->update(['quantity' => $request->quantity]);
         }
+    }
+
+    public function filter($request)
+    {
+        $query = $this->bookingRoomService;
+        if (!empty($request->start_date)) {
+            $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->start_date . ' 00:00:00');
+            $query = $query->whereDate('created_at', '>=', $startDate);
+        }
+
+        if (!empty($request->end_date)) {
+            $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->end_date . ' 00:00:00');
+            $query = $query->whereDate('created_at', '<=', $endDate);
+        }
+        $query = $query->whereHas('bookingRoom', function ($subQuery) {
+            $subQuery->where('status', BookingRoom::CHECKOUT);
+        });
+
+        return $query->orderBy('id','DESC')->paginate(10);
     }
 }

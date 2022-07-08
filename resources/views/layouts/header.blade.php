@@ -276,7 +276,7 @@
                                     <span>BC nhập hàng</span>
                                 </li>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{ route('booking-room-service.report') }}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/bcbanhang.png"></a>
                                     <span>BC bán hàng</span>
                                 </li>

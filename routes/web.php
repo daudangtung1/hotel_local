@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('lost-items/update-status/{id}', [\App\Http\Controllers\LostItemController::class, 'updateStatus'])->name('lost-items.update_status');
 
     Route::get('customers/report/filter', [\App\Http\Controllers\CustomersController::class, 'report'])->name('customers.report');
+    Route::get('booking-room-service/report/filter', [\App\Http\Controllers\BookingRoomServiceController::class, 'report'])->name('booking-room-service.report');
 });
 
 Route::get('booking-room/invoice/{id}', [\App\Http\Controllers\BookingRoomController::class, 'showInvoice'])->name('booking-room.show_invoice');
