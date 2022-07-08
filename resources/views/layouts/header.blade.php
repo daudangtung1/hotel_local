@@ -292,7 +292,7 @@
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{ route('services.report') }}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/bcnhaphang.png"></a>
                                     <span>BC nhập hàng</span>
                                 </li>

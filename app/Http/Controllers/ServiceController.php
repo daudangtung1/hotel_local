@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ServiceExport;
 use App\Repositories\ServiceRepository;
 use Illuminate\Http\Request;
 
@@ -90,5 +91,15 @@ class ServiceController extends Controller
                 return redirect()->back()->with('success', 'Đã lưu lại');
             }
         }
+    }
+
+    public function report(Request $request)
+    {
+        if(!empty($request->export)) {
+            return (app(ServiceExport::class))->download('services.xlsx');
+        }
+        $services = $this->serviceRepository->filter($request);
+
+        return view('service.report', compact('services'));
     }
 }

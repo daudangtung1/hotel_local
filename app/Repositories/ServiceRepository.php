@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Room;
 use App\Models\Service;
+use Carbon\Carbon;
 use DB;
 
 /**
@@ -53,5 +54,21 @@ class ServiceRepository extends ModelRepository
             'type'    => $request->type,
             'user_id' => \Auth::user()->id
         ]);
+    }
+
+    public function filter($request)
+    {
+        $query = $this->model;
+        if (!empty($request->start_date)) {
+            $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->start_date . ' 00:00:00');
+            $query = $query->whereDate('created_at', '>=', $startDate);
+        }
+
+        if (!empty($request->end_date)) {
+            $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->end_date . ' 00:00:00');
+            $query = $query->whereDate('created_at', '<=', $endDate);
+        }
+
+        return $query->orderBy('id','DESC')->paginate(10);
     }
 }
