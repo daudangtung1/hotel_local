@@ -87,6 +87,13 @@
                                     <a href="#"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"></a>
                                     <span>Loại phòng</span>
+                                <li class="form-filter">
+                                    <select id="select-type-room" class="form-select" aria-label="Default select example">
+                                        <option value="">Tất cả loai phòng</option>
+                                        @foreach (\App\Models\Room::ARRAY_STATUS as $key => $item)
+                                        <option value="{{ $key }}">{{$item}}</option> 
+                                        @endforeach
+                                    </select>
                                 </li>
                                 <li>
                                     <a href="#">
@@ -131,6 +138,14 @@
                                     </a>
                                     <span>Khu vực</span>
                                 </li>
+                                <li class="form-filter">
+                                    <select id="select-area" class="form-select" aria-label="Default select example">
+                                      <option value="">Tất cả các tầng</option>
+                                     @foreach(\App\Models\Room::getUniqueFloor() as $floor)
+                                      <option value="{{ $floor->name ?? '' }}">{{ $floor->name ?? ''}}</option> 
+                                     @endforeach
+                                    </select>
+                                </li>
                                 <li>
                                     <a href="#">
                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -159,8 +174,14 @@
                                     </a>
                                     <span>sắp xếp</span>
                                 </li>
+                                <li class="form-filter">
+                                    <select id="select-order" class="form-select" aria-label="Default select example">
+                                    <option value="ASC">Tăng dần</option>
+                                    <option value="DESC">Giảm dần</option>
+                                    </select>
+                                </li>
                             </ul>
-                            <span class="text_tlc">Lọc và sắp xếp</span>
+                            <span class="text_tlc filter_room">Lọc và sắp xếp</span>
                         </div>
                     </div>
                 </div>

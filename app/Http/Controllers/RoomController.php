@@ -26,7 +26,7 @@ class RoomController extends Controller
 
     public function index(Request $request)
     {
-        $floors = $this->roomRepository->getAll();
+        $floors = $this->roomRepository->getAll(true, false, $request);
         $services = $this->serviceRepository->getAll();
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking();
         $typeRooms = $this->typeRoomRepository->getAll();
