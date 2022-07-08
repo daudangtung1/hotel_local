@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5>Báo cáo bán hàng</h5>
+                        <h5>{{$title ?? ''}}</h5>
                         <div class="filter">
                             <form action="{{route('booking-room-service.report')}}" class="d-flex" method="GET">
                                 <input type="text" class="form-control me-2 filter-date" placeholder="Ngày bắt đầu" name="start_date" value="@if(!empty(request()->start_date)) {{request()->start_date}} @endif"  autocomplete="false">
@@ -43,7 +43,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="text-center" colspan="5">Không có dịch vụ phòng nào</td>
+                                <td class="text-center" colspan="7">Không có dịch vụ phòng nào</td>
                             </tr>
                         @endforelse
                         </tbody>

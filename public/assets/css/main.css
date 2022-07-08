@@ -798,3 +798,7 @@ div.dv-main-navigation ul ul ul {
     -moz-appearance: auto !important;
  appearance: auto !important;
 }
+.btn,
+.whitespace-nowrap{
+    white-space: nowrap;
+}

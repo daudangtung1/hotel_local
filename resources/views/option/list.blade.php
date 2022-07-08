@@ -1,31 +1,5 @@
-
-<table class="table table-sm table-bordered table-hover">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Tên</th>
-        <th scope="col">Địa chỉ</th>
-        <th scope="col">Số điện thoại</th>
-        <th scope="col">Email</th>
-        <td scope="col">Fax</td>
-    </tr>
-    </thead>
-    <tbody>
-        @if($options)
-          @foreach($options as $option)
-          <tr>
-            <td>{{ $option->id ?? ''}}</td>
-            <td>{{ $option->name ?? '' }}</td>
-            <td>{{ $option->address ?? ''}}</td>
-            <td>{{ $option->phone ?? ''}}</td>
-            <td>{{ $option->email ?? ''}} </td>
-            <td>{{ $option->fax ?? ''}}</td>
-          </tr>
-          @endforeach
-        @else
-        <tr>
-            <td colspan="4">Không có bản ghi nào</td>
-        </tr>
-        @endif
-       </tbody>
-</table>
+<p><b class="w-25 d-inline-block">Tên công ty:</b> {{ $option->name ?? '' }}</p>
+<p><b class="w-25 d-inline-block">Địa chỉ:</b> {{ $option->address ?? ''}}</p>
+<p><b class="w-25 d-inline-block">Số điện thoại:</b> {{ $option->phone ?? ''}}</p>
+<p><b class="w-25 d-inline-block">Email:</b> {{ $option->email ?? ''}} </p>
+<p><b class="w-25 d-inline-block">Fax:</b> {{ $option->fax ?? ''}}</p>

@@ -10,7 +10,7 @@
                     <form class="row g-3" method="POST" action="{{route('options.update_all')}}">
                         @csrf
                         <div class="col-md-12">
-                            <label for="name" class="form-label">Tên khách sạn</label>
+                            <label for="name" class="form-label">Tên công ty</label>
                             <input type="text" class="form-control  form-control-sm" id="name" name="name"
                                    value="{{$option->name ?? ''}}">
                         </div>

@@ -8,7 +8,98 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? '' }}</title>
+    <style>
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 1);
+            z-index: 9999;
+        }
 
+        #loader {
+            display: block;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #9370DB;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        #loader:before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #BA55D3;
+            -webkit-animation: spin 3s linear infinite;
+            animation: spin 3s linear infinite;
+        }
+
+        #loader:after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #FF00FF;
+            -webkit-animation: spin 1.5s linear infinite;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        li.bg-success svg,
+        li.bg-success *,
+        li.bg-secondary svg,
+        li.bg-secondary *,
+        li.bg-danger svg,
+        li.bg-danger *,
+        li.bg-primary svg,
+        li.bg-primary * {
+            color: #fff !important;
+            fill: #fff !important;
+        }
+    </style>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -46,21 +137,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
     <style>
-        .div-scroll{
+        .div-scroll {
             max-height: 500px;
             overflow-y: scroll;
         }
-        .max-height-300{
+
+        .max-height-300 {
             max-height: 300px;
         }
+
         /* ADD by Quan */
         .boder-validate {
             border: 1px solid #dc3545 !important;
 
         }
+
         .boder-validate:focus {
             outline: rgba(255, 7, 7, 0.4) solid 4px !important;
         }
+
         /* end Add */
     </style>
     <script>
@@ -72,7 +167,9 @@
     </script>
 </head>
 <body>
-
+<div id="preloader">
+    <div id="loader"></div>
+</div>
 <div class="wrapper">
 
     @include('layouts.header')
@@ -82,7 +179,6 @@
     @include('layouts.footer')
 
     @include('layouts.message')
-
 </div>
 <script src='{{asset('vendors/fancybox/jquery.fancybox.min.js')}}'></script>
 <script src='{{asset('vendors/nice-select/jquery.nice-select.js')}}'></script>
@@ -103,39 +199,10 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"
       rel="stylesheet"/>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-<script id='jquery-ui-datepicker-js-after'>
-    jQuery(function (jQuery) {
-        jQuery.datepicker.setDefaults({
-            "closeText": "Close",
-            "currentText": "Today",
-            "monthNames": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-            "monthNamesShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            "nextText": "Next",
-            "prevText": "Previous",
-            "dayNames": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            "dayNamesShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            "dayNamesMin": ["S", "M", "T", "W", "T", "F", "S"],
-            "dateFormat": "MM d, yy",
-            "firstDay": 1,
-            "isRTL": false
-        });
-    });
-</script>
-<style>
-    li.bg-success svg,
-    li.bg-success *,
-    li.bg-secondary svg,
-    li.bg-secondary *,
-    li.bg-danger svg,
-    li.bg-danger *,
-    li.bg-primary svg,
-    li.bg-primary * {
-        color: #fff !important;
-        fill: #fff !important;
-    }
-</style>
+
+
 @yield('script')
-<div class="modal fade" id="option-contact" tabindex="-1" 
+<div class="modal fade" id="option-contact" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
 </div>
 <div class="modal fade" id="booking-room"
@@ -144,6 +211,9 @@
 </div>
 
 <script>
+    $(window).on('load', function () {
+        $('#preloader').fadeOut('fast');
+    });
     $(document).ready(function () {
         $('body').on('click', '.btn-booking-multiple-room', function () {
             var _this = $(this);
@@ -179,7 +249,7 @@
                     $(this).addClass('boder-validate');
                 });
                 return false;
-            }else if(startDate < endDate) {
+            } else if (startDate < endDate) {
                 $('input[name="end_date"]').map(function () {
                     $(this).removeClass('boder-validate');
                 });
@@ -679,16 +749,16 @@
         })
     }
 
-    $('body').on('click', '.contact', function() {
+    $('body').on('click', '.contact', function () {
         // $('#option-contact').modal('show');
         $.ajax({
             type: "get",
             url: "{{route('options.index')}}",
             success: function (data) {
-             $('#option-contact').html('').html(data);
-             $('#option-contact').modal('show');
+                $('#option-contact').html('').html(data);
+                $('#option-contact').modal('show');
             },
-            error: function(e) {
+            error: function (e) {
                 console.log(e)
             }
         })
@@ -705,10 +775,11 @@
         width: 15px;
         height: 15px;
     }
-    ul,ol{
+
+    ul, ol {
         padding-left: 0;
     }
-    
+
     .form-filter {
         padding: 22px 0px;
     }

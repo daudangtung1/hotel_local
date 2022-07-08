@@ -85,11 +85,13 @@ class BookingRoomServiceController extends Controller
 
     public function report(Request $request)
     {
+        $title = 'Báo cáo bán hàng';
+        $menuReport = true;
         if(!empty($request->export)) {
             return (app(BookingRoomServiceExport::class))->download('booking-room-services.xlsx');
         }
         $bookingRoomServices = $this->bookingRoomServiceRepository->filter($request);
 
-        return view('booking-room-service.report', compact('bookingRoomServices'));
+        return view('booking-room-service.report', compact('bookingRoomServices', 'title', 'menuReport'));
     }
 }

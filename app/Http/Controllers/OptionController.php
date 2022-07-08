@@ -27,10 +27,9 @@ class OptionController extends Controller
     {
         $menuSetup = true;
         $option = $this->optionRepository->find();
-        $options = $this->optionRepository->all();
-        
+
         if ($request->ajax()) {
-            return view('option.modal-option', compact('options'))->render();
+            return view('option.modal-option', compact('option'))->render();
         }
 
         return view('option.index', compact('menuSetup', 'option'));
@@ -88,7 +87,7 @@ class OptionController extends Controller
      */
     public function updateAll(Request $request)
     {
-        $options = $this->optionRepository->update($request);
+        $this->optionRepository->update($request);
 
         return redirect()->route('options.index')->with('success', 'Cập nhật thành công');
     }

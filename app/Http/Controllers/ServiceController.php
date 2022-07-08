@@ -95,11 +95,13 @@ class ServiceController extends Controller
 
     public function report(Request $request)
     {
-        if(!empty($request->export)) {
+        $menuReport = true;
+        if (!empty($request->export)) {
             return (app(ServiceExport::class))->download('services.xlsx');
         }
+        $title = 'Báo cáo nhập hàng';
         $services = $this->serviceRepository->filter($request);
 
-        return view('service.report', compact('services'));
+        return view('service.report', compact('services', 'menuReport', 'title'));
     }
 }
