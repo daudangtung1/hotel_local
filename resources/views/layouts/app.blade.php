@@ -135,7 +135,9 @@
     }
 </style>
 @yield('script')
-
+<div class="modal fade" id="option-contact" tabindex="-1" 
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
 <div class="modal fade" id="booking-room"
      aria-labelledby="booking-modalLabel" aria-hidden="true">
     @include('room.model-booking-room')
@@ -676,6 +678,21 @@
             }
         })
     }
+
+    $('body').on('click', '.contact', function() {
+        // $('#option-contact').modal('show');
+        $.ajax({
+            type: "get",
+            url: "{{route('options.index')}}",
+            success: function (data) {
+             $('#option-contact').html('').html(data);
+             $('#option-contact').modal('show');
+            },
+            error: function(e) {
+                console.log(e)
+            }
+        })
+    })
 </script>
 <style>
     @media (min-width: 1200px) {

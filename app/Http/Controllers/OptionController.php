@@ -20,12 +20,19 @@ class OptionController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $menuSetup = true;
         $option = $this->optionRepository->find();
+        $options = $this->optionRepository->all();
+        
+        if ($request->ajax()) {
+            return view('option.modal-option', compact('options'))->render();
+        }
+
         return view('option.index', compact('menuSetup', 'option'));
     }
 
