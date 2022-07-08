@@ -171,7 +171,7 @@ class BookingRoomRepository extends ModelRepository
     {
         $room = $this->room->find($request->room_id);
         $service = $this->service->find($request->service_id);
-        if (!empty($room->bookingRooms()->whereIn('status', [1,3,5])->where('status', '<>', 7)->first())) {
+        if (!empty($room->bookingRooms()->whereIn('status', [1, 3, 5])->where('status', '<>', 7)->first())) {
             $bookingRoom = $room->bookingRooms()->orderBy('id', 'DESC')->first();
         } else {
             $bookingRoom = $this->bookingRoom->create([

@@ -32,12 +32,12 @@ class RoomRepository extends ModelRepository
 
     public function getAll($sortByFloor = true, $paginate = false, $request = null)
     {
-        $rooms    = $this->model;
+        $rooms = $this->model;
 
-        if($request) {
+        if ($request) {
             $typeRoom = $request->get('type_room');
-            $orderBy  = $request->get('order_by', 'ASC');
-            $area     = $request->get('area');
+            $orderBy = $request->get('order_by', 'ASC');
+            $area = $request->get('area');
 
             if ($area) {
                 $rooms = $rooms->where('floor', $area);
@@ -101,7 +101,7 @@ class RoomRepository extends ModelRepository
                 ]);
             } else if (in_array($room->status, [2, 3, 5])) {
                 $room->update(['status' => $this->model::READY]);
-                $room->bookingRooms()->whereIn('status',[2, 3, 5])->update([
+                $room->bookingRooms()->whereIn('status', [2, 3, 5])->update([
                     'status' => $this->model::CLOSED,
                 ]);
             } else {
