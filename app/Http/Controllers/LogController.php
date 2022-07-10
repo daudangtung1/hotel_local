@@ -18,11 +18,12 @@ class LogController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $logs = $this->logRepository->getAll();
+        $logs = $this->logRepository->getAll($request);
         $menuReport = true;
         $title = 'Quản lý hoạt động';
 

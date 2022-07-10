@@ -33,9 +33,30 @@ class LogRepository extends ModelRepository
         return self::$instance;
     }
 
-    public function getAll()
+    public function getAll($request = null)
     {
-        return $this->model->orderBy('ID', 'DESC')->paginate(10);
+        $query = $this->model;
+        
+        if ($request) {
+           $title = $request->get('title');
+           $userName = $request->get('user_name');
+           $createdAt = $request->get('created_at');
+
+           if ($title) {
+             $query = $query->where('subject', 'LIKE' , "%{$title}%");
+           }
+
+           if ($userName) {
+             $query = $query->leftJoin('users', 'logs.user_id', '=' , 'users.id')
+                            ->where('users.name', 'LIKE', "{$userName}");
+           }
+
+           if ($createdAt) {
+             $query = $query->where(\DB::raw("DATE_FORMAT(logs.created_at, '%Y-%m-%d')"), '=' , $createdAt);
+           }
+        }
+
+        return $query->orderBy('logs.id', 'DESC')->paginate(10)->withQueryString();
     }
 
     public function find($request)
