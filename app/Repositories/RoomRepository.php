@@ -38,10 +38,15 @@ class RoomRepository extends ModelRepository
             $typeRoom = $request->get('type_room');
             $orderBy = $request->get('order_by', 'ASC');
             $area = $request->get('area');
-
             if ($area) {
                 $rooms = $rooms->where('floor', $area);
             }
+
+            if (isset($typeRoom)) {
+                $rooms = $rooms->where('status', $typeRoom);
+            }
+
+            $rooms = $rooms->orderBy('id', $orderBy);
         }
 
         $rooms = $rooms->orderBy('floor', 'ASC')->whereNotNull('floor');
@@ -62,9 +67,6 @@ class RoomRepository extends ModelRepository
             sort($floorData);
             foreach ($floorData as $floor) {
                 foreach ($rooms as $room) {
-                    if (!empty($typeRoom)) {
-                        $floor = $this->model::ARRAY_STATUS[$typeRoom];
-                    }
                     if ($floor == $room->floor) {
                         $data[$room->floor][] = $room;
                     }
