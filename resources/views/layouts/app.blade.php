@@ -763,6 +763,71 @@
             }
         })
     })
+
+    $('body').on('click','#list-type-rooms li', function(e) {
+        $('#list-type-rooms li').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+        var data = getParamsFilter();
+        $.ajax({
+            type: "get",
+            url: "{{route('rooms.index')}}",
+            data: data,
+            success: function (data) {
+                $('#room-list').html('').html(data)
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        })
+    });
+
+    $('body').on('click','#list-floor li', function(e) {
+        $('#list-floor li').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+        var data = getParamsFilter();
+        $.ajax({
+            type: "get",
+            url: "{{route('rooms.index')}}",
+            data: data,
+            success: function (data) {
+                $('#room-list').html('').html(data)
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        })
+    })
+
+    $('body').on('click', '#drop-down-order li', function(e) {
+        $('#drop-down-order li').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+        var data = getParamsFilter();
+        $.ajax({
+            type: "get",
+            url: "{{route('rooms.index')}}",
+            data: data,
+            success: function (data) {
+                $('#room-list').html('').html(data)
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        })
+    })
+
+    function getParamsFilter () {
+        var area = $('#list-floor .active').data('value');
+        var type_room = $('#list-type-rooms .active').data('value');
+        var order_by = $('#drop-down-order .active').data('value');
+        return { 
+            area: area,
+            type_room: type_room,
+            order_by: order_by
+        };
+    }
 </script>
 <style>
     @media (min-width: 1200px) {

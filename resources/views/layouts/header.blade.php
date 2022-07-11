@@ -84,16 +84,17 @@
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <div class="dropdown">
+                                    <a class="dropdown" href="#" role="button" id="dropdownTypeRoom" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"></a>
                                     <span>Loại phòng</span>
-                                <li class="form-filter">
-                                    <select id="select-type-room" class="form-select" aria-label="Default select example">
-                                        <option value="">Tất cả loai phòng</option>
-                                        @foreach (\App\Models\Room::ARRAY_STATUS as $key => $item)
-                                        <option value="{{ $key }}">{{$item}}</option>
-                                        @endforeach
-                                    </select>
+                                       <ul id="list-type-rooms" class="dropdown-menu" aria-labelledby="dropdownTypeRoom">
+                                            <li><a class="dropdown-item">Tất cả loai phòng</a></li>
+                                            @foreach (\App\Models\Room::ARRAY_STATUS as $key => $item)
+                                            <li data-value="{{$key}}"><a class="dropdown-item">{{$item}}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </li>
                                 <li>
                                     <a href="#">
@@ -137,14 +138,17 @@
 </svg>
                                     </a>
                                     <span>Khu vực</span>
-                                </li>
-                                <li class="form-filter">
-                                    <select id="select-area" class="form-select" aria-label="Default select example">
-                                      <option value="">Tất cả các tầng</option>
-                                     @foreach(\App\Models\Room::getUniqueFloor() as $floor)
-                                      <option value="{{ $floor->name ?? '' }}">{{ $floor->name ?? ''}}</option>
-                                     @endforeach
-                                    </select>
+                                    <div class="dropdown">
+                                        <a class="dropdown" href="#" role="button" id="dropdownFloor" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
+                                                         src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"></a>
+                                        <span>Khu vuc</span>
+                                        <ul id="list-floor" class="dropdown-menu" aria-labelledby="dropdownFloor">
+                                            <li><a class="dropdown-item">Tất cả</a></li>
+                                            @foreach(\App\Models\Room::getUniqueFloor() as $floor)
+                                                <li data-value="{{ $floor->name ?? '' }}"><a class="dropdown-item">{{ $floor->name ?? ''}}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </li>
                                 <li>
                                     <a href="#">
@@ -173,12 +177,14 @@
 </svg>
                                     </a>
                                     <span>sắp xếp</span>
-                                </li>
-                                <li class="form-filter">
-                                    <select id="select-order" class="form-select" aria-label="Default select example">
-                                    <option value="ASC">Tăng dần</option>
-                                    <option value="DESC">Giảm dần</option>
-                                    </select>
+                                    <div class="dropdown">
+                                        <a class="dropdown" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
+                                                         src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"></a>
+                                        <ul id="drop-down-order" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li data-value="DESC"><a class="dropdown-item">Giảm dần</a></li>
+                                            <li data-value="ASC"><a class="dropdown-item">Tăng dần</a></li>
+                                        </ul>
+                                    </div>
                                 </li>
                             </ul>
                             <span class="text_tlc filter_room">Lọc và sắp xếp</span>
