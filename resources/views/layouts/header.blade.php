@@ -83,18 +83,15 @@
                         </div>
                         <div class="ql_tk tl_chung">
                             <ul>
-                                <li>
-                                    <div class="dropdown">
-                                    <a class="dropdown" href="#" role="button" id="dropdownTypeRoom" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
-                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"></a>
-                                    <span>Loại phòng</span>
-                                       <ul id="list-type-rooms" class="dropdown-menu" aria-labelledby="dropdownTypeRoom">
-                                            <li><a class="dropdown-item">Tất cả loai phòng</a></li>
-                                            @foreach (\App\Models\Room::ARRAY_STATUS as $key => $item)
-                                            <li data-value="{{$key}}"><a class="dropdown-item">{{$item}}</a></li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+                                <li> 
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#" id="dropdownTypeRoom" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
+                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"><span>Loại phòng</span></a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item">Tất cả loai phòng</a></li>
+                                        @foreach (\App\Models\Room::ARRAY_STATUS as $key => $item)
+                                        <li data-value="{{$key}}"><a class="dropdown-item">{{$item}}</a></li>
+                                        @endforeach
+                                    </ul>
                                 </li>
                                 <li>
                                     <a href="#">
@@ -103,42 +100,13 @@
                                              x="0px" y="0px" viewBox="0 0 51.913 51.913"
                                              style="enable-background:new 0 0 51.913 51.913;" xml:space="preserve"
                                              class="image-svg replaced-svg svg-replaced-9">
-<path
-    d="M50.957,7c0-4.596-12.577-7-25-7s-25,2.404-25,7c0,1.042,0.652,1.97,1.796,2.784l17.204,23.542v17.525l0.062,1.062h1  l0.457-0.018l10.481-10.481v-8.088L49.16,9.784C50.305,8.97,50.957,8.042,50.957,7z M25.957,2c14.04,0,23,2.961,23,5s-8.96,5-23,5  s-23-2.961-23-5S11.917,2,25.957,2z"></path>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-                                            <g>
-                                            </g>
-</svg>
+                                        <path
+                                            d="M50.957,7c0-4.596-12.577-7-25-7s-25,2.404-25,7c0,1.042,0.652,1.97,1.796,2.784l17.204,23.542v17.525l0.062,1.062h1  l0.457-0.018l10.481-10.481v-8.088L49.16,9.784C50.305,8.97,50.957,8.042,50.957,7z M25.957,2c14.04,0,23,2.961,23,5s-8.96,5-23,5  s-23-2.961-23-5S11.917,2,25.957,2z"></path>
+                                                                                    <g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+                                        </svg>
+                                        <span>Khu vực</span>
                                     </a>
-                                    <span>Khu vực</span>
-                                    <div class="dropdown">
+                                    <!-- <div class="dropdown">
                                         <a class="dropdown" href="#" role="button" id="dropdownFloor" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
                                                          src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"></a>
                                         <span>Khu vuc</span>
@@ -148,7 +116,7 @@
                                                 <li data-value="{{ $floor->name ?? '' }}"><a class="dropdown-item">{{ $floor->name ?? ''}}</a></li>
                                             @endforeach
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </li>
                                 <li>
                                     <a href="#">
@@ -172,19 +140,19 @@
                                                         d="M3186.5-1239.4V-1441h201.6h201.6v201.6v201.6h-201.6h-201.6V-1239.4z"></path>
                                                     <path
                                                         d="M2354.9-2423.8v-201.6h567c312.5,0,567-5,567-12.6c0-10.1-282.2-365.4-630-793.8l-630-778.7v-226.8v-229.3h982.8h982.8v201.6v201.6h-680.4c-372.9,0-680.4,7.6-680.4,20.2c0,10.1,294.8,380.5,655.2,824l655.2,806.4v196.6v194h-894.6h-894.6V-2423.8z"></path>
-                                                </g>
-                                            </g>
+                                                </g></g>
 </svg>
+<span>sắp xếp</span>
                                     </a>
-                                    <span>sắp xếp</span>
-                                    <div class="dropdown">
+                                    
+                                    <!-- <div class="dropdown">
                                         <a class="dropdown" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
                                                          src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"></a>
                                         <ul id="drop-down-order" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <li data-value="DESC"><a class="dropdown-item">Giảm dần</a></li>
                                             <li data-value="ASC"><a class="dropdown-item">Tăng dần</a></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </li>
                             </ul>
                             <span class="text_tlc filter_room">Lọc và sắp xếp</span>
@@ -434,8 +402,7 @@
                                                 <g></g>
                                                 <g></g>
                                                 <g></g>
-                                                <g></g>
-                                            </g>
+                                                <g></g></g>
 </svg>
                                     </a>
                                     <span>Teamviewer</span>

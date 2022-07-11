@@ -170,8 +170,6 @@
 <div id="preloader">
     <div id="loader"></div>
 </div>
-<div class="wrapper">
-
     @include('layouts.header')
 
     @yield('content')
