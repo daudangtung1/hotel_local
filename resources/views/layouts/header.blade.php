@@ -86,7 +86,7 @@
                                 <li> 
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#" id="dropdownTypeRoom" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"><span>Loại phòng</span></a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <ul id="list-type-rooms" class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <li><a class="dropdown-item">Tất cả loai phòng</a></li>
                                         @foreach (\App\Models\Room::ARRAY_STATUS as $key => $item)
                                         <li data-value="{{$key}}"><a class="dropdown-item">{{$item}}</a></li>
@@ -94,7 +94,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a class="nav-link dropdown-toggle" role="button" id="dropdownFloor" data-bs-toggle="dropdown" aria-expanded="false">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                              xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
                                              x="0px" y="0px" viewBox="0 0 51.913 51.913"
@@ -106,20 +106,17 @@
                                         </svg>
                                         <span>Khu vực</span>
                                     </a>
-                                    <!-- <div class="dropdown">
-                                        <a class="dropdown" href="#" role="button" id="dropdownFloor" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
-                                                         src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"></a>
-                                        <span>Khu vuc</span>
+                                        {{-- <a class="dropdown" href="#" role="button" id="dropdownFloor" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
+                                                         src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"></a><span>Khu vuc</span> --}}
                                         <ul id="list-floor" class="dropdown-menu" aria-labelledby="dropdownFloor">
                                             <li><a class="dropdown-item">Tất cả</a></li>
                                             @foreach(\App\Models\Room::getUniqueFloor() as $floor)
                                                 <li data-value="{{ $floor->name ?? '' }}"><a class="dropdown-item">{{ $floor->name ?? ''}}</a></li>
                                             @endforeach
                                         </ul>
-                                    </div> -->
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a class="nav-link dropdown-toggle" role="button" id="dropdownOrder" data-bs-toggle="dropdown" aria-expanded="false">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                              xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px"
                                              y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000"
@@ -145,14 +142,10 @@
 <span>sắp xếp</span>
                                     </a>
                                     
-                                    <!-- <div class="dropdown">
-                                        <a class="dropdown" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
-                                                         src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"></a>
-                                        <ul id="drop-down-order" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <li data-value="DESC"><a class="dropdown-item">Giảm dần</a></li>
-                                            <li data-value="ASC"><a class="dropdown-item">Tăng dần</a></li>
-                                        </ul>
-                                    </div> -->
+                                    <ul id="drop-down-order" class="dropdown-menu" aria-labelledby="dropdownOrder">
+                                        <li data-value="DESC"><a class="dropdown-item">Giảm dần</a></li>
+                                        <li data-value="ASC"><a class="dropdown-item">Tăng dần</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                             <span class="text_tlc filter_room">Lọc và sắp xếp</span>

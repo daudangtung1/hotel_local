@@ -773,8 +773,8 @@
     })
 
     $('body').on('click','#list-type-rooms li', function(e) {
-        $('#list-type-rooms li').removeClass('active');
-        $(this).addClass('active');
+        $('#list-type-rooms li').removeClass('item-active');
+        $(this).addClass('item-active');
         e.preventDefault();
         var data = getParamsFilter();
         $.ajax({
@@ -791,8 +791,8 @@
     });
 
     $('body').on('click','#list-floor li', function(e) {
-        $('#list-floor li').removeClass('active');
-        $(this).addClass('active');
+        $('#list-floor li').removeClass('item-active');
+        $(this).addClass('item-active');
         e.preventDefault();
         var data = getParamsFilter();
         $.ajax({
@@ -809,8 +809,8 @@
     })
 
     $('body').on('click', '#drop-down-order li', function(e) {
-        $('#drop-down-order li').removeClass('active');
-        $(this).addClass('active');
+        $('#drop-down-order li').removeClass('item-active');
+        $(this).addClass('item-active');
         e.preventDefault();
         var data = getParamsFilter();
         $.ajax({
@@ -827,9 +827,9 @@
     })
 
     function getParamsFilter () {
-        var area = $('#list-floor .active').data('value');
-        var type_room = $('#list-type-rooms .active').data('value');
-        var order_by = $('#drop-down-order .active').data('value');
+        var area = $('#list-floor .item-active').data('value');
+        var type_room = $('#list-type-rooms .item-active').data('value');
+        var order_by = $('#drop-down-order .item-active').data('value');
         return { 
             area: area,
             type_room: type_room,
@@ -855,6 +855,12 @@
 
     .form-filter {
         padding: 22px 0px;
+    }
+    .item-active {
+        background-color: #0d6efd;
+    }
+    .item-active a {
+        color:#fff !important;
     }
 </style>
 
