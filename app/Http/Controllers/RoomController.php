@@ -30,15 +30,16 @@ class RoomController extends Controller
         $services = $this->serviceRepository->getAll();
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking();
         $typeRooms = $this->typeRoomRepository->getAll();
+        $typeRoomsSelect = $this->typeRoomRepository->getAll(false);
         $menuCategoryManager = true;
         $currentRoom = null;
         $title = 'Quản lý phòng';
 
         if ($request->ajax()) {
-            return view('room.list', compact('typeRooms', 'floors', 'services', 'menuCategoryManager', 'bookingRooms', 'currentRoom'))->render();
+            return view('room.list', compact('typeRoomsSelect', 'typeRooms', 'floors', 'services', 'menuCategoryManager', 'bookingRooms', 'currentRoom'))->render();
         }
 
-        return view('room.index', compact('typeRooms', 'floors', 'services', 'menuCategoryManager', 'bookingRooms', 'currentRoom', 'title'));
+        return view('room.index', compact('typeRoomsSelect', 'typeRooms', 'floors', 'services', 'menuCategoryManager', 'bookingRooms', 'currentRoom', 'title'));
     }
 
     public function create()
@@ -46,9 +47,10 @@ class RoomController extends Controller
         $menuSetup = true;
         $rooms = $this->roomRepository->getAll(false, true);
         $typeRooms = $this->typeRoomRepository->getAll();
+        $typeRoomsSelect = $this->typeRoomRepository->getAll(false);
         $title = 'Tạo mới phòng';
 
-        return view('room.create', compact('typeRooms','menuSetup', 'rooms', 'title'));
+        return view('room.create', compact('typeRoomsSelect', 'typeRooms','menuSetup', 'rooms', 'title'));
     }
 
     public function store(Request $request)
@@ -76,9 +78,10 @@ class RoomController extends Controller
         $typeRooms = $this->typeRoomRepository->getAll();
         $menuSetup = true;
         $rooms = $this->roomRepository->getAll(false, true);
+        $typeRoomsSelect = $this->typeRoomRepository->getAll(false);
         $title = 'Cập nhật phòng';
 
-        return view('room.create', compact('menuSetup', 'typeRooms', 'rooms', 'currentRoom', 'title'));
+        return view('room.create', compact('typeRoomsSelect', 'menuSetup', 'typeRooms', 'rooms', 'currentRoom', 'title'));
     }
 
     public function changeStatus(Request $request)

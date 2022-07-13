@@ -150,17 +150,30 @@ class BookingRoom extends Model
         return floor($createdAt->floatDiffInDays($now) + 1);
     }
 
+    public function getDiffMonth()
+    {
+        $now = Carbon::now();
+
+        $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date);
+
+        return floor($createdAt->floatDiffInMonths($now) + 1);
+    }
+
     public function getTime($suffixes = false)
     {
-        if ($this->rent_type) {
+        if($this->rent_type == 1) {
             $time = $this->getDiffDay();
+        } elseif($this->rent_type == 2) {
+            $time = $this->getDiffMonth();
         } else {
             $time = $this->getDiffHours();
         }
 
         if ($suffixes) {
-            if ($this->rent_type) {
+            if($this->rent_type == 1) {
                 $suffixes = ' ngày';
+            } elseif($this->rent_type == 2) {
+                $suffixes = ' tháng';
             } else {
                 $suffixes = ' giờ';
             }
@@ -186,8 +199,10 @@ class BookingRoom extends Model
     {
         $price = $this->price ?? 0;
         if ($price <= 0) {
-            if ($this->rent_type) {
+            if($this->rent_type == 1) {
                 $price = $this->room->day_price ?? 0;
+            } elseif($this->rent_type == 2) {
+                $price = $this->room->month_price ?? 0;
             } else {
                 $price = $this->room->hour_price ?? 0;
             }

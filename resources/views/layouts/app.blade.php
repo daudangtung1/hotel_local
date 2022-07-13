@@ -331,10 +331,11 @@
             var modal = _this.closest('.modal');
             var rentType = _this.val();
 
-            if (rentType == 1) {
+            if (rentType == 1 || rentType == 2) {
                 var now = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i', \Carbon\Carbon::now()->format('Y-m-d') . ' 12:00')}}';
+                var next = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i', \Carbon\Carbon::now()->addDay(1)->format('Y-m-d') . ' 12:00')}}';
                 modal.find('#start_date').val(now);
-                modal.find('#end_date').val(now);
+                modal.find('#end_date').val(next);
                 modal.find('#box-end-date').removeClass('d-none');
                 modal.find('.extra-price-box').removeClass('d-none');
             } else {
@@ -489,7 +490,7 @@
                 }
             })
         });
-        
+
         var debounce = null;
         $('body').on('keyup', 'input[name="quantity_service"]', function (e) {
             var _this = $(this);
@@ -830,7 +831,7 @@
         var area = $('#list-floor .item-active').data('value');
         var type_room = $('#list-type-rooms .item-active').data('value');
         var order_by = $('#drop-down-order .item-active').data('value');
-        return { 
+        return {
             area: area,
             type_room: type_room,
             order_by: order_by

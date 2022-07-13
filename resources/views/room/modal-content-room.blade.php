@@ -157,14 +157,21 @@
                             <input class="form-check-input rentType" type="radio" name="rent_type" id="exampleRadios2"
                                    value="0" @if($bookingRoom && $bookingRoom->rent_type == 0) checked @endif >
                             <label class="form-check-label" for="exampleRadios2">
-                                Thuê theo giờ ({{get_price($room->hour_price, 'đ') ?? 0}}/giờ)
+                                Thuê theo giờ ({{get_price($room->hour_price ?? 0, 'đ')}}/giờ)
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input rentType" type="radio" name="rent_type" id="exampleRadios1"
                                    value="1" @if($bookingRoom && $bookingRoom->rent_type == 1) checked @endif>
                             <label class="form-check-label" for="exampleRadios1">
-                                Thuê theo ngày ({{get_price($room->day_price, 'đ') ?? 0}}/ngày)
+                                Thuê theo ngày ({{get_price($room->day_price ?? 0, 'đ') }}/ngày)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input rentType" type="radio" name="rent_type" id="exampleRadios3"
+                                   value="2" @if($bookingRoom && $bookingRoom->rent_type == 2) checked @endif>
+                            <label class="form-check-label" for="exampleRadios3">
+                                Thuê theo tháng ({{get_price($room->month_price ?? 0, 'đ') }}/tháng)
                             </label>
                         </div>
                     </div>

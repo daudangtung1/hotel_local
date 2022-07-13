@@ -151,7 +151,7 @@ class BookingRoomRepository extends ModelRepository
                 'user_id'       => \Auth::user()->id
             ];
 
-            if ($request->rent_type == 1) {
+            if ($request->rent_type == 1 || $request->rent_type == 2) {
                 $data['end_date'] = $request->end_date ?? '';
                 $data['extra_price'] = $request->extra_price ?? 0;
             }

@@ -104,7 +104,7 @@
                         <div class="col-md-12">
                             <label for="inputState" class="form-label">Loại phòng</label>
                             <select id="type" name="type" class="form-select" required>
-                                @forelse($typeRooms as $key => $typeRoom)
+                                @forelse($typeRoomsSelect as $key => $typeRoom)
                                     <option @if(!empty($typeRoom) && !empty($currentRoom) && $typeRoom->id == $currentRoom->type_room_id) selected @endif value="{{$typeRoom->id}}">{{$typeRoom->name ?? ''}}</option>
                                 @empty
                                     <option value="">Không có loại phòng</option>
@@ -120,6 +120,11 @@
                             <label for="day_price" class="form-label">Giá phòng / ngày</label>
                             <input type="number" min="0" class="form-control  form-control-sm" id="day_price" name="day_price"
                                    value="{{$currentRoom->day_price ??'0'}}" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="day_price" class="form-label">Giá phòng / tháng</label>
+                            <input type="number" min="0" class="form-control  form-control-sm" id="month_price" name="month_price"
+                                   value="{{$currentRoom->month_price ??'0'}}" required>
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentRoom)) Cập nhật @else Tạo

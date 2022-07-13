@@ -125,9 +125,10 @@ class RoomRepository extends ModelRepository
             'name'         => $request->name,
             'floor'        => $request->floor,
             'type'         => $request->type,
-            'day_price'    => $request->day_price,
-            'hour_price'   => $request->hour_price,
-            'status'       => $request->status,
+            'month_price'  => $request->month_price ?? 0,
+            'day_price'    => $request->day_price ?? 0,
+            'hour_price'   => $request->hour_price ?? 0,
+            'status'       => $request->status ?? 0,
             'user_id'      => \Auth::user()->id,
             'type_room_id' => $request->type ?? null
         ]);
@@ -139,6 +140,7 @@ class RoomRepository extends ModelRepository
             'name'         => $request->name ?? '',
             'floor'        => $request->floor ?? '',
             'type'         => $request->type ?? 0,
+            'month_price'  => $request->month_price ?? 0,
             'day_price'    => $request->day_price ?? 0,
             'hour_price'   => $request->hour_price ?? 0,
             'status'       => $request->status ?? 0,
