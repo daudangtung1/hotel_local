@@ -183,6 +183,17 @@ class BookingRoom extends Model
         return $time;
     }
 
+    public function getRentType()
+    {
+        if($this->rent_type == 1) {
+            return 'Thuê theo ngày';
+        } elseif($this->rent_type == 2) {
+            return 'Thuê theo tháng';
+        } else {
+            return 'Thuê theo giờ';
+        }
+    }
+
     public function getTotalServices()
     {
         $services = $this->bookingRoomServices()->get();
