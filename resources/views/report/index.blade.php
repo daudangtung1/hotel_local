@@ -22,6 +22,8 @@
                     @include('report.form-booking-room')
                 @elseif(request()->get('by') == \App\Models\Room::FILTER_BY_RAE)
                     @include('report.form-revenue-expenditure')
+                @elseif(request()->get('by') == \App\Models\Room::FILTER_BY_STATUS_ROOM)
+                    @include('report.form-status-room')
                 @else
                 @endif
             </div>

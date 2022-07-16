@@ -28,10 +28,23 @@ class Room extends Model
     ];
     const FILTER_BY_ROOM = 0;
     const FILTER_BY_RAE = 1;
+    const FILTER_BY_STATUS_ROOM = 2;
 
     const Filter = [
         self::FILTER_BY_ROOM => "Phòng đã sử dụng",
         self::FILTER_BY_RAE => "Thu chi",
+        self::FILTER_BY_STATUS_ROOM => "Tình trạng phòng",
+    ];
+
+    const IN = 'in';
+    const OUT = 'out';
+    const IN_GUEST = 'inGuest';
+    const ROOM_EMPTY = 'roomEmpty';
+    const ARRAY_ROOM = [
+        self::IN => 'IN',
+        self::OUT => 'OUT',
+        self::IN_GUEST => 'Khách ở',
+        self::ROOM_EMPTY => 'Phòng trống',
     ];
 
     use HasFactory;
