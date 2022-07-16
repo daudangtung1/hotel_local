@@ -63,9 +63,9 @@ class BookingRoomRepository extends ModelRepository
         return $this->bookingRoom->where('status', $this->room::CLOSED)->orderBy('start_date', 'ASC')->paginate(10);
     }
 
-    public function getAllRoomsBooking()
-    {
-        return $this->bookingRoom->where('status', 6)->orderBy('start_date', 'ASC')->get();
+    public function getAllRoomsBooking($request = null)
+    { 
+        return $this->bookingRoom->where('booking_rooms.status', 6)->orderBy('start_date', 'ASC')->distinct()->get();
     }
 
     public function getAllRoomsBookingFinish()
@@ -275,5 +275,23 @@ class BookingRoomRepository extends ModelRepository
         }
 
         return $data;
+    }
+
+    public function getBookingRoomInfo($request = null) 
+    {
+        if ($request) {
+            $roomId = $request->get('room_id');
+            $bookingInfo =  $this->room->select('customers.*', 'customers.name as cusomter_name', 'rooms.*', 'rooms.name as room_name', 'booking_rooms.*')
+                                ->join('booking_rooms', 'rooms.id', '=', 'booking_rooms.room_id')
+                                ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
+                                ->join('customers', 'booking_room_customers.customer_id', '=', 'customers.id')
+                                ->where('rooms.id', $roomId)
+                                ->whereNull('booking_rooms.checkout_date')
+                                ->orderBy('start_date', 'ASC')
+                                ->first();
+            return $bookingInfo;
+        }
+
+        return [];
     }
 }

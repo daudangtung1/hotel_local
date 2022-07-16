@@ -203,6 +203,9 @@
 <div class="modal fade" id="option-contact" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
 </div>
+<div class="modal fade" id="booking-info" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
 <div class="modal fade" id="booking-room"
      aria-labelledby="booking-modalLabel" aria-hidden="true">
     @include('room.model-booking-room')
@@ -355,6 +358,70 @@
             $('input[name="room_id"]').val(roomId);
             $('#booking-modal-' + roomId + ' .modal-title').text(roomTitle + ' - ' + floor);
         });
+
+        var debounce = null;
+        $('body').on('keyup', '#customer_name', function(e) {
+            clearTimeout(debounce);
+            var customer_name = $(this).val();
+            var modal = $(this).closest('.modal');
+            var room_id = modal.find('input[name="room_id"]').val();
+            debounce = setTimeout(function() {
+                $.ajax({
+                type: 'GET',
+                url: "{{route('customers.search')}}",
+                data: {
+                    name: customer_name
+                },
+                success: function (data) {
+                    modal.find('#list-item-customer').html('').html(data)
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            })
+            }, 500);
+        })
+        
+        $('body').on('click', '#list-group-customer a', function(e) {
+            var modal = $(this).closest('.modal');
+            var room_id = $(this).closest('.modal').find('input[name="room_id"]').val();
+            var customer_id =  $(this).data('id');
+            $.ajax({
+                type: 'GET',
+                url: "customers/" + customer_id,
+                dataType: "json",
+                success: function (data) {
+                    var customer = data.customer;
+                    console.log('customer', customer);
+                    modal.find('#customer_name').val(customer.name);
+                    modal.find('#customer_address').val(customer.address);
+                    modal.find('#customer_phone').val(customer.phone);
+                    modal.find('#customer_id_card').val(customer.id_card);
+                    modal.find('#list-group-customer').remove();
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            })
+        })
+
+        $('body').on('change', '#start_date', function(e) {
+            e.preventDefault();
+            var startDate = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{route('booking-room.index')}}",
+                data: {
+                    start_date: startDate
+                },
+                success: function (data) {
+                 $('#list-booking-room').html('').html(data);
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        })
 
         setInterval(function () {
             $.ajax({
@@ -758,7 +825,6 @@
     }
 
     $('body').on('click', '.contact', function () {
-        // $('#option-contact').modal('show');
         $.ajax({
             type: "get",
             url: "{{route('options.index')}}",
@@ -861,6 +927,9 @@
     }
     .item-active a {
         color:#fff !important;
+    }
+    #list-group-customer a:hover {
+        cursor: pointer;
     }
 </style>
 

@@ -22,9 +22,15 @@ class BookingRoomController extends Controller
         $this->optionRepository = $optionRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Quản lý đặt phòng';
+        $floors = $this->roomRepository->filterRoomBookingByDate($request);
+        $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking($request);
+        
+        if ($request->ajax()) {
+            return view('room.list-booking-room', compact('floors', 'bookingRooms'))->render();
+        }
         return view('booking-room.index', compact('title'));
     }
 
@@ -54,7 +60,7 @@ class BookingRoomController extends Controller
         $floors = $this->roomRepository->getAll();
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking();
 
-        return view('room.model-booking-room', compact('floors', 'bookingRooms'))->render();
+        // return view('room.model-booking-room', compact('floors', 'bookingRooms'))->render();
     }
 
     public function getHistory(Request $request)
@@ -133,5 +139,11 @@ class BookingRoomController extends Controller
         $title = 'Quản lý đặt phòng';
         $menuSystem = true;
         return view('booking-room.used', compact('bookingRooms', 'menuSystem','title'));
+    }
+
+    public function getBookingRoomInfo(Request $request) 
+    {
+        $bookingRoomInfo = $this->bookingRoomRepository->getBookingRoomInfo($request);
+        return view('customers.customer-booking-infor', compact('bookingRoomInfo'))->render();
     }
 }

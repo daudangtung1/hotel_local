@@ -55,8 +55,21 @@ class CustomersController extends Controller
         $menuCategoryManager = true;
         $customers = $this->customerRepository->getAll();
         $title = 'Cập nhật thành viên';
-
         return view('customers.create', compact('menuCategoryManager', 'customers', 'currentItem', 'title'));
+    }
+
+    public function show(Request $request, $id) 
+    {
+        $request->merge(['customer_id' => $id]);
+        $currentItem = $this->customerRepository->find($request);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'customer' => $currentItem
+            ]);
+        }
+        
+        return [];
     }
 
     public function update(Request $request)
@@ -90,5 +103,12 @@ class CustomersController extends Controller
         $customers = $this->customerRepository->filter($request);
         $menuCategoryManager = true;
         return view('customers.report', compact('customers', 'menuCategoryManager'));
+    }
+
+    public function SearchByCustomerName(Request $request) 
+    {
+       $customers = $this->customerRepository->SearchByCustomerName($request->get('name'));
+
+       return view('customers.user-booking-form', compact('customers'))->render();
     }
 }
