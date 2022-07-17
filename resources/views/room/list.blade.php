@@ -33,6 +33,7 @@
                         <div class="info-room">
                             @php
                                 $bookingRoom = $room->bookingRooms()->orderBy('id','DESC')->first();
+                                $bookingRoomFirstOrder = $room->bookingRooms()->whereNull('checkout_date')->orderBy('start_date','ASC')->first();
                             @endphp
                             <span>{{$room->getStatusText()}}</span>
                             @if(!empty($bookingRoom) && $room->status == \App\Models\Room::DIRTY)
@@ -59,6 +60,14 @@
                                         <strong
                                             class="time">{{$bookingRoom->getTimeCheckoutDate()}}</strong>
                                         <span class="time">{{$bookingRoom->getDateCheckoutDate()}}</span>
+                                        @if($bookingRoomFirstOrder)
+                                        <span class="d-block time small">
+                                            <small>Giờ vào:
+                                                <span class="text">{{$bookingRoomFirstOrder->getTimeStartDate()}} {{$bookingRoomFirstOrder->getDateStartDate()}}</span>
+                                        </small>
+                                        </span>
+                                        <button id="btn-infor-booking-room" class="btn btn-danger btn-sm">Chi tiết</button>
+                                        @endif
                                     </p>
                                 @endif
                             @endif
@@ -69,3 +78,29 @@
         </ul>
     </div>
 @endforeach
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('body').on('click', '#btn-infor-booking-room', function() {
+                var room_id = $(this).closest('li').data('room-id');
+                setTimeout(() => {
+                    $('#booking-modal-'+room_id).modal('hide')
+                }, 500);
+                $.ajax({
+                    type: 'GET',
+                    url: "{{route('booking-room.booking_room_info')}}",
+                    data: {
+                        room_id: room_id
+                    },
+                    success: function (data) {
+                       $('#booking-info').html('').html(data);
+                       $('#booking-info').modal('show');
+                    },
+                    error: function (e) {
+                        console.log(e)
+                    }
+                })
+            })
+        })
+    </script>
+@endsection

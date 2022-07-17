@@ -10,52 +10,54 @@
         </div>
         <div class="modal-body row " id="form-booking">
             <div class="col-md-2">
-                <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control  form-control-sm validate " id="customer_name"
-                           name="customer_name" required
-                           placeholder="Tên khách hàng">
-                </div>
-                <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control  form-control-sm validate " id="customer_id_card"
-                           name="customer_id_card" required
-                           placeholder="Số giấy tờ">
-                </div>
+                <div id="customer-booking">
+                    <div class="col-md-12 mb-3">
+                        <input type="text" class="form-control  form-control-sm validate " id="customer_name"
+                            name="customer_name" required
+                            placeholder="Tên khách hàng">
+                    <div class="col-md-12 mb-3" id="list-item-customer"></div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <input type="text" class="form-control  form-control-sm validate " id="customer_id_card"
+                            name="customer_id_card" required
+                            placeholder="Số giấy tờ">
+                    </div>
 
-                <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control  form-control-sm validate " id="customer_phone"
-                           name="customer_phone" required
-                           placeholder="Điện thoại">
-                </div>
-                <div class="col-md-12 mb-3">
-                    <input type="text" class="form-control  form-control-sm validate " id="customer_address"
-                           name="customer_address" required placeholder="Địa chỉ">
-                </div>
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="start_date" class="form-label">Thời gian bắt
-                                đầu:</label>
-                            <div class="form-group">
+                    <div class="col-md-12 mb-3">
+                        <input type="text" class="form-control  form-control-sm validate " id="customer_phone"
+                            name="customer_phone" required
+                            placeholder="Điện thoại">
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <input type="text" class="form-control  form-control-sm validate " id="customer_address"
+                            name="customer_address" required placeholder="Địa chỉ">
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="start_date" class="form-label">Thời gian bắt
+                                    đầu:</label>
+                                <div class="form-group">
+                                    <div class="input-group date">
+                                        <input type="text" id="start_date"
+                                            class="form-control  form-control-sm datetime-picker"
+                                            value="@if(!empty($bookingRoom) && !empty($bookingRoom->start_date)){{$bookingRoom->start_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 @if(empty($bookingRoom) || empty($bookingRoom->end_date) ) d-none @endif"
+                                id="box-end-date">
+                                <label for="end_date" class="form-label">Thời gian kết
+                                    thúc:</label>
                                 <div class="input-group date">
-                                    <input type="text" id="start_date"
-                                           class="form-control  form-control-sm datetime-picker"
-                                           value="@if(!empty($bookingRoom) && !empty($bookingRoom->start_date)){{$bookingRoom->start_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
+                                    <input type="text" id="end_date"
+                                        class="form-control  form-control-sm datetime-picker"
+                                        value="@if(!empty($bookingRoom) && !empty($bookingRoom->end_date) && $bookingRoom->rent_type == 1){{$bookingRoom->end_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 @if(empty($bookingRoom) || empty($bookingRoom->end_date) ) d-none @endif"
-                             id="box-end-date">
-                            <label for="end_date" class="form-label">Thời gian kết
-                                thúc:</label>
-                            <div class="input-group date">
-                                <input type="text" id="end_date"
-                                       class="form-control  form-control-sm datetime-picker"
-                                       value="@if(!empty($bookingRoom) && !empty($bookingRoom->end_date) && $bookingRoom->rent_type == 1){{$bookingRoom->end_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
-                            </div>
-                        </div>
                     </div>
-                </div>
-
+            </div>
                 @if(!empty($bookingRoom))
                     <div class="col-md-12 mt-3">
                         <button class="btn btn-sm btn-success btn-add-customer">Thêm khách hàng</button>

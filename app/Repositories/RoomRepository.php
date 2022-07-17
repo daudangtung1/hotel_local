@@ -76,6 +76,33 @@ class RoomRepository extends ModelRepository
         return $data;
     }
 
+    public function filterRoomBookingByDate($request)
+    { 
+        $startDate = $request->get('start_date');
+        $rooms = $this->model->select('rooms.*')
+                            ->leftJoin('booking_rooms', 'booking_rooms.room_id', '=', 'rooms.id')
+                            ->where(\DB::raw("DATE_FORMAT('start_date', '%Y-%m-%d')"), '<>', date('Y-m-d', strtotime($startDate)))
+                            ->orWhereNull('booking_rooms.room_id')
+                            ->orderBy('rooms.id', 'ASC')
+                            ->orderBy('floor', 'ASC')
+                            ->whereNotNull('floor')
+                            ->get();
+        $data = [];
+        if (!empty($rooms)) {
+            $floorData = array_unique($rooms->pluck('floor')->toArray());
+            sort($floorData);
+            foreach ($floorData as $floor) {
+                foreach ($rooms as $room) {
+                    if ($floor == $room->floor) {
+                        $data[$room->floor][] = $room;
+                    }
+                }
+            }
+        }
+        
+        return $data;
+    }
+
     public function find($request)
     {
         return $this->model->find($request->room_id);

@@ -122,4 +122,11 @@ class CustomerRepository extends ModelRepository
 
         return $query->orderBy('id','DESC')->paginate(10);
     }
+
+    public function SearchByCustomerName($name) 
+    {
+        if (empty($name)) return [];
+    
+        return $this->model->where('name', 'LIKE', "%{$name}%")->get();
+    }
 }

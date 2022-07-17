@@ -22,6 +22,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('reports/filter-form', [\App\Http\Controllers\ReportController::class, 'filterForm'])->name('reports.filter_form');
+    Route::get('customers/search', [\App\Http\Controllers\CustomersController::class, 'SearchByCustomerName'])->name('customers.search');
 
     Route::resources([
         'home'                     => \App\Http\Controllers\RoomController::class,
@@ -43,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('history', [\App\Http\Controllers\BookingRoomController::class, 'getHistory'])->name('booking-room.history');
     Route::get('booking-room-used', [\App\Http\Controllers\BookingRoomController::class, 'getBookingRoomUsed'])->name('booking-room.booking_room_used');
+    Route::get('booking-room-info', [\App\Http\Controllers\BookingRoomController::class, 'getBookingRoomInfo'])->name('booking-room.booking_room_info');
 
     Route::POST('room/change-status/{room_id}', [\App\Http\Controllers\RoomController::class, 'changeStatus'])->name('room.change-status');
     Route::POST('options', [\App\Http\Controllers\OptionController::class, 'updateAll'])->name('options.update_all');
