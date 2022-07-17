@@ -9,6 +9,16 @@
 
     <title>{{ $title ?? '' }}</title>
     <style>
+        #list-item-customer{
+            max-height: 300px;
+            overflow: auto;
+            position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 9;
+    }
+
         #preloader {
             position: fixed;
             top: 0;
@@ -382,7 +392,7 @@
             })
             }, 500);
         })
-        
+
         $('body').on('click', '#list-group-customer a', function(e) {
             var modal = $(this).closest('.modal');
             var room_id = $(this).closest('.modal').find('input[name="room_id"]').val();

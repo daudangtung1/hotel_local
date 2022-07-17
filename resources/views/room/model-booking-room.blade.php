@@ -9,7 +9,7 @@
             <div class="col-md-6">
                 <h5>Thông tin khách hàng</h5>
                 <div class="row mt-3" id="form-booking-multiple">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 position-relative">
                         <input type="text" class="form-control  form-control-sm validate" id="customer_name"
                             name="customer_name" required
                             placeholder="Tên khách hàng">

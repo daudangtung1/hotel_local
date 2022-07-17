@@ -11,7 +11,7 @@
         <div class="modal-body row " id="form-booking">
             <div class="col-md-2">
                 <div id="customer-booking">
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-12 mb-3 position-relative">
                         <input type="text" class="form-control  form-control-sm validate " id="customer_name"
                             name="customer_name" required
                             placeholder="Tên khách hàng">
