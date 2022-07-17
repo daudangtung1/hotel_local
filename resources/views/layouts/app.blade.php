@@ -403,7 +403,6 @@
                 dataType: "json",
                 success: function (data) {
                     var customer = data.customer;
-                    console.log('customer', customer);
                     modal.find('#customer_name').val(customer.name);
                     modal.find('#customer_address').val(customer.address);
                     modal.find('#customer_phone').val(customer.phone);
@@ -416,14 +415,16 @@
             })
         })
 
-        $('body').on('change', '#start_date', function(e) {
+        $('body').on('change', '#end_date', function(e) {
             e.preventDefault();
-            var startDate = $(this).val();
+            var endDate = $(this).val();
+            var startDate = $(this).closest('.modal').find('#start_date').val();
             $.ajax({
                 type: "GET",
                 url: "{{route('booking-room.index')}}",
                 data: {
-                    start_date: startDate
+                    start_date: startDate,
+                    end_date: endDate
                 },
                 success: function (data) {
                  $('#list-booking-room').html('').html(data);
@@ -432,6 +433,20 @@
                     console.log(e);
                 }
             })
+        })
+
+        $('body').on('shown.bs.modal', '#booking-room', function(e) {
+            setTimeout(function () {
+                $('#booking-room').find('#end_date').trigger('change');
+            }, 300)
+            var now = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', \Carbon\Carbon::now()->format('Y-m-d H:i:s'))}}';
+            $(this).find('#customer_name').val('');
+            $(this).find('#customer_phone').val('');
+            $(this).find('#customer_id_card').val('');
+            $(this).find('#customer_address').val('');
+            $(this).find('#note').val('');
+            $(this).find('#start_date').val(now);
+            $(this).find('#end_date').val(now);
         })
 
         setInterval(function () {
