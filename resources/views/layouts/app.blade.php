@@ -308,7 +308,7 @@
                         });
                         return false;
                     }
-                    modal.find('.modal-dialog').html(data);
+                    resetFormBooking();
                     $.toast({
                         text: 'Cập nhật thành công',
                         icon: 'success',
@@ -321,6 +321,21 @@
                 }
             })
         });
+
+        function resetFormBooking() {
+            var now = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', \Carbon\Carbon::now()->format('Y-m-d H:i:s'))}}';
+            $('#booking-room').find('#customer_name').val('');
+            $('#booking-room').find('#customer_phone').val('');
+            $('#booking-room').find('#customer_id_card').val('');
+            $('#booking-room').find('#customer_address').val('');
+            $('#booking-room').find('.note').val('');
+            $('#booking-room').find('#start_date').val(now);
+            $('#booking-room').find('#end_date').val(now);
+
+            setTimeout(function () {
+                $('#booking-room').find('#end_date').trigger('change');
+            }, 300);
+        }
     });
     $.ajaxSetup({
         headers: {
@@ -444,7 +459,7 @@
             $(this).find('#customer_phone').val('');
             $(this).find('#customer_id_card').val('');
             $(this).find('#customer_address').val('');
-            $(this).find('#note').val('');
+            $(this).find('.note').val('');
             $(this).find('#start_date').val(now);
             $(this).find('#end_date').val(now);
         })
@@ -567,6 +582,14 @@
                     extra_price: extraPrice,
                 },
                 success: function (data) {
+                    if (typeof data.response !== 'undefined') {
+                        $.toast({
+                            text: data.response.message,
+                            icon: 'error',
+                            position: 'top-right'
+                        });
+                        return false;
+                    }
                     _this.closest('.modal').find('.modal-dialog').html(data);
                     $.toast({
                         text: 'Cập nhật thành công',

@@ -65,7 +65,7 @@ class BookingRoomRepository extends ModelRepository
 
     public function getAllRoomsBooking($request = null)
     { 
-        return $this->bookingRoom->where('booking_rooms.status', 6)->orderBy('start_date', 'ASC')->distinct()->get();
+        return $this->bookingRoom->where('status', 6)->orderBy('start_date', 'ASC')->get();
     }
 
     public function getAllRoomsBookingFinish()
@@ -293,5 +293,16 @@ class BookingRoomRepository extends ModelRepository
         }
 
         return [];
+    }
+
+    public function getBookingRoomByStartDate($request) 
+    {
+        $startDate = date('Y-m-d', strtotime($request->get('start_date')));
+        $roomId    = $request->get('room_id');
+        $data = $this->bookingRoom->where('room_id', $roomId)
+                                  ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $startDate)
+                                  ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $startDate)
+                                  ->first();
+        return $data;
     }
 }

@@ -36,6 +36,15 @@ class BookingRoomController extends Controller
 
     public function store(Request $request)
     {
+        $bookingRoom = $this->bookingRoomRepository->getBookingRoomByStartDate($request);
+        if ($bookingRoom) {
+            return [
+                'response' => [
+                    'code' => 400,
+                    'message' => "Ngày này đã được đặt trước, vui lòng chọn ngày khác!"
+                ]
+            ];
+        }
         $this->bookingRoomRepository->store($request);
 
         $floors = $this->roomRepository->getAll();
