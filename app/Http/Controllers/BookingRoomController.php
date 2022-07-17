@@ -60,7 +60,7 @@ class BookingRoomController extends Controller
         $floors = $this->roomRepository->getAll();
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking();
 
-        // return view('room.model-booking-room', compact('floors', 'bookingRooms'))->render();
+        return view('room.model-booking-room', compact('floors', 'bookingRooms'))->render();
     }
 
     public function getHistory(Request $request)

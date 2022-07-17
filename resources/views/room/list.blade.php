@@ -66,7 +66,6 @@
                                                 <span class="text">{{$bookingRoomFirstOrder->getTimeStartDate()}} {{$bookingRoomFirstOrder->getDateStartDate()}}</span>
                                         </small>
                                         </span>
-                                        <button id="btn-infor-booking-room" class="btn btn-danger btn-sm">Chi tiết</button>
                                         @endif
                                     </p>
                                 @endif
@@ -74,6 +73,11 @@
                         </div>
                     </div>
                 </li>
+                @if($bookingRoomFirstOrder)
+                <div class="room" data-room-id="{{$room->id}}">
+                    <button id="btn-infor-booking-room" class="btn btn-danger btn-sm">Chi tiết</button>
+                </div>
+                @endif
             @endforeach
         </ul>
     </div>
@@ -82,7 +86,7 @@
     <script>
         $(document).ready(function() {
             $('body').on('click', '#btn-infor-booking-room', function() {
-                var room_id = $(this).closest('li').data('room-id');
+                var room_id = $(this).closest('.room').data('room-id');
                 setTimeout(() => {
                     $('#booking-modal-'+room_id).modal('hide')
                 }, 500);

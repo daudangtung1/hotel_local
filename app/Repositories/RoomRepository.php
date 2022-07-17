@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Room;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use DB;
 
 /**
@@ -79,13 +80,19 @@ class RoomRepository extends ModelRepository
     public function filterRoomBookingByDate($request)
     { 
         $startDate = $request->get('start_date');
+        $endDate   = $request->get('end_date');
         $rooms = $this->model->select('rooms.*')
-                            ->leftJoin('booking_rooms', 'booking_rooms.room_id', '=', 'rooms.id')
-                            ->where(\DB::raw("DATE_FORMAT('start_date', '%Y-%m-%d')"), '<>', date('Y-m-d', strtotime($startDate)))
-                            ->orWhereNull('booking_rooms.room_id')
+                             ->whereNotIn('id', function($q) use($startDate, $endDate) {
+                                 $q->select('room_id')->from('booking_rooms')
+                                                  ->join('rooms', 'rooms.id', '=', 'booking_rooms.room_id')
+                                                  ->where(\DB::raw("'$startDate' BETWEEN booking_rooms.start_date AND booking_rooms.end_date
+                                                  OR '$endDate' BETWEEN booking_rooms.start_date AND booking_rooms.end_date
+                                                  OR booking_rooms.start_date BETWEEN '$startDate' AND '$endDate'
+                                                  OR booking_rooms.end_date BETWEEN '$startDate' AND '$endDate'"));
+                            })
+                            ->whereNotNull('floor')
                             ->orderBy('rooms.id', 'ASC')
                             ->orderBy('floor', 'ASC')
-                            ->whereNotNull('floor')
                             ->get();
         $data = [];
         if (!empty($rooms)) {
