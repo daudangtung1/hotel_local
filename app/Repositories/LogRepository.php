@@ -48,7 +48,7 @@ class LogRepository extends ModelRepository
 
            if ($userName) {
              $query = $query->leftJoin('users', 'logs.user_id', '=' , 'users.id')
-                            ->where('users.name', 'LIKE', "{$userName}");
+                            ->where('users.name', 'LIKE', "%{$userName}%");
            }
 
            if ($createdAt) {
