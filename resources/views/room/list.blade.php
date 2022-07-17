@@ -3,13 +3,14 @@
         <h3>{{$k}}</h3>
         <ul style="padding-left: 0px">
             @foreach($rooms as $room)
-                <li id="room-{{$room->id}}" class="booking-room bg-{{$room->getBgButton()}}"
+                <li id="room-{{$room->id}}" class="position-relative booking-room bg-{{$room->getBgButton()}}"
                     data-room-id="{{$room->id}}"
-                    data-bs-toggle="modal"
-                    data-bs-target="#booking-modal-{{$room->id}}">
-                    <h5 class="room-title">{{$room->name ?? ''}}</h5>
-                    <div class="in-room align-items-start">
-                        <div class="icon">
+                   >
+                    <div  data-bs-toggle="modal"
+                          data-bs-target="#booking-modal-{{$room->id}}">
+                        <h5 class="room-title">{{$room->name ?? ''}}</h5>
+                        <div class="in-room align-items-start">
+                            <div class="icon">
                                 @if($room->bookingRooms()->where('status', 6)->count() > 0)
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-alarm" viewBox="0 0 16 16">
                                         <path d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5z"/>
@@ -29,55 +30,60 @@
                                                 d="M935.5,486.4V336.7c0-30.1-24.4-54.4-54.4-54.4H336.6c-30.1,0-54.4,24.4-54.4,54.4v149.7c-30.1,0-54.4,24.4-54.4,54.4v313c0,7.5,6.1,13.7,13.6,13.7H255c7.5,0,13.6-6.1,13.6-13.7v-67.9h680.5v67.9c0,7.5,6.1,13.7,13.7,13.7h13.6c7.5,0,13.7-6.1,13.7-13.7v-313C989.9,510.7,965.6,486.4,935.5,486.4z M323,350.3c0-15.1,12.2-27.2,27.2-27.2h517.2c15,0,27.2,12.2,27.2,27.2v136.1h-54.4v-81.6c0-15-12.2-27.2-27.2-27.2H663.3c-15.1,0-27.2,12.2-27.2,27.2v81.6h-54.4v-81.6c0-15-12.2-27.2-27.3-27.2H404.7c-15,0-27.2,12.2-27.2,27.2v81.6H323V350.3z M826.6,410.2v76.2H649.7v-76.2c0-10.5,8.8-19,19.7-19h137.6C817.8,391.1,826.6,399.6,826.6,410.2z M568,410.2v76.2H391.1v-76.2c0-10.5,8.8-19,19.7-19h137.6C559.2,391.1,568,399.6,568,410.2z M949.1,745H268.6v-40.8h680.5V745z M949.1,663.4H268.6v-109c0-15,12.2-27.2,27.2-27.2h626.1c15.1,0,27.2,12.2,27.2,27.2L949.1,663.4L949.1,663.4z M214.1,377.5c15,0,27.2-12.2,27.2-27.2l-27.2-190.6c0-15-12.2-27.2-27.3-27.2H64.4c-15,0-27.2,12.2-27.2,27.2L10,350.3c0,15,12.2,27.2,27.2,27.2h68v449.1H78c-7.5,0-13.7,6.1-13.7,13.7v13.5c0,7.5,6.1,13.7,13.7,13.7h95.2c7.5,0,13.6-6.1,13.6-13.7v-13.5c0-7.5-6.1-13.7-13.6-13.7h-27.2V377.5H214.1z M83.5,336.7c-10.5,0-19.1-8.8-19.1-19.7l19.1-124c0-10.8,8.5-19.7,19-19.7h46.2c10.5,0,19,8.8,19,19.7l19,124c0,10.8-8.5,19.7-19,19.7L83.5,336.7L83.5,336.7z"></path>
                                         </g> </svg>
                                 @endif
-                        </div>
-                        <div class="info-room">
-                            @php
-                                $bookingRoom = $room->bookingRooms()->orderBy('id','DESC')->first();
-                                $bookingRoomFirstOrder = $room->bookingRooms()->whereNull('checkout_date')->orderBy('start_date','ASC')->first();
-                            @endphp
-                            <span>{{$room->getStatusText()}}</span>
-                            @if(!empty($bookingRoom) && $room->status == \App\Models\Room::DIRTY)
-                                <span>Tổng tiền: <b>{{$bookingRoom->getTotalPrice()}}</b></span>
-                            @endif
-                            @if(!empty($bookingRoom))
-                                @if($room->status == \App\Models\Room::HAVE_GUEST)
-                                    <p>
+                            </div>
+                            <div class="info-room">
+                                @php
+                                    $bookingRoom = $room->bookingRooms()->orderBy('id','DESC')->first();
+                                    $bookingRoomFirstOrder = $room->bookingRooms()->whereNull('checkout_date')->orderBy('start_date','ASC')->first();
+                                @endphp
+                                <span>{{$room->getStatusText()}}</span>
+                                @if(!empty($bookingRoom) && $room->status == \App\Models\Room::DIRTY)
+                                    <span>Tổng tiền: <b>{{$bookingRoom->getTotalPrice()}}</b></span>
+                                @endif
+                                @if(!empty($bookingRoom))
+                                    @if($room->status == \App\Models\Room::HAVE_GUEST)
+                                        <p>
                                         <span
                                             id="start_date"
                                             class="d-block time small"><small>Giờ vào: <span
                                                     class="text">{{$bookingRoom->getTimeStartDate()}} {{$bookingRoom->getDateStartDate()}}</span></small></span>
-                                        <span
-                                            id="minutes"
-                                            class="d-block time small"><small>Thời lượng: <span
-                                                    class="text">{{$bookingRoom->getTime(true)}}</span></small></span>
-                                        <span
-                                            id="total_price"
-                                            class="d-block time small"><small>Tổng tiền: <span
-                                                    class="text">{{$bookingRoom->getTotalPrice()}}</span> </small></span>
-                                    </p>
-                                @else
-                                    <p>
-                                        <strong
-                                            class="time">{{$bookingRoom->getTimeCheckoutDate()}}</strong>
-                                        <span class="time">{{$bookingRoom->getDateCheckoutDate()}}</span>
-                                        @if($bookingRoomFirstOrder)
-                                        <span class="d-block time small">
+                                            <span
+                                                id="minutes"
+                                                class="d-block time small"><small>Thời lượng: <span
+                                                        class="text">{{$bookingRoom->getTime(true)}}</span></small></span>
+                                            <span
+                                                id="total_price"
+                                                class="d-block time small"><small>Tổng tiền: <span
+                                                        class="text">{{$bookingRoom->getTotalPrice()}}</span> </small></span>
+                                        </p>
+                                    @else
+                                        <p>
+                                            <strong
+                                                class="time">{{$bookingRoom->getTimeCheckoutDate()}}</strong>
+                                            <span class="time">{{$bookingRoom->getDateCheckoutDate()}}</span>
+                                            @if($bookingRoomFirstOrder)
+                                                <span class="d-block time small">
                                             <small>Giờ vào:
                                                 <span class="text">{{$bookingRoomFirstOrder->getTimeStartDate()}} {{$bookingRoomFirstOrder->getDateStartDate()}}</span>
                                         </small>
                                         </span>
-                                        @endif
-                                    </p>
+                                            @endif
+                                        </p>
+                                    @endif
                                 @endif
-                            @endif
+                            </div>
                         </div>
                     </div>
+                    @if($bookingRoomFirstOrder)
+                        <div class="room" data-room-id="{{$room->id}}" style="position:absolute; right: 10px;top: 10px;">
+                            <button style="background-color: #cd4c00;color: #fff;" id="btn-infor-booking-room" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-stars" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
+                                    <path d="M2.242 2.194a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.256-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53zm0 4a.27.27 0 0 1 .516 0l.162.53c.035.115.14.194.258.194h.551c.259 0 .37.333.164.493l-.468.363a.277.277 0 0 0-.094.3l.173.569c.078.255-.213.462-.423.3l-.417-.324a.267.267 0 0 0-.328 0l-.417.323c-.21.163-.5-.043-.423-.299l.173-.57a.277.277 0 0 0-.094-.299l-.468-.363c-.206-.16-.095-.493.164-.493h.55a.271.271 0 0 0 .259-.194l.162-.53z"/>
+                                </svg></button>
+                        </div>
+                    @endif
                 </li>
-                @if($bookingRoomFirstOrder)
-                <div class="room" data-room-id="{{$room->id}}">
-                    <button id="btn-infor-booking-room" class="btn btn-danger btn-sm">Chi tiết</button>
-                </div>
-                @endif
+
             @endforeach
         </ul>
     </div>
