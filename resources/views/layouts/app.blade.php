@@ -9,6 +9,15 @@
 
     <title>{{ $title ?? '' }}</title>
     <style>
+        .site-footer{
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffff;
+            z-index: 9;
+            padding-top: 25px;
+        }
         #list-item-customer{
             max-height: 300px;
             overflow: auto;
@@ -285,7 +294,6 @@
                 return false;
             }
 
-
             $.ajax({
                 type: "post",
                 url: "{{route('booking-room.booking_rooms')}}",
@@ -432,6 +440,7 @@
 
         $('body').on('change', '#end_date', function(e) {
             e.preventDefault();
+            $('#preloader').css('background-color', 'rgba(255,255,255,0.5)').show();
             var endDate = $(this).val();
             var startDate = $(this).closest('.modal').find('#start_date').val();
             $.ajax({
@@ -443,11 +452,44 @@
                 },
                 success: function (data) {
                  $('#list-booking-room').html('').html(data);
+                    $('#preloader').fadeOut();
                 },
                 error: function (e) {
                     console.log(e);
                 }
             })
+        })
+
+        $('body').on('click', '.btn-checkin', function(e) {
+            e.preventDefault();
+            var bookingRoomId = $(this).attr('data-booking_room_id');
+            var modal = $(this).closest('.modal');
+            $.ajax({
+                type: "GET",
+                url: "{{route('booking-room.booking')}}",
+                data: {
+                    booking_room_id: bookingRoomId,
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.status == false && data.message) {
+                        $.toast({
+                            text: data.message,
+                            icon: 'error',
+                            position: 'top-right'
+                        });
+                        return false;
+                    } else {
+                        $('#room-list').html('').html(data);
+                        modal.modal('hide');
+                    }
+
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+
         })
 
         $('body').on('shown.bs.modal', '#booking-room', function(e) {

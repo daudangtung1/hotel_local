@@ -23,6 +23,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('reports/filter-form', [\App\Http\Controllers\ReportController::class, 'filterForm'])->name('reports.filter_form');
     Route::get('customers/search', [\App\Http\Controllers\CustomersController::class, 'SearchByCustomerName'])->name('customers.search');
+    Route::get('booking-room/booking', [\App\Http\Controllers\BookingRoomController::class, 'booking'])->name('booking-room.booking');
 
     Route::resources([
         'home'                     => \App\Http\Controllers\RoomController::class,

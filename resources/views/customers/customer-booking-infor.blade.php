@@ -10,33 +10,20 @@
                 <div class="row mt-3" id="form-booking-multiple">
                     <div class="col-md-6 mb-3">
                         <label for="end_date" class="form-label">Tên khách hàng:</label>
-                        <input type="text" class="form-control form-control-sm validate" id="customer_name"
-                            name="customer_name" required
-                            value="{{$bookingRoomInfo->cusomter_name}}"
-                            placeholder="Tên khách hàng">
-                        <div class="col-md-12 mb-3" id="list-item-customer"></div>
+                        <p>{{$bookingRoomInfo->cusomter_name}}</p>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="end_date" class="form-label">Số giấy tờ:</label>
-                        <input type="text" class="form-control  form-control-sm validate" id="customer_id_card"
-                            name="customer_id_card" 
-                            value="{{$bookingRoomInfo->id_card}}"
-                            required
-                            placeholder="Số giấy tờ">
+                        <p>{{$bookingRoomInfo->id_card}}</p>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="end_date" class="form-label">Điện thoại:</label>
-                        <input type="text" class="form-control  form-control-sm validate" id="customer_phone"
-                            name="customer_phone" 
-                            value="{{$bookingRoomInfo->phone}}" required
-                            placeholder="Điện thoại">
+                        <p>{{$bookingRoomInfo->phone}}</p>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="end_date" class="form-label">Địa chỉ:</label>
-                        <input type="text" class="form-control  form-control-sm validate" id="customer_address"
-                            value="{{$bookingRoomInfo->address}}" required
-                            name="customer_address" required placeholder="Địa chỉ">
+                        <p>{{$bookingRoomInfo->address}}</p>
                     </div>
                     <div class="col-md-12">
                         <div class="row">
@@ -44,11 +31,7 @@
                                 <label for="start_date" class="form-label">Thời gian bắt
                                     đầu:</label>
                                 <div class="form-group">
-                                    <div class="input-group date">
-                                        <input type="text" id="start_date"
-                                            class="form-control  form-control-sm datetime-picker validate-date "
-                                            value="{{$bookingRoomInfo->start_date ?? \Carbon\Carbon::now()}}">
-                                    </div>
+                                    <p>{{$bookingRoomInfo->start_date ?? \Carbon\Carbon::now()}}</p>
                                 </div>
                             </div>
                             <div
@@ -57,17 +40,14 @@
                                 <label for="end_date" class="form-label">Thời gian kết
                                     thúc:</label>
                                 <div class="input-group date">
-                                    <input type="text" id="end_date" name="end_date"
-                                        class="form-control  form-control-sm datetime-picker validate-date "
-                                        value="{{$bookingRoomInfo->end_date ?? \Carbon\Carbon::now()}}">
+                                   <p>{{$bookingRoomInfo->end_date ?? \Carbon\Carbon::now()}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="price" class="form-label">Ghi chú:</label>
-                        <textarea name="note" class="form-control  form-control-sm note" cols="30" rows="2"
-                                placeholder="Ghi chú">@if(!empty($bookingRoomInfo)) {!! $bookingRoomInfo->note ??'' !!} @endif </textarea>
+                        <p>@if(!empty($bookingRoomInfo)) {!! $bookingRoomInfo->note ??'' !!} @endif </p>
                     </div>
                 </div>
             </div>
@@ -77,6 +57,7 @@
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>#</th>
                             <th scope="col">Tên phòng</th>
                             <th scope="col">Tầng</th>
                             <th scope="col">Giá theo giờ</th>
@@ -84,18 +65,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(!empty($floors))
                             <tr>
+                                <td>{{$bookingRoomInfo->id}}</td>
                                 <td>{{$bookingRoomInfo->room_name ??'Đã xóa'}}</td>
                                 <td>{{$bookingRoomInfo->floor ??'Đã xóa'}}</td>
                                 <td>{{get_price($bookingRoomInfo->hour_price ?? 0, 'đ')}}</td>
                                 <td>{{get_price($bookingRoomInfo->day_price ?? 0, 'đ')}}</td>
                             </tr>
-                        @endif
                         </tbody>
                     </table>
                 </div>
             </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
+                Đóng
+            </button>
+            <button data-booking_room_id="{{$bookingRoomInfo->id}}" data-bg="primary" type="submit" class="btn btn-sm btn-primary  btn-checkin ">Nhận phòng</button>
         </div>
     </div>
 </div>

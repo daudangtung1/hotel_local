@@ -64,7 +64,7 @@ class BookingRoomRepository extends ModelRepository
     }
 
     public function getAllRoomsBooking($request = null)
-    { 
+    {
         return $this->bookingRoom->where('status', 6)->orderBy('start_date', 'ASC')->get();
     }
 
@@ -76,6 +76,22 @@ class BookingRoomRepository extends ModelRepository
     public function getAllRoomsBookingUsed()
     {
         return $this->bookingRoom->where('status', 7)->orderBy('start_date', 'ASC')->paginate(10);
+    }
+
+    public function booking($request)
+    {
+        $bookingRoom = $this->bookingRoom->find($request->booking_room_id);
+
+        if ($bookingRoom->room->status != $this->room::READY) {
+            return [
+                'status' => false,
+                'message' => 'Phòng hiện tại chưa ở trạng thái hợp lệ, chưa thể nhận phòng'
+            ];
+        }
+
+        $bookingRoom->update(['status' => $this->room::HAVE_GUEST]);
+
+        $bookingRoom->room()->update(['status' => $this->room::HAVE_GUEST]);
     }
 
     public function store($request)
@@ -277,32 +293,32 @@ class BookingRoomRepository extends ModelRepository
         return $data;
     }
 
-    public function getBookingRoomInfo($request = null) 
+    public function getBookingRoomInfo($request = null)
     {
         if ($request) {
             $roomId = $request->get('room_id');
-            $bookingInfo =  $this->room->select('customers.*', 'customers.name as cusomter_name', 'rooms.*', 'rooms.name as room_name', 'booking_rooms.*')
-                                ->join('booking_rooms', 'rooms.id', '=', 'booking_rooms.room_id')
-                                ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
-                                ->join('customers', 'booking_room_customers.customer_id', '=', 'customers.id')
-                                ->where('rooms.id', $roomId)
-                                ->whereNull('booking_rooms.checkout_date')
-                                ->orderBy('start_date', 'ASC')
-                                ->first();
+            $bookingInfo = $this->room->select('customers.*', 'customers.name as cusomter_name', 'rooms.*', 'rooms.name as room_name', 'booking_rooms.*')
+                ->join('booking_rooms', 'rooms.id', '=', 'booking_rooms.room_id')
+                ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
+                ->join('customers', 'booking_room_customers.customer_id', '=', 'customers.id')
+                ->where('rooms.id', $roomId)
+                ->whereNull('booking_rooms.checkout_date')
+                ->orderBy('start_date', 'ASC')
+                ->first();
             return $bookingInfo;
         }
 
         return [];
     }
 
-    public function getBookingRoomByStartDate($request) 
+    public function getBookingRoomByStartDate($request)
     {
         $startDate = date('Y-m-d', strtotime($request->get('start_date')));
-        $roomId    = $request->get('room_id');
+        $roomId = $request->get('room_id');
         $data = $this->bookingRoom->where('room_id', $roomId)
-                                  ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $startDate)
-                                  ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $startDate)
-                                  ->first();
+            ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $startDate)
+            ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $startDate)
+            ->first();
         return $data;
     }
 }

@@ -7,6 +7,7 @@ use App\Repositories\BookingRoomRepository;
 use App\Repositories\OptionRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\ServiceRepository;
+use App\Repositories\TypeRoomRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Customers;
@@ -14,12 +15,13 @@ use Illuminate\Support\Carbon;
 
 class BookingRoomController extends Controller
 {
-    public function __construct(OptionRepository $optionRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository)
+    public function __construct(OptionRepository $optionRepository,TypeRoomRepository $typeRoomRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository)
     {
         $this->bookingRoomRepository = $bookingRoomRepository;
         $this->roomRepository = $roomRepository;
         $this->serviceRepository = $serviceRepository;
         $this->optionRepository = $optionRepository;
+        $this->typeRoomRepository = $typeRoomRepository;
     }
 
     public function index(Request $request)
@@ -27,7 +29,7 @@ class BookingRoomController extends Controller
         $title = 'Quản lý đặt phòng';
         $floors = $this->roomRepository->filterRoomBookingByDate($request);
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking($request);
-        
+
         if ($request->ajax()) {
             return view('room.list-booking-room', compact('floors', 'bookingRooms'))->render();
         }
@@ -52,6 +54,25 @@ class BookingRoomController extends Controller
         $room = $this->roomRepository->find($request);
 
         return view('room.modal-content-room', compact('room', 'services', 'floors'))->render();
+    }
+
+    public function booking(Request $request)
+    {
+        $result = $this->bookingRoomRepository->booking($request);
+
+        if (isset($result['status']) && $result['status'] == false) {
+            return $result;
+        }
+
+        $floors = $this->roomRepository->getAll(true, false);
+        $services = $this->serviceRepository->getAll();
+        $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking();
+        $typeRooms = $this->typeRoomRepository->getAll();
+        $typeRoomsSelect = $this->typeRoomRepository->getAll(false);
+
+        if ($request->ajax()) {
+            return view('room.list', compact('typeRoomsSelect', 'typeRooms', 'floors', 'services', 'bookingRooms'))->render();
+        }
     }
 
     public function BookingRooms(Request $request)
@@ -150,7 +171,7 @@ class BookingRoomController extends Controller
         return view('booking-room.used', compact('bookingRooms', 'menuSystem','title'));
     }
 
-    public function getBookingRoomInfo(Request $request) 
+    public function getBookingRoomInfo(Request $request)
     {
         $bookingRoomInfo = $this->bookingRoomRepository->getBookingRoomInfo($request);
         return view('customers.customer-booking-infor', compact('bookingRoomInfo'))->render();
