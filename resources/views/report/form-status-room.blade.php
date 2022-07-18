@@ -34,6 +34,10 @@
                                 @endif
                             @endforeach
                         </span>
+                    @elseif ($key == \App\Models\Room::NOT_FOR_RENT_TEXT)
+                        @foreach($item['list'] as $key => $data)
+                            <p>{{ implode($data, ',') . ": " . $key}}</p>
+                        @endforeach
                     @else
                         <span>
                             @foreach($item['list'] as $data)

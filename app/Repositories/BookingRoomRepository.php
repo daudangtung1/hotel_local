@@ -352,6 +352,12 @@ class BookingRoomRepository extends ModelRepository
                 ->orWhereDate('checkout_date', '<', $dateFilter)->withTrashed();
         })->withTrashed()->get();
 
+        $roomNotForRent = $this->room->where('status', Room::NOT_FOR_RENT)->get();
+        $roomsNotRent = [];
+        foreach ($roomNotForRent as $room) {
+            $roomsNotRent[$room->status_desc][] = $room->name;
+        }
+
         return [
             Room::IN => [
                 'list' => $roomIn,
@@ -368,6 +374,10 @@ class BookingRoomRepository extends ModelRepository
             Room::ROOM_EMPTY => [
                 'list' => $roomEmpty,
                 'total' => $roomEmpty->count(),
+            ],
+            Room::NOT_FOR_RENT_TEXT => [
+                'list' => $roomsNotRent,
+                'total' => $roomNotForRent->count(),
             ],
         ];
     }
