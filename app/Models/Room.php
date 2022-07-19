@@ -17,6 +17,7 @@ class Room extends Model
     const FIXING_ROOM = 5;
     const BOOKED = 6;
     const CLOSED = 7;
+    const NOT_FOR_RENT = 8;
     const ARRAY_STATUS = [
         self::READY => "Sẵn sàng",
         self::HAVE_GUEST => "Có khách",
@@ -28,10 +29,25 @@ class Room extends Model
     ];
     const FILTER_BY_ROOM = 0;
     const FILTER_BY_RAE = 1;
+    const FILTER_BY_STATUS_ROOM = 2;
 
     const Filter = [
         self::FILTER_BY_ROOM => "Phòng đã sử dụng",
         self::FILTER_BY_RAE => "Thu chi",
+        self::FILTER_BY_STATUS_ROOM => "Tình trạng phòng",
+    ];
+
+    const IN = 'in';
+    const OUT = 'out';
+    const IN_GUEST = 'inGuest';
+    const ROOM_EMPTY = 'roomEmpty';
+    const NOT_FOR_RENT_TEXT = 'notForRent';
+    const ARRAY_ROOM = [
+        self::IN => 'IN',
+        self::OUT => 'OUT',
+        self::IN_GUEST => 'Khách ở',
+        self::ROOM_EMPTY => 'Phòng trống',
+        self::NOT_FOR_RENT_TEXT => '',
     ];
 
     use HasFactory;
@@ -47,7 +63,7 @@ class Room extends Model
         'day_price',
         'user_id',
         'type_room_id',
-
+        'status_desc',
     ];
 
     /**

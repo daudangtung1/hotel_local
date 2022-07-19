@@ -53,6 +53,11 @@ class ReportController extends Controller
                 $items = $this->revenueAndExpenditureRepository->filter($request);
 
                 return view('report.index', compact('items', 'title', 'menuReport'));
+            case Room::FILTER_BY_STATUS_ROOM:
+                $items = $this->bookingRoomRepository->filterStatusRoom($request);
+                $rooms = $this->roomRepository->all();
+
+                return view('report.index', compact('items', 'title', 'menuReport', 'rooms'));
             default:
                 return;
         }

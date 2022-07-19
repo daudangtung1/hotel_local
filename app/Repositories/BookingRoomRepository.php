@@ -321,4 +321,64 @@ class BookingRoomRepository extends ModelRepository
             ->first();
         return $data;
     }
+
+    public function filterStatusRoom($request, $paginate = true)
+    {
+        $dateFilter = !empty($request->start_date) ? Carbon::parse($request->start_date) : Carbon::now();
+
+        $roomIn = $this->room->whereHas('bookingRooms', function ($query) use ($dateFilter) {
+            return $query->whereDate('start_date', $dateFilter)->withTrashed();
+        })->withTrashed()->get();
+
+        $roomOut = $this->room->whereHas('bookingRooms', function ($query) use ($dateFilter) {
+            return $query->whereDate('checkout_date', $dateFilter)->withTrashed();
+        })->withTrashed()->get();
+
+
+        $roomInGuest = $this->room->whereHas('bookingRooms', function ($query) use ($dateFilter) {
+            return $query->where(function ($subQuery) use ($dateFilter) {
+                return $subQuery->where(function ($q) use ($dateFilter) {
+                    return $q->whereDate('start_date', '<=', $dateFilter)
+                        ->whereDate('checkout_date', '>=', $dateFilter);
+                })->orWhere(function ($q) use ($dateFilter) {
+                    return $q->whereDate('start_date', '<=', $dateFilter)
+                        ->whereNull('checkout_date');
+                });
+            })->withTrashed();
+        })->withTrashed()->get();
+
+        $roomEmpty = $this->room->whereHas('bookingRooms', function ($query) use ($dateFilter) {
+            return $query->whereDate('start_date', '>', $dateFilter)
+                ->orWhereDate('checkout_date', '<', $dateFilter)->withTrashed();
+        })->withTrashed()->get();
+
+        $roomNotForRent = $this->room->where('status', Room::NOT_FOR_RENT)->get();
+        $roomsNotRent = [];
+        foreach ($roomNotForRent as $room) {
+            $roomsNotRent[$room->status_desc][] = $room->name;
+        }
+
+        return [
+            Room::IN => [
+                'list' => $roomIn,
+                'total' => $roomIn->count(),
+            ],
+            Room::OUT => [
+                'list' => $roomOut,
+                'total' => $roomOut->count(),
+            ],
+            Room::IN_GUEST => [
+                'list' => $roomInGuest,
+                'total' => $roomInGuest->count(),
+            ],
+            Room::ROOM_EMPTY => [
+                'list' => $roomEmpty,
+                'total' => $roomEmpty->count(),
+            ],
+            Room::NOT_FOR_RENT_TEXT => [
+                'list' => $roomsNotRent,
+                'total' => $roomNotForRent->count(),
+            ],
+        ];
+    }
 }

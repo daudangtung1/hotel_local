@@ -181,4 +181,9 @@ class RoomRepository extends ModelRepository
             'type_room_id' => $request->type ?? null
         ]);
     }
+
+    public function all()
+    {
+        return $this->model->all();
+    }
 }
