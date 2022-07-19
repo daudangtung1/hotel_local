@@ -359,6 +359,15 @@
                 startDate: new Date()
             });
         }
+        var dateNotTime = $('.filter-date-not-time');
+        if (dateNotTime) {
+            dateNotTime.datetimepicker({
+                todayHighlight: true,
+                format: 'Y-m-d',
+                startDate: new Date(),
+                timepicker: false,
+            });
+        }
 
 
         $('body').on('change', '.rentType', function (e) {

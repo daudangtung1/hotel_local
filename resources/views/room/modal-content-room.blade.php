@@ -217,11 +217,9 @@
                         <label for="price" class="form-label">Tình trạng:</label>
                         <select name="booking_room_status" id="booking_room_status" class="form-control">
                             <option value="" selected>Không</option>
-                            @foreach(\App\Models\Room::ARRAY_STATUS as $key => $status)
-                                @if(!in_array($key, [1,2,0,4]))
+                            @foreach(\App\Models\Room::ARRAY_UPDATE_STATUS as $key => $status)
                                     <option @if($bookingRoom->status == $key) selected
                                             @endif value="{{$key}}">{{$status}}</option>
-                                @endif
                             @endforeach
                         </select>
                     </div>

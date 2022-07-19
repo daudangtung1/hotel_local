@@ -27,6 +27,12 @@ class Room extends Model
         self::FIXING_ROOM => "Đang sửa",
         self::BOOKED => "Đã đặt",
     ];
+
+    const ARRAY_UPDATE_STATUS = [
+        self::GUEST_OUTDOOR => "Khách ra ngoài",
+        self::FIXING_ROOM => "Đang sửa",
+    ];
+
     const FILTER_BY_ROOM = 0;
     const FILTER_BY_RAE = 1;
     const FILTER_BY_STATUS_ROOM = 2;
