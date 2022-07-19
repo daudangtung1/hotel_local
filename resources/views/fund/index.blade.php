@@ -16,7 +16,7 @@
                             <button class="nav-link " id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Quản lý thu/chi</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Quản lý quỹ</button>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -67,7 +67,7 @@
                                 {{ $bookingRooms->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
-                        <div class="tab-pane fade  " id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <table class="table table-sm table-bordered table-hover">
                                 <thead>
                                 <tr>
@@ -122,7 +122,9 @@
                                 {{ $items->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                        </div>
                     </div>
 
                     <script>
