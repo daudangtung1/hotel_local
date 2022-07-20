@@ -75,6 +75,7 @@
                                     <th scope="col">Tên</th>
                                     <th scope="col">Số tiền</th>
                                     <th scope="col">Phân loại</th>
+                                    <th scope="col">Ngày tạo</th>
                                     <th scope="col"></th>
                                 </tr>
                                 </thead>
@@ -84,6 +85,7 @@
                                         <td>{{$item->id ??''}}</td>
                                         <td>{{$item->name ??''}}</td>
                                         <td>{{get_price($item->money ?? 0, 'đ')}}</td>
+                                        <td>{{$item->created_at ?? ''}}</td>
                                         <td>{{\App\Models\RevenueAndExpenditure::STATUS[$item->type]}}</td>
                                         <td style="width:40px">
                                             <div class="d-flex">

@@ -167,7 +167,7 @@
                                     <span>QL Quỹ</span>
                                 </li>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{route('shifts.index')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/giaoca01.png"></a>
                                     <span>Giao ca</span>
                                 </li>

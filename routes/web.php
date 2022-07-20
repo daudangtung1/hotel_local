@@ -40,7 +40,8 @@ Route::group(['middleware' => 'auth'], function () {
         'booking-room-customers'   => \App\Http\Controllers\BookingRoomCustomerController::class,
         'customers'                => \App\Http\Controllers\CustomersController::class,
         'revenue-and-expenditures' => \App\Http\Controllers\RevenueAndExpenditureController::class,
-        'funds' => \App\Http\Controllers\FundController::class,
+        'funds'                    => \App\Http\Controllers\FundController::class,
+        'shifts'                   => \App\Http\Controllers\ShiftController::class,
     ]);
 
     Route::get('history', [\App\Http\Controllers\BookingRoomController::class, 'getHistory'])->name('booking-room.history');
