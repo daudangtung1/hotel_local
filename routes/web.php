@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('reports/filter-form', [\App\Http\Controllers\ReportController::class, 'filterForm'])->name('reports.filter_form');
     Route::get('customers/search', [\App\Http\Controllers\CustomersController::class, 'SearchByCustomerName'])->name('customers.search');
     Route::get('booking-room/booking', [\App\Http\Controllers\BookingRoomController::class, 'booking'])->name('booking-room.booking');
+    Route::get('groups/filter', [\App\Http\Controllers\GroupController::class, 'filter'])->name('groups.filter');
 
     Route::resources([
         'home'                     => \App\Http\Controllers\RoomController::class,
@@ -42,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
         'revenue-and-expenditures' => \App\Http\Controllers\RevenueAndExpenditureController::class,
         'funds'                    => \App\Http\Controllers\FundController::class,
         'shifts'                   => \App\Http\Controllers\ShiftController::class,
+        'groups'                   => \App\Http\Controllers\GroupController::class
     ]);
 
     Route::get('history', [\App\Http\Controllers\BookingRoomController::class, 'getHistory'])->name('booking-room.history');
@@ -54,6 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('booking-room/update-note', [\App\Http\Controllers\BookingRoomController::class, 'updateNote'])->name('booking-room.update_note');
     Route::post('booking-room/update-booking-room', [\App\Http\Controllers\BookingRoomController::class, 'updateBookingRoom'])->name('booking-room.update_booking_room');
     Route::post('booking-room/booking-rooms', [\App\Http\Controllers\BookingRoomController::class, 'BookingRooms'])->name('booking-room.booking_rooms');
+    Route::post('booking-room/group-booking', [\App\Http\Controllers\BookingRoomController::class, 'bookingRoomGroup'])->name('booking-room.booking_room_group');
     Route::get('reports/filter', [\App\Http\Controllers\ReportController::class, 'filter'])->name('reports.filter');
     Route::get('lost-items/update-status/{id}', [\App\Http\Controllers\LostItemController::class, 'updateStatus'])->name('lost-items.update_status');
 

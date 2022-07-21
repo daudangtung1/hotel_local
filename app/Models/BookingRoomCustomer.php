@@ -12,6 +12,8 @@ class BookingRoomCustomer extends Model
     protected $fillable = [
       'booking_room_id',
       'customer_id',
+      'type',
+      'group_id',
       'updated_at',
       'created_at',
     ];
