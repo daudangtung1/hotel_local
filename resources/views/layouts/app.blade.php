@@ -225,6 +225,9 @@
 <div class="modal fade" id="booking-info" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
 </div>
+<div class="modal fade" id="group-customer-booking" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
 <div class="modal fade" id="booking-room"
      aria-labelledby="booking-modalLabel" aria-hidden="true">
     @include('room.model-booking-room')
@@ -988,6 +991,191 @@
             },
             error: function (e) {
                 console.log(e);
+            }
+        })
+    })
+
+    $('body').on('click', '.group-customer-booking', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "get",
+            url: "{{route('groups.index')}}",
+            success: function (data) {
+                console.log('data', data)
+                $('#group-customer-booking').html('').html(data);
+                $('#group-customer-booking').modal('show');
+                var start_date = $('#group-customer-booking').find('#start_date');
+                var end_date = $('#group-customer-booking').find('#end_date');
+                if (start_date) {
+                    start_date.datetimepicker({
+                        todayHighlight: true,
+                        format: 'Y-m-d H:i',
+                        startDate: new Date()
+                    });
+                }
+
+                if (end_date) {
+                    end_date.datetimepicker({
+                        todayHighlight: true,
+                        format: 'Y-m-d H:i',
+                        endDate: new Date()
+                    });
+                }
+
+            setTimeout(function () {
+                $('#booking-room').find('#end_date').trigger('change');
+            }, 300);
+            
+            },
+            error: function (e) {
+                console.log(e);
+            } 
+        })
+    })
+
+    $('body').on('click', '.btn-booking-group', function(e) {
+        var modal = $(this).closest('.modal');
+        var groupName = modal.find('#group_name').val();
+        var note = modal.find('#note').val();
+        var customerName = modal.find('#customer_name').val();
+        var customerIdCard = modal.find('#customer_id_card').val();
+        var customerPhone = modal.find('#customer_phone').val();
+        var customerAddress = modal.find('#customer_address').val();
+        var startDate = modal.find('#start_date').val();
+        var endDate = modal.find('#end_date').val();
+        var roomIds = [];
+        
+        $('input[name="room_ids[]"]:checked').map(function () {
+            roomIds.push($(this).val());
+        });
+
+        if (groupName == '' || customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '' || roomIds.length == undefined) {
+            $.toast({
+                text: 'Vui lòng nhập thông tin khách hàng.',
+                icon: 'error',
+                position: 'top-right'
+            });
+
+            $("#group-customer-booking input[type=text]").each(function () {
+                    if ($(this).hasClass('validate')) {
+                        if ($(this).val() == '') {
+                            $(this).addClass('boder-validate');
+                        } else if ($(this).hasClass('boder-validate')) {
+                            $(this).removeClass('boder-validate');
+                        }
+                    }
+            });
+
+            return false;
+        }
+
+        if (startDate >= endDate) {
+            $.toast({
+                text: 'Vui lòng nhập kết thúc lớn hơn ngày bắt đầu',
+                icon: 'error',
+                position: 'top-right'
+            });
+            $('input[name="end_date"]').map(function () {
+                $(this).addClass('boder-validate');
+            });
+            return false;
+        } else if (startDate < endDate) {
+            $('input[name="end_date"]').map(function () {
+                $(this).removeClass('boder-validate');
+            });
+        }
+
+        if (roomIds == '') {
+            $.toast({
+                text: 'Vui lòng chọn phòng cần đặt.',
+                icon: 'error',
+                position: 'top-right'
+            });
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('booking-room.booking_room_group')}}",
+            data: {
+                group_name: groupName,
+                note: note,
+                customer_name: customerName,
+                customer_id_card: customerIdCard,
+                customer_phone: customerPhone,
+                customer_address: customerAddress,
+                start_date: startDate,
+                end_date: endDate,
+                room_ids: roomIds
+            },
+            success: function (data) {
+                if (typeof data.response !== 'undefined') {
+                    $.toast({
+                        text: data.response.message,
+                        icon: 'error',
+                        position: 'top-right'
+                    });
+                    return false;
+                }
+                $.toast({
+                    text: 'Thêm mới thành công',
+                    icon: 'success',
+                    position: 'top-right'
+                });
+
+                $("#group-customer-booking input[type=text]").each(function () {
+                    $(this).val(''); 
+                });
+                
+                $("#group-customer-booking .note").val('');
+
+                $("#group-customer-booking input[type=checkbox]:checked").prop('checked', false);
+
+                refreshView();
+            },
+            error: function (e) {
+                console.log(e.lineNumber);
+            }
+        })       
+    });
+
+    $('body').on('keyup', '#group_name', function(e) {
+        var groupName = $(this).val();
+        $.ajax({
+            type: "GET",
+            url: "{{route('groups.filter')}}",
+            data: {
+                group_name: groupName
+            },
+            success: function(data) {
+             $('#list-item-group').html('').html(data);
+            },
+            error: function(error) {
+                console.log(error)
+            }
+        })
+    })
+
+    $('body').on('click', '#list-group-booking a', function(e) {
+        var groupId = $(this).data('id');
+        var modal = $(this).closest('.modal');
+        $.ajax({
+            type: "GET",
+            url: "groups/" + groupId,
+            success: function(data) {
+                var group = data.group;
+                $('#list-group-booking').html('');
+                $('#group_name').val(group.name);
+                $('#note').val(group.note);
+                // modal.find('#customer_name').val(group.name);
+                // modal.find('#customer_id_card').val(group.id_card);
+                // modal.find('#customer_address').val(group.address);
+                // modal.find('#customer_phone').val(group.phone);
+                // modal.find('#start_date').val(group.start_date);
+                // modal.find('#end_date').val(group.end_date);
+            },
+            error: function(error) {
+                console.log(error)
             }
         })
     })

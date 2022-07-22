@@ -202,7 +202,7 @@
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qldatphong01.png"></a>
                                     <span>QL Đặt Phòng</span>
                                 </li>
-                                <li>
+                                <li class="group-customer-booking">
                                     <a href="#"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/khachdoan01.png"></a>
                                     <span>Khách đoàn</span>

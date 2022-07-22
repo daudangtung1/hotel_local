@@ -8,20 +8,23 @@ use App\Repositories\OptionRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\ServiceRepository;
 use App\Repositories\TypeRoomRepository;
+use App\Repositories\GroupRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Customers;
+use Exception;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class BookingRoomController extends Controller
 {
-    public function __construct(OptionRepository $optionRepository,TypeRoomRepository $typeRoomRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository)
+    public function __construct(OptionRepository $optionRepository,TypeRoomRepository $typeRoomRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository, GroupRepository $groupRepository)
     {
         $this->bookingRoomRepository = $bookingRoomRepository;
         $this->roomRepository = $roomRepository;
         $this->serviceRepository = $serviceRepository;
         $this->optionRepository = $optionRepository;
         $this->typeRoomRepository = $typeRoomRepository;
+        $this->groupRepository = $groupRepository;
     }
 
     public function index(Request $request)
@@ -175,5 +178,10 @@ class BookingRoomController extends Controller
     {
         $bookingRoomInfo = $this->bookingRoomRepository->getBookingRoomInfo($request);
         return view('customers.customer-booking-infor', compact('bookingRoomInfo'))->render();
+    }
+
+    public function bookingRoomGroup(Request $request)
+    {
+        $this->groupRepository->bookingRoom($request);
     }
 }
