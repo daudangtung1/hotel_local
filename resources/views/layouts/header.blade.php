@@ -208,7 +208,7 @@
                                     <span>Khách đoàn</span>
                                 </li>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt=""
+                                    <a href="{{route('groups.index')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/tradoan01.png"></a>
                                     <span>Trả đoàn</span>
                                 </li>

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Log;
  * @package App\Repositories
  */
 
- class GroupRepository extends ModelRepository 
+ class GroupRepository extends ModelRepository
  {
     protected $model;
     protected $customer;
@@ -35,9 +35,17 @@ use Illuminate\Support\Facades\Log;
         $this->bookingRoomCustomer = $bookingRoomCustomer;
     }
 
-    public function getAll($request = null)
+    public function getAll($paginate = false)
     {
-        return $this->model->get();
+        $query = $this->model;
+
+        if ($paginate) {
+           $query = $query->paginate(10);
+        } else {
+            $query = $query->get();
+        }
+
+        return $query;
     }
 
     public function filter($request)
@@ -53,19 +61,13 @@ use Illuminate\Support\Facades\Log;
 
     public function find($id)
     {
-        // return $this->model->select('customers.*', 'groups.name as group_name', 'groups.note as group_note')
-        //                     ->join('group_customers', 'groups.id', '=', 'group_customers.group_id') 
-        //                     ->join('customers', 'customers.id', '=', 'group_customers.customer_id')
-        //                     ->find($id);
-
         return $this->model->find($id);
     }
 
-    public function bookingRoom($request) 
+    public function bookingRoom($request)
     {
         try {
             $roomIds = $request->room_ids;
-            print_r($roomIds);
             DB::beginTransaction();
 
             $group = $this->model->firstOrCreate([
@@ -76,6 +78,7 @@ use Illuminate\Support\Facades\Log;
             $customer = $this->customer->firstOrCreate([
                 'name' => $request->get('customer_name'),
                 'id_card' => $request->get('customer_id_card'),
+            ], [
                 'phone' => $request->get('customer_phone'),
                 'address' => $request->get('customer_address')
             ]);
@@ -84,7 +87,7 @@ use Illuminate\Support\Facades\Log;
                 'customer_id' => $customer->id,
                 'group_id' => $group->id
             ]);
-            
+
             foreach ($roomIds as $roomId) {
                 $bookingRoom = $this->bookingRoom->create([
                     'room_id' => $roomId,

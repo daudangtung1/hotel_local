@@ -22,11 +22,15 @@ class GroupController extends Controller
      */
     public function index(Request $request)
     {
+        $groups = $this->groupRepository->getAll(true);
+        $menuCategoryManager = true;
+        $title = 'Quản lý đoàn';
+
         if ($request->ajax()) {
             return view('groups.modal-booking-room-group')->render();
         }
 
-        return [];
+        return view('groups.index', compact('groups', 'menuCategoryManager', 'title'));
     }
 
     /**
@@ -59,7 +63,7 @@ class GroupController extends Controller
     public function show($id)
     {
         $group = $this->groupRepository->find($id);
-        
+
         return response()->json([
             'group' => $group
         ]);
@@ -94,9 +98,18 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$group_id)
     {
-        //
+        $request->merge(['group_id' => $group_id]);
+        $currentItem = $this->groupRepository->find($group_id);
+        if (!empty($currentItem)) {
+            $currentItem->delete(); // xóa đoàn nhưng chưa hủy phòng đã đặt.
+            // TODO
+
+            return redirect()->back()->with('success', 'Đã xoá thành công');
+        }
+
+        return redirect()->back()->withErrors('Vui lòng thử lại');
     }
 
     public function filter(Request $request)
