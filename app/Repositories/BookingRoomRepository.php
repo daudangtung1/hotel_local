@@ -381,4 +381,27 @@ class BookingRoomRepository extends ModelRepository
             ],
         ];
     }
+
+    public function filterStatusRoomEmpty($request)
+    {
+        $start_date = !empty($request->start_date) ?
+            $request->start_date : Carbon::now()->format('Y-m-d');
+        $end_date = !empty($request->month_year) ?
+            Carbon::parse($request->month_year)->lastOfMonth()->format('Y-m-d') :
+            Carbon::now()->lastOfMonth()->format('Y-m-d');
+
+        $results = [];
+        while (strtotime($start_date) <= strtotime($end_date)) {
+            $roomBooking = $this->bookingRoom->select('room_id')
+                ->whereDate('start_date', '<=', $start_date)
+                ->whereDate('checkout_date', '>=', $start_date)
+                ->distinct()->withTrashed()->get();
+            $arrayRoomIdBooking = array_column($roomBooking->toArray(), 'room_id');
+            $quantityRoomEmpty = $this->room->whereNotIn('id', $arrayRoomIdBooking)->withTrashed()->count();
+            $results[Carbon::parse($start_date)->format('m')][Carbon::parse($start_date)->format('d/m')] = $quantityRoomEmpty;
+            $start_date = date ("Y-m-d", strtotime("+1 days", strtotime($start_date)));
+        }
+
+        return $results;
+    }
 }
