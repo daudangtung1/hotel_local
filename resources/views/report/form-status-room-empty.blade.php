@@ -16,36 +16,28 @@
             </form>
         </div>
     </div>
-    <table class="table table-sm table-bordered table-hover">
-        @if(!empty($items))
-            @foreach ($items as $key => $item)
-            <thead>
-                <tr>
-                    <th scope="col">{{ "Tháng $key" }}</th>
-                    <th scope="col">Phòng trống</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach ($item as $subKey => $value)
-                <tr>
-                    <td>{{ $subKey }}</td>
-                    <td>{{ $value }}</td>
-                </tr>
-            @endforeach
-            </tbody>
-            @endforeach
-        @else
-            <thead>
-            <tr>
-                <th scope="col">Phòng</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td colspan="7">Không có phòng nào</td>
-            </tr>
-            </tbody>
-        @endif
+        <div class="d-flex align-items-start">
+            @if(!empty($items))
+                @foreach ($items as $key => $item)
+                    <table class="table table-sm  table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">{{ "Tháng $key" }}</th>
+                            <th scope="col">Phòng trống</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($item as $subKey => $value)
+                            <tr>
+                                <td>{{ $subKey }}</td>
+                                <td>{{ $value }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @endforeach
+            @endif
+        </div>
 
     </table>
 </div>
