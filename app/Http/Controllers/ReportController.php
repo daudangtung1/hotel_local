@@ -10,6 +10,7 @@ use App\Repositories\RevenueAndExpenditureRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\ServiceRepository;
 use App\Repositories\TypeRoomRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 
@@ -58,6 +59,17 @@ class ReportController extends Controller
                 $rooms = $this->roomRepository->all();
 
                 return view('report.index', compact('items', 'title', 'menuReport', 'rooms'));
+            case Room::FILTER_BY_STATUS_ROOM_EMPTY:
+                $items = $this->bookingRoomRepository->filterStatusRoomEmpty($request);
+                $start_month = Carbon::now()->subMonths(6);
+                $end_month = Carbon::now()->addMonths(6);
+                $monthRanges = [];
+                while($start_month < $end_month)
+                {
+                    array_push($monthRanges, $start_month->addMonth()->format('Y-m'));
+                }
+
+                return view('report.index', compact('items', 'title', 'menuReport', 'monthRanges'));
             default:
                 return;
         }

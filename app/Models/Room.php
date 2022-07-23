@@ -36,11 +36,13 @@ class Room extends Model
     const FILTER_BY_ROOM = 0;
     const FILTER_BY_RAE = 1;
     const FILTER_BY_STATUS_ROOM = 2;
+    const FILTER_BY_STATUS_ROOM_EMPTY = 3;
 
     const Filter = [
         self::FILTER_BY_ROOM => "Phòng đã sử dụng",
         self::FILTER_BY_RAE => "Thu chi",
         self::FILTER_BY_STATUS_ROOM => "Tình trạng phòng",
+        self::FILTER_BY_STATUS_ROOM_EMPTY => "Tình trạng phòng trống",
     ];
 
     const IN = 'in';

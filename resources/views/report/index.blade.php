@@ -24,6 +24,8 @@
                     @include('report.form-revenue-expenditure')
                 @elseif(request()->get('by') == \App\Models\Room::FILTER_BY_STATUS_ROOM)
                     @include('report.form-status-room')
+                @elseif(request()->get('by') == \App\Models\Room::FILTER_BY_STATUS_ROOM_EMPTY)
+                    @include('report.form-status-room-empty')
                 @else
                 @endif
             </div>
