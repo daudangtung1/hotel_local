@@ -13,7 +13,15 @@
         @forelse($floors as $key => $rooms)
             @foreach($rooms as $room)
                 <tr>
-                    <td><input type="checkbox" name="room_ids[]" value="{{$room->id ??''}}"></td>
+                    <?php
+                        $checked = '';
+                        if (!empty($roomIds)) {
+                            if (in_array($room->id, $roomIds)) {
+                                $checked = 'checked';
+                            }
+                        }
+                    ?>
+                    <td><input type="checkbox" <?= $checked ?> name="room_ids[]" value="{{$room->id ??''}}"></td>
                     <td>{{$room->name ??'Đã xóa'}}</td>
                     <td>{{$room->floor ??'Đã xóa'}}</td>
                     <td>{{get_price($room->hour_price ?? 0, 'đ')}}</td>

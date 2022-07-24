@@ -23,28 +23,31 @@
                             <tr>
                                 <td>{{$group->id ??''}}</td>
                                 <td>{{$group->name ??''}}</td>
-                                <td>{{$group->note ??''}}</td>
-                                <td>{{$group->created_at ??''}}</td>
+                                <td>{{$group->note ?? ''}}</td>
+                                <td>{{$group->start_date ??''}}</td>
                                 <td>
-                                    @foreach($group->customers()->get() as $customer)
-                                    <p>{{$customer->name ?? ''}} - {{$customer->phone ?? ''}}</p>
-                                    @endforeach
+                                    <p>{{$group->customer_name ?? ''}} - {{$group->customer_phone ?? ''}}</p>
                                 </td>
                                 <td style="width:40px">
                                     <div class="d-flex">
-                                        <a class=" text-warning mr-2 d-inline-block" style="margin-right: 5px;"
-                                           href="{{route('groups.edit',['group' => $group])}}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                                            </svg>
-                                        </a>
-                                        <form action="{{route('groups.destroy',['group' => $group])}}"
+                                        <form action="{{route('groups.booking_info')}}">
+                                            <input type="hidden" id="group_id" name="group_id"  value="{{$group->id}}">
+                                            <input type="hidden" id="customer_id" name="customer_id"  value="{{$group->customer_id}}">
+                                            <input type="hidden" id="start_date" name="group_id"  value="{{$group->start_date}}">
+                                            <input type="hidden" id="end_date" name="group_id"  value="{{$group->end_date}}">
+                                            <a class="btn-ajax-edit text-warning mr-2 d-inline-block" style="margin-right: 5px; cursor: pointer">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                                </svg>
+                                            </a>
+                                        </form>
+                                        <form action="{{route('groups.show',['group' => $group])}}"
                                               method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
-                                            <a href="" class="btn-ajax-delete text-danger  btn-sm ">
+                                            <a class="btn-ajax-delete text-danger  btn-sm ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                      fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                     <path
@@ -76,6 +79,86 @@
                                 }
 
                                 $(this).closest('form').submit();
+                            });
+
+                            $('body').on('click', '.btn-ajax-edit', function(e) {
+
+                                var form = $(this).closest('form');
+                                var group_id = form.find('#group_id').val();
+                                var customer_id = form.find('#customer_id').val();
+                                var start_date = form.find('#start_date').val();
+                                var end_date = form.find('#end_date').val();
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: "{{route('groups.booking_info')}}",
+                                    data: {
+                                        group_id: group_id,
+                                        customer_id: customer_id,
+                                        start_date: start_date,
+                                        end_date: end_date
+                                    },
+                                    success: function (data) {
+                                        $('#group-customer-booking').html('').html(data);
+                                        $('#group-customer-booking').modal('show');
+                                        var start_date = $('#group-customer-booking').find('#start_date');
+                                        var end_date = $('#group-customer-booking').find('#end_date');
+                                        if (start_date) {
+                                            start_date.datetimepicker({
+                                                todayHighlight: true,
+                                                format: 'Y-m-d H:i',
+                                                startDate: new Date()
+                                            });
+                                        }
+
+                                        if (end_date) {
+                                            end_date.datetimepicker({
+                                                todayHighlight: true,
+                                                format: 'Y-m-d H:i',
+                                                endDate: new Date()
+                                            });
+                                        }
+
+                                    // setTimeout(function () {
+                                    //     $('#booking-room').find('#end_date').trigger('change');
+                                    // }, 300);
+                                    },
+                                    error: function(error) {
+                                        console.log(error)
+                                    }
+                                })
+                            })
+
+                            $('body').on('click', '.btn-cancel-booking-group', function(e) {
+                                var modal = $(this).closest('.modal');
+                                var group_id = modal.find('#group_id').val();
+                                console.log(group_id)
+                                $.ajax({
+                                    type: "delete",
+                                    url: "{{route('groups.cancel_booking')}}",
+                                    data: {
+                                        group_id: group_id
+                                    },
+                                    success: function (data) {
+                                        if (typeof data.response !== 'undefined') {
+                                            $.toast({
+                                                text: data.response.message,
+                                                icon: 'error',
+                                                position: 'top-right'
+                                            });
+                                            return false;
+                                        }
+                                        modal.modal('hide');
+                                        $.toast({
+                                            text: 'Hủy phòng thành công',
+                                            icon: 'success',
+                                            position: 'top-right'
+                                        });
+                                    },
+                                    error: function(error) {
+                                        console.log(error)
+                                    }
+                                })
                             })
                         });
                     </script>

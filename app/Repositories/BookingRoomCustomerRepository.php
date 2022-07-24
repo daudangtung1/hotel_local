@@ -28,4 +28,14 @@ class BookingRoomCustomerRepository extends ModelRepository
     {
         return $this->model->findOrFail($booking_room_customer_id)->delete();
     }
+
+    public function getBookingCustomerGroup($group_id)
+    {
+        return $this->model->where('group_id', $group_id)->get();
+    }
+
+    public function deleteByGroupId($group_id)
+    {
+        return $this->model->where('group_id', $group_id)->delete();
+    }
 }

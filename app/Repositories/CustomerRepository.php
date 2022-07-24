@@ -123,7 +123,7 @@ class CustomerRepository extends ModelRepository
         return $query->orderBy('id','DESC')->paginate(10);
     }
 
-    public function SearchByCustomerName($name) 
+    public function searchByCustomerName($name) 
     {
         if (empty($name)) return [];
     
