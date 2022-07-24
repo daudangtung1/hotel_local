@@ -404,4 +404,11 @@ class BookingRoomRepository extends ModelRepository
 
         return $results;
     }
+
+    public function deleteByIds($arrIds)
+    {
+        if (empty($arrIds)) return false;
+
+        $this->bookingRoom->whereIn('id', $arrIds)->delete();
+    }
 }

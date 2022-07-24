@@ -22,9 +22,11 @@ Route::get('/', function () {
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('reports/filter-form', [\App\Http\Controllers\ReportController::class, 'filterForm'])->name('reports.filter_form');
-    Route::get('customers/search', [\App\Http\Controllers\CustomersController::class, 'SearchByCustomerName'])->name('customers.search');
+    Route::get('customers/search', [\App\Http\Controllers\CustomersController::class, 'searchByCustomerName'])->name('customers.search');
     Route::get('booking-room/booking', [\App\Http\Controllers\BookingRoomController::class, 'booking'])->name('booking-room.booking');
     Route::get('groups/filter', [\App\Http\Controllers\GroupController::class, 'filter'])->name('groups.filter');
+    Route::get('groups/booking-info', [\App\Http\Controllers\GroupController::class, 'groupBookingInfo'])->name('groups.booking_info');
+    Route::delete('groups/cancel-booking', [\App\Http\Controllers\GroupController::class, 'cancelBooking'])->name('groups.cancel_booking');
 
     Route::resources([
         'home'                     => \App\Http\Controllers\RoomController::class,
