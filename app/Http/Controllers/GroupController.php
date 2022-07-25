@@ -5,18 +5,21 @@ use Illuminate\Http\Request;
 use App\Repositories\GroupRepository;
 use App\Repositories\BookingRoomCustomerRepository;
 use App\Repositories\BookingRoomRepository;
+use App\Repositories\RoomRepository;
 
 class GroupController extends Controller
 {
     protected $groupRepository;
     protected $bookingRoomCustomerRepository;
     protected $bookingRoomRepository;
+    protected $RoomRepository;
 
-    public function __construct(GroupRepository $groupRepository, BookingRoomCustomerRepository $bookingRoomCustomerRepository, BookingRoomRepository $bookingRoomRepository)
+    public function __construct(GroupRepository $groupRepository, RoomRepository $roomRepository, BookingRoomCustomerRepository $bookingRoomCustomerRepository, BookingRoomRepository $bookingRoomRepository)
     {
         $this->groupRepository = $groupRepository;
         $this->bookingRoomCustomerRepository = $bookingRoomCustomerRepository;
         $this->bookingRoomRepository = $bookingRoomRepository;
+        $this->RoomRepository = $roomRepository;
     }
 
     /**
@@ -28,6 +31,8 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $groups = $this->groupRepository->getInfoGroupBooking($request);
+        $floors = $this->RoomRepository->filterRoomBookingByDate($request);
+
         $menuCategoryManager = true;
         $title = 'Quản lý đoàn';
 
@@ -68,7 +73,7 @@ class GroupController extends Controller
     public function show(Request $request, $id)
     {
 
-        $group = $this->groupRepository->find($request);
+        $group = $this->groupRepository->find($id);
         
         return response()->json([
             'group' => $group
@@ -134,10 +139,16 @@ class GroupController extends Controller
         foreach ($groups as $group) {
             $roomIds[] = $group->room_id;
         }
+        $floors = $this->RoomRepository->filterRoomBookingByDate($request, $roomIds);
         $action = 'edit';
         if ($request->ajax()) {
-            return view('groups.modal-booking-room-group', compact('group', 'action', 'roomIds'))->render();
+            return view('groups.modal-booking-room-group', compact('group', 'action', 'floors', 'roomIds'))->render();
         }
+    }
+
+    public function updateInfoBookingGroup($request)
+    {
+        return $this->groupRepository->updateInfoBooking($request);
     }
 
     public function cancelBooking(Request $request)

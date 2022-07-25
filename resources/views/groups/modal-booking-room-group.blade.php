@@ -92,6 +92,7 @@
             </button>
             @if(!empty($action) && $action == 'edit')
                 <button class="btn btn-sm btn-primary btn-cancel-booking-group">Hủy phòng</button>
+                <button class="btn btn-sm btn-primary btn-update-booking-group">Cập nhật phòng</button>
             @else
                 <button class="btn btn-sm btn-primary btn-booking-group">Đặt phòng</button>
             @endif

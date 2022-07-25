@@ -77,18 +77,23 @@ class RoomRepository extends ModelRepository
         return $data;
     }
 
-    public function filterRoomBookingByDate($request)
+    public function filterRoomBookingByDate($request, $roomIds = false)
     { 
-        $startDate = $request->get('start_date');
-        $endDate   = $request->get('end_date');
+        $startDate = $request->get('start_date') ?? Carbon::now();
+        $endDate   = $request->get('end_date') ?? Carbon::now();
         $rooms = $this->model->select('rooms.*')
-                             ->whereNotIn('id', function($q) use($startDate, $endDate) {
-                                 $q->select('room_id')->from('booking_rooms')
-                                                  ->join('rooms', 'rooms.id', '=', 'booking_rooms.room_id')
-                                                  ->where(\DB::raw("'$startDate' BETWEEN booking_rooms.start_date AND booking_rooms.end_date
-                                                  OR '$endDate' BETWEEN booking_rooms.start_date AND booking_rooms.end_date
-                                                  OR booking_rooms.start_date BETWEEN '$startDate' AND '$endDate'
-                                                  OR booking_rooms.end_date BETWEEN '$startDate' AND '$endDate'"));
+                             ->whereNotIn('id', function($q) use($startDate, $endDate, $roomIds) {
+                                $q->select('room_id')->from(function($query) use($startDate, $endDate){
+                                    $query->select('room_id')->from('booking_rooms')
+                                        ->join('rooms', 'rooms.id', '=', 'booking_rooms.room_id')
+                                        ->where(\DB::raw("'$startDate' BETWEEN booking_rooms.start_date AND booking_rooms.end_date
+                                        OR '$endDate' BETWEEN booking_rooms.start_date AND booking_rooms.end_date
+                                        OR booking_rooms.start_date BETWEEN '$startDate' AND '$endDate'
+                                        OR booking_rooms.end_date BETWEEN '$startDate' AND '$endDate'"));
+                                });
+                                if (!empty($roomIds)) {
+                                    $q->whereNotIn('room_id', $roomIds);
+                                }
                             })
                             ->whereNotNull('floor')
                             ->orderBy('rooms.id', 'ASC')
