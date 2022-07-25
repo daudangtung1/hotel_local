@@ -294,7 +294,11 @@ body {
 	min-height:600px;
     margin-bottom: 100px;
 }
-
+.bg-dark span,
+.bg-dark *,
+.bg-dark>*{
+    color: #fff !important;
+}
 
 /*footer*/
 .site-footer ul.list-item {

@@ -121,6 +121,20 @@
                             <input type="number" min="0" class="form-control  form-control-sm" id="day_price" name="day_price"
                                    value="{{$currentRoom->day_price ??'0'}}" required>
                         </div>
+                        @if(!empty($currentRoom) && array_key_exists($currentRoom->status, \App\Models\Room::UPDATE_STATUS)) 
+                        <div class="col-md-12">
+                            <label for="inputState" class="form-label">Tình trạng phòng</label>
+                            <select id="status" name="status" class="form-select" >
+                                @foreach (\App\Models\Room::UPDATE_STATUS as $key => $item)
+                                <option @if($key == $currentRoom->status) selected  @endif value="{{$key}}">{{$item}}</option>
+                                 @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="status_desc" class="form-label">Mô tả tình trạng phòng</label>
+                            <textarea type="text" class="form-control  form-control-sm" id="status_desc" name="status_desc">{{$currentRoom->status_desc ??''}}</textarea>
+                        </div>
+                        @endif
                         <div class="col-md-12">
                             <label for="day_price" class="form-label">Giá phòng / tháng</label>
                             <input type="number" min="0" class="form-control  form-control-sm" id="month_price" name="month_price"

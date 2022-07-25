@@ -3,15 +3,13 @@
         <h3>{{$k}}</h3>
         <ul style="padding-left: 0px">
             @foreach($rooms as $room)
-                <li id="room-{{$room->id}}" class="position-relative booking-room bg-{{$room->getBgButton()}}"
-                    data-room-id="{{$room->id}}"
-                >
-                    <div data-bs-toggle="modal"
-                         data-bs-target="#booking-modal-{{$room->id}}">
+                <li id="room-{{$room->id}}" class="position-relative @if($room->status != \App\Models\Room::NOT_FOR_RENT) booking-room @endif bg-{{$room->getBgButton()}}"
+                    data-room-id="{{$room->id}}">
+                    <div @if($room->status != \App\Models\Room::NOT_FOR_RENT) data-bs-toggle="modal" data-bs-target="#booking-modal-{{$room->id}}" @endif>
                         <h5 class="room-title">{{$room->name ?? ''}}</h5>
                         <div class="in-room align-items-start">
                             <div class="icon">
-                                @if($room->bookingRooms()->where('status', 6)->count() > 0)
+                                @if($room->bookingRooms()->where('status', \App\Models\Room::BOOKED)->count() > 0)
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                          class="bi bi-alarm" viewBox="0 0 16 16">
                                         <path
@@ -40,6 +38,9 @@
                                     $bookingRoomFirstOrder = $room->bookingRooms()->whereNull('checkout_date')->orderBy('start_date','ASC')->first();
                                 @endphp
                                 <span>{{$room->getStatusText()}}</span>
+                                @if($room->status == \App\Models\Room::NOT_FOR_RENT)
+                                    <p>Lý do: {{$room->status_desc ?? ''}}</p>
+                                @endif
                                 @if(!empty($bookingRoom) && $room->status == \App\Models\Room::DIRTY)
                                     <span>Tổng tiền: <b>{{$bookingRoom->getTotalPrice()}}</b></span>
                                 @endif

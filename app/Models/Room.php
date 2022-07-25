@@ -26,6 +26,7 @@ class Room extends Model
         self::CLEAN_ROOM => "Đang dọn",
         self::FIXING_ROOM => "Đang sửa",
         self::BOOKED => "Đã đặt",
+        self::NOT_FOR_RENT => "Phòng không cho thuê",
     ];
 
     const ARRAY_UPDATE_STATUS = [
@@ -43,6 +44,12 @@ class Room extends Model
         self::FILTER_BY_RAE => "Thu chi",
         self::FILTER_BY_STATUS_ROOM => "Tình trạng phòng",
         self::FILTER_BY_STATUS_ROOM_EMPTY => "Tình trạng phòng trống",
+    ];
+
+    const UPDATE_STATUS = [
+        self::READY => "Sẵn sàng",
+        self::FIXING_ROOM => "Phòng đang sửa",
+        self::NOT_FOR_RENT => "Không cho thuê",
     ];
 
     const IN = 'in';
@@ -98,6 +105,8 @@ class Room extends Model
                 return 'Phòng bẩn';
             case self::CLEAN_ROOM:
                 return 'Phòng đang dọn';
+            case self::NOT_FOR_RENT:
+                return 'Phòng Không cho thuê';
             default:
                 return 'Phòng đang sửa';
         }
@@ -118,6 +127,8 @@ class Room extends Model
                 return 'warning';
             case self::BOOKED  :
                 return 'light';
+            case self::NOT_FOR_RENT  :
+                return 'dark'; 
             default:
                 return 'secondary';
         }
@@ -133,8 +144,8 @@ class Room extends Model
             return 'Dọn xong';
         } else if (in_array($this->status, [3, 5])) {
             return 'Trả phòng';
-        } else {
-
+        }  else if (in_array($this->status, [8])) {
+            return 'Phòng không cho thuê';
         }
     }
 
@@ -148,25 +159,9 @@ class Room extends Model
             return 'danger';
         } else if (in_array($this->status, [3, 5])) {
             return 'success';
-        } else {
-
+        } elseif ($this->status == 8) {
+            return 'dark';
         }
-//        switch ($this->status) {
-//            case self::READY:
-//                return 'primary';
-//            case self::HAVE_GUEST:
-//                return 'success';
-//            case self::GUEST_OUTDOOR:
-//                return 'info';
-//            case self::DIRTY:
-//                return 'danger';
-//            case self::CLEAN_ROOM:
-//                return 'warning';
-//            case self::BOOKED  :
-//                return 'light';
-//            default:
-//                return 'secondary';
-//        }
     }
 
     public static function getUniqueFloor() {
