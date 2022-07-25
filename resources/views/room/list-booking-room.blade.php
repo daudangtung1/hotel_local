@@ -12,16 +12,18 @@
     @if(!empty($floors))
         @forelse($floors as $key => $rooms)
             @foreach($rooms as $room)
-                <tr>
-                    <?php
-                        $checked = '';
-                        if (!empty($roomIds)) {
-                            if (in_array($room->id, $roomIds)) {
-                                $checked = 'checked';
-                            }
+                <?php
+                    $checked = '';
+                    $bgColor = '';
+                    if (!empty($roomIds)) {
+                        if (in_array($room->id, $roomIds)) {
+                            $checked = 'checked';
+                            $bgColor = '#ffb3b3';
                         }
-                    ?>
-                    <td><input type="checkbox" <?= $checked ?> name="room_ids[]" value="{{$room->id ??''}}"></td>
+                    }
+                ?>
+                <tr style="background-color: {{$bgColor}}">
+                    <td><input type="checkbox" {{$checked}} name="room_ids[]" value="{{$room->id ??''}}"></td>
                     <td>{{$room->name ??'Đã xóa'}}</td>
                     <td>{{$room->floor ??'Đã xóa'}}</td>
                     <td>{{get_price($room->hour_price ?? 0, 'đ')}}</td>

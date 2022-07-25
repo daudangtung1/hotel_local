@@ -180,6 +180,11 @@ use Illuminate\Support\Facades\Log;
         }
     }
 
+    public function updateInfoBooking($request)
+    {
+
+    }
+
     public function deleteGroupCustomer($group_id)
     {
         $this->groupCustomer->where('group_id', $group_id)->delete();

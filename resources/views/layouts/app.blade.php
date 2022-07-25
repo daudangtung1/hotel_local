@@ -507,7 +507,7 @@
         $('body').on('shown.bs.modal', '#booking-room', function(e) {
             setTimeout(function () {
                 $('#booking-room').find('#end_date').trigger('change');
-            }, 300)
+            }, 500)
             var now = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', \Carbon\Carbon::now()->format('Y-m-d H:i:s'))}}';
             $(this).find('#customer_name').val('');
             $(this).find('#customer_phone').val('');
