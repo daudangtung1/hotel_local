@@ -7,6 +7,7 @@ use App\Models\Customers;
 use App\Models\Groups;
 use App\Models\GroupCustomer;
 use App\Models\BookingRoomCustomer;
+use App\Models\Room;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -16,9 +17,8 @@ use Illuminate\Support\Facades\Log;
  *
  * @package App\Repositories
  */
-
- class GroupRepository extends ModelRepository 
- {
+class GroupRepository extends ModelRepository
+{
     protected $model;
     protected $customer;
     protected $bookingRoom;
@@ -40,7 +40,7 @@ use Illuminate\Support\Facades\Log;
         $query = $this->model;
 
         if ($paginate) {
-           $query = $query->paginate(10);
+            $query = $query->paginate(10);
         } else {
             $query = $query->get();
         }
@@ -67,25 +67,29 @@ use Illuminate\Support\Facades\Log;
     public function getInfoGroupBooking($request)
     {
         return $this->bookingRoom->select('booking_rooms.start_date', 'booking_rooms.end_date', 'customers.name as customer_name', 'customers.phone as customer_phone', 'customers.id as customer_id', 'groups.*')
-                            ->from('booking_rooms')
-                            ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
-                            ->join('groups', 'groups.id', '=', 'booking_room_customers.group_id') 
-                            ->join('customers', 'customers.id', '=', 'booking_room_customers.customer_id')
-                            ->distinct()
-                            ->paginate(15);
+            ->from('booking_rooms')
+            ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
+            ->join('groups', 'groups.id', '=', 'booking_room_customers.group_id')
+            ->join('customers', 'customers.id', '=', 'booking_room_customers.customer_id')
+            ->distinct()
+            ->paginate(15);
     }
 
     public function getBookingInfo($request, $get_all = true)
     {
-        $query = $this->bookingRoom->select('booking_rooms.start_date', 'booking_rooms.room_id', 'booking_rooms.end_date', 'customers.address', 'customers.id_card', 'customers.name as customer_name', 'customers.phone as customer_phone', 'customers.id as customer_id', 'groups.*')
-                                ->from('booking_rooms')
-                                ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
-                                ->join('groups', 'groups.id', '=', 'booking_room_customers.group_id') 
-                                ->join('customers', 'customers.id', '=', 'booking_room_customers.customer_id')
-                                ->where('groups.id', $request->group_id)
-                                ->where('customers.id', $request->customer_id)
-                                ->where('booking_rooms.start_date', $request->start_date)
-                                ->where('booking_rooms.end_date', $request->end_date);
+        if(empty($request->all())) {
+            return [];
+        }
+
+        $query = $this->bookingRoom->select('booking_rooms.id as bk_room_id', 'booking_rooms.start_date', 'booking_rooms.room_id', 'booking_rooms.end_date', 'customers.address', 'customers.id_card', 'customers.name as customer_name', 'customers.phone as customer_phone', 'customers.id as customer_id', 'groups.*')
+            ->from('booking_rooms')
+            ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
+            ->join('groups', 'groups.id', '=', 'booking_room_customers.group_id')
+            ->join('customers', 'customers.id', '=', 'booking_room_customers.customer_id')
+            ->where('groups.id', $request->group_id)
+            ->where('customers.id', $request->customer_id)
+            ->where('booking_rooms.start_date', $request->start_date)
+            ->where('booking_rooms.end_date', $request->end_date);
 
         if ($get_all) {
             return $query->get();
@@ -106,7 +110,7 @@ use Illuminate\Support\Facades\Log;
 
             $this->deleteGroupCustomer($request->group_id);
             $this->bookingRoomCustomer->where('group_id', $request->group_id)->delete();
-            
+
             if (!empty($arrRoomId)) {
                 $this->bookingRoom->whereIn('id', $arrRoomId)->delete();
             }
@@ -114,20 +118,56 @@ use Illuminate\Support\Facades\Log;
             DB::commit();
 
             return [
-                'code' => 400,
+                'code'    => 400,
                 'message' => 'Huy thanh cong.'
             ];
         } catch (Exception $exception) {
             DB::rollBack();
             Log::error($exception->getMessage());
             return [
-                'code' => 400,
+                'code'    => 400,
                 'message' => 'Khong huy dc booking, moi ban thu lai.'
             ];
         }
     }
-    
-    public function bookingRoom($request) 
+
+
+    public function update($request, $id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $group = $this->model->where('id', $request->group_id)->update([
+                'name' => $request->get('group_name'),
+                'note' => $request->get('note')
+            ]);
+
+            $customer = $this->customer->where('id', $request->customer_id)->update([
+                'name'    => $request->get('customer_name'),
+                'id_card' => $request->get('customer_id_card'),
+                'phone'   => $request->get('customer_phone'),
+                'address' => $request->get('customer_address')
+            ]);
+
+            $roomIds = $request->room_ids;
+
+            $bookingRooms = $this->getBookingInfo($request, true);
+            if (!empty($bookingRooms)) {
+                foreach($bookingRooms as $bookingRoom) {
+                   $this->bookingRoom->where('id', $bookingRoom->bk_room_id)->delete();
+                }
+            }
+
+            $this->bookingRoom($request);
+
+            DB::commit();
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+        }
+    }
+
+    public function bookingRoom($request)
     {
         try {
             $roomIds = $request->room_ids;
@@ -140,31 +180,31 @@ use Illuminate\Support\Facades\Log;
             ]);
 
             $customer = $this->customer->firstOrCreate([
-                'name' => $request->get('customer_name'),
+                'name'    => $request->get('customer_name'),
                 'id_card' => $request->get('customer_id_card'),
-                'phone' => $request->get('customer_phone'),
+                'phone'   => $request->get('customer_phone'),
                 'address' => $request->get('customer_address')
             ]);
 
             $groupCustomer = $this->groupCustomer->firstOrCreate([
                 'customer_id' => $customer->id,
-                'group_id' => $group->id
+                'group_id'    => $group->id
             ]);
             foreach ($roomIds as $roomId) {
                 $bookingRoom = $this->bookingRoom->create([
-                    'room_id' => $roomId,
+                    'room_id'    => $roomId,
                     'start_date' => $request->get('start_date'),
-                    'end_date' => $request->get('end_date'),
-                    'note' => $request->get('note'),
-                    'status' => 6,
-                    'user_id' => auth()->user()->id
+                    'end_date'   => $request->get('end_date'),
+                    'note'       => $request->get('note'),
+                    'status'     => Room::BOOKED,
+                    'user_id'    => auth()->user()->id
                 ]);
 
                 $bookingRoomCustomer = $this->bookingRoomCustomer->create([
                     'booking_room_id' => $bookingRoom->id,
-                    'customer_id' => $customer->id,
-                    'group_id' => $group->id,
-                    'type' => 2 // khach doan
+                    'customer_id'     => $customer->id,
+                    'group_id'        => $group->id,
+                    'type'            => 2 // khach doan
                 ]);
             }
 
@@ -174,7 +214,7 @@ use Illuminate\Support\Facades\Log;
             DB::rollBack();
             Log::info($exception->getMessage());
             return [
-                'code' => 400,
+                'code'    => 400,
                 'message' => 'Dat phong cho khach bi loi'
             ];
         }
@@ -189,4 +229,4 @@ use Illuminate\Support\Facades\Log;
     {
         $this->groupCustomer->where('group_id', $group_id)->delete();
     }
- }
+}

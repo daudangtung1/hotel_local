@@ -72,9 +72,8 @@ class GroupController extends Controller
      */
     public function show(Request $request, $id)
     {
-
         $group = $this->groupRepository->find($id);
-        
+
         return response()->json([
             'group' => $group
         ]);
@@ -100,7 +99,9 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->groupRepository->update($request, $id);
+
+        return redirect()->back()->with('success', 'Cập nhật thành công');
     }
 
     /**
