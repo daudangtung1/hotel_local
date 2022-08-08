@@ -70,6 +70,17 @@ class ReportController extends Controller
                 }
 
                 return view('report.index', compact('items', 'title', 'menuReport', 'monthRanges'));
+            case Room::FILTER_FREQUENCY:
+                $items = $this->bookingRoomRepository->filterStatusRoomEmpty($request);
+                $start_month = Carbon::now()->subMonths(6);
+                $end_month = Carbon::now()->addMonths(6);
+                $monthRanges = [];
+                while($start_month < $end_month)
+                {
+                    array_push($monthRanges, $start_month->addMonth()->format('Y-m'));
+                }
+
+                return view('report.index', compact('items', 'title', 'menuReport', 'monthRanges'));
             default:
                 return;
         }

@@ -297,7 +297,7 @@ class BookingRoomRepository extends ModelRepository
     {
         if ($request) {
             $roomId = $request->get('room_id');
-            $bookingInfo = $this->room->select('customers.*', 'customers.name as cusomter_name', 'rooms.*', 'rooms.name as room_name', 'booking_rooms.*')
+            $bookingInfo = $this->room->select('customers.*', 'customers.name as cusomter_name', 'rooms.status as room_status','rooms.*', 'rooms.name as room_name', 'booking_rooms.*')
                 ->join('booking_rooms', 'rooms.id', '=', 'booking_rooms.room_id')
                 ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
                 ->join('customers', 'booking_room_customers.customer_id', '=', 'customers.id')

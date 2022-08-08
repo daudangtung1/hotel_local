@@ -3,10 +3,10 @@
     <div class="wrap-main">
         <div class="container">
             <div class="row d-flex justify-content-between mb-3">
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <h5>{{$title ?? ''}} @if(isset(request()->by))[{{\App\Models\Room::Filter[request()->by]}}]@endif</h5>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <form action="" class="d-flex" method="GET">
                         <select class="form-control me-2" name="by" id="by">
                             @foreach(\App\Models\Room::Filter as $key => $filter)
@@ -26,6 +26,8 @@
                     @include('report.form-status-room')
                 @elseif(request()->get('by') == \App\Models\Room::FILTER_BY_STATUS_ROOM_EMPTY)
                     @include('report.form-status-room-empty')
+                @elseif(request()->get('by') == \App\Models\Room::FILTER_FREQUENCY)
+                    @include('report.room-frequency')
                 @else
                 @endif
             </div>

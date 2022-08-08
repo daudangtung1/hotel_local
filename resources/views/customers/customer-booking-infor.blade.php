@@ -81,7 +81,9 @@
             <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
                 Đóng
             </button>
-            <button data-booking_room_id="{{$bookingRoomInfo->id}}" data-bg="primary" type="submit" class="btn btn-sm btn-primary  btn-checkin ">Nhận phòng</button>
+            @if($bookingRoomInfo->room_status == \App\Models\Room::READY)
+                <button data-booking_room_id="{{$bookingRoomInfo->id}}" data-bg="primary" type="submit" class="btn btn-sm btn-primary  btn-checkin ">Nhận phòng</button>
+            @endif
         </div>
     </div>
 </div>
