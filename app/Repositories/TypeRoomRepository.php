@@ -22,9 +22,9 @@ class TypeRoomRepository extends ModelRepository
         $this->model = $model;
     }
 
-    public function getAll($paginate = true)
+    public function getAll($paginate = true, $orderBy = 'DESC')
     {
-        $query = $this->model->orderBy('ID', 'DESC');
+        $query = $this->model->orderBy('ID', $orderBy);
 
         if($paginate) {
             return $query->paginate(10);

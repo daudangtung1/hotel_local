@@ -311,14 +311,27 @@ class BookingRoomRepository extends ModelRepository
         return [];
     }
 
+    public function totalRoomBooked($date, $type)
+    {
+        $total = $this->bookingRoom->join('rooms', 'rooms.id', '=', 'booking_rooms.room_id')
+                                    ->leftJoin('type_rooms', 'type_rooms.id', '=', 'rooms.type_room_id')
+                                    ->whereIn('booking_rooms.status', [1, 3, 6, 7])
+                                    ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $date)
+                                    ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $date)
+                                    ->where('type_rooms.id', $type)
+                                    ->withTrashed()
+                                    ->count();
+        return $total;
+    }
+
     public function getBookingRoomByStartDate($request)
     {
         $startDate = date('Y-m-d', strtotime($request->get('start_date')));
         $roomId = $request->get('room_id');
         $data = $this->bookingRoom->where('room_id', $roomId)
-            ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $startDate)
-            ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $startDate)
-            ->first();
+                ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $startDate)
+                ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $startDate)
+                ->first();
         return $data;
     }
 

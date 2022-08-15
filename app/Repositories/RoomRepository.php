@@ -138,12 +138,14 @@ class RoomRepository extends ModelRepository
                 $room->update(['status' => $this->model::DIRTY]);
                 $room->bookingRooms()->where('status', $this->model::HAVE_GUEST)->update([
                     'status'        => $this->model::DIRTY,
+                    'end_date'      => Carbon::now(),
                     'checkout_date' => Carbon::now()
                 ]);
             } else if (in_array($room->status, [2, 3, 5])) {
                 $room->update(['status' => $this->model::READY]);
                 $room->bookingRooms()->whereIn('status', [2, 3, 5])->update([
                     'status' => $this->model::CLOSED,
+                    'end_date'      => Carbon::now()
                 ]);
             } else {
 
