@@ -70,8 +70,62 @@ class ReportController extends Controller
                 }
 
                 return view('report.index', compact('items', 'title', 'menuReport', 'monthRanges'));
+            case Room::FILTER_FREQUENCY:
+                $items = $this->bookingRoomRepository->filterStatusRoomEmpty($request);
+                $types = $this->typeRoomRepository->getAll(false, 'ASC');
+                $start_month = Carbon::now()->subMonths(6);
+                $end_month = Carbon::now()->addMonths(6);
+
+                $from_date = $request->get('start_date') ?? Carbon::now()->subDays(15)->format('Y-m-d');
+                $to_date   = $request->get('end_date') ?? Carbon::now()->format('Y-m-d');
+                $monthRanges = [];
+                $chart = $this->addChart($request);
+                while($start_month < $end_month)
+                {
+                    array_push($monthRanges, $start_month->addMonth()->format('Y-m'));
+                }
+
+                return view('report.index', compact('items', 'title', 'from_date', 'to_date', 'types', 'chart', 'menuReport', 'monthRanges'));
             default:
                 return;
         }
+    }
+
+    public function addChart($request)
+    {
+        $fromDate = $request->get('start_date') ? Carbon::createFromFormat('Y-m-d', $request->get('start_date')) : Carbon::now()->subDays(15);
+        $toDate   = $request->get('end_date') ? Carbon::createFromFormat('Y-m-d', $request->get('end_date')) : Carbon::now();
+        $type = $request->get('room_type');
+
+        $dates = [];
+       
+        for($d = $fromDate; $d->lte($toDate); $d->addDay()) {
+            $dates[] = $d->format('Y-m-d');
+        }
+
+        $dataSets = [];
+
+        $room_used = new \stdClass();
+        $room_used->label = 'Phòng đã sử dụng';
+        $room_used->backgroundColor = '#3483eb';
+
+        $room_free = new \stdClass();
+        $room_free->label = 'Phòng trống';
+        $room_free->backgroundColor = '#b35d52';
+
+        foreach ($dates as $date) {
+           $totalRoomUsed = $this->bookingRoomRepository->totalRoomBooked($date, $type);
+           $totalRoomFree = 32 - $totalRoomUsed;
+           $room_used->data[] = $totalRoomUsed;
+           $room_free->data[] = $totalRoomFree;
+        }
+
+        $dataSets = [
+          'labels' => $dates,
+          'room_used' => $room_used,
+          'room_free' => $room_free
+        ];
+
+        return $dataSets;
     }
 }
