@@ -73,9 +73,25 @@ class BookingRoomRepository extends ModelRepository
         return $this->bookingRoom->where('status', 7)->orderBy('start_date', 'ASC')->get();
     }
 
-    public function getAllRoomsBookingUsed()
+    public function getAllRoomsBookingUsed($request = null)
     {
-        return $this->bookingRoom->where('status', 7)->orderBy('start_date', 'ASC')->paginate(10);
+        $data = $this->bookingRoom->where('status', 7);
+        if(!empty($request->name) ) 
+        {
+            $data = $data->whereHas('bookingRoomCustomers.customer', function ($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->name . '%');
+            });
+        }
+
+        if(!empty($request->room)) 
+        {
+            $data = $data->whereHas('room', function ($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->room . '%');
+            });
+        }
+        $data = $data->orderBy('start_date', 'ASC')->paginate(10);
+
+        return $data;
     }
 
     public function booking($request)

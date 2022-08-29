@@ -168,7 +168,7 @@ class BookingRoomController extends Controller
 
     public function getBookingRoomUsed(Request $request)
     {
-        $bookingRooms = $this->bookingRoomRepository->getAllRoomsBookingUsed();
+        $bookingRooms = $this->bookingRoomRepository->getAllRoomsBookingUsed($request);
         $title = 'Quản lý đặt phòng';
         $menuSystem = true;
         return view('booking-room.used', compact('bookingRooms', 'menuSystem','title'));

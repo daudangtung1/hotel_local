@@ -37,7 +37,7 @@ class GroupController extends Controller
         $title = 'Quản lý đoàn';
 
         if ($request->ajax()) {
-            return view('groups.modal-booking-room-group')->render();
+            return view('groups.modal-booking-room-group', compact('groups', 'menuCategoryManager', 'title'))->render();
         }
 
         return view('groups.index', compact('groups', 'menuCategoryManager', 'title'));

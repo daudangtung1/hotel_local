@@ -134,7 +134,11 @@ class BookingRoom extends Model
 
     public function getDiffHours()
     {
-        $now = Carbon::now();
+        if (!empty($this->checkout_date)) {
+            $now = Carbon::createFromFormat('Y-m-d H:i:s', $this->checkout_date);
+        } else {
+            $now = Carbon::now();
+        }
 
         $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date);
 
@@ -143,7 +147,11 @@ class BookingRoom extends Model
 
     public function getDiffDay()
     {
-        $now = Carbon::now();
+        if (!empty($this->checkout_date)) {
+            $now = Carbon::createFromFormat('Y-m-d H:i:s', $this->checkout_date);
+        } else {
+            $now = Carbon::now();
+        }
 
         $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date);
 
@@ -152,7 +160,11 @@ class BookingRoom extends Model
 
     public function getDiffMonth()
     {
-        $now = Carbon::now();
+        if (!empty($this->checkout_date)) {
+            $now = Carbon::createFromFormat('Y-m-d H:i:s', $this->checkout_date);
+        } else {
+            $now = Carbon::now();
+        }
 
         $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_date);
 
@@ -161,6 +173,7 @@ class BookingRoom extends Model
 
     public function getTime($suffixes = false)
     {
+
         if($this->rent_type == 1) {
             $time = $this->getDiffDay();
         } elseif($this->rent_type == 2) {

@@ -11,6 +11,7 @@
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>#</th>
                             <th scope="col">Tên phòng</th>
                             <th scope="col">Tầng</th>
                             <th scope="col">Ngày nhận phòng</th>
@@ -23,6 +24,7 @@
                         @if(!empty($bookingRooms))
                             @forelse($bookingRooms as $key => $bookingRoom)
                                 <tr>
+                                    <td>{{$bookingRoom->id ??''}}</td>
                                     <td>{{$bookingRoom->room->name ??''}}</td>
                                     <td>{{$bookingRoom->room->floor ??''}}</td>
                                     <td>{{$bookingRoom->start_date ?? ''}}</td>

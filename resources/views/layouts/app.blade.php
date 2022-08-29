@@ -18,6 +18,7 @@
             z-index: 9;
             padding-top: 25px;
         }
+        .list-ajax,
         #list-item-customer{
             max-height: 300px;
             overflow: auto;
@@ -426,7 +427,77 @@
                 }
             })
             }, 500);
-        })
+        });
+
+        $('body').on('keyup', '#customer_name', function(e) {
+            clearTimeout(debounce);
+            var customer_name = $(this).val();
+            var modal = $(this).closest('.modal');
+            var room_id = modal.find('input[name="room_id"]').val();
+            debounce = setTimeout(function() {
+                $.ajax({
+                type: 'GET',
+                url: "{{route('customers.search')}}",
+                data: {
+                    name: customer_name,
+                    type:'name'
+                },
+                success: function (data) {
+                    modal.find('#list-item-customer').html('').html(data)
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            })
+            }, 500);
+        });
+
+        $('body').on('keyup', '#customer_id_card', function(e) {
+            clearTimeout(debounce);
+            var customer_name = $(this).val();
+            var modal = $(this).closest('.modal');
+            var room_id = modal.find('input[name="room_id"]').val();
+            debounce = setTimeout(function() {
+                $.ajax({
+                type: 'GET',
+                url: "{{route('customers.search')}}",
+                data: {
+                    name: customer_name,
+                    type:'id_card'
+                },
+                success: function (data) {
+                    modal.find('#list-item-id_card').html('').html(data)
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            })
+            }, 500);
+        });
+
+        $('body').on('keyup', '#customer_phone', function(e) {
+            clearTimeout(debounce);
+            var customer_name = $(this).val();
+            var modal = $(this).closest('.modal');
+            var room_id = modal.find('input[name="room_id"]').val();
+            debounce = setTimeout(function() {
+                $.ajax({
+                type: 'GET',
+                url: "{{route('customers.search')}}",
+                data: {
+                    name: customer_name,
+                    type:'phone'
+                },
+                success: function (data) {
+                    modal.find('#list-item-phone').html('').html(data)
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            })
+            }, 500);
+        });
+
 
         $('body').on('click', '#list-group-customer a', function(e) {
             var modal = $(this).closest('.modal');
@@ -534,7 +605,7 @@
                     console.log(e);
                 }
             });
-        }, 2000);
+        }, 600000);
 
         $('body').on('click', '.btn-add-customer', function (e) {
             e.preventDefault();

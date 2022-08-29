@@ -10,24 +10,26 @@
                 <h5>Thông tin khách hàng</h5>
                 <div class="row mt-3" id="form-booking-multiple">
                     <div class="col-md-6 mb-3 position-relative">
-                        <input type="text" class="form-control  form-control-sm validate" id="customer_name"
+                        <input type="text" class="form-control form-control-sm validate" id="customer_name" autocomplete="Off" 
                             name="customer_name" required
                             placeholder="Tên khách hàng">
-                        <div class="col-md-12 mb-3" id="list-item-customer"></div>
+                        <div class="col-md-12 mb-3 list-ajax" id="list-item-customer"></div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control  form-control-sm validate" id="customer_id_card"
+                    <div class="col-md-6 mb-3 position-relative">
+                        <input type="text" class="form-control form-control-sm validate" id="customer_id_card"
                             name="customer_id_card" required
                             placeholder="Số giấy tờ">
+                            <div class="col-md-12 mb-3 list-ajax" id="list-item-id_card"></div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control  form-control-sm validate" id="customer_phone"
+                    <div class="col-md-6 mb-3 position-relative">
+                        <input type="text" class="form-control form-control-sm validate" id="customer_phone"
                             name="customer_phone" required
                             placeholder="Điện thoại">
+                            <div class="col-md-12 mb-3 list-ajax" id="list-item-phone"></div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control  form-control-sm validate" id="customer_address"
+                        <input type="text" class="form-control form-control-sm validate" id="customer_address"
                             name="customer_address" required placeholder="Địa chỉ">
                     </div>
                     <div class="col-md-12">
