@@ -47,6 +47,18 @@ class ServiceRepository extends ModelRepository
 
     public function store($request)
     {
+        $id = $request->get('id');
+
+        if (!empty($id)) {
+            $model = $this->model->find($id);
+            $params = [
+                'stock' => $model->stock + $request->get('stock'),
+                'price' => $model->price + $request->get('price')
+            ];
+
+           return $model->update($params);
+        }
+
         return $this->model->create([
             'name'    => $request->name,
             'stock'   => $request->stock,
