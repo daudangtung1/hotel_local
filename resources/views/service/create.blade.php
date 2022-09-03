@@ -12,8 +12,15 @@
                         <input type="hidden" name="id" value="{{$currentItem->id ??''}}" />
                         <div class="col-md-12">
                             <label for="name" class="form-label">Tên dịch vụ</label>
-                            <input type="text" class="form-control  form-control-sm" id="name" name="name" value="{{$currentItem->name ??''}}" required>
+                            <input autocomplete="false" type="text" class="form-control  form-control-sm service-name" id="name" name="name" value="{{$currentItem->name ??''}}" required>
                         </div>
+                        <div class="col-md-12 col-service d-none" style="margin-top: 3px; max-height:250px; overflow-y:scroll ">
+                            @foreach ($services as $service)
+                            <a data-id="{{ $service->id }}" class="list-group-item list-group-item-action" style="cursor: pointer">
+                                {{ ucfirst($service->name) }} 
+                              </a>
+                            @endforeach
+                        </div>                        
                         <div class="col-md-12">
                             <label for="floor" class="form-label">Số lượng</label>
                             <input type="number" min="0" max="1000" class="form-control  form-control-sm" name="stock" id="stock" value="{{$currentItem->stock ??'100'}}" required>
@@ -95,6 +102,23 @@
                                 }
 
                                 $(this).closest('form').submit();
+                            });
+
+                            $('.service-name').on('focus', function(e) {
+                                $('.col-service').removeClass('d-none')
+                            });
+
+                            $('.service-name').on('keyup', function(e) {
+                                $('.col-service').addClass('d-none')
+                            });
+
+                            $('.list-group-item').on('click', function(e) {
+                                var serviceId = $(this).data('id');
+                                var textService = $(this).text().trim();
+
+                                $('input[name="id"]').val(serviceId);
+                                $('.col-service').addClass('d-none');
+                                $('input[name="name"]').val(textService);
                             })
                         });
                     </script>
