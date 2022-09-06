@@ -10,26 +10,26 @@
                 <h5>Thông tin khách hàng</h5>
                 <div class="row mt-3" id="form-booking-multiple">
                     <div class="col-md-6 mb-3 position-relative">
-                        <input type="text" class="form-control form-control-sm validate" id="customer_name" autocomplete="Off" 
+                        <input type="text" class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off"
                             name="customer_name" required
                             placeholder="Tên khách hàng">
                         <div class="col-md-12 mb-3 list-ajax" id="list-item-customer"></div>
                     </div>
                     <div class="col-md-6 mb-3 position-relative">
-                        <input type="text" class="form-control form-control-sm validate" id="customer_id_card"
+                        <input type="text" class="form-control form-control-sm form-control form-control-sm validate" id="customer_id_card"
                             name="customer_id_card" required
                             placeholder="Số giấy tờ">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-id_card"></div>
                     </div>
 
                     <div class="col-md-6 mb-3 position-relative">
-                        <input type="text" class="form-control form-control-sm validate" id="customer_phone"
+                        <input type="text" class="form-control form-control-sm form-control form-control-sm validate" id="customer_phone"
                             name="customer_phone" required
                             placeholder="Điện thoại">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-phone"></div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <input type="text" class="form-control form-control-sm validate" id="customer_address"
+                        <input type="text" class="form-control form-control-sm form-control form-control-sm validate" id="customer_address"
                             name="customer_address" required placeholder="Địa chỉ">
                     </div>
                     <div class="col-md-12">
@@ -40,7 +40,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <input type="text" id="start_date"
-                                            class="form-control  form-control-sm datetime-picker validate-date "
+                                            class="form-control form-control-sm form-control-sm datetime-picker validate-date "
                                             value="{{\Carbon\Carbon::now()}}">
                                     </div>
                                 </div>
@@ -52,7 +52,7 @@
                                     thúc:</label>
                                 <div class="input-group date">
                                     <input type="text" id="end_date" name="end_date"
-                                        class="form-control  form-control-sm datetime-picker validate-date "
+                                        class="form-control form-control-sm form-control-sm datetime-picker validate-date "
                                         value="{{\Carbon\Carbon::now()}}">
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="price" class="form-label">Ghi chú:</label>
-                        <textarea name="note" class="form-control  form-control-sm note" cols="30" rows="2"
+                        <textarea name="note" class="form-control form-control-sm form-control-sm note" cols="30" rows="2"
                                 placeholder="Ghi chú">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
                     </div>
                 </div>

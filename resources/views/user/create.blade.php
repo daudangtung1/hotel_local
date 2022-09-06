@@ -16,22 +16,22 @@
                         @csrf
                         <div class="col-md-12">
                             <label for="name" class="form-label">Tên tài khoản</label>
-                            <input type="text" class="form-control  form-control-sm" id="name" name="name"
+                            <input type="text" class="form-control form-control-sm form-control-sm" id="name" name="name"
                                    value="{{$currentItem->name ??''}}" required @if(!empty($currentItem)) readonly @endif>
                         </div>
                         <div class="col-md-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control  form-control-sm" id="email" name="email"
+                            <input type="email" class="form-control form-control-sm form-control-sm" id="email" name="email"
                                    value="{{$currentItem->email ??''}}" required>
                         </div>
                         <div class="col-md-12">
                             <label for="password" class="form-label">Mật khẩu</label>
-                            <input type="password" class="form-control  form-control-sm" id="password" name="password"
+                            <input type="password" class="form-control form-control-sm form-control-sm" id="password" name="password"
                                    value="" minlength="6">
                         </div>
                         <div class="col-md-12">
                             <label for="re_password" class="form-label">Xác nhận mật khẩu</label>
-                            <input type="password" class="form-control  form-control-sm" id="re_password" name="re_password"
+                            <input type="password" class="form-control form-control-sm form-control-sm" id="re_password" name="re_password"
                                    value="" minlength="6">
                         </div>
                         <div class="col-12">

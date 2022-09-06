@@ -16,24 +16,24 @@
                         @csrf
                         <div class="col-md-12">
                             <label for="name" class="form-label">Tên</label>
-                            <input type="text" class="form-control  form-control-sm" id="name" name="name"
+                            <input type="text" class="form-control form-control-sm form-control-sm" id="name" name="name"
                                    value="{{$currentItem->name ??''}}" required
                                    @if(!empty($currentItem)) readonly @endif>
                         </div>
                         <div class="col-md-12">
                             <label for="id_card" class="form-label">CMND</label>
-                            <input type="text" class="form-control  form-control-sm" id="id_card" name="id_card"
+                            <input type="text" class="form-control form-control-sm form-control-sm" id="id_card" name="id_card"
                                    value="{{$currentItem->id_card ??''}}" required>
                         </div>
 
                         <div class="col-md-12">
                             <label for="phone" class="form-label">Điện thoại</label>
-                            <input type="text" class="form-control  form-control-sm" id="phone" name="phone"
+                            <input type="text" class="form-control form-control-sm form-control-sm" id="phone" name="phone"
                                    value="{{$currentItem->phone ??''}}" required>
                         </div>
                         <div class="col-md-12">
                             <label for="address" class="form-label">Địa chỉ</label>
-                            <input type="text" class="form-control  form-control-sm" id="address" name="address"
+                            <input type="text" class="form-control form-control-sm form-control-sm" id="address" name="address"
                                    value="{{$currentItem->address ??''}}" required>
                         </div>
                         <div class="col-12">

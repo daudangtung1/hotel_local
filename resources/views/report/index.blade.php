@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-md-4">
                     <form action="" class="d-flex" method="GET">
-                        <select class="form-control me-2" name="by" id="by">
+                        <select class="form-control form-control-sm me-2" name="by" id="by">
                             @foreach(\App\Models\Room::Filter as $key => $filter)
                                 <option @if(!empty(request()->by) && request()->by == $key) selected
                                         @endif value="{{$key}}">{{$filter}}</option>

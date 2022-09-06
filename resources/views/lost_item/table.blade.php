@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <select name="booking_room_id" id="booking_room_id" class="form-control booking_room_id mb-3">
+                    <select name="booking_room_id" id="booking_room_id" class="form-control form-control-sm booking_room_id mb-3">
                         <option value="">Chọn phòng</option>
                         @forelse($bookingRooms as $key => $bookingRoom)
                             <option value="{{$bookingRoom->id}}">
@@ -22,7 +22,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <textarea name="note" id="note" cols="30" rows="5" class="form-control validate note"
+                    <textarea name="note" id="note" cols="30" rows="5" class="form-control form-control-sm validate note"
                               placeholder="Ghi chú"></textarea>
                 </div>
             </div>
@@ -52,12 +52,12 @@
                 <td>{{$lostItem->bookingRoom->room->floor ?? '-'}}</td>
                 <td style="width: 200px">{{$lostItem->pay_date ?? '-'}}</td>
                 <td>
-                    <textarea name="note" class="form-control note" cols="30"
+                    <textarea name="note" class="form-control form-control-sm note" cols="30"
                               rows="2">{{$lostItem->note ?? '-'}}</textarea>
                 </td>
                 <td style="width: 120px">
                     @if(empty($lostItem->pay_date))
-                        <select name="status" id="status" class="form-control status">
+                        <select name="status" id="status" class="form-control form-control-sm status">
                             <option value="0" @if(empty($lostItem->pay_date)) selected @endif>Chưa trả</option>
                             <option value="1" @if(!empty($lostItem->pay_date)) selected @endif>Đã trả</option>
                         </select>

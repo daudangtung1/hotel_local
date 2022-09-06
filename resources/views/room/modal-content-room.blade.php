@@ -12,26 +12,26 @@
             <div class="col-md-2">
                 <div id="customer-booking">
                     <div class="col-md-12 mb-3 position-relative">
-                        <input type="text" class="form-control  form-control-sm validate " id="customer_name"
+                        <input type="text" class="form-control form-control-sm form-control-sm validate " id="customer_name"
                             name="customer_name" required
                             placeholder="Tên khách hàng" autocomplete="Off" >
                         <div class="col-md-12 mb-3 list-ajax" id="list-item-customer"></div>
                     </div>
                     <div class="col-md-12 mb-3 position-relative">
-                        <input type="text" class="form-control  form-control-sm validate " id="customer_id_card"
+                        <input type="text" class="form-control form-control-sm form-control-sm validate " id="customer_id_card"
                             name="customer_id_card" required
                             placeholder="Số giấy tờ" autocomplete="Off" >
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-id_card"></div>
                     </div>
 
                     <div class="col-md-12 mb-3 position-relative">
-                        <input type="text" class="form-control  form-control-sm validate " id="customer_phone"
+                        <input type="text" class="form-control form-control-sm form-control-sm validate " id="customer_phone"
                             name="customer_phone" required
                             placeholder="Điện thoại" autocomplete="Off" >
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-phone"></div>
                     </div>
                     <div class="col-md-12 mb-3 position-relative">
-                        <input type="text" class="form-control  form-control-sm validate " id="customer_address"
+                        <input type="text" class="form-control form-control-sm form-control-sm validate " id="customer_address"
                             name="customer_address" required placeholder="Địa chỉ">
                     </div>
                     <div class="col-md-12">
@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <input type="text" id="start_date"
-                                            class="form-control  form-control-sm datetime-picker"
+                                            class="form-control form-control-sm form-control-sm datetime-picker"
                                             value="@if(!empty($bookingRoom) && !empty($bookingRoom->start_date)){{$bookingRoom->start_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
                                     </div>
                                 </div>
@@ -53,7 +53,7 @@
                                     thúc:</label>
                                 <div class="input-group date">
                                     <input type="text" id="end_date"
-                                        class="form-control  form-control-sm datetime-picker"
+                                        class="form-control form-control-sm form-control-sm datetime-picker"
                                         value="@if(!empty($bookingRoom) && !empty($bookingRoom->end_date) && $bookingRoom->rent_type == 1){{$bookingRoom->end_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                                         <p><b>Tổng:</b> {{$bookingRoomService->getTotalDate(true)}}</p>
                                         @else
                                         <input data-url_update="{{route('booking-room-service.update', ['booking_room_service' => $bookingRoomService])}}"
-                                               type="text" class="form-control form-control-sm quantity_service" name="quantity_service" id="quantity_service"
+                                               type="text" class="form-control form-control-sm form-control form-control-sm quantity_service" name="quantity_service" id="quantity_service"
                                                value="@if(!empty($bookingRoomService)){!! $bookingRoomService->quantity ??0 !!}@endif" min="0">
                                         @endif
                                     </td>
@@ -200,7 +200,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input type="text" class="form-control  form-control-sm price" name="price" id="price"
+                        <input type="text" class="form-control form-control-sm form-control-sm price" name="price" id="price"
                                value="@if(!empty($bookingRoom)){!! $bookingRoom->price ??0 !!}@endif" min="0">
                         <div class="input-group-append">
                             <span class="input-group-text">đ</span>
@@ -215,7 +215,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input type="text" class="form-control  form-control-sm extra_price" name="extra_price"
+                        <input type="text" class="form-control form-control-sm form-control-sm extra_price" name="extra_price"
                                id="extra_price"
                                value="@if(!empty($bookingRoom)){!! $bookingRoom->extra_price ?? 0 !!}@endif" min="0">
                         <div class="input-group-append">
@@ -225,13 +225,13 @@
                 </div>
                 <div class="col-md-12 mt-3">
                     <label for="price" class="form-label">Ghi chú:</label>
-                    <textarea name="note" class="form-control  form-control-sm note" cols="30" rows="2"
+                    <textarea name="note" class="form-control form-control-sm form-control-sm note" cols="30" rows="2"
                               placeholder="Ghi chú">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
                 </div>
                 @if(!empty($bookingRoom) && in_array($bookingRoom->status, [1,3,5]))
                     <div class="col-md-12 mt-3">
                         <label for="price" class="form-label">Tình trạng:</label>
-                        <select name="booking_room_status" id="booking_room_status" class="form-control">
+                        <select name="booking_room_status" id="booking_room_status" class="form-control form-control-sm">
                             <option value="" selected>Không</option>
                             @foreach(\App\Models\Room::ARRAY_UPDATE_STATUS as $key => $status)
                                     <option @if($bookingRoom->status == $key) selected
@@ -262,10 +262,10 @@
                                 @if($service->sale_type == 0)
                                 <div class="row d-none">
                                     <div class="col-6">
-                                        <input type="date" class="form-control modal_start_date" name="modal_start_date">
+                                        <input type="date" class="form-control form-control-sm modal_start_date" name="modal_start_date">
                                     </div>
                                     <div class="col-6">
-                                        <input type="date" class="form-control modal_end_date"  name="modal_end_date">
+                                        <input type="date" class="form-control form-control-sm modal_end_date"  name="modal_end_date">
                                     </div>
                                     <div class="col-12">
                                         <button class="btn btn-sm btn-primary model-btn-add-service mt-1">Thêm dịch vụ</button>

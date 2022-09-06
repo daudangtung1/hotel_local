@@ -17,11 +17,11 @@
                             @csrf
                             <div class="form-group">
                                 <label>Tài khoản</label>
-                                <input id="email" type="email" class="form-control  form-control-sm @error('email') is-invalid @enderror" name="email" placeholder="Tên đăng nhập" value="{{ old('email') }}" required autocomplete="off" autofocus>
+                                <input id="email" type="email" class="form-control form-control-sm form-control-sm @error('email') is-invalid @enderror" name="email" placeholder="Tên đăng nhập" value="{{ old('email') }}" required autocomplete="off" autofocus>
                             </div>
                             <div class="form-group">
                                 <label>Mật khẩu</label>
-                                <input id="password" type="password" class="form-control  form-control-sm @error('password') is-invalid @enderror" name="password" required autocomplete="off"  placeholder="Mật khẩu">
+                                <input id="password" type="password" class="form-control form-control-sm form-control-sm @error('password') is-invalid @enderror" name="password" required autocomplete="off"  placeholder="Mật khẩu">
                                 <div class="in-form-group">
                                     <input class="form-check-input" type="checkbox" name="remember" id="luumatkhau" {{ old('remember') ? 'checked' : '' }}>
 

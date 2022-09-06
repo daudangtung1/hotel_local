@@ -2,11 +2,11 @@
     <div class="d-flex justify-content-end align-items-center mb-3">
         <div class="filter">
             <form action="{{route('reports.index')}}" class="d-flex" method="GET">
-                <input type="text" name="s" id="s" class="form-control me-2" placeholder="Từ khóa" value="@if(!empty(request()->s)) {{request()->s}} @endif">
-                <input type="text" class="form-control me-2 filter-date" placeholder="Ngày bắt đầu" name="start_date" value="@if(!empty(request()->start_date)) {{request()->start_date}} @endif"  autocomplete="off">
-                <input type="text" class="form-control me-2 filter-date" placeholder="Ngày kết thúc" name="end_date" value="@if(!empty(request()->end_date)) {{request()->end_date}} @endif" autocomplete="off">
+                <input type="text" name="s" id="s" class="form-control form-control-sm me-2" placeholder="Từ khóa" value="@if(!empty(request()->s)) {{request()->s}} @endif">
+                <input type="text" class="form-control form-control-sm me-2 filter-date" placeholder="Ngày bắt đầu" name="start_date" value="@if(!empty(request()->start_date)) {{request()->start_date}} @endif"  autocomplete="off">
+                <input type="text" class="form-control form-control-sm me-2 filter-date" placeholder="Ngày kết thúc" name="end_date" value="@if(!empty(request()->end_date)) {{request()->end_date}} @endif" autocomplete="off">
                 <input type="hidden" name="by" value="{{request()->by ?? ''}}">
-                <select name="type" id="type" class="form-control me-2">
+                <select name="type" id="type" class="form-control form-control-sm me-2">
                     <option value="">Tất cả</option>
                     @foreach(\App\Models\RevenueAndExpenditure::STATUS as $key => $status)
                     <option value="{{$key}}" @if(!empty(request()->type) && request()->type == $key) selected @endif>

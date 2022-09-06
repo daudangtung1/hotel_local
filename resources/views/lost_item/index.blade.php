@@ -28,7 +28,7 @@
             var bookingRoomId = modal.find('.booking_room_id').val();
             var note = modal.find('.note').val();
             //
-            // modal.find('.form-control').each(function () {
+            // modal.find('.form-control form-control-sm').each(function () {
             //     if ($(this).hasClass('validate')) {
             //         if ($(this).val() == '') {
             //             $(this).addClass('boder-validate');

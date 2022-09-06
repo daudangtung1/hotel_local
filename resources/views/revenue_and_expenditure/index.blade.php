@@ -16,17 +16,17 @@
                         @csrf
                         <div class="col-md-12">
                             <label for="name" class="form-label">Tên khoản thu/chi</label>
-                            <textarea type="text" class="form-control  form-control-sm" id="name" name="name"
+                            <textarea type="text" class="form-control form-control-sm form-control-sm" id="name" name="name"
                                       required>{{$currentItem->name ??''}}</textarea>
                         </div>
                         <div class="col-md-12">
                             <label for="money" class="form-label">Số tiền</label>
-                            <input type="number" class="form-control  form-control-sm" id="money" name="money"
+                            <input type="number" class="form-control form-control-sm form-control-sm" id="money" name="money"
                                    value="{{$currentItem->money ??''}}" required>
                         </div>
                         <div class="col-md-12">
                             <label for="type" class="form-label">Loại</label>
-                            <select name="type" id="type" class="form-control">
+                            <select name="type" id="type" class="form-control form-control-sm">
                                 @foreach(\App\Models\RevenueAndExpenditure::STATUS as $key => $status)
                                 <option value="{{$key}}" @if(!empty($currentItem) && $currentItem->type == $key) selected @endif>
                                     {{$status}}
