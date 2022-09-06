@@ -222,19 +222,21 @@ class BookingRoomRepository extends ModelRepository
             'booking_room_id' => $bookingRoom->id,
             'service_id'      => $service->id,
         ])->first();
-
         if (empty($bookingRoomService)) {
             $bookingRoomService = $this->bookingRoomService->create([
                 'booking_room_id' => $bookingRoom->id,
                 'service_id'      => $service->id,
                 'quantity'        => 1,
-                'price'           => $service->price ?? 0
+                'price'           => $service->price ?? 0,
+                'start_date'           => $request->modal_start_date ?? null,
+                'end_date'           => $request->modal_end_date ?? null,
             ]);
         } else {
             $bookingRoomService->update(['quantity' => $bookingRoomService->quantity + 1]);
         }
-
-        $service->decrement('stock', 1);
+        if($service->sale_type) { // 1 số lần sử dụng, 0 theo ngày
+            $service->decrement('stock', 1);
+        }
     }
 
     public function getMinutes()

@@ -9,18 +9,20 @@
                             {{method_field('PUT')}}
                         @endif
                         @csrf
+                        <div class="position-relative">
                         <input type="hidden" name="id" value="{{$currentItem->id ??''}}" />
                         <div class="col-md-12">
                             <label for="name" class="form-label">Tên dịch vụ</label>
                             <input autocomplete="false" type="text" class="form-control  form-control-sm service-name" id="name" name="name" value="{{$currentItem->name ??''}}" required>
                         </div>
-                        <div class="col-md-12 col-service d-none" style="margin-top: 3px; max-height:250px; overflow-y:scroll ">
+                        <div class="col-md-12 col-service d-none list-ajax" style="margin-top: 3px; max-height:250px; overflow-y:scroll ">
                             @foreach ($services as $service)
                             <a data-id="{{ $service->id }}" class="list-group-item list-group-item-action" style="cursor: pointer">
                                 {{ ucfirst($service->name) }} 
                               </a>
                             @endforeach
-                        </div>                        
+                        </div>     
+                        </div>                   
                         <div class="col-md-12">
                             <label for="floor" class="form-label">Số lượng</label>
                             <input type="number" min="0" max="1000" class="form-control  form-control-sm" name="stock" id="stock" value="{{$currentItem->stock ??'100'}}" required>
@@ -33,12 +35,20 @@
                                 <option @if(!empty($currentItem) && $currentItem->type == 2) selected @endif value="2">Dịch vụ khác</option>
                             </select>
                         </div>
+
+                        <div class="col-md-12">
+                            <label for="sale_type" class="form-label">Loại dịch vụ</label>
+                            <select id="sale_type" name="sale_type" class="form-select" required>
+                                <option @if(!empty($currentItem) && $currentItem->sale_type == 0) selected @endif value="0">Dịch vụ theo ngày</option>
+                                <option @if(!empty($currentItem) && $currentItem->sale_type == 1) selected @endif value="1">dịch vụ theo lần sử dụng</option>
+                            </select>
+                        </div>
                         <div class="col-md-12">
                             <label for="price" class="form-label">Giá</label>
                             <input type="number" class="form-control  form-control-sm" id="price" name="price" value="{{$currentItem->price ??'0'}}" required>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentItem)) Cập nhật @else Tạo mới @endif</buttonon>
+                            <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentItem)) Cập nhật @else Tạo mới @endif</button>
                                 @if(!empty($currentItem))
                                     <a href="{{route('services.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
                             @endif
@@ -61,6 +71,7 @@
                             <tr>
                                 <td>{{$service->id ??''}}</td>
                                 <td>{{$service->name ??''}}</td>
+                                <td>{{$service->getSaleType() ??''}}</td>
                                 <td>{{$service->stock ??''}}</td>
                                 <td>{{get_price($service->price, 'đ') ??''}}</td>
                                 <td style="width:40px">

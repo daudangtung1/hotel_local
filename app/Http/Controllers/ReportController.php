@@ -6,6 +6,7 @@ use App\Exports\BookingRoomExport;
 use App\Exports\ReaExport;
 use App\Models\Room;
 use App\Repositories\BookingRoomRepository;
+use App\Repositories\BookingRoomServiceRepository;
 use App\Repositories\RevenueAndExpenditureRepository;
 use App\Repositories\RoomRepository;
 use App\Repositories\ServiceRepository;
@@ -24,7 +25,7 @@ class ReportController extends Controller
 
     public $excel;
 
-    public function __construct(RevenueAndExpenditureRepository $revenueAndExpenditureRepository, Excel $excel, TypeRoomRepository $typeRoomRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository)
+    public function __construct(BookingRoomServiceRepository $bookingRoomServiceRepository, RevenueAndExpenditureRepository $revenueAndExpenditureRepository, Excel $excel, TypeRoomRepository $typeRoomRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository)
     {
         $this->excel = $excel;
         $this->roomRepository = $roomRepository;
@@ -32,6 +33,7 @@ class ReportController extends Controller
         $this->serviceRepository = $serviceRepository;
         $this->bookingRoomRepository = $bookingRoomRepository;
         $this->revenueAndExpenditureRepository = $revenueAndExpenditureRepository;
+        $this->bookingRoomServiceRepository = $bookingRoomServiceRepository;
     }
 
     public function index(Request $request)
@@ -86,6 +88,10 @@ class ReportController extends Controller
                 }
 
                 return view('report.index', compact('items', 'title', 'from_date', 'to_date', 'types', 'chart', 'menuReport', 'monthRanges'));
+            case Room::SERVICE:
+                $services = $this->serviceRepository->getAll();
+                $bookingRoomServices = $this->bookingRoomServiceRepository->all($request);
+                return view('report.index', compact('bookingRoomServices', 'services', 'title', 'menuReport'));
             default:
                 return;
         }
@@ -98,7 +104,7 @@ class ReportController extends Controller
         $type = $request->get('room_type');
 
         $dates = [];
-       
+
         for($d = $fromDate; $d->lte($toDate); $d->addDay()) {
             $dates[] = $d->format('Y-m-d');
         }

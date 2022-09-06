@@ -19,6 +19,7 @@ class Room extends Model
     const CLOSED = 7;
     const NOT_FOR_RENT = 8;
     const FILTER_FREQUENCY = 9;
+    const SERVICE = 10;
     const ARRAY_STATUS = [
         self::READY => "Sẵn sàng",
         self::HAVE_GUEST => "Có khách",
@@ -46,6 +47,7 @@ class Room extends Model
         self::FILTER_BY_STATUS_ROOM => "Tình trạng phòng",
         self::FILTER_BY_STATUS_ROOM_EMPTY => "Tình trạng phòng trống",
         self::FILTER_FREQUENCY => "Tần suất phòng",
+        self::SERVICE => "Dịch vụ",
     ];
 
     const UPDATE_STATUS = [

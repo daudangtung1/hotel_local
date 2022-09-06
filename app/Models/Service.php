@@ -25,6 +25,7 @@ class Service extends Model
         'stock',
         'price',
         'type',
+        'sale_type',
         'user_id'
     ];
 
@@ -41,6 +42,14 @@ class Service extends Model
         static::deleted(function($item) {
             create_log('Xóa dịch vụ');
         });
+    }
+
+    public function getSaleType()
+    {
+        if ($this->sale_type) {
+            return 'Dịch vụ theo lần sử dụng';
+        } 
+        return 'Dịch vụ theo ngày';
     }
 
     public function user()

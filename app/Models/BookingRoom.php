@@ -209,11 +209,16 @@ class BookingRoom extends Model
 
     public function getTotalServices()
     {
-        $services = $this->bookingRoomServices()->get();
-        $total = 0;
-        if (!empty($services)) {
-            foreach ($services as $service) {
-                $total = $total + ($service->quantity * $service->price);
+        $bookingRoomServices = $this->bookingRoomServices()->get();
+        $total = 0; 
+        if (!empty($bookingRoomServices)) {
+            foreach ($bookingRoomServices as $bookingRoomService) {
+                if ($bookingRoomService->start_date) {
+                   
+                    $total = $total + ($bookingRoomService->getTotalDate() * $bookingRoomService->price);
+                } else {
+                    $total = $total + ($bookingRoomService->quantity * $bookingRoomService->price);
+                }
             }
         }
         return $total;
@@ -239,7 +244,6 @@ class BookingRoom extends Model
             }
             return get_price($price, 'đ');
         }
-
 
         $price = ($this->getTime() * $price) + $this->getTotalServices() + $this->getExtraPrice();
 

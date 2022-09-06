@@ -731,6 +731,16 @@
             })
         });
 
+        $('body').on('click', '.modal table input[name="select"]', function (e) {
+            e.preventDefault();
+            var _this = $(this);
+            var modal = _this.closest('.modal');
+            var roomId = modal.find('input[name="room_id"]').val();
+            var serviceId = _this.val();
+            console.log(serviceId);
+            
+        });
+
         var debounce = null;
         $('body').on('keyup', 'input[name="quantity_service"]', function (e) {
             var _this = $(this);
@@ -779,11 +789,72 @@
             }, 1000);
         });
 
+        $('body').on('click', '.modal tr .model-btn-add-service', function (e) {
+            e.preventDefault();
+
+            var _this = $(this);
+            var modal = _this.closest('.modal');
+            var td = _this.closest('td');
+
+            var roomId = modal.find('input[name="room_id"]').val();
+            var modalStartDate = td.find('.modal_start_date').val();
+            var modalEndDate = td.find('.modal_end_date').val();
+            var modalServiceId = td.find('.modal_service_id').val();
+            
+            if(modalStartDate == '' || modalEndDate == '') {
+                _this.closest('tr').find('td .row').removeClass('d-none');
+                $.toast({
+                    text: 'Vui lòng nhập ngày bắt đầu và kết thúc',
+                    icon: 'warning',
+                    position: 'top-right'
+                });
+                return false;
+
+            }
+
+            if(modalEndDate <= modalStartDate ) {
+                $.toast({
+                    text: 'Ngày bắt đầu phải bé thua ngày kết thúc',
+                    icon: 'warning',
+                    position: 'top-right'
+                });
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "{{route('booking-room.store')}}",
+                data: {
+                    room_id: roomId,
+                    service_id: modalServiceId,
+                    modal_end_date: modalEndDate,
+                    modal_start_date: modalStartDate,
+                },
+                success: function (data) {
+                    _this.closest('.modal').find('.modal-dialog').html(data);
+                    $.toast({
+                        text: 'Cập nhật thành công',
+                        icon: 'success',
+                        position: 'top-right'
+                    });
+
+                    changeBgLi(_this, roomId);
+                    refreshView();
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        });
+
         $('body').on('click', '.btn-add-service', function (e) {
             e.preventDefault();
 
             var _this = $(this);
             var modal = _this.closest('.modal');
+            var saleType = _this.attr('data-sale_type');
+
+            
             var roomId = modal.find('input[name="room_id"]').val();
             var serviceId = _this.data('service_id');
             var startDate = modal.find('#start_date').val();
@@ -794,15 +865,18 @@
             var customerAddress = modal.find('#customer_address').val();
             var startDate = modal.find('#start_date').val();
             var endDate = modal.find('#end_date').val();
-            //
-            // if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '') {
-            //     $.toast({
-            //         text: 'Vui lòng nhập thông tin khách hàng',
-            //         icon: 'error',
-            //         position: 'top-right'
-            //     });
-            //     return false;
-            // }
+            var modalStartDate = modal.find('.modal_start_date').val();
+            var modalEndDate = modal.find('.modal_end_date').val();
+
+            _this.closest('tbody').find('td .row').addClass('d-none');
+            _this.closest('tbody').find('.modal_end_date').val('');
+            _this.closest('tbody').find('.modal_start_date').val('');
+
+            
+            if(saleType == 0 && (modalStartDate == '' || modalEndDate == '')) {
+                _this.closest('tr').find('td .row').removeClass('d-none');
+                return false;
+            }
 
             $.ajax({
                 type: "POST",

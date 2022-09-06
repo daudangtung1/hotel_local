@@ -79,7 +79,8 @@ class ServiceController extends Controller
                     'name'  => $request->name ?? '',
                     'stock' => $request->stock ?? 0,
                     'price' => $request->price ?? 0,
-                    'type'  => $request->type ?? 0
+                    'type'  => $request->type ?? 0,
+                    'sale_type'  => $request->sale_type ?? 0,
                 ]);
                 if ($result) {
                     return redirect()->back()->with('success', 'Đã lưu lại');

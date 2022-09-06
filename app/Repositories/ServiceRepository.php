@@ -53,7 +53,7 @@ class ServiceRepository extends ModelRepository
             $model = $this->model->find($id);
             $params = [
                 'stock' => $model->stock + $request->get('stock'),
-                'price' => $model->price + $request->get('price')
+                'price' => $request->get('price')
             ];
 
            return $model->update($params);
@@ -64,6 +64,7 @@ class ServiceRepository extends ModelRepository
             'stock'   => $request->stock,
             'price'   => $request->price,
             'type'    => $request->type,
+            'sale_type'    => $request->sale_type,
             'user_id' => \Auth::user()->id
         ]);
     }

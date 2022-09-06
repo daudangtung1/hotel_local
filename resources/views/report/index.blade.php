@@ -28,6 +28,8 @@
                     @include('report.form-status-room-empty')
                 @elseif(request()->get('by') == \App\Models\Room::FILTER_FREQUENCY)
                     @include('report.room-frequency')
+                @elseif(request()->get('by') == \App\Models\Room::SERVICE)
+                    @include('report.service')
                 @else
                 @endif
             </div>

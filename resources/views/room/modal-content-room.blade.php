@@ -73,8 +73,9 @@
                         <table class="table table-sm table-bordered table-hover">
                             <thead>
                             <tr>
+                                <th>#</th>
                                 <th scope="col">Tên dịch vụ</th>
-                                <th scope="col">Số lượng</th>
+                                <th scope="col">Số lượng/ngày thuê</th>
                                 <th scope="col">Tổng tiền</th>
                                 <th></th>
                             </tr>
@@ -82,15 +83,28 @@
                             <tbody>
                             @forelse($bookingRoom->bookingRoomServices()->get() as $key => $bookingRoomService)
                                 <tr>
+                                    <td>{{$key++}}</td>
                                     <td>
                                         {{$bookingRoomService->service->name ??''}}
                                     </td>
                                     <td>
+                                        @if($bookingRoomService->start_date)
+                                        <p><b>Bắt đầu:</b> {{$bookingRoomService->start_date}}</p>
+                                        <p><b>Kết thúc:</b> {{$bookingRoomService->end_date}}</p>
+                                        <p><b>Tổng:</b> {{$bookingRoomService->getTotalDate(true)}}</p>
+                                        @else
                                         <input data-url_update="{{route('booking-room-service.update', ['booking_room_service' => $bookingRoomService])}}"
                                                type="text" class="form-control form-control-sm quantity_service" name="quantity_service" id="quantity_service"
                                                value="@if(!empty($bookingRoomService)){!! $bookingRoomService->quantity ??0 !!}@endif" min="0">
+                                        @endif
                                     </td>
-                                    <td>{{get_price(($bookingRoomService->price ?? 0) * ($bookingRoomService->quantity ?? 0), 'đ') ??''}}</td>
+                                    <td>
+                                        @if($bookingRoomService->start_date)
+                                            {{get_price(($bookingRoomService->price ?? 0) * $bookingRoomService->getTotalDate(), 'đ') ??''}}
+                                        @else
+                                            {{get_price(($bookingRoomService->price ?? 0) * ($bookingRoomService->quantity ?? 0), 'đ') ??''}}
+                                        @endif
+                                    </td>
                                     <td>
                                         <a href="{{route('booking-room-service.destroy',['booking_room_service' => $bookingRoomService])}}"
                                            class="btn-remove-service"
@@ -231,6 +245,7 @@
                 <table class="table table-sm table-bordered table-hover">
                     <thead>
                     <tr>
+                        <th>#</th>
                         <th scope="col">Tên dịch vụ</th>
                         <th scope="col">Tồn kho</th>
                         <th scope="col">Giá</th>
@@ -242,11 +257,35 @@
                     <tbody>
                     @forelse($services as $key => $service)
                         <tr>
-                            <td>{{$service->name ??''}}</td>
-                            <td>{{$service->stock ??''}}</td>
+                            <td>{{$service->id}}</td>
+                            <td>{{$service->name ??''}}
+                                @if($service->sale_type == 0)
+                                <div class="row d-none">
+                                    <div class="col-6">
+                                        <input type="date" class="form-control modal_start_date" name="modal_start_date">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="date" class="form-control modal_end_date"  name="modal_end_date">
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-sm btn-primary model-btn-add-service mt-1">Thêm dịch vụ</button>
+                                    </div>
+                                    <input type="hidden" name="modal_service_id" class="modal_service_id" value="{{$service->id}}">
+                                </div>
+                                @endif
+                            </td>
+                            <td>
+                            @if($service->sale_type == 0)
+                                            <b>Thuê theo ngày</b>
+                                @else
+                                    {{$service->stock ??''}}
+                                @endif
+
+
+                            </td>
                             <td>{{get_price($service->price, 'đ') ??''}}</td>
                             @if($bookingRoom)
-                                <td><a href="" class="btn-add-service" data-service_id="{{$service->id}}">
+                                <td><a href="" class="btn-add-service" data-service_id="{{$service->id}}" data-sale_type={{$service->sale_type}}>
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                              width="16" height="16" fill="currentColor"
                                              class="bi bi-plus-circle"

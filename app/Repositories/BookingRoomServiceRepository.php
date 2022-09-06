@@ -51,11 +51,32 @@ class BookingRoomServiceRepository extends ModelRepository
     {
         $bookingRoomService = $this->bookingRoomService->find($request->booking_room_service_id);
         if (!empty($bookingRoomService)) {
-            if(!empty($bookingRoomService->service)) {
+            if (!empty($bookingRoomService->service)) {
                 $bookingRoomService->service->increment('stock', $bookingRoomService->quantity);
             }
             $bookingRoomService->delete();
         }
+    }
+
+    public function all($request)
+    {
+        $query = $this->bookingRoomService;
+        if (!empty($request->s)) {
+            $query = $query->whereHas('bookingRoom', function ($q) use ($request) {
+                $q->whereHas('room', function ($q) use ($request) {
+                    $q->where('name', 'LIKE', "%{$request->s}%");
+                });
+            });
+        }
+
+        if (!empty($request->services)) {
+            $query = $query->where('service_id', $request->services);
+        }
+
+        if (!empty($request->date)) {
+            $query = $query->where('start_date', $request->date);
+        }
+        return $query->paginate(10);
     }
 
     public function getById($id)
@@ -93,6 +114,6 @@ class BookingRoomServiceRepository extends ModelRepository
             $subQuery->where('status', BookingRoom::CHECKOUT);
         });
 
-        return $query->orderBy('id','DESC')->paginate(10);
+        return $query->orderBy('id', 'DESC')->paginate(10);
     }
 }
