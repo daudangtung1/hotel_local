@@ -738,7 +738,7 @@
             var roomId = modal.find('input[name="room_id"]').val();
             var serviceId = _this.val();
             console.log(serviceId);
-            
+
         });
 
         var debounce = null;
@@ -800,7 +800,7 @@
             var modalStartDate = td.find('.modal_start_date').val();
             var modalEndDate = td.find('.modal_end_date').val();
             var modalServiceId = td.find('.modal_service_id').val();
-            
+
             if(modalStartDate == '' || modalEndDate == '') {
                 _this.closest('tr').find('td .row').removeClass('d-none');
                 $.toast({
@@ -854,7 +854,7 @@
             var modal = _this.closest('.modal');
             var saleType = _this.attr('data-sale_type');
 
-            
+
             var roomId = modal.find('input[name="room_id"]').val();
             var serviceId = _this.data('service_id');
             var startDate = modal.find('#start_date').val();
@@ -872,7 +872,7 @@
             _this.closest('tbody').find('.modal_end_date').val('');
             _this.closest('tbody').find('.modal_start_date').val('');
 
-            
+
             if(saleType == 0 && (modalStartDate == '' || modalEndDate == '')) {
                 _this.closest('tr').find('td .row').removeClass('d-none');
                 return false;
@@ -1170,13 +1170,26 @@
             setTimeout(function () {
                 $('#booking-room').find('#end_date').trigger('change');
             }, 300);
-            
+
             },
             error: function (e) {
                 console.log(e);
-            } 
+            }
         })
-    })
+    });
+    function checkSaleType(){
+
+        var val = $( '#sale_type').val();
+        if(val == 0) {
+            $('form.row.g-3 #stock').attr('disabled', 'disabled');
+        } else {
+            $('form.row.g-3 #stock').removeAttr('disabled');
+        }
+    }
+    checkSaleType();
+    $('body').on('change', 'form.row.g-3 #sale_type', function(){
+        checkSaleType();
+    });
 
     $('body').on('click', '.btn-booking-group', function(e) {
         var modal = $(this).closest('.modal');
@@ -1189,7 +1202,7 @@
         var startDate = modal.find('#start_date').val();
         var endDate = modal.find('#end_date').val();
         var roomIds = [];
-        
+
         $('input[name="room_ids[]"]:checked').map(function () {
             roomIds.push($(this).val());
         });
@@ -1269,9 +1282,9 @@
                 });
 
                 $("#group-customer-booking input[type=text]").each(function () {
-                    $(this).val(''); 
+                    $(this).val('');
                 });
-                
+
                 $("#group-customer-booking .note").val('');
 
                 $("#group-customer-booking input[type=checkbox]:checked").prop('checked', false);
@@ -1281,7 +1294,7 @@
             error: function (e) {
                 console.log(e.lineNumber);
             }
-        })       
+        })
     });
 
     $('body').on('keyup', '#group_name', function(e) {
