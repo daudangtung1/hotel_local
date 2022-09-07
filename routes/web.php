@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('history', [\App\Http\Controllers\BookingRoomController::class, 'getHistory'])->name('booking-room.history');
     Route::get('booking-room-used', [\App\Http\Controllers\BookingRoomController::class, 'getBookingRoomUsed'])->name('booking-room.booking_room_used');
     Route::get('booking-room-info', [\App\Http\Controllers\BookingRoomController::class, 'getBookingRoomInfo'])->name('booking-room.booking_room_info');
+    Route::get('customers-booking-info', [\App\Http\Controllers\BookingRoomController::class, 'getListBookingInfoClosest'])->name('customers.booking_info');
 
     Route::POST('room/change-status/{room_id}', [\App\Http\Controllers\RoomController::class, 'changeStatus'])->name('room.change-status');
     Route::POST('options', [\App\Http\Controllers\OptionController::class, 'updateAll'])->name('options.update_all');

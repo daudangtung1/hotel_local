@@ -81,6 +81,12 @@
             <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
                 Đóng
             </button>
+          <form method="get" action="{{route('customers.booking_info')}}">
+            <input type="hidden" name="room_id" value="{{$bookingRoomInfo->room_id}}" />
+            <button type="submit"class="btn btn-sm btn-primary" >
+                Danh sách
+            </button>
+          </form>
             @if($bookingRoomInfo->room_status == \App\Models\Room::READY)
                 <button data-booking_room_id="{{$bookingRoomInfo->id}}" data-bg="primary" type="submit" class="btn btn-sm btn-primary  btn-checkin ">Nhận phòng</button>
             @endif
