@@ -183,9 +183,19 @@ class BookingRoomController extends Controller
         return view('booking-room.used', compact('bookingRooms', 'menuSystem','title'));
     }
 
+    public function getListBookingInfoClosest(Request $request)
+    {
+        $title = 'Danh sách khách hàng đặt phòng';
+        $menuSystem = true;
+        $customerInfoBookingRooms = $this->bookingRoomRepository->getListBookingInfoClosest($request);
+        
+        return view('booking-room.booking_info', compact('customerInfoBookingRooms', 'menuSystem','title'));
+    }
+
     public function getBookingRoomInfo(Request $request)
     {
         $bookingRoomInfo = $this->bookingRoomRepository->getBookingRoomInfo($request);
+        
         return view('customers.customer-booking-infor', compact('bookingRoomInfo'))->render();
     }
 
