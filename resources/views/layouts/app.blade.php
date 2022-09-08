@@ -44,14 +44,14 @@
             position: relative;
             left: 50%;
             top: 50%;
-            width: 150px;
-            height: 150px;
+            width: 80px;
+            height: 80px;
             margin: -75px 0 0 -75px;
             border-radius: 50%;
             border: 3px solid transparent;
             border-top-color: #9370DB;
-            -webkit-animation: spin 2s linear infinite;
-            animation: spin 2s linear infinite;
+            -webkit-animation: spin 0.6s linear infinite;
+            animation: spin 0.6s linear infinite;
         }
 
         #loader:before {
@@ -521,11 +521,10 @@
             })
         })
 
-        $('body').on('change', '#end_date', function(e) {
-            e.preventDefault();
-            $('#preloader').css('background-color', 'rgba(255,255,255,0.5)').show();
-            var endDate = $(this).val();
-            var startDate = $(this).closest('.modal').find('#start_date').val();
+        function validateRoom()
+        {
+            var endDate = $('#end_date').val();
+            var startDate = $('#start_date').val();
             $.ajax({
                 type: "GET",
                 url: "{{route('booking-room.index')}}",
@@ -534,13 +533,19 @@
                     end_date: endDate
                 },
                 success: function (data) {
-                 $('#list-booking-room').html('').html(data);
+                    $('#list-booking-room').html('').html(data);
                     $('#preloader').fadeOut();
                 },
                 error: function (e) {
                     console.log(e);
                 }
             })
+        }
+
+        $('body').on('change', '#end_date, #start_date', function(e) {
+            e.preventDefault();
+            $('#preloader').css('background-color', 'rgba(255,255,255,0.8)').show();
+            validateRoom();
         })
 
         $('body').on('click', '.btn-checkin', function(e) {

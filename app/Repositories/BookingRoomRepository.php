@@ -6,6 +6,7 @@ use App\Models\BookingRoom;
 use App\Models\BookingRoomCustomer;
 use App\Models\BookingRoomService;
 use App\Models\Customers;
+use App\Models\Groups;
 use App\Models\Room;
 use App\Models\Service;
 use Carbon\Carbon;
@@ -27,8 +28,9 @@ class BookingRoomRepository extends ModelRepository
 
     private static $instance;
 
-    public function __construct(BookingRoom $bookingRoom, Customers $customers, BookingRoomCustomer $bookingRoomCustomer, Room $room, Service $service, BookingRoomService $bookingRoomService)
+    public function __construct(Groups $group, BookingRoom $bookingRoom, Customers $customers, BookingRoomCustomer $bookingRoomCustomer, Room $room, Service $service, BookingRoomService $bookingRoomService)
     {
+        $this->group = $group;
         $this->room = $room;
         $this->bookingRoom = $bookingRoom;
         $this->service = $service;
@@ -40,7 +42,7 @@ class BookingRoomRepository extends ModelRepository
     public static function getInstance()
     {
         if (empty(self::$instance)) {
-            self::$instance = new BookingRoomRepository(new BookingRoom(), new Customers(), new BookingRoomCustomer(), new Room(), new Service(), new BookingRoomService());
+            self::$instance = new BookingRoomRepository(new Groups(), new BookingRoom(), new Customers(), new BookingRoomCustomer(), new Room(), new Service(), new BookingRoomService());
         }
 
         return self::$instance;
@@ -56,6 +58,11 @@ class BookingRoomRepository extends ModelRepository
         }
 
         return $data;
+    }
+
+    public function find($id)
+    {
+        return $this->bookingRoom->find($id);
     }
 
     public function getHistory()
@@ -76,15 +83,13 @@ class BookingRoomRepository extends ModelRepository
     public function getAllRoomsBookingUsed($request = null)
     {
         $data = $this->bookingRoom->where('status', 7);
-        if(!empty($request->name) ) 
-        {
+        if (!empty($request->name)) {
             $data = $data->whereHas('bookingRoomCustomers.customer', function ($q) use ($request) {
                 $q->where('name', 'LIKE', '%' . $request->name . '%');
             });
         }
 
-        if(!empty($request->room)) 
-        {
+        if (!empty($request->room)) {
             $data = $data->whereHas('room', function ($q) use ($request) {
                 $q->where('name', 'LIKE', '%' . $request->room . '%');
             });
@@ -100,7 +105,7 @@ class BookingRoomRepository extends ModelRepository
 
         if ($bookingRoom->room->status != $this->room::READY) {
             return [
-                'status' => false,
+                'status'  => false,
                 'message' => 'Phòng hiện tại chưa ở trạng thái hợp lệ, chưa thể nhận phòng'
             ];
         }
@@ -228,13 +233,13 @@ class BookingRoomRepository extends ModelRepository
                 'service_id'      => $service->id,
                 'quantity'        => 1,
                 'price'           => $service->price ?? 0,
-                'start_date'           => $request->modal_start_date ?? null,
-                'end_date'           => $request->modal_end_date ?? null,
+                'start_date'      => $request->modal_start_date ?? null,
+                'end_date'        => $request->modal_end_date ?? null,
             ]);
         } else {
             $bookingRoomService->update(['quantity' => $bookingRoomService->quantity + 1]);
         }
-        if($service->sale_type) { // 1 số lần sử dụng, 0 theo ngày
+        if ($service->sale_type) { // 1 số lần sử dụng, 0 theo ngày
             $service->decrement('stock', 1);
         }
     }
@@ -262,6 +267,51 @@ class BookingRoomRepository extends ModelRepository
     public function updateNote($request)
     {
         $this->bookingRoom->where('id', $request->booking_room_id)->update(['note' => $request->note]);
+    }
+
+    public function update($request)
+    {
+        if (!empty($request->customer_id)) {
+            $this->customers->where('id', $request->customer_id)->update([
+                'name'    => $request->customer_name,
+                'id_card' => $request->customer_id_card,
+                'address' => $request->customer_address,
+                'phone'   => $request->customer_phone
+            ]);
+        }
+
+        if (!empty($request->group_id)) {
+            $this->group->where('id', $request->group_id)->update([
+                'name'    => $request->customer_name,
+            ]);
+        }
+
+        foreach ($request->room_ids ?? [] as $roomId) {
+            $data = [
+                'start_date'    => $request->start_date ? Carbon::parse($request->start_date)->format('Y-m-d H:i') : '',
+                'end_date'      => $request->end_date ? Carbon::parse($request->end_date)->format('Y-m-d H:i') : '',
+                'checkout_date' => null,
+                'room_id'       => $roomId,
+                'note'          => $request->note ?? '',
+                'price'         => 0,
+                'rent_type'     => 1, // theo ngày
+                'status'        => 6,
+                'user_id'       => \Auth::user()->id
+            ];
+
+            $this->bookingRoom->where('id', $request->booking_room_id)->update($data);
+//            $bookingRoom = $this->bookingRoom->create($data);
+//
+//            if (!empty($bookingRoom)) {
+//                $this->bookingRoomCustomer->create([
+//                    'booking_room_id' => $bookingRoom->id,
+//                    'customer_id'     => $customer->id,
+//                ]);
+//
+//            }
+        }
+
+//        $this->bookingRoom->where('id', $request->booking_room_id)->update($data);
     }
 
     public function updateBookingRoom($request)
@@ -315,7 +365,7 @@ class BookingRoomRepository extends ModelRepository
     {
         if ($request) {
             $roomId = $request->get('room_id');
-            $bookingInfo = $this->room->select('customers.*', 'customers.name as cusomter_name', 'rooms.status as room_status','rooms.*', 'rooms.name as room_name', 'booking_rooms.*')
+            $bookingInfo = $this->room->select('customers.*', 'customers.name as cusomter_name', 'rooms.status as room_status', 'rooms.*', 'rooms.name as room_name', 'booking_rooms.*')
                 ->join('booking_rooms', 'rooms.id', '=', 'booking_rooms.room_id')
                 ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
                 ->join('customers', 'booking_room_customers.customer_id', '=', 'customers.id')
@@ -332,13 +382,13 @@ class BookingRoomRepository extends ModelRepository
     public function totalRoomBooked($date, $type)
     {
         $total = $this->bookingRoom->join('rooms', 'rooms.id', '=', 'booking_rooms.room_id')
-                                    ->leftJoin('type_rooms', 'type_rooms.id', '=', 'rooms.type_room_id')
-                                    ->whereIn('booking_rooms.status', [1, 3, 6, 7])
-                                    ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $date)
-                                    ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $date)
-                                    ->where('type_rooms.id', $type)
-                                    ->withTrashed()
-                                    ->count();
+            ->leftJoin('type_rooms', 'type_rooms.id', '=', 'rooms.type_room_id')
+            ->whereIn('booking_rooms.status', [1, 3, 6, 7])
+            ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $date)
+            ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $date)
+            ->where('type_rooms.id', $type)
+            ->withTrashed()
+            ->count();
         return $total;
     }
 
@@ -347,9 +397,9 @@ class BookingRoomRepository extends ModelRepository
         $startDate = date('Y-m-d', strtotime($request->get('start_date')));
         $roomId = $request->get('room_id');
         $data = $this->bookingRoom->where('room_id', $roomId)
-                ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $startDate)
-                ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $startDate)
-                ->first();
+            ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $startDate)
+            ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $startDate)
+            ->first();
         return $data;
     }
 
@@ -390,24 +440,24 @@ class BookingRoomRepository extends ModelRepository
         }
 
         return [
-            Room::IN => [
-                'list' => $roomIn,
+            Room::IN                => [
+                'list'  => $roomIn,
                 'total' => $roomIn->count(),
             ],
-            Room::OUT => [
-                'list' => $roomOut,
+            Room::OUT               => [
+                'list'  => $roomOut,
                 'total' => $roomOut->count(),
             ],
-            Room::IN_GUEST => [
-                'list' => $roomInGuest,
+            Room::IN_GUEST          => [
+                'list'  => $roomInGuest,
                 'total' => $roomInGuest->count(),
             ],
-            Room::ROOM_EMPTY => [
-                'list' => $roomEmpty,
+            Room::ROOM_EMPTY        => [
+                'list'  => $roomEmpty,
                 'total' => $roomEmpty->count(),
             ],
             Room::NOT_FOR_RENT_TEXT => [
-                'list' => $roomsNotRent,
+                'list'  => $roomsNotRent,
                 'total' => $roomNotForRent->count(),
             ],
         ];
@@ -430,7 +480,7 @@ class BookingRoomRepository extends ModelRepository
             $arrayRoomIdBooking = array_column($roomBooking->toArray(), 'room_id');
             $quantityRoomEmpty = $this->room->whereNotIn('id', $arrayRoomIdBooking)->withTrashed()->count();
             $results[Carbon::parse($start_date)->format('m')][Carbon::parse($start_date)->format('d/m')] = $quantityRoomEmpty;
-            $start_date = date ("Y-m-d", strtotime("+1 days", strtotime($start_date)));
+            $start_date = date("Y-m-d", strtotime("+1 days", strtotime($start_date)));
         }
 
         return $results;

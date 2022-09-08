@@ -119,14 +119,14 @@ class GroupRepository extends ModelRepository
 
             return [
                 'code'    => 400,
-                'message' => 'Huy thanh cong.'
+                'message' => 'Hủy thành công.'
             ];
         } catch (Exception $exception) {
             DB::rollBack();
             Log::error($exception->getMessage());
             return [
                 'code'    => 400,
-                'message' => 'Khong huy dc booking, moi ban thu lai.'
+                'message' => 'Hủy thất bại, vui lòng thử lại.'
             ];
         }
     }

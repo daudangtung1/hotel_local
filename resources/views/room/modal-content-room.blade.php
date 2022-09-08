@@ -264,7 +264,7 @@
                                     <div class="col-6">
                                         <input type="date" class="form-control form-control-sm modal_start_date" name="modal_start_date">
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-6 ps-0">
                                         <input type="date" class="form-control form-control-sm modal_end_date"  name="modal_end_date">
                                     </div>
                                     <div class="col-12">
@@ -276,12 +276,10 @@
                             </td>
                             <td>
                             @if($service->sale_type == 0)
-                                            <b>Thuê theo ngày</b>
+                                  <b class="whitespace-nowrap">Thuê theo ngày</b>
                                 @else
                                     {{$service->stock ??''}}
                                 @endif
-
-
                             </td>
                             <td>{{get_price($service->price, 'đ') ??''}}</td>
                             @if($bookingRoom)

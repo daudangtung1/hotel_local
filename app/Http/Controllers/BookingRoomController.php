@@ -106,11 +106,20 @@ class BookingRoomController extends Controller
 
     public function edit($id)
     {
-        //
+        $title = 'Cập nhật đặt phòng';
+
+        $currentRoom = $this->bookingRoomRepository->find($id);
+
+        $menuCategoryManager = true;
+
+        return view('booking-room.edit', compact('currentRoom', 'title', 'menuCategoryManager'));
     }
 
     public function update(Request $request, $id)
     {
+        $this->bookingRoomRepository->update($request);
+
+        return redirect()->back()->with(['success' => 'Cập nhật thành công!']);
     }
 
     public function updateNote(Request $request)

@@ -38,7 +38,7 @@
                                     <td>{{$bookingRoom->note ?? ''}}</td>
                                     <td style="width:40px">
                                         <div class="d-flex">
-                                            <a class=" text-warning mr-2 d-inline-block" style="margin-right: 5px;"
+                                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#booking-room-{{$bookingRoom->id}}" class=" text-warning mr-2 d-inline-block" style="margin-right: 5px;"
                                                href="{{route('booking-room.edit',['booking_room' => $bookingRoom])}}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                      fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -59,6 +59,10 @@
                                                     </svg>
                                                 </a>
                                             </form>
+                                        </div>
+                                        <div class="modal fade" id="booking-room-{{$bookingRoom->id}}"
+                                             aria-labelledby="booking-modalLabel" aria-hidden="true">
+                                            @include('room.model-booking-room', ['bookingRoom' => $bookingRoom ?? null])
                                         </div>
                                     </td>
                                 </tr>

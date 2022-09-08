@@ -22,4 +22,9 @@ class BookingRoomCustomer extends Model
     {
         return $this->belongsTo(Customers::class);
     }
+
+    public function group()
+    {
+        return $this->belongsTo(Groups::class);
+    }
 }
