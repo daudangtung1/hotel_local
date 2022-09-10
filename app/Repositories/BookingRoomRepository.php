@@ -147,11 +147,11 @@ class BookingRoomRepository extends ModelRepository
                 'room_id'       => $roomId,
                 'note'          => $request->note ?? '',
                 'price'         => 0,
+                'extra_price'   => $request->extra_price ?? 0,
                 'rent_type'     => 1, // theo ngày
                 'status'        => 6,
                 'user_id'       => \Auth::user()->id
             ];
-
             $bookingRoom = $this->bookingRoom->create($data);
 
             if (!empty($bookingRoom)) {

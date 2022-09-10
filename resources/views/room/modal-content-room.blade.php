@@ -201,7 +201,7 @@
                             <span class="input-group-text">$</span>
                         </div>
                         <input type="text" class="form-control form-control-sm form-control-sm price" name="price" id="price"
-                               value="@if(!empty($bookingRoom)){!! $bookingRoom->price ??0 !!}@endif" min="0">
+                               value="@if(!empty($bookingRoom)){!! $bookingRoom->extra_price ??0 !!}@endif" min="0">
                         <div class="input-group-append">
                             <span class="input-group-text">đ</span>
                         </div>

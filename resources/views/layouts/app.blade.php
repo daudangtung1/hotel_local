@@ -249,6 +249,7 @@
             var startDate = modal.find('#start_date').val();
             var endDate = modal.find('#end_date').val();
             var note = modal.find('.note').val();
+            var extra_price = modal.find('#extra_price').val();
 
             var roomIds = [];
             $('input[name="room_ids[]"]:checked').map(function () {
@@ -279,7 +280,7 @@
                 });
             }
 
-            if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '' || startDate == '' || endDate == '') {
+            if (customerName == '' || extra_price == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '' || startDate == '' || endDate == '') {
                 $.toast({
                     text: 'Vui lòng nhập thông tin khách hàng',
                     icon: 'error',
@@ -310,6 +311,7 @@
                     start_date: startDate,
                     end_date: endDate,
                     note: note,
+                    extra_price: extra_price
                 },
                 success: function (data) {
                     if (typeof data.response !== 'undefined') {
