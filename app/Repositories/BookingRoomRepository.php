@@ -146,7 +146,7 @@ class BookingRoomRepository extends ModelRepository
                 'checkout_date' => null,
                 'room_id'       => $roomId,
                 'note'          => $request->note ?? '',
-                'price'         => 0,
+                'price'         => $request->extra_price ?? 0,
                 'extra_price'   => $request->extra_price ?? 0,
                 'rent_type'     => 1, // theo ngày
                 'status'        => 6,

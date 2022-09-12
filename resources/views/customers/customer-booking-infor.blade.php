@@ -87,7 +87,7 @@
                 Danh sách
             </button>
           </form>
-            @if($bookingRoomInfo->room_status == \App\Models\Room::READY)
+            @if($bookingRoomInfo->status == \App\Models\Room::READY)
                 <button data-booking_room_id="{{$bookingRoomInfo->id}}" data-bg="primary" type="submit" class="btn btn-sm btn-primary  btn-checkin ">Nhận phòng</button>
             @endif
         </div>
