@@ -147,11 +147,11 @@ class BookingRoomRepository extends ModelRepository
                 'room_id'       => $roomId,
                 'note'          => $request->note ?? '',
                 'price'         => 0,
+                'extra_price'   => $request->extra_price ?? 0,
                 'rent_type'     => 1, // theo ngày
                 'status'        => 6,
                 'user_id'       => \Auth::user()->id
             ];
-
             $bookingRoom = $this->bookingRoom->create($data);
 
             if (!empty($bookingRoom)) {
@@ -251,8 +251,8 @@ class BookingRoomRepository extends ModelRepository
                 'service_id'      => $service->id,
                 'quantity'        => 1,
                 'price'           => $service->price ?? 0,
-                'start_date'      => $request->modal_start_date ?? null,
-                'end_date'        => $request->modal_end_date ?? null,
+                'start_date'      => $request->modal_start_date ? date('Y-m-d H:i', strtotime($request->modal_start_date)) : null,
+                'end_date'        => $request->modal_end_date ? date('Y-m-d H:i', strtotime($request->modal_end_date)) : null,
             ]);
         } else {
             $bookingRoomService->update(['quantity' => $bookingRoomService->quantity + 1]);

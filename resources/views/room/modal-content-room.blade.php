@@ -66,7 +66,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 @if($bookingRoom)
                     <input type="hidden" name="booking_room_id" value="{{$bookingRoom->id}}">
                     @if($bookingRoom->bookingRoomServices()->count() > 0)
@@ -201,7 +201,7 @@
                             <span class="input-group-text">$</span>
                         </div>
                         <input type="text" class="form-control form-control-sm form-control-sm price" name="price" id="price"
-                               value="@if(!empty($bookingRoom)){!! $bookingRoom->price ??0 !!}@endif" min="0">
+                               value="@if(!empty($bookingRoom)){!! $bookingRoom->extra_price ??0 !!}@endif" min="0">
                         <div class="input-group-append">
                             <span class="input-group-text">đ</span>
                         </div>
@@ -241,7 +241,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <table class="table table-sm table-bordered table-hover">
                     <thead>
                     <tr>
@@ -262,10 +262,10 @@
                                 @if($service->sale_type == 0)
                                 <div class="row d-none">
                                     <div class="col-6">
-                                        <input type="date" class="form-control form-control-sm modal_start_date" name="modal_start_date">
+                                        <input type="datetime-local" class="form-control form-control-sm modal_start_date" name="modal_start_date">
                                     </div>
                                     <div class="col-6 ps-0">
-                                        <input type="date" class="form-control form-control-sm modal_end_date"  name="modal_end_date">
+                                        <input type="datetime-local" class="form-control form-control-sm modal_end_date" name="modal_end_date">
                                     </div>
                                     <div class="col-12">
                                         <button class="btn btn-sm btn-primary model-btn-add-service mt-1">Thêm dịch vụ</button>

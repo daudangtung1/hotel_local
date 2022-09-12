@@ -35,9 +35,10 @@ class BookingRoomService extends Model
     {
         $startDate = Carbon::parse($this->start_date);
         $endDate = Carbon::parse($this->end_date);
-        $total = $endDate->diffInDays($startDate);
+        $diffInHours = $endDate->diffInHours($startDate);
+        $total = round(($diffInHours / 24), 1 , PHP_ROUND_HALF_UP);
         if($showDate) {
-            return $total . ' ngày';    
+            return $total . ' ngày';
         }
         return $total;
     }

@@ -98,6 +98,26 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                            <label for="price" class="form-label">Giá thuê mới:</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input type="text" class="form-control form-control-sm form-control-sm price" name="extra_price" id="extra_price"
+                                        value="@if(!empty($bookingRoom)){!! $bookingRoom->extra_price ??0 !!}@endif" min="0">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">đ</span>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="col-md-6 ">
+             
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-12 mb-3">
                         <label for="price" class="form-label">Ghi chú:</label>
                         <textarea name="note" class="form-control form-control-sm form-control-sm note" cols="30" rows="2"
