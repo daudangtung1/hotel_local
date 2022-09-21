@@ -294,15 +294,18 @@ img:focus {
 
 * {
     box-sizing: border-box;
+    font-size: 13px !important;
 }
 
 body {
-    font-size: 14px !important;
+
     font-family: Montserrat;
     font-weight: 300;
     /* position: relative; */
 }
-
+h1,h2,h3,h4,h5,h6{
+    font-size: 14px !important;
+}
 img {
     max-width: 100%;
     height: auto;

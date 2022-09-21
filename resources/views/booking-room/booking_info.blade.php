@@ -18,7 +18,7 @@
                             <th scope="col">Phòng</th>
                             <th scope="col">Ngày bắt đầu</th>
                             <th scope="col">Ngày kết thúc</th>
-                            <th scope="col">Ghi chú</th>        
+                            <th scope="col">Ghi chú</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -37,7 +37,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7">Không có phòng nào</td>
+                                    <td colspan="7">Không có dữ liệu</td>
                                 </tr>
                             @endforelse
                         @endif

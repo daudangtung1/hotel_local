@@ -22,9 +22,7 @@
                         <tr>
                             <th>#</th>
                             <th scope="col">Tên phòng</th>
-                            <th scope="col">Tầng</th>
-                            <th scope="col">Ngày nhận phòng</th>
-                            <th scope="col">Ngày trả phòng</th>
+                            <th scope="col">Thời gian</th>
                             <th scope="col">Tên khách hàng</th>
                             <th scope="col">Ghi chú</th>
                             <th scope="col"></th>
@@ -36,11 +34,13 @@
                                 <tr>
                                     <td>{{$bookingRoom->id}}</td>
                                     <td>
-                                        {{$bookingRoom->room->name ??''}}
+                                        <p><b>Phòng</b> {{$bookingRoom->room->name ?? ''}}</p>
+                                        <p><b>Tầng:</b> {{$bookingRoom->room->floor ?? ''}}</p>
                                     </td>
-                                    <td>{{$bookingRoom->room->floor ??''}}</td>
-                                    <td>{{$bookingRoom->start_date ?? ''}}</td>
-                                    <td>{{$bookingRoom->end_date ?? ''}}</td>
+                                    <td>
+                                        <p><b>Ngày vào: </b>{{$bookingRoom->start_date ?? ''}}</p>
+                                        <p><b>Ngày ra: </b>{{$bookingRoom->end_date ?? ''}}</p>
+                                    </td>
                                     <td>
                                         @foreach($bookingRoom->bookingRoomCustomers()->get() as $customer)
                                             <p>{{$customer->customer->name ?? ''}}</p>
@@ -58,7 +58,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8">Không có phòng nào</td>
+                                    <td colspan="8">Không có dữ liệu</td>
                                 </tr>
                             @endforelse
                         @endif

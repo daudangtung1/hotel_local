@@ -9,7 +9,8 @@
                     aria-label="Close"></button>
         </div>
         <div class="modal-body row " id="form-booking">
-            <div class="col-md-2">
+            <div class="col-md-6">
+                <h2>Khách hàng</h2>
                 <div id="customer-booking">
                     <div class="col-md-12 mb-3 position-relative">
                         <input type="text" class="form-control form-control-sm form-control-sm validate " id="customer_name"
@@ -41,9 +42,9 @@
                                     đầu:</label>
                                 <div class="form-group">
                                     <div class="input-group date">
-                                        <input type="text" id="start_date"
-                                            class="form-control form-control-sm form-control-sm datetime-picker"
-                                            value="@if(!empty($bookingRoom) && !empty($bookingRoom->start_date)){{$bookingRoom->start_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
+                                        <input type="datetime-local" id="start_date"
+                                            class="form-control form-control-sm form-control-sm "
+                                            value="@if(!empty($bookingRoom) && !empty($bookingRoom->start_date)){{$bookingRoom->start_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}">
                                     </div>
                                 </div>
                             </div>
@@ -52,8 +53,8 @@
                                 <label for="end_date" class="form-label">Thời gian kết
                                     thúc:</label>
                                 <div class="input-group date">
-                                    <input type="text" id="end_date"
-                                        class="form-control form-control-sm form-control-sm datetime-picker"
+                                    <input type="datetime-local" id="end_date"
+                                        class="form-control form-control-sm form-control-sm "
                                         value="@if(!empty($bookingRoom) && !empty($bookingRoom->end_date) && $bookingRoom->rent_type == 1){{$bookingRoom->end_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
                                 </div>
                             </div>
@@ -65,8 +66,115 @@
                         <button class="btn btn-sm btn-success btn-add-customer">Thêm khách hàng</button>
                     </div>
                 @endif
+
+                @if(!empty($bookingRoom))
+                    <hr>
+                    <table class="table table-sm table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Tên khách hàng̣</th>
+                            <th scope="col">Số giấy tờ</th>
+                            <th scope="col">Điện thoại</th>
+                            <th>Địa chỉ</th>
+                            @if($bookingRoom->bookingRoomCustomers()->count() > 1)
+                                <th></th>
+                            @endif
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($bookingRoom->bookingRoomCustomers()->get() as $key => $bookingRoomCustomer)
+                            <tr>
+                                <td>{{$bookingRoomCustomer->Customer->name ??''}}</td>
+                                <td>{{$bookingRoomCustomer->Customer->id_card ??''}}</td>
+                                <td>{{$bookingRoomCustomer->Customer->phone ??''}}</td>
+                                <td>{{$bookingRoomCustomer->Customer->address ??''}}</td>
+                                @if($bookingRoom->bookingRoomCustomers()->count() > 1)
+                                    <td>
+                                        <a href="{{route('booking-room-customers.destroy', ['booking_room_customer' => $bookingRoomCustomer])}}"
+                                           class="btn-ajax-delete-customer text-danger  btn-sm ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                <path fill-rule="evenodd"
+                                                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                @endif
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5">Không có dữ liệu</td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                @endif
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
+                <h2>Dịch vụ</h2>
+                <table class="table table-sm table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th scope="col">Tên dịch vụ</th>
+                        <th scope="col">Tồn kho</th>
+                        <th scope="col">Giá</th>
+                        @if($bookingRoom)
+                            <th></th>
+                        @endif
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($services as $key => $service)
+                        <tr>
+                            <td>{{$service->id}}</td>
+                            <td>{{$service->name ??''}}
+                                @if($service->sale_type == 0)
+                                    <div class="row d-none">
+                                        <div class="col-6">
+                                            <input type="datetime-local" class="form-control form-control-sm modal_start_date" name="modal_start_date">
+                                        </div>
+                                        <div class="col-6 ps-0">
+                                            <input type="datetime-local" class="form-control form-control-sm modal_end_date" name="modal_end_date">
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-sm btn-primary model-btn-add-service mt-1">Thêm dịch vụ</button>
+                                        </div>
+                                        <input type="hidden" name="modal_service_id" class="modal_service_id" value="{{$service->id}}">
+                                    </div>
+                                @endif
+                            </td>
+                            <td>
+                                @if($service->sale_type == 0)
+                                    <b class="whitespace-nowrap">Thuê theo ngày</b>
+                                @else
+                                    {{$service->stock ??''}}
+                                @endif
+                            </td>
+                            <td>{{get_price($service->price, 'đ') ??''}}</td>
+                            @if($bookingRoom)
+                                <td><a href="" class="btn-add-service" data-service_id="{{$service->id}}" data-sale_type={{$service->sale_type}}>
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             width="16" height="16" fill="currentColor"
+                                             class="bi bi-plus-circle"
+                                             viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                            <path
+                                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                        </svg>
+                                    </a></td>
+                            @endif
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4">Không có dữ liệu</td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
                 @if($bookingRoom)
                     <input type="hidden" name="booking_room_id" value="{{$bookingRoom->id}}">
                     @if($bookingRoom->bookingRoomServices()->count() > 0)
@@ -126,49 +234,7 @@
                         </table>
                     @endif
                 @endif
-                @if(!empty($bookingRoom))
-                    <table class="table table-sm table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">Tên khách hàng̣</th>
-                            <th scope="col">Số giấy tờ</th>
-                            <th scope="col">Điện thoại</th>
-                            <th>Địa chỉ</th>
-                            @if($bookingRoom->bookingRoomCustomers()->count() > 1)
-                                <th></th>
-                            @endif
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @forelse($bookingRoom->bookingRoomCustomers()->get() as $key => $bookingRoomCustomer)
-                            <tr>
-                                <td>{{$bookingRoomCustomer->Customer->name ??''}}</td>
-                                <td>{{$bookingRoomCustomer->Customer->id_card ??''}}</td>
-                                <td>{{$bookingRoomCustomer->Customer->phone ??''}}</td>
-                                <td>{{$bookingRoomCustomer->Customer->address ??''}}</td>
-                                @if($bookingRoom->bookingRoomCustomers()->count() > 1)
-                                    <td>
-                                        <a href="{{route('booking-room-customers.destroy', ['booking_room_customer' => $bookingRoomCustomer])}}"
-                                           class="btn-ajax-delete-customer text-danger  btn-sm ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                <path fill-rule="evenodd"
-                                                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                            </svg>
-                                        </a>
-                                    </td>
-                                @endif
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5">Không có khách hàng nào</td>
-                            </tr>
-                        @endforelse
-                        </tbody>
-                    </table>
-                @endif
+
                 @if(empty($bookingRoom))
                     <div class="col-md-12 mt-3">
                         <div class="form-check">
@@ -201,7 +267,7 @@
                             <span class="input-group-text">$</span>
                         </div>
                         <input type="text" class="form-control form-control-sm form-control-sm price" name="price" id="price"
-                               value="@if(!empty($bookingRoom)){!! $bookingRoom->extra_price ??0 !!}@endif" min="0">
+                               value="@if(!empty($bookingRoom)){!! $bookingRoom->price ??0 !!}@endif" min="0">
                         <div class="input-group-append">
                             <span class="input-group-text">đ</span>
                         </div>
@@ -241,76 +307,13 @@
                     </div>
                 @endif
             </div>
-            <div class="col-md-6">
-                <table class="table table-sm table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th scope="col">Tên dịch vụ</th>
-                        <th scope="col">Tồn kho</th>
-                        <th scope="col">Giá</th>
-                        @if($bookingRoom)
-                            <th></th>
-                        @endif
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @forelse($services as $key => $service)
-                        <tr>
-                            <td>{{$service->id}}</td>
-                            <td>{{$service->name ??''}}
-                                @if($service->sale_type == 0)
-                                <div class="row d-none">
-                                    <div class="col-6">
-                                        <input type="datetime-local" class="form-control form-control-sm modal_start_date" name="modal_start_date">
-                                    </div>
-                                    <div class="col-6 ps-0">
-                                        <input type="datetime-local" class="form-control form-control-sm modal_end_date" name="modal_end_date">
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-sm btn-primary model-btn-add-service mt-1">Thêm dịch vụ</button>
-                                    </div>
-                                    <input type="hidden" name="modal_service_id" class="modal_service_id" value="{{$service->id}}">
-                                </div>
-                                @endif
-                            </td>
-                            <td>
-                            @if($service->sale_type == 0)
-                                  <b class="whitespace-nowrap">Thuê theo ngày</b>
-                                @else
-                                    {{$service->stock ??''}}
-                                @endif
-                            </td>
-                            <td>{{get_price($service->price, 'đ') ??''}}</td>
-                            @if($bookingRoom)
-                                <td><a href="" class="btn-add-service" data-service_id="{{$service->id}}" data-sale_type={{$service->sale_type}}>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             width="16" height="16" fill="currentColor"
-                                             class="bi bi-plus-circle"
-                                             viewBox="0 0 16 16">
-                                            <path
-                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                            <path
-                                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                                        </svg>
-                                    </a></td>
-                            @endif
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4">Không có khách hàng nào</td>
-                        </tr>
-                    @endforelse
-                    </tbody>
-                </table>
-            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
                 Đóng
             </button>
             @if(!empty($bookingRoom))
-                <button type="button" class="btn btn-sm btn-default btn-success btn-update"
+                <button type="button" class="btn btn-sm btn-default btn-success btn-update btn-warning"
                         data-booking_room_id="{{$bookingRoom->id}}">
                     Cập nhật
                 </button>

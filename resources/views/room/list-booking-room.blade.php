@@ -32,7 +32,7 @@
             @endforeach
         @empty
             <tr>
-                <td colspan="5">Không có phòng nào</td>
+                <td colspan="5">Không có dữ liệu</td>
             </tr>
         @endforelse
     @endif

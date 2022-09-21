@@ -6,16 +6,14 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5>Quản lý đặt phòng</h5>
-                        <a href="{{route('booking-room.history')}}" class="btn btn-info">Lịch sử đặt phòng</a>
+                        <a href="{{route('booking-room.history')}}" class="btn btn-dark">Lịch sử đặt phòng</a>
                     </div>
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                         <tr>
                             <th>#</th>
                             <th scope="col">Tên phòng</th>
-                            <th scope="col">Tầng</th>
-                            <th scope="col">Ngày nhận phòng</th>
-                            <th scope="col">Ngày trả phòng</th>
+                            <th scope="col">Thời gian</th>
                             <th scope="col">Tên khách hàng</th>
                             <th scope="col">Ghi chú</th>
                             <th scope="col"></th>
@@ -26,10 +24,14 @@
                             @forelse($bookingRooms as $key => $bookingRoom)
                                 <tr>
                                     <td>{{$bookingRoom->id}}</td>
-                                    <td>{{$bookingRoom->room->name ??''}}</td>
-                                    <td>{{$bookingRoom->room->floor ??''}}</td>
-                                    <td>{{$bookingRoom->start_date ?? ''}}</td>
-                                    <td>{{$bookingRoom->end_date ?? ''}}</td>
+                                    <td>
+                                        <p><b>Phòng</b> {{$bookingRoom->room->name ?? ''}}</p>
+                                        <p><b>Tầng:</b> {{$bookingRoom->room->floor ?? ''}}</p>
+                                    </td>
+                                    <td>
+                                        <p><b>Ngày vào: </b>{{$bookingRoom->start_date ?? ''}}</p>
+                                        <p><b>Ngày ra: </b>{{$bookingRoom->end_date ?? ''}}</p>
+                                    </td>
                                     <td>
                                         @foreach($bookingRoom->bookingRoomCustomers()->get() as $customer)
                                             <p>{{$customer->customer->name ?? ''}}</p>
@@ -68,12 +70,15 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7">Không có phòng nào</td>
+                                    <td colspan="7">Không có dữ liệu</td>
                                 </tr>
                             @endforelse
                         @endif
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center mt-2 mb-2">
+                        {{ $bookingRooms->links('pagination::bootstrap-4') }}
+                    </div>
                     <script>
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {
@@ -87,8 +92,8 @@
                         });
                         // If the updated modal is showing, only 1 room can be selected
                         $("div[id^='booking-room-']").on('shown.bs.modal', function(e) {
-                            $(this).on('click', 'input[type="checkbox"][name="room_ids[]"]', function() {      
-                                $('input[type="checkbox"][name="room_ids[]"]').not(this).prop('checked', false);      
+                            $(this).on('click', 'input[type="checkbox"][name="room_ids[]"]', function() {
+                                $('input[type="checkbox"][name="room_ids[]"]').not(this).prop('checked', false);
                             });
                         });
                     </script>

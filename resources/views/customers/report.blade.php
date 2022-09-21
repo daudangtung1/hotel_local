@@ -39,7 +39,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="text-center" colspan="5">Không có khách hàng nào</td>
+                                <td class="text-center" colspan="5">Không có dữ liệu</td>
                             </tr>
                         @endforelse
                         </tbody>

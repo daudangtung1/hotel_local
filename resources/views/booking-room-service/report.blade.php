@@ -43,7 +43,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="text-center" colspan="7">Không có dịch vụ phòng nào</td>
+                                <td class="text-center" colspan="7">Không có dữ liệu</td>
                             </tr>
                         @endforelse
                         </tbody>

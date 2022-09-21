@@ -49,6 +49,7 @@
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th>#</th>
                             <th scope="col">Tên</th>
                             <th scope="col">CMND/HC</th>
                             <th scope="col">Điện thoại</th>
@@ -59,6 +60,7 @@
                         <tbody>
                         @forelse($customers as $key => $customer)
                             <tr>
+                                <td>{{$customer->id ??''}}</td>
                                 <td>{{$customer->name ??''}}</td>
                                 <td>{{$customer->id_card ??''}}</td>
                                 <td>{{$customer->phone ??''}}</td>
@@ -92,7 +94,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">Không có khách hàng nào</td>
+                                <td colspan="5">Không có dữ liệu</td>
                             </tr>
                         @endforelse
                         </tbody>

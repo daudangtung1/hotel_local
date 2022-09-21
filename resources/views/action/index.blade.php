@@ -28,7 +28,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">Không có bản ghi nào</td>
+                                <td colspan="5">Không có dữ liệu</td>
                             </tr>
                         @endforelse
                         </tbody>

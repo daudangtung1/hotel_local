@@ -96,7 +96,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">Không có khách hàng nào</td>
+                                <td colspan="4">Không có dữ liệu</td>
                             </tr>
                         @endforelse
                         </tbody>

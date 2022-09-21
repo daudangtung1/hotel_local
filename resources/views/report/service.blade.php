@@ -63,12 +63,12 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7">Không có phòng nào</td>
+                    <td colspan="7">Không có dữ liệu</td>
                 </tr>
             @endforelse
         @else
             <tr>
-                <td colspan="7">Không có phòng nào</td>
+                <td colspan="7">Không có dữ liệu</td>
             </tr>
         @endif
         </tbody>

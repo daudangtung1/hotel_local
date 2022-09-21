@@ -114,7 +114,7 @@
                             </div>
                             </div>
                             <div class="col-md-6 ">
-             
+
                             </div>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
             </button>
 
             @if(!empty($bookingRoom))
-                <button class="btn btn-sm btn-primary " type="submit">Cập nhật</button>
+                <button class="btn btn-sm btn-warning " type="submit">Cập nhật</button>
             @else
                 <a href="{{route('booking-room.index')}}" class="btn btn-sm btn-success">Quản lý đặt phòng</a>
 

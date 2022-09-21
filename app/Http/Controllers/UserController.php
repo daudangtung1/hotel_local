@@ -43,11 +43,11 @@ class UserController extends Controller
         $request->merge(['user_id' => $user_id]);
         $currentItem = $this->userRepository->find($request);
 
-        $menuSetup = true;
+        $menuSystem = true;
         $users = $this->userRepository->getAll();
         $title = 'Cập nhật người dùng';
 
-        return view('user.create', compact('menuSetup', 'users', 'currentItem', 'title'));
+        return view('user.create', compact('menuSystem', 'users', 'currentItem', 'title'));
     }
 
     public function update(Request $request)
