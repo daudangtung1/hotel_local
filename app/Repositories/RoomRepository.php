@@ -6,6 +6,7 @@ use App\Models\Room;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use DB;
+use Illuminate\Support\Facades\DB as DBTransaction;
 
 /**
  * Class AccountRepository
@@ -78,7 +79,7 @@ class RoomRepository extends ModelRepository
     }
 
     public function filterRoomBookingByDate($request, $roomIds = false)
-    { 
+    {
         $startDate = $request->get('start_date') ?? Carbon::now();
         $endDate   = $request->get('end_date') ?? Carbon::now();
         $rooms = $this->model->select('rooms.*')
@@ -111,7 +112,7 @@ class RoomRepository extends ModelRepository
                 }
             }
         }
-        
+
         return $data;
     }
 
@@ -134,21 +135,33 @@ class RoomRepository extends ModelRepository
 //        }
 
         if (!empty($room) && $room->status > 0) {
-            if ($room->status == $this->model::HAVE_GUEST) {
-                $room->update(['status' => $this->model::DIRTY]);
-                $room->bookingRooms()->where('status', $this->model::HAVE_GUEST)->update([
-                    'status'        => $this->model::DIRTY,
-                    'end_date'      => Carbon::now(),
-                    'checkout_date' => Carbon::now()
-                ]);
-            } else if (in_array($room->status, [2, 3, 5])) {
-                $room->update(['status' => $this->model::READY]);
-                $room->bookingRooms()->whereIn('status', [2, 3, 5])->update([
-                    'status' => $this->model::CLOSED,
-                    'end_date'      => Carbon::now()
-                ]);
-            } else {
+            try{
+                if ($room->status == $this->model::HAVE_GUEST) {
+                    DBTransaction::beginTransaction();
+                    $room->update(['status' => $this->model::DIRTY]);
+                    $room->bookingRooms()->where('status', $this->model::HAVE_GUEST)->update([
+                        'status'        => $this->model::DIRTY,
+                        'end_date'      => Carbon::now(),
+                        'checkout_date' => Carbon::now()
+                    ]);
+                    $bookingRoom = $room->bookingRooms()->where('status', $this->model::HAVE_GUEST)->first();
+                    if($bookingRoom) {
+                        create_revenue_expenditures('Thanh toán tiền phòng', $bookingRoom->getTotalPrice(false, false), 2);
+                    }
+                    DBTransaction::commit();
+                } else if (in_array($room->status, [2, 3, 5])) {
+                    $room->update(['status' => $this->model::READY]);
+                    $room->bookingRooms()->whereIn('status', [2, 3, 5])->update([
+                        'status' => $this->model::CLOSED,
+                        'end_date'      => Carbon::now()
+                    ]);
+                } else {
 
+                }
+
+            } catch (\Throwable $e) {
+                DBTransaction::rollBack();
+                return 'Có lỗi xảy ra, vui lòng thử lại sau!';
             }
         }
 
@@ -185,7 +198,7 @@ class RoomRepository extends ModelRepository
             'day_price'    => $request->day_price ?? 0,
             'hour_price'   => $request->hour_price ?? 0,
             'type_room_id' => $request->type ?? null,
-            
+
         ];
 
         if ($request->status != '') {

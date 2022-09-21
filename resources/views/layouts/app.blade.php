@@ -992,6 +992,7 @@
                     room_id: roomId,
                 },
                 success: function (data) {
+                    console.log(data);
                     if (data.status == 0) {
                         $.toast({
                             text: data.massage,

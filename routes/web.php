@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('groups/cancel-booking', [\App\Http\Controllers\GroupController::class, 'cancelBooking'])->name('groups.cancel_booking');
 
     Route::resources([
+        'actions'                     => \App\Http\Controllers\ActionController::class,
         'home'                     => \App\Http\Controllers\RoomController::class,
         'rooms'                    => \App\Http\Controllers\RoomController::class,
         'reports'                  => \App\Http\Controllers\ReportController::class,

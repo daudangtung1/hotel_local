@@ -210,11 +210,11 @@ class BookingRoom extends Model
     public function getTotalServices()
     {
         $bookingRoomServices = $this->bookingRoomServices()->get();
-        $total = 0; 
+        $total = 0;
         if (!empty($bookingRoomServices)) {
             foreach ($bookingRoomServices as $bookingRoomService) {
                 if ($bookingRoomService->start_date) {
-                   
+
                     $total = $total + ($bookingRoomService->getTotalDate() * $bookingRoomService->price);
                 } else {
                     $total = $total + ($bookingRoomService->quantity * $bookingRoomService->price);
@@ -236,7 +236,6 @@ class BookingRoom extends Model
                 $price = $this->room->hour_price ?? 0;
             }
         }
-
         if (!$addTotalService) {
             $price = ($this->getTime() * $price) + $this->getExtraPrice();
             if (!$format) {
