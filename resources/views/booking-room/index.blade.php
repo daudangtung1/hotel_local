@@ -85,6 +85,12 @@
                                 $(this).closest('form').submit();
                             })
                         });
+                        // If the updated modal is showing, only 1 room can be selected
+                        $("div[id^='booking-room-']").on('shown.bs.modal', function(e) {
+                            $(this).on('click', 'input[type="checkbox"][name="room_ids[]"]', function() {      
+                                $('input[type="checkbox"][name="room_ids[]"]').not(this).prop('checked', false);      
+                            });
+                        });
                     </script>
                 </div>
             </div>

@@ -231,7 +231,7 @@
 </div>
 <div class="modal fade" id="booking-room"
      aria-labelledby="booking-modalLabel" aria-hidden="true">
-    @include('room.model-booking-room')
+    @include('room.model-booking-room', ['bookingRoom' => null])
 </div>
 
 <script>
