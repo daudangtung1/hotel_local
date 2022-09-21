@@ -36,7 +36,8 @@ class BookingRoomController extends Controller
         if ($request->ajax()) {
             return view('room.list-booking-room', compact('floors', 'bookingRooms'))->render();
         }
-        return view('booking-room.index', compact('title'));
+        $menuCategoryManager = true;
+        return view('booking-room.index', compact('title', 'menuCategoryManager'));
     }
 
     public function store(Request $request)
@@ -188,14 +189,14 @@ class BookingRoomController extends Controller
         $title = 'Danh sách khách hàng đặt phòng';
         $menuSystem = true;
         $customerInfoBookingRooms = $this->bookingRoomRepository->getListBookingInfoClosest($request);
-        
+
         return view('booking-room.booking_info', compact('customerInfoBookingRooms', 'menuSystem','title'));
     }
 
     public function getBookingRoomInfo(Request $request)
     {
         $bookingRoomInfo = $this->bookingRoomRepository->getBookingRoomInfo($request);
-        
+
         return view('customers.customer-booking-infor', compact('bookingRoomInfo'))->render();
     }
 
