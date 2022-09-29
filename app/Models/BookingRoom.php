@@ -272,7 +272,7 @@ class BookingRoom extends Model
 
         return $price * $hours;
     }
-
+    
     public static function boot() {
         parent::boot();
         static::created(function($item) {

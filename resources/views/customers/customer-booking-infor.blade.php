@@ -87,23 +87,7 @@
                 Danh sách
             </button>
           </form>
-            @if($bookingRoomInfo->status == \App\Models\Room::READY)
                 <button data-booking_room_id="{{$bookingRoomInfo->id}}" data-bg="primary" type="submit" class="btn btn-sm btn-primary  btn-checkin ">Nhận phòng</button>
-            @endif
         </div>
     </div>
 </div>
-@section('script')
-    <script>
-        $(document).ready(function () {
-            var date = $('.datetime-picker');
-            if (date) {
-                date.datetimepicker({
-                    todayHighlight: true,
-                    format: 'Y-m-d H:i',
-                    startDate: new Date()
-                });
-            }
-        });
-    </script>
-@endsection

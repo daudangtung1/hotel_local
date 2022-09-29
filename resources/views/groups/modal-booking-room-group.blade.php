@@ -64,7 +64,7 @@
                                     <div class="form-group">
                                         <div class="input-group date">
                                             <input type="text" id="start_date" name="start_date"
-                                                   class="form-control form-control-sm form-control-sm datetime-picker validate-date "
+                                                   class="form-control form-control-sm form-control-sm datetime-picker validate-date " readonly
                                                    value="<?= !empty($group) ? $group->start_date : \Carbon\Carbon::now() ?>">
                                         </div>
                                     </div>
@@ -76,7 +76,7 @@
                                         thúc:</label>
                                     <div class="input-group date">
                                         <input type="text" id="end_date" name="end_date"
-                                               class="form-control form-control-sm form-control-sm datetime-picker validate-date "
+                                               class="form-control form-control-sm form-control-sm datetime-picker validate-date " readonly
                                                value="<?= !empty($group) ? $group->end_date : \Carbon\Carbon::now() ?>">
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <input type="text" id="start_date" name="start_date"
-                                               class="form-control  form-control-sm datetime-picker validate-date "
+                                               class="form-control  form-control-sm datetime-picker validate-date " readonly
                                                value="<?= !empty($group) ? $group->start_date : \Carbon\Carbon::now() ?>">
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@
                                     thúc:</label>
                                 <div class="input-group date">
                                     <input type="text" id="end_date" name="end_date"
-                                           class="form-control  form-control-sm datetime-picker validate-date "
+                                           class="form-control  form-control-sm datetime-picker validate-date " readonly
                                            value="<?= !empty($group) ? $group->end_date : \Carbon\Carbon::now() ?>">
                                 </div>
                             </div>
@@ -193,17 +193,15 @@
 
     </div>
 </div>
-@section('script')
-    <script>
-        $(document).ready(function () {
-            var date = $('.datetime-picker');
-            if (date) {
-                date.datetimepicker({
-                    todayHighlight: true,
-                    format: 'Y-m-d H:i',
-                    startDate: new Date()
-                });
-            }
-        });
-    </script>
-@endsection
+<script>
+    $(document).ready(function(){
+        var dateTime = $('.datetime-picker');
+        if (dateTime) {
+            dateTime.datetimepicker({
+                todayHighlight: true,
+                format: 'Y-m-d H:i',
+                startDate: new Date()
+            });
+        }
+    });
+</script>

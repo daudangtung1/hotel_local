@@ -43,15 +43,6 @@
             $('body').on('change', '#by', function(e){
                 $(this).closest('form').submit();
             });
-
-            var date = $('.filter-date');
-            if (date) {
-                date.datetimepicker({
-                    todayHighlight: true,
-                    format: 'Y-m-d',
-                    startDate: new Date()
-                });
-            }
         });
     </script>
 @endsection

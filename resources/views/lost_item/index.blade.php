@@ -126,16 +126,5 @@
                 }
             })
         });
-
-        $(document).ready(function () {
-            var date = $('.filter-date');
-            if (date) {
-                date.datetimepicker({
-                    todayHighlight: true,
-                    format: 'Y-m-d',
-                    startDate: new Date()
-                });
-            }
-        });
     </script>
 @endsection

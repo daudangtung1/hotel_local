@@ -239,6 +239,24 @@
         $('#preloader').fadeOut('fast');
     });
     $(document).ready(function () {
+        var dateTime = $('.datetime-picker');
+        if (dateTime) {
+            dateTime.datetimepicker({
+                todayHighlight: true,
+                format: 'Y-m-d H:i',
+                startDate: new Date()
+            });
+        }
+
+        var date = $('.filter-date');
+            if (date) {
+                date.datetimepicker({
+                    todayHighlight: true,
+                    format: 'Y-m-d',
+                    startDate: new Date()
+                });
+            }
+        
         $('body').on('click', '.btn-booking-multiple-room', function () {
             var _this = $(this);
             var modal = _this.closest('.modal');
@@ -263,7 +281,6 @@
                 });
                 return false;
             }
-
             if (startDate >= endDate) {
                 $.toast({
                     text: 'Vui lòng nhập kết thúc lớn hơn ngày bắt đầu',
@@ -280,7 +297,7 @@
                 });
             }
 
-            if (customerName == '' || extra_price == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '' || startDate == '' || endDate == '') {
+            if (customerName == '' ||  customerIdCard == '' || customerPhone == '' || customerAddress == '' || startDate == '' || endDate == '') {
                 $.toast({
                     text: 'Vui lòng nhập thông tin khách hàng',
                     icon: 'error',
@@ -337,7 +354,7 @@
         });
 
         function resetFormBooking() {
-            var now = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', \Carbon\Carbon::now()->format('Y-m-d H:i:s'))}}';
+            var now = "{{\Carbon\Carbon::createFromFormat('Y-m-d H:i', \Carbon\Carbon::now()->format('Y-m-d H:i'))}}";
             $('#booking-room').find('#customer_name').val('');
             $('#booking-room').find('#customer_phone').val('');
             $('#booking-room').find('#customer_id_card').val('');
@@ -523,10 +540,20 @@
             })
         })
 
-        function validateRoom()
+        function validateRoom(_this)
         {
-            var endDate = $('#end_date').val();
-            var startDate = $('#start_date').val();
+            var endDate = _this.closest('.row').find('#end_date').val();
+            var startDate = _this.closest('.row').find('#start_date').val();
+            // if (startDate >= endDate) {
+            //     $.toast({
+            //         text: 'Vui lòng nhập kết thúc lớn hơn ngày bắt đầu',
+            //         icon: 'error',
+            //         position: 'top-right'
+            //     });
+            //     $('#preloader').css('background-color', 'rgba(255,255,255,0.8)').hide();
+            //     return false;
+            // }
+
             $.ajax({
                 type: "GET",
                 url: "{{route('booking-room.index')}}",
@@ -547,7 +574,7 @@
         $('body').on('change', '#end_date, #start_date', function(e) {
             e.preventDefault();
             $('#preloader').css('background-color', 'rgba(255,255,255,0.8)').show();
-            validateRoom();
+            validateRoom($(this));
         })
 
         $('body').on('click', '.btn-checkin', function(e) {
@@ -561,7 +588,6 @@
                     booking_room_id: bookingRoomId,
                 },
                 success: function (data) {
-                    console.log(data);
                     if (data.status == false && data.message) {
                         $.toast({
                             text: data.message,
@@ -586,7 +612,7 @@
             setTimeout(function () {
                 $('#booking-room').find('#end_date').trigger('change');
             }, 500)
-            var now = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', \Carbon\Carbon::now()->format('Y-m-d H:i:s'))}}';
+            var now = '{{\Carbon\Carbon::createFromFormat('Y-m-d H:i', \Carbon\Carbon::now()->format('Y-m-d H:i'))}}';
             $(this).find('#customer_name').val('');
             $(this).find('#customer_phone').val('');
             $(this).find('#customer_id_card').val('');
@@ -1223,13 +1249,13 @@
             });
 
             $("#group-customer-booking input[type=text]").each(function () {
-                    if ($(this).hasClass('validate')) {
-                        if ($(this).val() == '') {
-                            $(this).addClass('boder-validate');
-                        } else if ($(this).hasClass('boder-validate')) {
-                            $(this).removeClass('boder-validate');
-                        }
+                if ($(this).hasClass('validate')) {
+                    if ($(this).val() == '') {
+                        $(this).addClass('boder-validate');
+                    } else if ($(this).hasClass('boder-validate')) {
+                        $(this).removeClass('boder-validate');
                     }
+                }
             });
 
             return false;

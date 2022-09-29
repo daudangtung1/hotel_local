@@ -20,13 +20,13 @@
                     if(!empty($bookingRoom->end_date)) {
                         $endDate = \Carbon\Carbon::parse($bookingRoom->end_date)->format('Y-m-d H:i');
                     } else {
-                        $endDate = \Carbon\Carbon::now();
+                        $endDate = \Carbon\Carbon::now()->format('Y-m-d H:i');
                     }
 
                     if(!empty($bookingRoom->start_date)) {
                         $startDate = \Carbon\Carbon::parse($bookingRoom->start_date)->format('Y-m-d H:i');
                     } else {
-                        $startDate = \Carbon\Carbon::now();
+                        $startDate = \Carbon\Carbon::now()->format('Y-m-d H:i');
                     }
                     $roomIds[] = $bookingRoom->room->id ?? 0;
                     @endphp
@@ -79,8 +79,8 @@
                                     đầu:</label>
                                 <div class="form-group">
                                     <div class="input-group date">
-                                        <input type="datetime-local" id="start_date" name="start_date"
-                                            class="form-control form-control-sm form-control-sm validate-date "
+                                        <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="start_date" name="start_date"
+                                            class="form-control datetime-picker form-control-sm form-control-sm validate-date " readonly
                                             value="@if(!empty($startDate) ){{$startDate ?? ''}}@endif" required>
                                     </div>
                                 </div>
@@ -91,8 +91,8 @@
                                 <label for="end_date" class="form-label">Thời gian kết
                                     thúc:</label>
                                 <div class="input-group date">
-                                    <input type="datetime-local" id="end_date" name="end_date"
-                                        class="form-control form-control-sm form-control-sm validate-date "
+                                    <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="end_date" name="end_date"
+                                        class="form-control datetime-picker form-control-sm form-control-sm validate-date " readonly
                                         value="@if(!empty($endDate) ){{$endDate ?? ''}}@endif" required>
                                 </div>
                             </div>
@@ -150,17 +150,3 @@
 @if(!empty($bookingRoom))
      </form>
 @endif
-@section('script')
-    <script>
-        $(document).ready(function () {
-            var date = $('.datetime-picker');
-            if (date) {
-                date.datetimepicker({
-                    todayHighlight: true,
-                    format: 'Y-m-d H:i',
-                    startDate: new Date()
-                });
-            }
-        });
-    </script>
-@endsection

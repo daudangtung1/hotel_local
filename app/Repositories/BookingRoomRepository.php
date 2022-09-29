@@ -103,6 +103,20 @@ class BookingRoomRepository extends ModelRepository
     {
         $bookingRoom = $this->bookingRoom->find($request->booking_room_id);
 
+        if(!$bookingRoom) {
+            return [
+                'status'  => false,
+                'message' => 'Có lỗi xảy ra vui lòng thử lại sau.'
+            ];
+        }
+        
+        if(Carbon::parse($bookingRoom->start_date) < Carbon::now()) {
+            return [
+                'status'  => false,
+                'message' => 'Chưa đến thời điểm nhận phòng, vui lòng thử lại sau'
+            ];
+        }
+        
         if ($bookingRoom->room->status != $this->room::READY) {
             return [
                 'status'  => false,

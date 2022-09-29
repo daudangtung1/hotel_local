@@ -42,9 +42,9 @@
                                     đầu:</label>
                                 <div class="form-group">
                                     <div class="input-group date">
-                                        <input type="datetime-local" id="start_date"
-                                            class="form-control form-control-sm form-control-sm "
-                                            value="@if(!empty($bookingRoom) && !empty($bookingRoom->start_date)){{$bookingRoom->start_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}">
+                                        <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="start_date"
+                                            class="form-control form-control-sm form-control-sm datetime-picker" readonly
+                                            value="@if(!empty($bookingRoom) && !empty($bookingRoom->start_date)){{date('Y-m-d H:i',strtotime( $bookingRoom->start_date))}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}">
                                     </div>
                                 </div>
                             </div>
@@ -53,9 +53,9 @@
                                 <label for="end_date" class="form-label">Thời gian kết
                                     thúc:</label>
                                 <div class="input-group date">
-                                    <input type="datetime-local" id="end_date"
-                                        class="form-control form-control-sm form-control-sm "
-                                        value="@if(!empty($bookingRoom) && !empty($bookingRoom->end_date) && $bookingRoom->rent_type == 1){{$bookingRoom->end_date}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
+                                    <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="end_date"
+                                        class="form-control form-control-sm form-control-sm datetime-picker" readonly
+                                        value="@if(!empty($bookingRoom) && !empty($bookingRoom->end_date) && $bookingRoom->rent_type == 1){{date('Y-m-d H:i',strtotime( $bookingRoom->end_datedate))}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
                                 </div>
                             </div>
                         </div>
@@ -134,10 +134,10 @@
                                 @if($service->sale_type == 0)
                                     <div class="row d-none">
                                         <div class="col-6">
-                                            <input type="datetime-local" class="form-control form-control-sm modal_start_date" name="modal_start_date">
+                                            <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  readonly class="datetime-picker form-control form-control-sm modal_start_date" name="modal_start_date">
                                         </div>
                                         <div class="col-6 ps-0">
-                                            <input type="datetime-local" class="form-control form-control-sm modal_end_date" name="modal_end_date">
+                                            <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}" readonly  class="datetime-picker form-control form-control-sm modal_end_date" name="modal_end_date">
                                         </div>
                                         <div class="col-12">
                                             <button class="btn btn-sm btn-primary model-btn-add-service mt-1">Thêm dịch vụ</button>
