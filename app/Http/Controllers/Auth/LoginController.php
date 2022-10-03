@@ -91,4 +91,8 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
+    protected function authenticated(Request $request, $user)
+    {
+            return redirect()->route('branchs.index');
+    }
 }
