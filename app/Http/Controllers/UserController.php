@@ -32,7 +32,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $result = $this->userRepository->store($request);
-        if (!$result['status']) {
+        if (isset($result['status']) && $result['status'] == false) {
             return redirect()->back()->withErrors($result['message']);
         }
         return redirect()->back()->with('success', 'Đăng ký thành công');
@@ -54,7 +54,7 @@ class UserController extends Controller
     {
         // TODO: validate
         $result = $this->userRepository->update($request);
-        if (!$result['status']) {
+        if (isset($result['status']) && $result['status'] == false) {
             return redirect()->back()->withErrors($result['message']);
         }
 

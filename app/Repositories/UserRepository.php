@@ -63,6 +63,7 @@ class UserRepository extends ModelRepository
         $data = [
             'name'  => $request->name ?? '',
             'email' => $request->email ?? '',
+            'branch_id' => $request->branch_id ?? '',
         ];
 
         if (!empty($request->password) && !empty($request->re_password)) {
@@ -86,6 +87,7 @@ class UserRepository extends ModelRepository
 
         $data = [
             'email' => $request->email ?? '',
+            'branch_id' => $request->branch_id ?? '',
         ];
 
         if (!empty($request->password) && !empty($request->re_password)) {

@@ -185,7 +185,7 @@
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
-                                    <a href="{{route('branchs.index')}}"><img class="image-svg" alt=""
+                                    <a href="{{route('branchs.create')}}"><img class="image-svg" alt=""
                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qldatphong01.png"></a>
                                     <span>QL chi nhánh</span>
                                 </li>

@@ -22,6 +22,16 @@ class BranchController extends Controller
 
     public function index(Request $request)
     {
+        $items = $this->BranchRepository->getAll(false);
+        $menuCategoryManager = true;
+
+        $title = 'Quản lý cho nhánh';
+
+        return view('branch.list', compact('items', 'menuCategoryManager', 'title'));
+    }
+
+    public function create(Request $request)
+    {
         $items = $this->BranchRepository->getAll();
         $menuCategoryManager = true;
 

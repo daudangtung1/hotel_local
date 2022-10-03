@@ -34,9 +34,13 @@ class BranchRepository extends ModelRepository
         return self::$instance;
     }
 
-    public function getAll()
+    public function getAll($paginate = true)
     {
-        return $this->model->orderBy('ID', 'DESC')->paginate(10);
+        $data = $this->model->orderBy('ID', 'DESC');
+        if ($paginate) {
+            return $data->paginate(10);
+        }
+        return $data->get();
     }
 
     public function find($id)
