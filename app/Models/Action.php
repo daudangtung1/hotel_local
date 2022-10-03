@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 class Action extends Model
 {
-    use SoftDeletes;
-    protected $fillable = [
-      'user_id',
-      'step',
-      'data',
-    ];
+  use SoftDeletes;
+  protected $fillable = [
+    'branch_id',
+    'user_id',
+    'step',
+    'data',
+  ];
 }

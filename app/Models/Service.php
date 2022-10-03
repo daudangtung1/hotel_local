@@ -21,6 +21,7 @@ class Service extends Model
     ];
 
     protected $fillable = [
+        'branch_id',
         'name',
         'stock',
         'price',
@@ -29,17 +30,18 @@ class Service extends Model
         'user_id'
     ];
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
-        static::created(function($item) {
+        static::created(function ($item) {
             create_log('Tạo mới dịch vụ');
         });
 
-        static::updated(function($item) {
+        static::updated(function ($item) {
             create_log('Cập nhật dịch vụ');
         });
 
-        static::deleted(function($item) {
+        static::deleted(function ($item) {
             create_log('Xóa dịch vụ');
         });
     }
@@ -48,7 +50,7 @@ class Service extends Model
     {
         if ($this->sale_type) {
             return 'Dịch vụ theo lần sử dụng';
-        } 
+        }
         return 'Dịch vụ theo ngày';
     }
 

@@ -10,12 +10,13 @@ class BookingRoomCustomer extends Model
     use HasFactory;
 
     protected $fillable = [
-      'booking_room_id',
-      'customer_id',
-      'type',
-      'group_id',
-      'updated_at',
-      'created_at',
+        'branch_id',
+        'booking_room_id',
+        'customer_id',
+        'type',
+        'group_id',
+        'updated_at',
+        'created_at',
     ];
 
     public function customer()

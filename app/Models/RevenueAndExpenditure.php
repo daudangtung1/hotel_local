@@ -17,6 +17,7 @@ class RevenueAndExpenditure extends Model
     ];
 
     protected $fillable = [
+        'branch_id',
         'name',
         'money',
         'type',

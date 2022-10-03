@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Auth;
+
 function get_price($price, $suffixes = '')
 {
     if (empty($price)) {
@@ -21,4 +24,12 @@ function create_revenue_expenditures($name, $money = 0, $type = 1)
         'user_id' => \Illuminate\Support\Facades\Auth::user()->id,
     ]);
 }
-?>
+
+function get_brach_id()
+{
+    if (!Auth::check()) {
+        return false;
+    }
+
+    return Auth::user()->branch_id;
+}

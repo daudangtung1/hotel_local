@@ -25,6 +25,7 @@ class BookingRoom extends Model
     const CHECKOUT = 7;
 
     protected $fillable = [
+        'branch_id',
         'room_id',
         'customer_id',
         'start_date',
@@ -174,18 +175,18 @@ class BookingRoom extends Model
     public function getTime($suffixes = false)
     {
 
-        if($this->rent_type == 1) {
+        if ($this->rent_type == 1) {
             $time = $this->getDiffDay();
-        } elseif($this->rent_type == 2) {
+        } elseif ($this->rent_type == 2) {
             $time = $this->getDiffMonth();
         } else {
             $time = $this->getDiffHours();
         }
 
         if ($suffixes) {
-            if($this->rent_type == 1) {
+            if ($this->rent_type == 1) {
                 $suffixes = ' ngày';
-            } elseif($this->rent_type == 2) {
+            } elseif ($this->rent_type == 2) {
                 $suffixes = ' tháng';
             } else {
                 $suffixes = ' giờ';
@@ -198,9 +199,9 @@ class BookingRoom extends Model
 
     public function getRentType()
     {
-        if($this->rent_type == 1) {
+        if ($this->rent_type == 1) {
             return 'Thuê theo ngày';
-        } elseif($this->rent_type == 2) {
+        } elseif ($this->rent_type == 2) {
             return 'Thuê theo tháng';
         } else {
             return 'Thuê theo giờ';
@@ -228,9 +229,9 @@ class BookingRoom extends Model
     {
         $price = $this->price ?? 0;
         if ($price <= 0) {
-            if($this->rent_type == 1) {
+            if ($this->rent_type == 1) {
                 $price = $this->room->day_price ?? 0;
-            } elseif($this->rent_type == 2) {
+            } elseif ($this->rent_type == 2) {
                 $price = $this->room->month_price ?? 0;
             } else {
                 $price = $this->room->hour_price ?? 0;
@@ -272,18 +273,19 @@ class BookingRoom extends Model
 
         return $price * $hours;
     }
-    
-    public static function boot() {
+
+    public static function boot()
+    {
         parent::boot();
-        static::created(function($item) {
+        static::created(function ($item) {
             create_log('Tạo mới đặt phòng');
         });
 
-        static::updated(function($item) {
+        static::updated(function ($item) {
             create_log('Cập nhật đặt phòng');
         });
 
-        static::deleted(function($item) {
+        static::deleted(function ($item) {
             create_log('Xóa đặt phòng');
         });
     }

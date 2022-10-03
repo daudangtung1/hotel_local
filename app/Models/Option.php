@@ -10,6 +10,7 @@ class Option extends Model
     use HasFactory;
 
     protected $fillable = [
+        'branch_id',
         'name',
         'address',
         'phone',

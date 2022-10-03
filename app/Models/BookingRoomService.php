@@ -11,6 +11,7 @@ class BookingRoomService extends Model
     use HasFactory;
 
     protected $fillable = [
+        'branch_id',
         'booking_room_id',
         'service_id',
         'quantity',
@@ -36,8 +37,8 @@ class BookingRoomService extends Model
         $startDate = Carbon::parse($this->start_date);
         $endDate = Carbon::parse($this->end_date);
         $diffInHours = $endDate->diffInHours($startDate);
-        $total = round(($diffInHours / 24), 1 , PHP_ROUND_HALF_UP);
-        if($showDate) {
+        $total = round(($diffInHours / 24), 1, PHP_ROUND_HALF_UP);
+        if ($showDate) {
             return $total . ' ngày';
         }
         return $total;

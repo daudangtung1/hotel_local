@@ -12,6 +12,7 @@ class Shift extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'branch_id',
         'from_user_id',
         'to_user_id',
         'hold_money',

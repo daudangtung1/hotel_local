@@ -21,6 +21,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'branch_id',
         'name',
         'email',
         'branch_id',
@@ -51,17 +52,18 @@ class User extends Authenticatable
         return $this->belongsTo(Branch::class);
     }
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
-        static::created(function($item) {
+        static::created(function ($item) {
             create_log('Tạo mới người dùng');
         });
 
-        static::updated(function($item) {
+        static::updated(function ($item) {
             create_log('Cập nhật người dùng');
         });
 
-        static::deleted(function($item) {
+        static::deleted(function ($item) {
             create_log('Xóa loại người dùng');
         });
     }

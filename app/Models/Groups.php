@@ -12,10 +12,12 @@ class Groups extends Model
     use SoftDeletes;
 
     protected $table = 'groups';
-    protected $fillable = ['name', 'note'];
+    protected $fillable = [
+        'branch_id', 'name', 'note'
+    ];
 
     public function customers()
     {
-        return $this->belongsToMany(Customers::class, 'group_customers', 'group_id','customer_id');
+        return $this->belongsToMany(Customers::class, 'group_customers', 'group_id', 'customer_id');
     }
 }

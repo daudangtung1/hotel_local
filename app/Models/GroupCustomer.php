@@ -10,5 +10,7 @@ class GroupCustomer extends Model
     use HasFactory;
 
     protected $table = 'group_customers';
-    protected $fillable = ['customer_id', 'group_id'];
+    protected $fillable = [
+        'branch_id', 'customer_id', 'group_id'
+    ];
 }

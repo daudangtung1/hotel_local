@@ -73,6 +73,7 @@ class Room extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'branch_id',
         'name',
         'status',
         'floor',
@@ -129,10 +130,10 @@ class Room extends Model
                 return 'danger';
             case self::CLEAN_ROOM:
                 return 'warning';
-            case self::BOOKED  :
+            case self::BOOKED:
                 return 'light';
-            case self::NOT_FOR_RENT  :
-                return 'dark'; 
+            case self::NOT_FOR_RENT:
+                return 'dark';
             default:
                 return 'secondary';
         }
@@ -148,7 +149,7 @@ class Room extends Model
             return 'Dọn xong';
         } else if (in_array($this->status, [3, 5])) {
             return 'Trả phòng';
-        }  else if (in_array($this->status, [8])) {
+        } else if (in_array($this->status, [8])) {
             return 'Phòng không cho thuê';
         }
     }
@@ -168,21 +169,23 @@ class Room extends Model
         }
     }
 
-    public static function getUniqueFloor() {
+    public static function getUniqueFloor()
+    {
         return self::select('floor as name')->distinct()->orderBy('name', 'ASC')->get();
     }
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
-        static::created(function($item) {
+        static::created(function ($item) {
             create_log('Tạo mới phòng');
         });
 
-        static::updated(function($item) {
+        static::updated(function ($item) {
             create_log('Cập nhật phòng');
         });
 
-        static::deleted(function($item) {
+        static::deleted(function ($item) {
             create_log('Xóa phòng');
         });
     }
