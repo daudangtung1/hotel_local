@@ -52,7 +52,6 @@ class AddBranchToUserTable extends Migration
         Schema::table('options', function (Blueprint $table) {
             $table->bigInteger('branch_id')->nullable();
         });
-
         
         Schema::table('revenue_and_expenditures', function (Blueprint $table) {
             $table->bigInteger('branch_id')->nullable();
