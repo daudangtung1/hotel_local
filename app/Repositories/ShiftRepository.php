@@ -29,8 +29,15 @@ class ShiftRepository extends ModelRepository
 
     private static $instance;
 
-    public function __construct(Shift $shift, BookingRoom $bookingRoom, Customers $customers, BookingRoomCustomer $bookingRoomCustomer, Room $room, Service $service, BookingRoomService $bookingRoomService)
-    {
+    public function __construct(
+        Shift $shift,
+        BookingRoom $bookingRoom,
+        Customers $customers,
+        BookingRoomCustomer $bookingRoomCustomer,
+        Room $room,
+        Service $service,
+        BookingRoomService $bookingRoomService
+    ) {
         $this->shift = $shift;
         $this->room = $room;
         $this->bookingRoom = $bookingRoom;
@@ -56,7 +63,9 @@ class ShiftRepository extends ModelRepository
 
     public function store($request)
     {
-        $this->shift::create($request->all());
+        $data = $request->all();
+        $data['branch_id'] = get_branch_id();
+        $this->shift::create($data);
     }
 
     public function update($request)
@@ -66,7 +75,7 @@ class ShiftRepository extends ModelRepository
 
     public function getAll()
     {
-        return $this->shift->paginate(10);
+        return $this->shift->where('branch_id', get_branch_id())->paginate(10);
     }
 
     function firstOrFail($request, $paginate = true)

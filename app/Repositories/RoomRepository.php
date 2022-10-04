@@ -34,7 +34,7 @@ class RoomRepository extends ModelRepository
 
     public function getAll($sortByFloor = true, $paginate = false, $request = null)
     {
-        $rooms = $this->model;
+        $rooms = $this->model->where('branch_id', get_branch_id());
 
         if ($request) {
             $typeRoom = $request->get('type_room');
@@ -83,23 +83,24 @@ class RoomRepository extends ModelRepository
         $startDate = $request->get('start_date') ?? Carbon::now();
         $endDate   = $request->get('end_date') ?? Carbon::now();
         $rooms = $this->model->select('rooms.*')
-                             ->whereNotIn('id', function($q) use($startDate, $endDate, $roomIds) {
-                                $q->select('room_id')->from(function($query) use($startDate, $endDate){
-                                    $query->select('room_id')->from('booking_rooms')
-                                        ->join('rooms', 'rooms.id', '=', 'booking_rooms.room_id')
-                                        ->where(\DB::raw("'$startDate' BETWEEN booking_rooms.start_date AND booking_rooms.end_date
+            ->whereNotIn('id', function ($q) use ($startDate, $endDate, $roomIds) {
+                $q->select('room_id')->from(function ($query) use ($startDate, $endDate) {
+                    $query->select('room_id')->from('booking_rooms')
+                        ->join('rooms', 'rooms.id', '=', 'booking_rooms.room_id')
+                        ->where(\DB::raw("'$startDate' BETWEEN booking_rooms.start_date AND booking_rooms.end_date
                                         OR '$endDate' BETWEEN booking_rooms.start_date AND booking_rooms.end_date
                                         OR booking_rooms.start_date BETWEEN '$startDate' AND '$endDate'
                                         OR booking_rooms.end_date BETWEEN '$startDate' AND '$endDate'"));
-                                });
-                                if (!empty($roomIds)) {
-                                    $q->whereNotIn('room_id', $roomIds);
-                                }
-                            })
-                            ->whereNotNull('floor')
-                            ->orderBy('rooms.id', 'ASC')
-                            ->orderBy('floor', 'ASC')
-                            ->get();
+                });
+                if (!empty($roomIds)) {
+                    $q->whereNotIn('room_id', $roomIds);
+                }
+            })
+            ->whereNotNull('floor')
+            ->where('rooms.branch_id', get_branch_id())
+            ->orderBy('rooms.id', 'ASC')
+            ->orderBy('floor', 'ASC')
+            ->get();
         $data = [];
         if (!empty($rooms)) {
             $floorData = array_unique($rooms->pluck('floor')->toArray());
@@ -130,12 +131,8 @@ class RoomRepository extends ModelRepository
     {
         $room = $this->model->find($request->room_id);
 
-//        if (!in_array($room->status, [1, 2])) {
-//            return 'Trạng thái phòng không hợp lệ.';
-//        }
-
         if (!empty($room) && $room->status > 0) {
-            try{
+            try {
                 if ($room->status == $this->model::HAVE_GUEST) {
                     DBTransaction::beginTransaction();
                     $room->update(['status' => $this->model::DIRTY]);
@@ -145,7 +142,7 @@ class RoomRepository extends ModelRepository
                         'checkout_date' => Carbon::now()
                     ]);
                     $bookingRoom = $room->bookingRooms()->where('status', $this->model::HAVE_GUEST)->first();
-                    if($bookingRoom) {
+                    if ($bookingRoom) {
                         create_revenue_expenditures('Thanh toán tiền phòng', $bookingRoom->getTotalPrice(false, false), 2);
                     }
                     DBTransaction::commit();
@@ -156,9 +153,7 @@ class RoomRepository extends ModelRepository
                         'end_date'      => Carbon::now()
                     ]);
                 } else {
-
                 }
-
             } catch (\Throwable $e) {
                 DBTransaction::rollBack();
                 return 'Có lỗi xảy ra, vui lòng thử lại sau!';
@@ -184,7 +179,8 @@ class RoomRepository extends ModelRepository
             'hour_price'   => $request->hour_price ?? 0,
             'status'       => $request->status ?? 0,
             'user_id'      => \Auth::user()->id,
-            'type_room_id' => $request->type ?? null
+            'type_room_id' => $request->type ?? null,
+            'branch_id' => get_branch_id(),
         ]);
     }
 
@@ -211,6 +207,6 @@ class RoomRepository extends ModelRepository
 
     public function all()
     {
-        return $this->model->all();
+        return $this->model->where('branch_id', get_branch_id())->get();
     }
 }

@@ -20,8 +20,15 @@ class LostItemController extends Controller
 
     public $lostItemRepository;
 
-    public function __construct(LostItemRepository $lostItemRepository, TypeRoomRepository $typeRoomRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository)
-    {
+    public function __construct(
+        Request $request,
+        LostItemRepository $lostItemRepository,
+        TypeRoomRepository $typeRoomRepository,
+        RoomRepository $roomRepository,
+        ServiceRepository $serviceRepository,
+        BookingRoomRepository $bookingRoomRepository
+    ) {
+        $this->request = $request;
         $this->lostItemRepository = $lostItemRepository;
         $this->roomRepository = $roomRepository;
         $this->typeRoomRepository = $typeRoomRepository;

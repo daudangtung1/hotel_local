@@ -9,6 +9,7 @@ use App\Repositories\ServiceRepository;
 use App\Repositories\ShiftRepository;
 use App\Repositories\TypeRoomRepository;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class ShiftController extends Controller
 {
@@ -18,8 +19,15 @@ class ShiftController extends Controller
 
     public $typeRoomRepository;
 
-    public function __construct(ShiftRepository $shiftRepository, TypeRoomRepository $typeRoomRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository)
-    {
+    public function __construct(
+        Request $request,
+        ShiftRepository $shiftRepository,
+        TypeRoomRepository $typeRoomRepository,
+        RoomRepository $roomRepository,
+        ServiceRepository $serviceRepository,
+        BookingRoomRepository $bookingRoomRepository
+    ) {
+        $this->request = $request;
         $this->shiftRepository = $shiftRepository;
         $this->roomRepository = $roomRepository;
         $this->typeRoomRepository = $typeRoomRepository;
@@ -42,16 +50,6 @@ class ShiftController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -62,17 +60,6 @@ class ShiftController extends Controller
         $this->shiftRepository->store($request);
 
         return redirect()->route('shifts.index')->with('success', 'Tạo mới thành công');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -104,16 +91,5 @@ class ShiftController extends Controller
         $this->shiftRepository->update($request);
 
         return redirect()->route('shifts.index')->with('success', 'Cập nhật thành công');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

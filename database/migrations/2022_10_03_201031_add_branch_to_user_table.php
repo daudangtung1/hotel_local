@@ -25,9 +25,9 @@ class AddBranchToUserTable extends Migration
             $table->bigInteger('branch_id')->nullable();
         });
 
-        Schema::table('booking_room_services', function (Blueprint $table) {
-            $table->bigInteger('branch_id')->nullable();
-        });
+        // Schema::table('booking_room_services', function (Blueprint $table) {
+        //     $table->bigInteger('branch_id')->nullable();
+        // });
 
         Schema::table('customers', function (Blueprint $table) {
             $table->bigInteger('branch_id')->nullable();
@@ -37,9 +37,9 @@ class AddBranchToUserTable extends Migration
             $table->bigInteger('branch_id')->nullable();
         });
 
-        Schema::table('group_customers', function (Blueprint $table) {
-            $table->bigInteger('branch_id')->nullable();
-        });
+        // Schema::table('group_customers', function (Blueprint $table) {
+        //     $table->bigInteger('branch_id')->nullable();
+        // });
 
         Schema::table('logs', function (Blueprint $table) {
             $table->bigInteger('branch_id')->nullable();
@@ -94,9 +94,9 @@ class AddBranchToUserTable extends Migration
             $table->dropColumn('branch_id');
         });
 
-        Schema::table('booking_room_services', function (Blueprint $table) {
-            $table->dropColumn('branch_id');
-        });
+        // Schema::table('booking_room_services', function (Blueprint $table) {
+        //     $table->dropColumn('branch_id');
+        // });
 
         Schema::table('customers', function (Blueprint $table) {
             $table->dropColumn('branch_id');
@@ -106,9 +106,9 @@ class AddBranchToUserTable extends Migration
             $table->dropColumn('branch_id');
         });
 
-        Schema::table('group_customers', function (Blueprint $table) {
-            $table->dropColumn('branch_id');
-        });
+        // Schema::table('group_customers', function (Blueprint $table) {
+        //     $table->dropColumn('branch_id');
+        // });
 
         Schema::table('logs', function (Blueprint $table) {
             $table->dropColumn('branch_id');

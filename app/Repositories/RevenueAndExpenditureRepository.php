@@ -36,7 +36,7 @@ class RevenueAndExpenditureRepository extends ModelRepository
 
     public function getAll()
     {
-        return $this->model->orderBy('ID', 'DESC')->paginate(10);
+        return $this->model->where('branch_id', get_branch_id())->orderBy('ID', 'DESC')->paginate(10);
     }
 
     public function find($id)
@@ -55,13 +55,14 @@ class RevenueAndExpenditureRepository extends ModelRepository
             'name'    => $request->name ?? '',
             'money'   => $request->money ?? 0,
             'type'    => $request->type ?? 0,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'branch_id' => get_branch_id(),
         ]);
     }
 
     public function filter($request, $paginate = true)
     {
-        $data = $this->model->where('name', 'LIKE', '%' . $request->s . '%');
+        $data = $this->model->where('branch_id', get_branch_id())->where('name', 'LIKE', '%' . $request->s . '%');
         if (!empty($request->start_date)) {
             $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->start_date . ' 00:00:00');
             $data->where('created_at', '>', $startDate);
@@ -71,7 +72,7 @@ class RevenueAndExpenditureRepository extends ModelRepository
             $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->end_date . ' 00:00:00');
             $data->where('created_at', '<', $endDate);
         }
-          
+
         if ($request->type != '') {
             $data->where('type', $request->type);
         }

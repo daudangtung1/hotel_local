@@ -17,7 +17,6 @@ use DB;
 class BookingRoomCustomerRepository extends ModelRepository
 {
     protected $model;
-    private static $instance;
 
     public function __construct(BookingRoomCustomer $model)
     {

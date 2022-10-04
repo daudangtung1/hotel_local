@@ -10,8 +10,11 @@ class ServiceController extends Controller
 {
     public $serviceRepository;
 
-    public function __construct(ServiceRepository $serviceRepository)
-    {
+    public function __construct(
+        Request $request,
+        ServiceRepository $serviceRepository
+    ) {
+        $this->request = $request;
         $this->serviceRepository = $serviceRepository;
     }
 
@@ -35,7 +38,6 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
-        // TODO: validate
         $result = $this->serviceRepository->store($request);
         if ($result) {
             return redirect()->back()->with('success', 'Đăng ký thành công');

@@ -34,7 +34,7 @@ class CustomerRepository extends ModelRepository
 
     public function getAll()
     {
-        return $this->model->orderBy('ID', 'DESC')->paginate(10);
+        return $this->model->orderBy('ID', 'DESC')->where('branch_id', get_branch_id())->paginate(10);
     }
 
     public function find($request)
@@ -72,6 +72,7 @@ class CustomerRepository extends ModelRepository
             'id_card' => $request->id_card ?? '',
             'phone'   => $request->phone ?? '',
             'address' => $request->address ?? '',
+            'branch_id' => get_branch_id(),
         ];
 
         return $this->model->create($data);
@@ -111,7 +112,7 @@ class CustomerRepository extends ModelRepository
 
     public function filter($request)
     {
-        $query = $this->model;
+        $query = $this->model->where('branch_id', get_branch_id());
         if (!empty($request->name)) {
             $query = $query->where('name', 'LIKE', "%{$request->name}%");
         }
@@ -120,13 +121,13 @@ class CustomerRepository extends ModelRepository
             $query = $query->where('id_card', 'LIKE', "%{$request->id_card}%");
         }
 
-        return $query->orderBy('id','DESC')->paginate(10);
+        return $query->orderBy('id', 'DESC')->paginate(10);
     }
 
-    public function searchByCustomerName($name, $type = 'name') 
+    public function searchByCustomerName($name, $type = 'name')
     {
         if (empty($name)) return [];
-    
-        return $this->model->where($type, 'LIKE', "%{$name}%")->orderBy('id','DESC')->get();
+
+        return $this->model->where('branch_id', get_branch_id())->where($type, 'LIKE', "%{$name}%")->orderBy('id', 'DESC')->get();
     }
 }

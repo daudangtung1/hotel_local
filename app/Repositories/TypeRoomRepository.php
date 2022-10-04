@@ -15,7 +15,6 @@ use DB;
 class TypeRoomRepository extends ModelRepository
 {
     protected $model;
-    private static $instance;
 
     public function __construct(TypeRoom $model)
     {
@@ -24,9 +23,9 @@ class TypeRoomRepository extends ModelRepository
 
     public function getAll($paginate = true, $orderBy = 'DESC')
     {
-        $query = $this->model->orderBy('ID', $orderBy);
+        $query = $this->model->where('branch_id', get_branch_id())->orderBy('ID', $orderBy);
 
-        if($paginate) {
+        if ($paginate) {
             return $query->paginate(10);
         }
 
@@ -46,6 +45,7 @@ class TypeRoomRepository extends ModelRepository
     public function store($request)
     {
         $typeRoomExists = $this->model
+            ->where('branch_id', get_branch_id())
             ->where('name', $request->name)->exists();
 
         if ($typeRoomExists) {
@@ -64,7 +64,7 @@ class TypeRoomRepository extends ModelRepository
     {
         $typeRoomExists = $this->model
             ->where('name', $request->name)
-            ->where('id', '<>',$request->type_room_id)
+            ->where('id', '<>', $request->type_room_id)
             ->exists();
 
         if ($typeRoomExists) {

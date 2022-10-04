@@ -13,8 +13,12 @@ use Illuminate\Support\Facades\Log;
 
 class BookingRoomServiceController extends Controller
 {
-    public function __construct(BookingRoomServiceRepository $bookingRoomServiceRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository)
-    {
+    public function __construct(
+        BookingRoomServiceRepository $bookingRoomServiceRepository,
+        RoomRepository $roomRepository,
+        ServiceRepository $serviceRepository,
+        BookingRoomRepository $bookingRoomRepository
+    ) {
         $this->bookingRoomServiceRepository = $bookingRoomServiceRepository;
         $this->bookingRoomRepository = $bookingRoomRepository;
         $this->roomRepository = $roomRepository;
@@ -87,7 +91,7 @@ class BookingRoomServiceController extends Controller
     {
         $title = 'Báo cáo bán hàng';
         $menuReport = true;
-        if(!empty($request->export)) {
+        if (!empty($request->export)) {
             return (app(BookingRoomServiceExport::class))->download('booking-room-services.xlsx');
         }
         $bookingRoomServices = $this->bookingRoomServiceRepository->filter($request);

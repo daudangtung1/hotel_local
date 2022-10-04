@@ -13,8 +13,12 @@ class TypeRoomController extends Controller
     public $typeRoomRepository;
     public $roomRepository;
 
-    public function __construct(TypeRoomRepository $typeRoomRepository, RoomRepository $roomRepository)
-    {
+    public function __construct(
+        Request $request,
+        TypeRoomRepository $typeRoomRepository,
+        RoomRepository $roomRepository
+    ) {
+        $this->request = $request;
         $this->typeRoomRepository = $typeRoomRepository;
         $this->roomRepository = $roomRepository;
     }
@@ -58,7 +62,7 @@ class TypeRoomController extends Controller
         $request->merge(['type_room_id' => $type_room_id]);
         $currentRoom = $this->typeRoomRepository->find($request);
 
-        if($this->roomRepository->findByTypeRoomId($type_room_id)){
+        if ($this->roomRepository->findByTypeRoomId($type_room_id)) {
             return redirect()->back()->withErrors('Không thể xóa loại phòng đang được sử dụng');
         }
 

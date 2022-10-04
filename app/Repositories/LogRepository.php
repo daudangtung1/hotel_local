@@ -27,7 +27,7 @@ class LogRepository extends ModelRepository
 
     public static function instance()
     {
-        if(empty(self::$instance)){
+        if (empty(self::$instance)) {
             self::$instance = new LogRepository(new Log());
         }
         return self::$instance;
@@ -35,25 +35,25 @@ class LogRepository extends ModelRepository
 
     public function getAll($request = null)
     {
-        $query = $this->model;
-        
+        $query = $this->model->where('branch_id', get_branch_id());
+
         if ($request) {
-           $title = $request->get('title');
-           $userName = $request->get('user_name');
-           $createdAt = $request->get('created_at');
+            $title = $request->get('title');
+            $userName = $request->get('user_name');
+            $createdAt = $request->get('created_at');
 
-           if ($title) {
-             $query = $query->where('subject', 'LIKE' , "%{$title}%");
-           }
+            if ($title) {
+                $query = $query->where('subject', 'LIKE', "%{$title}%");
+            }
 
-           if ($userName) {
-             $query = $query->leftJoin('users', 'logs.user_id', '=' , 'users.id')
-                            ->where('users.name', 'LIKE', "%{$userName}%");
-           }
+            if ($userName) {
+                $query = $query->leftJoin('users', 'logs.user_id', '=', 'users.id')
+                    ->where('users.name', 'LIKE', "%{$userName}%");
+            }
 
-           if ($createdAt) {
-             $query = $query->where(\DB::raw("DATE_FORMAT(logs.created_at, '%Y-%m-%d')"), '=' , $createdAt);
-           }
+            if ($createdAt) {
+                $query = $query->where(\DB::raw("DATE_FORMAT(logs.created_at, '%Y-%m-%d')"), '=', $createdAt);
+            }
         }
 
         return $query->orderBy('logs.id', 'DESC')->paginate(10)->withQueryString();
@@ -78,6 +78,7 @@ class LogRepository extends ModelRepository
         $log['ip'] = Request::ip();
         $log['agent'] = Request::header('user-agent');
         $log['user_id'] = auth()->check() ? auth()->user()->id : 1;
+        $log['branch_id'] = get_branch_id();
         $this->model::create($log);
     }
 }

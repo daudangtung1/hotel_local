@@ -12,8 +12,11 @@ class OptionController extends Controller
      *
      * @return void
      */
-    public function __construct(OptionRepository $optionRepository)
-    {
+    public function __construct(
+        Request $request,
+        OptionRepository $optionRepository
+    ) {
+        $this->request = $request;
         $this->optionRepository = $optionRepository;
     }
 
@@ -36,49 +39,6 @@ class OptionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -90,16 +50,5 @@ class OptionController extends Controller
         $this->optionRepository->update($request);
 
         return redirect()->route('options.index')->with('success', 'Cập nhật thành công');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

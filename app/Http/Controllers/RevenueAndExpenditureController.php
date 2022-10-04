@@ -15,8 +15,11 @@ class RevenueAndExpenditureController extends Controller
 
     public $revenueAndExpenditureRepository;
 
-    public function __construct(RevenueAndExpenditureRepository $revenueAndExpenditureRepository)
-    {
+    public function __construct(
+        Request $request,
+        RevenueAndExpenditureRepository $revenueAndExpenditureRepository
+    ) {
+        $this->request = $request;
         $this->revenueAndExpenditureRepository = $revenueAndExpenditureRepository;
     }
 

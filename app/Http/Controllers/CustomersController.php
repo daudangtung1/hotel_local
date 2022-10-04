@@ -21,8 +21,13 @@ class CustomersController extends Controller
 
     public $excel;
 
-    public function __construct(customerRepository $customerRepository, UserRepository $userRepository, Excel $excel)
-    {
+    public function __construct(
+        Request $request,
+        customerRepository $customerRepository,
+        UserRepository $userRepository,
+        Excel $excel
+    ) {
+        $this->request = $request;
         $this->userRepository = $userRepository;
         $this->customerRepository = $customerRepository;
         $this->excel = $excel;
@@ -58,7 +63,7 @@ class CustomersController extends Controller
         return view('customers.create', compact('menuCategoryManager', 'customers', 'currentItem', 'title'));
     }
 
-    public function show(Request $request, $id) 
+    public function show(Request $request, $id)
     {
         $request->merge(['customer_id' => $id]);
         $currentItem = $this->customerRepository->find($request);
@@ -68,7 +73,7 @@ class CustomersController extends Controller
                 'customer' => $currentItem
             ]);
         }
-        
+
         return [];
     }
 
@@ -97,7 +102,7 @@ class CustomersController extends Controller
 
     public function report(Request $request)
     {
-        if(!empty($request->export)) {
+        if (!empty($request->export)) {
             return $this->excel->download(new CustomerExport($request), 'customers.xlsx');
         }
         $customers = $this->customerRepository->filter($request);
@@ -105,10 +110,10 @@ class CustomersController extends Controller
         return view('customers.report', compact('customers', 'menuCategoryManager'));
     }
 
-    public function SearchByCustomerName(Request $request) 
+    public function SearchByCustomerName(Request $request)
     {
-       $customers = $this->customerRepository->SearchByCustomerName($request->get('name'), $request->get('type'));
+        $customers = $this->customerRepository->SearchByCustomerName($request->get('name'), $request->get('type'));
 
-       return view('customers.user-booking-form', compact('customers'))->render();
+        return view('customers.user-booking-form', compact('customers'))->render();
     }
 }

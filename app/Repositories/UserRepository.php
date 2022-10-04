@@ -17,7 +17,6 @@ class UserRepository extends ModelRepository
 {
     protected $model;
     protected $room;
-    private static $instance;
 
     public function __construct(User $model, Room $room)
     {

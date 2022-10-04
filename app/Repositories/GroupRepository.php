@@ -26,8 +26,13 @@ class GroupRepository extends ModelRepository
     protected $bookingRoomCustomer;
 
 
-    public function __construct(Groups $model, Customers $customer, BookingRoom $bookingRoom, GroupCustomer $groupCustomer, BookingRoomCustomer $bookingRoomCustomer)
-    {
+    public function __construct(
+        Groups $model,
+        Customers $customer,
+        BookingRoom $bookingRoom,
+        GroupCustomer $groupCustomer,
+        BookingRoomCustomer $bookingRoomCustomer
+    ) {
         $this->model = $model;
         $this->customer = $customer;
         $this->bookingRoom = $bookingRoom;
@@ -37,7 +42,7 @@ class GroupRepository extends ModelRepository
 
     public function getAll($paginate = false, $request = null)
     {
-        $query = $this->model;
+        $query = $this->model->where('branch_id', get_branch_id());
 
         if ($paginate) {
             $query = $query->paginate(10);
@@ -50,7 +55,7 @@ class GroupRepository extends ModelRepository
 
     public function filter($request)
     {
-        $query = $this->model;
+        $query = $this->model->where('branch_id', get_branch_id());
         $name = $request->get('group_name');
         if ($name) {
             $query = $query->where('name', 'LIKE', "%{$name}%");
@@ -71,13 +76,14 @@ class GroupRepository extends ModelRepository
             ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
             ->join('groups', 'groups.id', '=', 'booking_room_customers.group_id')
             ->join('customers', 'customers.id', '=', 'booking_room_customers.customer_id')
+            ->where('booking_rooms.branch_id', get_branch_id())
             ->distinct()
             ->paginate(15);
     }
 
     public function getBookingInfo($request, $get_all = true)
     {
-        if(empty($request->all())) {
+        if (empty($request->all())) {
             return [];
         }
 
@@ -89,7 +95,8 @@ class GroupRepository extends ModelRepository
             ->where('groups.id', $request->group_id)
             ->where('customers.id', $request->customer_id)
             ->where('booking_rooms.start_date', $request->start_date)
-            ->where('booking_rooms.end_date', $request->end_date);
+            ->where('booking_rooms.end_date', $request->end_date)
+            ->where('booking_rooms.branch_id', get_branch_id());
 
         if ($get_all) {
             return $query->get();
@@ -109,10 +116,10 @@ class GroupRepository extends ModelRepository
             DB::beginTransaction();
 
             $this->deleteGroupCustomer($request->group_id);
-            $this->bookingRoomCustomer->where('group_id', $request->group_id)->delete();
+            $this->bookingRoomCustomer->where('branch_id', get_branch_id())->where('group_id', $request->group_id)->delete();
 
             if (!empty($arrRoomId)) {
-                $this->bookingRoom->whereIn('id', $arrRoomId)->delete();
+                $this->bookingRoom->where('branch_id', get_branch_id())->whereIn('id', $arrRoomId)->delete();
             }
 
             DB::commit();
@@ -130,7 +137,6 @@ class GroupRepository extends ModelRepository
             ];
         }
     }
-
 
     public function update($request, $id)
     {
@@ -153,15 +159,14 @@ class GroupRepository extends ModelRepository
 
             $bookingRooms = $this->getBookingInfo($request, true);
             if (!empty($bookingRooms)) {
-                foreach($bookingRooms as $bookingRoom) {
-                   $this->bookingRoom->where('id', $bookingRoom->bk_room_id)->delete();
+                foreach ($bookingRooms as $bookingRoom) {
+                    $this->bookingRoom->where('id', $bookingRoom->bk_room_id)->delete();
                 }
             }
 
             $this->bookingRoom($request);
 
             DB::commit();
-
         } catch (Exception $exception) {
             DB::rollBack();
         }
@@ -176,19 +181,21 @@ class GroupRepository extends ModelRepository
 
             $group = $this->model->firstOrCreate([
                 'name' => $request->get('group_name'),
-                'note' => $request->get('note')
+                'note' => $request->get('note'),
+                'branch_id' => get_branch_id(),
             ]);
 
             $customer = $this->customer->firstOrCreate([
                 'name'    => $request->get('customer_name'),
                 'id_card' => $request->get('customer_id_card'),
                 'phone'   => $request->get('customer_phone'),
-                'address' => $request->get('customer_address')
+                'address' => $request->get('customer_address'),
+                'branch_id' => get_branch_id(),
             ]);
 
             $groupCustomer = $this->groupCustomer->firstOrCreate([
                 'customer_id' => $customer->id,
-                'group_id'    => $group->id
+                'group_id'    => $group->id,
             ]);
             foreach ($roomIds as $roomId) {
                 $bookingRoom = $this->bookingRoom->create([
@@ -209,7 +216,6 @@ class GroupRepository extends ModelRepository
             }
 
             DB::commit();
-
         } catch (Exception $exception) {
             DB::rollBack();
             Log::info($exception->getMessage());
@@ -218,11 +224,6 @@ class GroupRepository extends ModelRepository
                 'message' => 'Dat phong cho khach bi loi'
             ];
         }
-    }
-
-    public function updateInfoBooking($request)
-    {
-
     }
 
     public function deleteGroupCustomer($group_id)

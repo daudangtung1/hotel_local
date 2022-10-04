@@ -17,7 +17,6 @@ class LostItemRepository extends ModelRepository
 {
     protected $model;
     protected $room;
-    private static $instance;
 
     public function __construct(LostItem $model, Room $room)
     {
@@ -27,7 +26,7 @@ class LostItemRepository extends ModelRepository
 
     public function getAll()
     {
-        return $this->model->orderBy('ID', 'DESC')->paginate(10);
+        return $this->model->where('branch_id', get_branch_id())->orderBy('ID', 'DESC')->paginate(10);
     }
 
     public function find($request)
@@ -46,7 +45,8 @@ class LostItemRepository extends ModelRepository
             'note'            => $request->note ?? '',
             'user_id'         => Auth::user()->id,
             'booking_room_id' => $request->booking_room_id,
-            'pay_date'        => null
+            'pay_date'        => null,
+            'branch_id'         => get_branch_id(),
         ]);
     }
 
@@ -54,7 +54,7 @@ class LostItemRepository extends ModelRepository
     {
         $lostItem = $this->model->find($id);
 
-        if(empty($lostItem->pay_date)) {
+        if (empty($lostItem->pay_date)) {
             if ($request->status == 1) {
                 $data = [
                     'pay_date' => Carbon::now()

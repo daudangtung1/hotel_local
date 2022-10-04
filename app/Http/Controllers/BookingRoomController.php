@@ -17,8 +17,16 @@ use Illuminate\Support\Facades\Log;
 
 class BookingRoomController extends Controller
 {
-    public function __construct(OptionRepository $optionRepository,TypeRoomRepository $typeRoomRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository, GroupRepository $groupRepository)
-    {
+    public function __construct(
+        Request $request,
+        OptionRepository $optionRepository,
+        TypeRoomRepository $typeRoomRepository,
+        RoomRepository $roomRepository,
+        ServiceRepository $serviceRepository,
+        BookingRoomRepository $bookingRoomRepository,
+        GroupRepository $groupRepository
+    ) {
+        $this->request = $request;
         $this->bookingRoomRepository = $bookingRoomRepository;
         $this->roomRepository = $roomRepository;
         $this->serviceRepository = $serviceRepository;
@@ -36,6 +44,7 @@ class BookingRoomController extends Controller
         if ($request->ajax()) {
             return view('room.list-booking-room', compact('floors', 'bookingRooms'))->render();
         }
+
         $menuCategoryManager = true;
         return view('booking-room.index', compact('title', 'menuCategoryManager'));
     }
@@ -90,7 +99,7 @@ class BookingRoomController extends Controller
             ];
         }
         $this->bookingRoomRepository->store($request);
-
+     
         $floors = $this->roomRepository->getAll();
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking();
 
@@ -98,11 +107,12 @@ class BookingRoomController extends Controller
     }
 
     public function getHistory(Request $request)
-    {
+    {  
+        $menuSystem = true;
         $bookingRooms = $this->bookingRoomRepository->getHistory();
         $title = 'Lịch sử đặt phòng';
 
-        return view('booking-room.history', compact('bookingRooms', 'title'));
+        return view('booking-room.history', compact('menuSystem', 'bookingRooms', 'title'));
     }
 
     public function edit($id)
@@ -157,7 +167,7 @@ class BookingRoomController extends Controller
 
         $bookingRoom = $this->bookingRoomRepository->firstOrFail($request);
 
-        if($bookingRoom) {
+        if ($bookingRoom) {
             $bookingRoom->delete();
 
             return redirect()->back()->with('success', 'Xóa thành công');
@@ -166,7 +176,7 @@ class BookingRoomController extends Controller
 
     public function showInvoice(Request $request)
     {
-        if(empty($request->id)) {
+        if (empty($request->id)) {
             abort(404);
         }
         $option = $this->optionRepository->find();
@@ -181,7 +191,7 @@ class BookingRoomController extends Controller
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBookingUsed($request);
         $title = 'Quản lý đặt phòng';
         $menuSystem = true;
-        return view('booking-room.used', compact('bookingRooms', 'menuSystem','title'));
+        return view('booking-room.used', compact('bookingRooms', 'menuSystem', 'title'));
     }
 
     public function getListBookingInfoClosest(Request $request)
@@ -190,7 +200,7 @@ class BookingRoomController extends Controller
         $menuSystem = true;
         $customerInfoBookingRooms = $this->bookingRoomRepository->getListBookingInfoClosest($request);
 
-        return view('booking-room.booking_info', compact('customerInfoBookingRooms', 'menuSystem','title'));
+        return view('booking-room.booking_info', compact('customerInfoBookingRooms', 'menuSystem', 'title'));
     }
 
     public function getBookingRoomInfo(Request $request)

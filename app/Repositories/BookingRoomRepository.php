@@ -28,8 +28,15 @@ class BookingRoomRepository extends ModelRepository
 
     private static $instance;
 
-    public function __construct(Groups $group, BookingRoom $bookingRoom, Customers $customers, BookingRoomCustomer $bookingRoomCustomer, Room $room, Service $service, BookingRoomService $bookingRoomService)
-    {
+    public function __construct(
+        Groups $group,
+        BookingRoom $bookingRoom,
+        Customers $customers,
+        BookingRoomCustomer $bookingRoomCustomer,
+        Room $room,
+        Service $service,
+        BookingRoomService $bookingRoomService
+    ) {
         $this->group = $group;
         $this->room = $room;
         $this->bookingRoom = $bookingRoom;
@@ -50,7 +57,7 @@ class BookingRoomRepository extends ModelRepository
 
     public function getAll()
     {
-        $rooms = $this->bookingRoom->orderBy('floor', 'ASC')->get();
+        $rooms = $this->bookingRoom->where('branch_id', get_branch_id())->orderBy('floor', 'ASC')->get();
         $data = [];
 
         foreach ($rooms as $room) {
@@ -67,22 +74,22 @@ class BookingRoomRepository extends ModelRepository
 
     public function getHistory()
     {
-        return $this->bookingRoom->where('status', $this->room::CLOSED)->orderBy('start_date', 'ASC')->paginate(10);
+        return $this->bookingRoom->where('status', $this->room::CLOSED)->where('branch_id', get_branch_id())->orderBy('start_date', 'ASC')->paginate(10);
     }
 
     public function getAllRoomsBooking($request = null)
     {
-        return $this->bookingRoom->where('status', 6)->orderBy('start_date', 'ASC')->paginate(10);
+        return $this->bookingRoom->where('status', $this->room::BOOKED)->where('branch_id', get_branch_id())->orderBy('start_date', 'ASC')->paginate(10);
     }
 
     public function getAllRoomsBookingFinish()
     {
-        return $this->bookingRoom->where('status', 7)->orderBy('start_date', 'ASC')->get();
+        return $this->bookingRoom->where('status', $this->room::CLOSED)->where('branch_id', get_branch_id())->orderBy('start_date', 'ASC')->get();
     }
 
     public function getAllRoomsBookingUsed($request = null)
     {
-        $data = $this->bookingRoom->where('status', 7);
+        $data = $this->bookingRoom->where('status', $this->room::CLOSED)->where('branch_id', get_branch_id());
         if (!empty($request->name)) {
             $data = $data->whereHas('bookingRoomCustomers.customer', function ($q) use ($request) {
                 $q->where('name', 'LIKE', '%' . $request->name . '%');
@@ -103,20 +110,20 @@ class BookingRoomRepository extends ModelRepository
     {
         $bookingRoom = $this->bookingRoom->find($request->booking_room_id);
 
-        if(!$bookingRoom) {
+        if (!$bookingRoom) {
             return [
                 'status'  => false,
                 'message' => 'Có lỗi xảy ra vui lòng thử lại sau.'
             ];
         }
-        
-        if(Carbon::parse($bookingRoom->start_date) < Carbon::now()) {
+
+        if (Carbon::parse($bookingRoom->start_date) < Carbon::now()) {
             return [
                 'status'  => false,
                 'message' => 'Chưa đến thời điểm nhận phòng, vui lòng thử lại sau'
             ];
         }
-        
+
         if ($bookingRoom->room->status != $this->room::READY) {
             return [
                 'status'  => false,
@@ -143,7 +150,6 @@ class BookingRoomRepository extends ModelRepository
             }
             $this->room->where('id', $request->room_id)->update(['status' => $this->room::HAVE_GUEST]);
         }
-
     }
 
     public function bookingRooms($request)
@@ -164,7 +170,8 @@ class BookingRoomRepository extends ModelRepository
                 'extra_price'   => $request->extra_price ?? 0,
                 'rent_type'     => 1, // theo ngày
                 'status'        => 6,
-                'user_id'       => \Auth::user()->id
+                'user_id'       => \Auth::user()->id,
+                'branch_id' => get_branch_id(),
             ];
             $bookingRoom = $this->bookingRoom->create($data);
 
@@ -172,8 +179,8 @@ class BookingRoomRepository extends ModelRepository
                 $this->bookingRoomCustomer->create([
                     'booking_room_id' => $bookingRoom->id,
                     'customer_id'     => $customer->id,
+                    'branch_id' => get_branch_id(),
                 ]);
-
             }
         }
     }
@@ -187,6 +194,7 @@ class BookingRoomRepository extends ModelRepository
                 ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
                 ->join('customers', 'booking_room_customers.customer_id', '=', 'customers.id')
                 ->where('rooms.id', $roomId)
+                ->where('rooms.branch_id', get_branch_id())
                 ->whereNull('booking_rooms.checkout_date')
                 ->orderBy('start_date', 'ASC')
                 ->paginate(10);
@@ -206,7 +214,7 @@ class BookingRoomRepository extends ModelRepository
         $room = $this->room->find($request->room_id);
 
         if (!empty($room) && $room->status != $this->room::READY) {
-            $bookingRoom = $room->bookingRooms()->orderBy('id', 'DESC')->first();
+            $bookingRoom = $room->bookingRooms()->orderBy('id', 'DESC')->where('branch_id', get_branch_id())->first();
         } else {
 
             $data = [
@@ -217,7 +225,8 @@ class BookingRoomRepository extends ModelRepository
                 'price'         => $request->price ?? 0,
                 'rent_type'     => $request->rent_type ?? 0,
                 'status'        => 1,
-                'user_id'       => \Auth::user()->id
+                'user_id'       => \Auth::user()->id,
+                'branch_id' => get_branch_id(),
             ];
 
             if ($request->rent_type == 1 || $request->rent_type == 2) {
@@ -232,6 +241,7 @@ class BookingRoomRepository extends ModelRepository
             $this->bookingRoomCustomer->create([
                 'booking_room_id' => $bookingRoom->id,
                 'customer_id'     => $customer->id,
+                'branch_id' => get_branch_id(),
             ]);
         }
     }
@@ -240,8 +250,8 @@ class BookingRoomRepository extends ModelRepository
     {
         $room = $this->room->find($request->room_id);
         $service = $this->service->find($request->service_id);
-        if (!empty($room->bookingRooms()->whereIn('status', [1, 3, 5])->where('status', '<>', 7)->first())) {
-            $bookingRoom = $room->bookingRooms()->orderBy('id', 'DESC')->first();
+        if (!empty($room->bookingRooms()->whereIn('status', [1, 3, 5])->where('branch_id', get_branch_id())->where('status', '<>', 7)->first())) {
+            $bookingRoom = $room->bookingRooms()->orderBy('id', 'DESC')->where('branch_id', get_branch_id())->first();
         } else {
             $bookingRoom = $this->bookingRoom->create([
                 'end_date'   => $request->end_date ?? '',
@@ -251,7 +261,8 @@ class BookingRoomRepository extends ModelRepository
                 'rent_type'  => $request->rent_type ?? 0,
                 'price'      => $request->price ?? 0,
                 'status'     => 1,
-                'user_id'    => \Auth::user()->id
+                'user_id'    => \Auth::user()->id,
+                'branch_id' => get_branch_id(),
             ]);
         }
 
@@ -259,6 +270,7 @@ class BookingRoomRepository extends ModelRepository
             'booking_room_id' => $bookingRoom->id,
             'service_id'      => $service->id,
         ])->first();
+
         if (empty($bookingRoomService)) {
             $bookingRoomService = $this->bookingRoomService->create([
                 'booking_room_id' => $bookingRoom->id,
@@ -278,10 +290,10 @@ class BookingRoomRepository extends ModelRepository
 
     public function getMinutes()
     {
-        $rooms = $this->room->where('status', $this->room::HAVE_GUEST)->get();
+        $rooms = $this->room->where('status', $this->room::HAVE_GUEST)->where('branch_id', get_branch_id())->get();
         $data = [];
         foreach ($rooms as $room) {
-            $bookingRoom = $room->bookingRooms()->orderBy('id', 'DESC')->first();
+            $bookingRoom = $room->bookingRooms()->orderBy('id', 'DESC')->where('branch_id', get_branch_id())->first();
             if (empty($bookingRoom)) {
                 continue;
             }
@@ -331,18 +343,7 @@ class BookingRoomRepository extends ModelRepository
             ];
 
             $this->bookingRoom->where('id', $request->booking_room_id)->update($data);
-//            $bookingRoom = $this->bookingRoom->create($data);
-//
-//            if (!empty($bookingRoom)) {
-//                $this->bookingRoomCustomer->create([
-//                    'booking_room_id' => $bookingRoom->id,
-//                    'customer_id'     => $customer->id,
-//                ]);
-//
-//            }
         }
-
-//        $this->bookingRoom->where('id', $request->booking_room_id)->update($data);
     }
 
     public function updateBookingRoom($request)
@@ -368,7 +369,7 @@ class BookingRoomRepository extends ModelRepository
 
     public function filter($request, $paginate = true)
     {
-        $data = $this->bookingRoom->where('note', 'LIKE', '%' . $request->s . '%');
+        $data = $this->bookingRoom->where('branch_id', get_branch_id())->where('note', 'LIKE', '%' . $request->s . '%');
         if (!empty($request->start_date)) {
             $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->start_date . ' 00:00:00');
             $data->where('start_date', '>', $startDate);
@@ -401,6 +402,7 @@ class BookingRoomRepository extends ModelRepository
                 ->join('booking_room_customers', 'booking_rooms.id', '=', 'booking_room_customers.booking_room_id')
                 ->join('customers', 'booking_room_customers.customer_id', '=', 'customers.id')
                 ->where('rooms.id', $roomId)
+                ->where('rooms.branch_id', get_branch_id())
                 ->whereNull('booking_rooms.checkout_date')
                 ->orderBy('start_date', 'ASC')
                 ->first();
@@ -413,6 +415,7 @@ class BookingRoomRepository extends ModelRepository
     public function totalRoomBooked($date, $type)
     {
         $total = $this->bookingRoom->join('rooms', 'rooms.id', '=', 'booking_rooms.room_id')
+            ->where('rooms.branch_id', get_branch_id())
             ->leftJoin('type_rooms', 'type_rooms.id', '=', 'rooms.type_room_id')
             ->whereIn('booking_rooms.status', [1, 3, 6, 7])
             ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $date)
@@ -428,6 +431,7 @@ class BookingRoomRepository extends ModelRepository
         $startDate = date('Y-m-d', strtotime($request->get('start_date')));
         $roomId = $request->get('room_id');
         $data = $this->bookingRoom->where('room_id', $roomId)
+            ->where('branch_id', get_branch_id())
             ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $startDate)
             ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $startDate)
             ->first();
@@ -438,11 +442,11 @@ class BookingRoomRepository extends ModelRepository
     {
         $dateFilter = !empty($request->start_date) ? Carbon::parse($request->start_date) : Carbon::now();
 
-        $roomIn = $this->room->whereHas('bookingRooms', function ($query) use ($dateFilter) {
+        $roomIn = $this->room->where('branch_id', get_branch_id())->whereHas('bookingRooms', function ($query) use ($dateFilter) {
             return $query->whereDate('start_date', $dateFilter)->withTrashed();
         })->withTrashed()->get();
 
-        $roomOut = $this->room->whereHas('bookingRooms', function ($query) use ($dateFilter) {
+        $roomOut = $this->room->where('branch_id', get_branch_id())->whereHas('bookingRooms', function ($query) use ($dateFilter) {
             return $query->whereDate('checkout_date', $dateFilter)->withTrashed();
         })->withTrashed()->get();
 
@@ -459,12 +463,12 @@ class BookingRoomRepository extends ModelRepository
             })->withTrashed();
         })->withTrashed()->get();
 
-        $roomEmpty = $this->room->whereHas('bookingRooms', function ($query) use ($dateFilter) {
+        $roomEmpty = $this->room->where('branch_id', get_branch_id())->whereHas('bookingRooms', function ($query) use ($dateFilter) {
             return $query->whereDate('start_date', '>', $dateFilter)
                 ->orWhereDate('checkout_date', '<', $dateFilter)->withTrashed();
         })->withTrashed()->get();
 
-        $roomNotForRent = $this->room->where('status', Room::NOT_FOR_RENT)->get();
+        $roomNotForRent = $this->room->where('branch_id', get_branch_id())->where('status', Room::NOT_FOR_RENT)->get();
         $roomsNotRent = [];
         foreach ($roomNotForRent as $room) {
             $roomsNotRent[$room->status_desc][] = $room->name;
@@ -521,6 +525,6 @@ class BookingRoomRepository extends ModelRepository
     {
         if (empty($arrIds)) return false;
 
-        $this->bookingRoom->whereIn('id', $arrIds)->delete();
+        $this->bookingRoom->where('branch_id', get_branch_id())->whereIn('id', $arrIds)->delete();
     }
 }

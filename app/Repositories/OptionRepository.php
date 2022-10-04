@@ -27,18 +27,18 @@ class OptionRepository extends ModelRepository
 
     public function all()
     {
-        return $this->model->get();
+        return $this->model->where('branch_id', get_branch_id())->get();
     }
 
     public function find()
     {
-        return $this->model->first();
+        return $this->model->where('branch_id', get_branch_id())->first();
     }
 
     public function update($request)
     {
        $this->model->updateOrCreate([
-           'id' => 1,
+           'branch_id' => get_branch_id()
        ], [
            'name' => $request->name ?? '',
            'address' => $request->address ?? '',

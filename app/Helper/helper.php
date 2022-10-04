@@ -25,11 +25,11 @@ function create_revenue_expenditures($name, $money = 0, $type = 1)
     ]);
 }
 
-function get_brach_id()
+function get_branch_id()
 {
     if (!Auth::check()) {
         return false;
     }
 
-    return Auth::user()->branch_id;
+    return Auth::user()->branch_id ?? null;
 }

@@ -14,8 +14,12 @@ class UserController extends Controller
 
     public $serviceRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(
+        Request $request,
+        UserRepository $userRepository
+        )
     {
+        $this->request = $request;
         $this->userRepository = $userRepository;
     }
 
@@ -52,7 +56,6 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        // TODO: validate
         $result = $this->userRepository->update($request);
         if (isset($result['status']) && $result['status'] == false) {
             return redirect()->back()->withErrors($result['message']);

@@ -33,7 +33,7 @@ class ServiceRepository extends ModelRepository
 
     public function getAll($in_stock = false)
     {
-        $services = $this->model->orderBy('ID', 'DESC');
+        $services = $this->model->where('branch_id', get_branch_id())->orderBy('ID', 'DESC');
         if (!$in_stock) {
             $services = $services->where('stock', '>', 0);
         }
@@ -56,7 +56,7 @@ class ServiceRepository extends ModelRepository
                 'price' => $request->get('price')
             ];
 
-           return $model->update($params);
+            return $model->update($params);
         }
 
         return $this->model->create([
@@ -65,13 +65,14 @@ class ServiceRepository extends ModelRepository
             'price'   => $request->price,
             'type'    => $request->type,
             'sale_type'    => $request->sale_type,
-            'user_id' => \Auth::user()->id
+            'user_id' => \Auth::user()->id,
+            'branch_id' => get_branch_id(),
         ]);
     }
 
     public function filter($request)
     {
-        $query = $this->model;
+        $query = $this->model->where('branch_id', get_branch_id());
         if (!empty($request->start_date)) {
             $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->start_date . ' 00:00:00');
             $query = $query->whereDate('created_at', '>=', $startDate);
@@ -82,6 +83,6 @@ class ServiceRepository extends ModelRepository
             $query = $query->whereDate('created_at', '<=', $endDate);
         }
 
-        return $query->orderBy('id','DESC')->paginate(10);
+        return $query->orderBy('id', 'DESC')->paginate(10);
     }
 }

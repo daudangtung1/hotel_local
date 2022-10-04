@@ -16,8 +16,14 @@ class RoomController extends Controller
 
     public $typeRoomRepository;
 
-    public function __construct(TypeRoomRepository $typeRoomRepository, RoomRepository $roomRepository, ServiceRepository $serviceRepository, BookingRoomRepository $bookingRoomRepository)
-    {
+    public function __construct(
+        Request $request,
+        TypeRoomRepository $typeRoomRepository,
+        RoomRepository $roomRepository,
+        ServiceRepository $serviceRepository,
+        BookingRoomRepository $bookingRoomRepository
+    ) {
+        $this->request = $request;
         $this->roomRepository = $roomRepository;
         $this->typeRoomRepository = $typeRoomRepository;
         $this->serviceRepository = $serviceRepository;
@@ -50,7 +56,7 @@ class RoomController extends Controller
         $typeRoomsSelect = $this->typeRoomRepository->getAll(false);
         $title = 'Tạo mới phòng';
 
-        return view('room.create', compact('typeRoomsSelect', 'typeRooms','menuSetup', 'rooms', 'title'));
+        return view('room.create', compact('typeRoomsSelect', 'typeRooms', 'menuSetup', 'rooms', 'title'));
     }
 
     public function store(Request $request)
