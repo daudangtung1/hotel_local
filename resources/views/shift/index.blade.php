@@ -16,7 +16,7 @@
                         @csrf
 
                         <div class="col-md-12">
-                            <label for="from_user_id" class="form-label">Nhân viên giao ca:</label>
+                            <label for="from_user_id" class="form-label fw-bold">Nhân viên giao ca:</label>
                             <select id="from_user_id" name="from_user_id" class="form-select" required>
                                 @foreach($users as $key => $user)
                                     <option
@@ -26,24 +26,24 @@
                             </select>
                         </div>
                         <div class="col-md-12">
-                            <label for="hold_money" class="form-label">Quỹ nhân viên giữ</label>
+                            <label for="hold_money" class="form-label fw-bold">Quỹ nhân viên giữ</label>
                             <input type="number" class="form-control form-control-sm form-control-sm" id="hold_money" name="hold_money"
                                    value="{{$currentItem->hold_money ??''}}" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="send_money" class="form-label">Số tiền giao ca</label>
+                            <label for="send_money" class="form-label fw-bold">Số tiền giao ca</label>
                             <input type="number" class="form-control form-control-sm form-control-sm" id="send_money" name="send_money"
                                    value="{{$currentItem->send_money ??''}}" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="balance_number" class="form-label">Còn lại</label>
+                            <label for="balance_number" class="form-label fw-bold">Còn lại</label>
                             <input type="number" class="form-control form-control-sm form-control-sm" id="balance_number"
                                    name="balance_number"
                                    value="{{$currentItem->balance_number ??''}}" required>
                         </div>
 
                         <div class="col-md-12">
-                            <label for="to_user_id" class="form-label">Nhân viên nhận ca:</label>
+                            <label for="to_user_id" class="form-label fw-bold">Nhân viên nhận ca:</label>
                             <select id="to_user_id" name="to_user_id" class="form-select" required>
                                 @foreach($users as $key => $user)
                                     <option
@@ -53,7 +53,8 @@
                             </select>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentItem)) Cập nhật @else
+                            <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else
+                            btn-primary @endif">@if(isset($currentItem)) Cập nhật @else
                                     Tạo mới @endif</button>
                             @if(!empty($currentItem))
                                 <a href="{{route('shifts.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>

@@ -15,25 +15,25 @@
                         <input type="hidden" name="customer_id" value="{{$currentItem->id ??''}}"/>
                         @csrf
                         <div class="col-md-12">
-                            <label for="name" class="form-label">Tên</label>
-                            <input type="text" class="form-control form-control-sm form-control-sm" id="name" name="name"
+                            <label for="name" class="form-label fw-bold">Tên</label>
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm" id="name" name="name"
                                    value="{{$currentItem->name ??''}}" required
                                    @if(!empty($currentItem)) readonly @endif>
                         </div>
                         <div class="col-md-12">
-                            <label for="id_card" class="form-label">CMND</label>
-                            <input type="text" class="form-control form-control-sm form-control-sm" id="id_card" name="id_card"
+                            <label for="id_card" class="form-label fw-bold">CMND</label>
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm" id="id_card" name="id_card"
                                    value="{{$currentItem->id_card ??''}}" required>
                         </div>
 
                         <div class="col-md-12">
-                            <label for="phone" class="form-label">Điện thoại</label>
-                            <input type="text" class="form-control form-control-sm form-control-sm" id="phone" name="phone"
+                            <label for="phone" class="form-label fw-bold">Điện thoại</label>
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm" id="phone" name="phone"
                                    value="{{$currentItem->phone ??''}}" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="address" class="form-label">Địa chỉ</label>
-                            <input type="text" class="form-control form-control-sm form-control-sm" id="address" name="address"
+                            <label for="address" class="form-label fw-bold">Địa chỉ</label>
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm" id="address" name="address"
                                    value="{{$currentItem->address ??''}}" required>
                         </div>
                         <div class="col-12">
@@ -94,7 +94,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">Không có dữ liệu</td>
+                                <td colspan="6">Không có dữ liệu</td>
                             </tr>
                         @endforelse
                         </tbody>

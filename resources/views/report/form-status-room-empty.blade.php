@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-end align-items-center mb-3">
         <div class="filter">
             <form action="{{route('reports.index')}}" class="d-flex" method="GET">
-                <input type="text" class="form-control form-control-sm me-2 filter-date-not-time" placeholder="Chọn ngày" name="start_date" value="@if(!empty(request()->start_date)) {{request()->start_date}} @endif"  autocomplete="off">
+                <input type="text" autocomplete="off"  class="form-control form-control-sm me-2 filter-date-not-time" placeholder="Chọn ngày" name="start_date" value="@if(!empty(request()->start_date)) {{request()->start_date}} @endif"  autocomplete="off">
                 <input type="hidden" name="by" value="{{request()->by ?? ''}}">
                 <select class="form-control form-control-sm" name="month_year" id="">
                     @foreach ($monthRanges as $month)

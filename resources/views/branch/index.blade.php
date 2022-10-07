@@ -14,20 +14,21 @@
                         @endif
                         @csrf
                         <div class="col-md-12">
-                            <label for="name" class="form-label">Tên chi nhánh</label>
+                            <label for="name" class="form-label fw-bold">Tên chi nhánh</label>
                             <textarea type="text" class="form-control form-control-sm form-control-sm" id="name" name="name"
                                       required>{{$currentItem->name ??''}}</textarea>
                         </div>
                         <div class="col-md-12">
-                            <label for="note" class="form-label">Mô tả</label>
+                            <label for="note" class="form-label fw-bold">Mô tả</label>
                                    <textarea type="text" class="form-control form-control-sm form-control-sm" rows="4" id="note" name="note"
                                       required>{{$currentItem->note ??''}}</textarea>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentItem)) Cập nhật @else
+                            <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else
+                            btn-primary @endif">@if(isset($currentItem)) Cập nhật @else
                                     Tạo mới @endif</button>
                             @if(!empty($currentItem))
-                                <a href="{{route('branchs.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                                <a href="{{route('branchs.create')}}" class="btn btn-sm btn-primary">Tạo mới</a>
                             @endif
                         </div>
                     </form>
@@ -76,7 +77,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">Không có bản ghi nào</td>
+                                <td colspan="5">Không có dữ liệu</td>
                             </tr>
                         @endforelse
                         </tbody>

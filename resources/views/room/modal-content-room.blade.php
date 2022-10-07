@@ -13,36 +13,36 @@
                 <h2>Khách hàng</h2>
                 <div id="customer-booking">
                     <div class="col-md-12 mb-3 position-relative">
-                        <input type="text" class="form-control form-control-sm form-control-sm validate " id="customer_name"
+                        <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm validate " id="customer_name"
                             name="customer_name" required
                             placeholder="Tên khách hàng" autocomplete="Off" >
                         <div class="col-md-12 mb-3 list-ajax" id="list-item-customer"></div>
                     </div>
                     <div class="col-md-12 mb-3 position-relative">
-                        <input type="text" class="form-control form-control-sm form-control-sm validate " id="customer_id_card"
+                        <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm validate " id="customer_id_card"
                             name="customer_id_card" required
                             placeholder="Số giấy tờ" autocomplete="Off" >
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-id_card"></div>
                     </div>
 
                     <div class="col-md-12 mb-3 position-relative">
-                        <input type="text" class="form-control form-control-sm form-control-sm validate " id="customer_phone"
+                        <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm validate " id="customer_phone"
                             name="customer_phone" required
                             placeholder="Điện thoại" autocomplete="Off" >
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-phone"></div>
                     </div>
                     <div class="col-md-12 mb-3 position-relative">
-                        <input type="text" class="form-control form-control-sm form-control-sm validate " id="customer_address"
+                        <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm validate " id="customer_address"
                             name="customer_address" required placeholder="Địa chỉ">
                     </div>
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="start_date" class="form-label">Thời gian bắt
+                                <label for="start_date" class="form-label fw-bold">Thời gian bắt
                                     đầu:</label>
                                 <div class="form-group">
                                     <div class="input-group date">
-                                        <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="start_date"
+                                        <input type="text" autocomplete="off"  min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="start_date"
                                             class="form-control form-control-sm form-control-sm datetime-picker" readonly
                                             value="@if(!empty($bookingRoom) && !empty($bookingRoom->start_date)){{date('Y-m-d H:i',strtotime( $bookingRoom->start_date))}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}">
                                     </div>
@@ -50,10 +50,10 @@
                             </div>
                             <div class="col-md-12 @if(empty($bookingRoom) || empty($bookingRoom->end_date) ) d-none @endif"
                                 id="box-end-date">
-                                <label for="end_date" class="form-label">Thời gian kết
+                                <label for="end_date" class="form-label fw-bold">Thời gian kết
                                     thúc:</label>
                                 <div class="input-group date">
-                                    <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="end_date"
+                                    <input type="text" autocomplete="off"  min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="end_date"
                                         class="form-control form-control-sm form-control-sm datetime-picker" readonly
                                         value="@if(!empty($bookingRoom) && !empty($bookingRoom->end_date) && $bookingRoom->rent_type == 1){{date('Y-m-d H:i',strtotime( $bookingRoom->end_datedate))}}@else{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}@endif">
                                 </div>
@@ -133,14 +133,14 @@
                             <td>{{$service->name ??''}}
                                 @if($service->sale_type == 0)
                                     <div class="row d-none">
-                                        <div class="col-6">
-                                            <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  readonly class="datetime-picker form-control form-control-sm modal_start_date" name="modal_start_date">
+                                        <div class="col-5">
+                                            <input type="text" autocomplete="off" value="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  readonly class="datetime-picker form-control form-control-sm modal_start_date" name="modal_start_date">
                                         </div>
-                                        <div class="col-6 ps-0">
-                                            <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}" readonly  class="datetime-picker form-control form-control-sm modal_end_date" name="modal_end_date">
+                                        <div class="col-5 ps-0">
+                                            <input type="text" autocomplete="off"  value="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}" readonly  class="datetime-picker form-control form-control-sm modal_end_date" name="modal_end_date">
                                         </div>
-                                        <div class="col-12">
-                                            <button class="btn btn-sm btn-primary model-btn-add-service mt-1">Thêm dịch vụ</button>
+                                        <div class="col-2">
+                                            <button class="btn btn-sm btn-primary model-btn-add-service">Thêm</button>
                                         </div>
                                         <input type="hidden" name="modal_service_id" class="modal_service_id" value="{{$service->id}}">
                                     </div>
@@ -261,12 +261,12 @@
                     </div>
                 @endif
                 <div class="col-md-12 mt-3">
-                    <label for="price" class="form-label">Giá thuê mới:</label>
+                    <label for="price" class="form-label fw-bold">Giá thuê mới:</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input type="text" class="form-control form-control-sm form-control-sm price" name="price" id="price"
+                        <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm price" name="price" id="price"
                                value="@if(!empty($bookingRoom)){!! $bookingRoom->price ??0 !!}@endif" min="0">
                         <div class="input-group-append">
                             <span class="input-group-text">đ</span>
@@ -276,12 +276,12 @@
                 <div
                     class="col-md-12 extra-price-box  @if(!empty($bookingRoom) && !empty($bookingRoom->end_date)) d-block @else d-none @endif"
                     id="box-extra-price">
-                    <label for="extra_price" class="form-label">Số tiền quá giờ̀:</label>
+                    <label for="extra_price" class="form-label fw-bold">Số tiền quá giờ̀:</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input type="text" class="form-control form-control-sm form-control-sm extra_price" name="extra_price"
+                        <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm extra_price" name="extra_price"
                                id="extra_price"
                                value="@if(!empty($bookingRoom)){!! $bookingRoom->extra_price ?? 0 !!}@endif" min="0">
                         <div class="input-group-append">
@@ -290,13 +290,13 @@
                     </div>
                 </div>
                 <div class="col-md-12 mt-3">
-                    <label for="price" class="form-label">Ghi chú:</label>
+                    <label for="price" class="form-label fw-bold">Ghi chú:</label>
                     <textarea name="note" class="form-control form-control-sm form-control-sm note" cols="30" rows="2"
                               placeholder="Ghi chú">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
                 </div>
                 @if(!empty($bookingRoom) && in_array($bookingRoom->status, [1,3,5]))
                     <div class="col-md-12 mt-3">
-                        <label for="price" class="form-label">Tình trạng:</label>
+                        <label for="price" class="form-label fw-bold">Tình trạng:</label>
                         <select name="booking_room_status" id="booking_room_status" class="form-control form-control-sm">
                             <option value="" selected>Không</option>
                             @foreach(\App\Models\Room::ARRAY_UPDATE_STATUS as $key => $status)
@@ -333,3 +333,16 @@
         </div>
     </div>
 </div>
+
+@section('script')
+<script>
+    var date = $('.datetime-picker');
+        if (date) {
+            date.datetimepicker({
+                todayHighlight: true,
+                format: 'Y-m-d H:i',
+                startDate: new Date()
+            });
+        }
+</script>
+@endsection

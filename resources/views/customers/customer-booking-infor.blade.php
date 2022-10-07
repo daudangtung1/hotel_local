@@ -9,26 +9,26 @@
             <div class="col-md-6">
                 <div class="row mt-3" id="form-booking-multiple">
                     <div class="col-md-6 mb-3">
-                        <label for="end_date" class="form-label">Tên khách hàng:</label>
+                        <label for="end_date" class="form-label fw-bold">Tên khách hàng:</label>
                         <p>{{$bookingRoomInfo->cusomter_name}}</p>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="end_date" class="form-label">Số giấy tờ:</label>
+                        <label for="end_date" class="form-label fw-bold">Số giấy tờ:</label>
                         <p>{{$bookingRoomInfo->id_card}}</p>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="end_date" class="form-label">Điện thoại:</label>
+                        <label for="end_date" class="form-label fw-bold">Điện thoại:</label>
                         <p>{{$bookingRoomInfo->phone}}</p>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="end_date" class="form-label">Địa chỉ:</label>
+                        <label for="end_date" class="form-label fw-bold">Địa chỉ:</label>
                         <p>{{$bookingRoomInfo->address}}</p>
                     </div>
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="start_date" class="form-label">Thời gian bắt
+                                <label for="start_date" class="form-label fw-bold">Thời gian bắt
                                     đầu:</label>
                                 <div class="form-group">
                                     <p>{{$bookingRoomInfo->start_date ?? \Carbon\Carbon::now()}}</p>
@@ -37,7 +37,7 @@
                             <div
                                 class="col-md-6 "
                                 id="box-end-date">
-                                <label for="end_date" class="form-label">Thời gian kết
+                                <label for="end_date" class="form-label fw-bold">Thời gian kết
                                     thúc:</label>
                                 <div class="input-group date">
                                    <p>{{$bookingRoomInfo->end_date ?? \Carbon\Carbon::now()}}</p>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="price" class="form-label">Ghi chú:</label>
+                        <label for="price" class="form-label fw-bold">Ghi chú:</label>
                         <p>@if(!empty($bookingRoomInfo)) {!! $bookingRoomInfo->note ??'' !!} @endif </p>
                     </div>
                 </div>

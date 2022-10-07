@@ -155,7 +155,7 @@ class BookingRoomRepository extends ModelRepository
     public function bookingRooms($request)
     {
         $customer = $this->customers->firstOrCreate(
-            ['name' => $request->customer_name, 'id_card' => $request->customer_id_card],
+            ['name' => $request->customer_name, 'id_card' => $request->customer_id_card, 'brach_id' => get_branch_id()],
             ['address' => $request->customer_address, 'phone' => $request->customer_phone],
         );
 

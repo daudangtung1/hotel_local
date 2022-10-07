@@ -93,6 +93,6 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-            return redirect()->route('branchs.index');
+            return redirect()->route('rooms.index');
     }
 }

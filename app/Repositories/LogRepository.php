@@ -35,7 +35,7 @@ class LogRepository extends ModelRepository
 
     public function getAll($request = null)
     {
-        $query = $this->model->where('branch_id', get_branch_id());
+        $query = $this->model->where('logs.branch_id', get_branch_id());
 
         if ($request) {
             $title = $request->get('title');

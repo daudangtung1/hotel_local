@@ -3,8 +3,8 @@
     <div class="d-flex justify-content-end align-items-center mb-3">
         <div class="filter">
             <form action="{{route('reports.index')}}" class="d-flex" method="GET">
-                <input type="text" class="form-control form-control-sm start-date me-2 filter-date-not-time" placeholder="Chọn ngày bắt đầu" name="start_date" value="{{ $from_date }}"  autocomplete="off">
-                <input type="text" class="form-control form-control-sm end-date me-2 filter-date-not-time" placeholder="Chọn ngày kết thúc" name="end_date" value="{{ $to_date }}"  autocomplete="off">
+                <input type="text" autocomplete="off"  class="form-control form-control-sm start-date me-2 filter-date-not-time" placeholder="Chọn ngày bắt đầu" name="start_date" value="{{ $from_date }}"  autocomplete="off">
+                <input type="text" autocomplete="off"  class="form-control form-control-sm end-date me-2 filter-date-not-time" placeholder="Chọn ngày kết thúc" name="end_date" value="{{ $to_date }}"  autocomplete="off">
                 <select class="form-control form-control-sm" name="room_type" id="room_type" style="margin-right:7px">
                   @foreach ($types as $type)
                       <option @if(!empty(request()->room_type) && request()->room_type == $type->id) selected

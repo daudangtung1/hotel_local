@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <select name="booking_room_id" id="booking_room_id" class="form-control form-control-sm booking_room_id mb-3">
+                    <select name="booking_room_id" id="booking_room_id" class="form-control form-control-sm booking_room_id mb-3" required>
                         <option value="">Chọn phòng</option>
                         @forelse($bookingRooms as $key => $bookingRoom)
                             <option value="{{$bookingRoom->id}}">
@@ -22,7 +22,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <textarea name="note" id="note" cols="30" rows="5" class="form-control form-control-sm validate note"
+                    <textarea name="note" id="note" cols="30" rows="5" class="form-control form-control-sm validate note" required
                               placeholder="Ghi chú"></textarea>
                 </div>
             </div>

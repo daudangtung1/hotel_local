@@ -15,9 +15,6 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link " id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Quản lý thu/chi</button>
                         </li>
-{{--                        <li class="nav-item" role="presentation">--}}
-{{--                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Quản lý quỹ</button>--}}
-{{--                        </li>--}}
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -60,7 +57,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7">Không có dữ liệu</td>
+                                            <td colspan="8">Không có dữ liệu</td>
                                         </tr>
                                     @endforelse
                                 @endif
@@ -77,8 +74,8 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Tên</th>
                                     <th scope="col">Số tiền</th>
-                                    <th scope="col">Phân loại</th>
                                     <th scope="col">Ngày tạo</th>
+                                    <th scope="col">Phân loại</th>
                                     <th scope="col"></th>
                                 </tr>
                                 </thead>
@@ -118,7 +115,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5">Không có bản ghi nào</td>
+                                        <td colspan="5">Không có dữ liệu</td>
                                     </tr>
                                 @endforelse
                                 </tbody>

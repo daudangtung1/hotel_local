@@ -27,24 +27,14 @@
             var modal = _this.closest('.modal');
             var bookingRoomId = modal.find('.booking_room_id').val();
             var note = modal.find('.note').val();
-            //
-            // modal.find('.form-control form-control-sm').each(function () {
-            //     if ($(this).hasClass('validate')) {
-            //         if ($(this).val() == '') {
-            //             $(this).addClass('boder-validate');
-            //         } else if ($(this).hasClass('boder-validate')) {
-            //             $(this).removeClass('boder-validate');
-            //         }
-            //     }
-            // });
-            //
-            // $.toast({
-            //     text: 'Vui lòng nhập đầy đủ thông tin',
-            //     icon: 'error',
-            //     position: 'top-right'
-            // });
-            // return false;
-
+            if (bookingRoomId == '' || note == '' ) {
+                $.toast({
+                    text: 'Vui lòng nhập đầy đủ thông tin.',
+                    icon: 'warning',
+                    position: 'top-right'
+                });
+                return false;
+            }
             $.ajax({
                 type: "POST",
                 url: "{{route('lost-items.store')}}",

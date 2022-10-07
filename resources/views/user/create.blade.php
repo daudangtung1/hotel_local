@@ -15,28 +15,29 @@
                         <input type="hidden" name="user_id" value="{{$currentItem->id ??''}}"/>
                         @csrf
                         <div class="col-md-12">
-                            <label for="name" class="form-label">Tên tài khoản</label>
-                            <input type="text" class="form-control form-control-sm form-control-sm" id="name" name="name"
+                            <label for="name" class="form-label fw-bold">Tên tài khoản</label>
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm" id="name" name="name"
                                    value="{{$currentItem->name ??''}}" required @if(!empty($currentItem)) readonly @endif>
                         </div>
                         <div class="col-md-12">
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label fw-bold">Email</label>
                             <input type="email" class="form-control form-control-sm form-control-sm" id="email" name="email"
                                    value="{{$currentItem->email ??''}}" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="password" class="form-label">Mật khẩu</label>
+                            <label for="password" class="form-label fw-bold">Mật khẩu</label>
                             <input type="password" class="form-control form-control-sm form-control-sm" id="password" name="password"
                                    value="" minlength="6">
                         </div>
                         <div class="col-md-12">
-                            <label for="re_password" class="form-label">Xác nhận mật khẩu</label>
+                            <label for="re_password" class="form-label fw-bold">Xác nhận mật khẩu</label>
                             <input type="password" class="form-control form-control-sm form-control-sm" id="re_password" name="re_password"
                                    value="" minlength="6">
                         </div>
                         <div class="col-md-12">
-                            <label for="branch_id" class="form-label">Chi nhánh</label>
+                            <label for="branch_id" class="form-label fw-bold">Chi nhánh</label>
                             <select name="branch_id" id="branch_id" class="form-control form-control-sm" require>
+                            <option value="">Mặc định</option>
                                 @foreach(\App\Models\Branch::all() as $key => $branch)
                                 <option value="{{$branch->id}}" @if(!empty($currentItem) && $currentItem->branch_id == $branch->id) selected @endif>
                                     {{$branch->name ?? ''}}
@@ -46,7 +47,7 @@
                             </select>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentItem)) Cập nhật @else Tạo
+                            <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else btn-primary @endif">@if(isset($currentItem)) Cập nhật @else Tạo
                                 phòng @endif</button>
                             @if(!empty($currentItem))
                                 <a href="{{route('users.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>

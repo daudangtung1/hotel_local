@@ -37,7 +37,7 @@ class ServiceRepository extends ModelRepository
         if (!$in_stock) {
             $services = $services->where('stock', '>', 0);
         }
-        return $services->paginate(10);;
+        return $services->paginate(10);
     }
 
     public function find($request)
@@ -60,10 +60,10 @@ class ServiceRepository extends ModelRepository
         }
 
         return $this->model->create([
-            'name'    => $request->name,
-            'stock'   => $request->stock,
-            'price'   => $request->price,
-            'type'    => $request->type,
+            'name'    => $request->name ?? '',
+            'stock'   => $request->stock ?? 0,
+            'price'   => $request->price ?? 0,
+            'type'    => $request->type ?? 0,
             'sale_type'    => $request->sale_type,
             'user_id' => \Auth::user()->id,
             'branch_id' => get_branch_id(),

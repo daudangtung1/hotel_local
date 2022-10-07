@@ -57,6 +57,7 @@ class TypeRoomRepository extends ModelRepository
 
         return $this->model->create([
             'name'       => $request->name,
+            'branch_id' => get_branch_id(),
         ]);
     }
 

@@ -16,29 +16,29 @@
                         <input type="hidden" name="room_id" value="{{$currentRoom->id ??''}}"/>
                         @csrf
                         <div class="col-md-12">
-                            <label for="name" class="form-label">Tên phòng</label>
-                            <input type="text" class="form-control form-control-sm form-control-sm" id="name" name="name"
+                            <label for="name" class="form-label fw-bold">Tên phòng</label>
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm" id="name" name="name"
                                    value="{{$currentRoom->name ??''}}" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="floor" class="form-label">Tầng</label>
-                            <input type="text" class="form-control form-control-sm form-control-sm" id="floor" name="floor"
+                            <label for="floor" class="form-label fw-bold">Tầng</label>
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm" id="floor" name="floor"
                                    value="{{$currentRoom->floor ??''}}" required>
                         </div>
 
                         <div class="col-md-12">
-                            <label for="hour_price" class="form-label">Giá phòng / giờ</label>
+                            <label for="hour_price" class="form-label fw-bold">Giá phòng / giờ</label>
                             <input type="number" min="0" class="form-control form-control-sm form-control-sm" id="hour_price" name="hour_price"
                                    value="{{$currentRoom->hour_price ??'0'}}" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="day_price" class="form-label">Giá phòng / ngày</label>
+                            <label for="day_price" class="form-label fw-bold">Giá phòng / ngày</label>
                             <input type="number" min="0" class="form-control form-control-sm form-control-sm" id="day_price" name="day_price"
                                    value="{{$currentRoom->day_price ??'0'}}" required>
                         </div>
                         @if(!empty($currentRoom) && array_key_exists($currentRoom->status, \App\Models\Room::UPDATE_STATUS))
                             <div class="col-md-12">
-                                <label for="inputState" class="form-label">Tình trạng phòng</label>
+                                <label for="inputState" class="form-label fw-bold">Tình trạng phòng</label>
                                 <select id="status" name="status" class="form-select" >
                                     @foreach (\App\Models\Room::UPDATE_STATUS as $key => $item)
                                         <option @if($key == $currentRoom->status) selected  @endif value="{{$key}}">{{$item}}</option>
@@ -46,12 +46,12 @@
                                 </select>
                             </div>
                             <div class="col-md-12">
-                                <label for="status_desc" class="form-label">Mô tả tình trạng phòng</label>
+                                <label for="status_desc" class="form-label fw-bold">Mô tả tình trạng phòng</label>
                                 <textarea type="text" class="form-control form-control-sm form-control-sm" id="status_desc" name="status_desc">{{$currentRoom->status_desc ??''}}</textarea>
                             </div>
                         @endif
                         <div class="col-md-12">
-                            <label for="day_price" class="form-label">Giá phòng / tháng</label>
+                            <label for="day_price" class="form-label fw-bold">Giá phòng / tháng</label>
                             <input type="number" min="0" class="form-control form-control-sm form-control-sm" id="month_price" name="month_price"
                                    value="{{$currentRoom->month_price ??'0'}}" required>
                         </div>

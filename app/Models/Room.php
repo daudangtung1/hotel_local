@@ -97,6 +97,11 @@ class Room extends Model
         return $this->hasMany(BookingRoom::class);
     }
 
+    public function typeRoom()
+    {
+        return $this->belongsTo(TypeRoom::class);
+    }
+
     public function getStatusText()
     {
         switch ($this->status) {

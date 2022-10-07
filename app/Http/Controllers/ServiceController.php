@@ -29,7 +29,7 @@ class ServiceController extends Controller
     public function create()
     {
         $menuSystem = true;
-        $services = $this->serviceRepository->getAll();
+        $services = $this->serviceRepository->getAll(true);
         $currentItem = null;
         $title = 'Tạo dịch vụ';
 
@@ -79,7 +79,7 @@ class ServiceController extends Controller
 
                 $result = $currentItem->update([
                     'name'  => $request->name ?? '',
-                    'stock' => $request->stock ?? 0,
+                    'stock' => $request->stock ?? 100,
                     'price' => $request->price ?? 0,
                     'type'  => $request->type ?? 0,
                     'sale_type'  => $request->sale_type ?? 0,

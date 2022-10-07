@@ -204,14 +204,16 @@ class GroupRepository extends ModelRepository
                     'end_date'   => $request->get('end_date'),
                     'note'       => $request->get('note'),
                     'status'     => Room::BOOKED,
-                    'user_id'    => auth()->user()->id
+                    'user_id'    => auth()->user()->id,
+                    'branch_id' => get_branch_id(),
                 ]);
 
                 $bookingRoomCustomer = $this->bookingRoomCustomer->create([
                     'booking_room_id' => $bookingRoom->id,
                     'customer_id'     => $customer->id,
                     'group_id'        => $group->id,
-                    'type'            => 2 // khach doan
+                    'type'            => 2,
+                    'branch_id' => get_branch_id(),
                 ]);
             }
 

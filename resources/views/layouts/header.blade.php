@@ -1,8 +1,10 @@
+@if (\Auth::check())
 <header class="main-header clearfix">
     <div class="container clearfix">
         <div class="wrap-tab">
             <div class="top-tab">
                 <ul>
+                    
                     <li class="@if(!empty($menuSystem)) is_active  @endif"><a href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                  version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 122.88 105.02"
@@ -24,6 +26,7 @@
                     <li class="@if(!empty($menuHelp)) is_active  @endif"><a href="#"><img class="" alt=""
                                                                                           src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/icon-trogiup.png"><span>Trợ giúp</span></a>
                     </li>
+                    <li>Xin chào: <b>{{\Auth::user()->name ?? ''}}</b>!</li>
                 </ul>
             </div>
             <div class="content-tab">
@@ -396,3 +399,4 @@
     </div>
     <!-- /main-navigation -->
 </header>
+@endif

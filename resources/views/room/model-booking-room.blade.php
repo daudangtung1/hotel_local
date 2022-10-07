@@ -40,33 +40,33 @@
                 <div class="row mt-3" id="form-booking-multiple">
                     @if(!empty($bookingRoomCustomer->group_id))
                         <div class="col-md-12 mb-3 position-relative">
-                            <input type="text" class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off"
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off"
                                    name="customer_name" required
                                    placeholder="Tên nhóm" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->group->name ?? ''}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-customer"></div>
                         </div>
                     @else
                         <div class="col-md-6 mb-3 position-relative">
-                            <input type="text" class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off"
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off"
                                    name="customer_name" required
                                    placeholder="Tên khách hàng" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->name ?? ''}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-customer"></div>
                         </div>
                         <div class="col-md-6 mb-3 position-relative">
-                            <input type="text" class="form-control form-control-sm form-control form-control-sm validate" id="customer_id_card"
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control form-control-sm validate" id="customer_id_card"
                                    name="customer_id_card" required
                                    placeholder="Số giấy tờ" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->id_card ?? ''}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-id_card"></div>
                         </div>
 
                         <div class="col-md-6 mb-3 position-relative">
-                            <input type="text" class="form-control form-control-sm form-control form-control-sm validate" id="customer_phone"
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control form-control-sm validate" id="customer_phone"
                                    name="customer_phone" required
                                    placeholder="Điện thoại" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->phone ?? ''}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-phone"></div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <input type="text" class="form-control form-control-sm form-control form-control-sm validate" id="customer_address"
+                            <input type="text" autocomplete="off"  class="form-control form-control-sm form-control form-control-sm validate" id="customer_address"
                                    name="customer_address" required placeholder="Địa chỉ" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->address ?? ''}}@endif">
                         </div>
                     @endif
@@ -75,11 +75,11 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="start_date" class="form-label">Thời gian bắt
+                                <label for="start_date" class="form-label fw-bold">Thời gian bắt
                                     đầu:</label>
                                 <div class="form-group">
                                     <div class="input-group date">
-                                        <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="start_date" name="start_date"
+                                        <input type="text" autocomplete="off"  min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="start_date" name="start_date"
                                             class="form-control datetime-picker form-control-sm form-control-sm validate-date " readonly
                                             value="@if(!empty($startDate) ){{$startDate ?? ''}}@endif" required>
                                     </div>
@@ -88,10 +88,10 @@
                             <div
                                 class="col-md-6 "
                                 id="box-end-date">
-                                <label for="end_date" class="form-label">Thời gian kết
+                                <label for="end_date" class="form-label fw-bold">Thời gian kết
                                     thúc:</label>
                                 <div class="input-group date">
-                                    <input type="text" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="end_date" name="end_date"
+                                    <input type="text" autocomplete="off"  min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}"  id="end_date" name="end_date"
                                         class="form-control datetime-picker form-control-sm form-control-sm validate-date " readonly
                                         value="@if(!empty($endDate) ){{$endDate ?? ''}}@endif" required>
                                 </div>
@@ -101,12 +101,12 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                            <label for="price" class="form-label">Giá thuê mới:</label>
+                            <label for="price" class="form-label fw-bold">Giá thuê mới:</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">$</span>
                                 </div>
-                                <input type="text" class="form-control form-control-sm form-control-sm price" name="extra_price" id="extra_price"
+                                <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm price" name="extra_price" id="extra_price"
                                         value="@if(!empty($bookingRoom)){!! $bookingRoom->extra_price ??0 !!}@endif" min="0">
                                 <div class="input-group-append">
                                     <span class="input-group-text">đ</span>
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label for="price" class="form-label">Ghi chú:</label>
+                        <label for="price" class="form-label fw-bold">Ghi chú:</label>
                         <textarea name="note" class="form-control form-control-sm form-control-sm note" cols="30" rows="2"
                                 placeholder="Ghi chú">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
                     </div>

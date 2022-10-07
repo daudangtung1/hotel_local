@@ -52,9 +52,9 @@ class TypeRoomController extends Controller
         $menuSetup = true;
         $rooms = $this->roomRepository->getAll(false, true);
         $typeRooms = $this->typeRoomRepository->getAll();
+        $typeRoomsSelect = $this->typeRoomRepository->getAll(false);
         $title = 'Quản lý phòng';
-
-        return view('room.create', compact('menuSetup', 'rooms', 'typeRooms', 'currentTypeRoom', 'title'));
+        return view('room.create', compact('typeRoomsSelect', 'menuSetup', 'rooms', 'typeRooms', 'currentTypeRoom', 'title'));
     }
 
     public function destroy(Request $request, $type_room_id)

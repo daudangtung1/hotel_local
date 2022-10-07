@@ -2,14 +2,14 @@
     <div class="d-flex justify-content-end align-items-center mb-3">
         <div class="filter">
             <form action="{{route('reports.index')}}" class="d-flex" method="GET">
-                <input type="text" name="s" id="s" class="form-control form-control-sm me-2" placeholder="Tìm kiếm theo phòng" value="@if(!empty(request()->s)){{request()->s}}@endif"  autocomplete="off">
+                <input type="text" autocomplete="off"  name="s" id="s" class="form-control form-control-sm me-2" placeholder="Tìm kiếm theo phòng" value="@if(!empty(request()->s)){{request()->s}}@endif"  autocomplete="off">
                 <select class="form-control form-control-sm me-2" name="services">
                     <option value="">Dịch vụ</option>
                     @foreach($services as $key => $service)
                         <option @if(!empty(request()->service_id) && request()->serviceid == $service->id) selected @endif value="{{$service->id}}">{{$service->name ?? ''}}</option>
                     @endforeach
                 </select>
-                <input type="text" class="form-control form-control-sm me-2 filter-date" placeholder="Ngày bắt đầu thuê" name="date" value="@if(!empty(request()->date)) {{request()->date}} @endif"  autocomplete="off">
+                <input type="text" autocomplete="off"  class="form-control form-control-sm me-2 filter-date" placeholder="Ngày bắt đầu thuê" name="date" value="@if(!empty(request()->date)) {{request()->date}} @endif"  autocomplete="off">
                 <input type="hidden" name="by" value="{{request()->by ?? ''}}">
                 <button class="btn btn-success me-2  d-flex align-items-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
                         <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>

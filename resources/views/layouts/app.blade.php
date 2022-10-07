@@ -834,7 +834,7 @@
             var modalEndDate = td.find('.modal_end_date').val();
             var modalServiceId = td.find('.modal_service_id').val();
 
-            if(modalStartDate == '' || modalEndDate == '') {
+            if(modalStartDate == '' || modalEndDate == ''|| modalStartDate == modalEndDate) {
                 _this.closest('tr').find('td .row').removeClass('d-none');
                 $.toast({
                     text: 'Vui lòng nhập ngày bắt đầu và kết thúc',
@@ -906,7 +906,7 @@
             _this.closest('tbody').find('.modal_start_date').val('');
 
 
-            if(saleType == 0 && (modalStartDate == '' || modalEndDate == '')) {
+            if(saleType == 0 && (modalStartDate == '' || modalEndDate == ''|| modalEndDate == modalStartDate)) {
                 _this.closest('tr').find('td .row').removeClass('d-none');
                 return false;
             }

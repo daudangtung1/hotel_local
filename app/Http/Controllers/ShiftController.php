@@ -44,7 +44,7 @@ class ShiftController extends Controller
     {
         $title = 'Quản lý giao ca';
         $menuCategoryManager = true;
-        $users = User::all();
+        $users = User::where('branch_id', get_branch_id())->get();
         $items = $this->shiftRepository->getAll();
         return view('shift.index', compact('items', 'title', 'menuCategoryManager', 'users'));
     }

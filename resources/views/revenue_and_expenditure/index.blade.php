@@ -15,17 +15,17 @@
                         <input type="hidden" name="user_id" value="{{$currentItem->id ??''}}"/>
                         @csrf
                         <div class="col-md-12">
-                            <label for="name" class="form-label">Tên khoản thu/chi</label>
+                            <label for="name" class="form-label fw-bold">Tên khoản thu/chi</label>
                             <textarea type="text" class="form-control form-control-sm form-control-sm" id="name" name="name"
                                       required>{{$currentItem->name ??''}}</textarea>
                         </div>
                         <div class="col-md-12">
-                            <label for="money" class="form-label">Số tiền</label>
+                            <label for="money" class="form-label fw-bold">Số tiền</label>
                             <input type="number" class="form-control form-control-sm form-control-sm" id="money" name="money"
                                    value="{{$currentItem->money ??''}}" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="type" class="form-label">Loại</label>
+                            <label for="type" class="form-label fw-bold">Loại</label>
                             <select name="type" id="type" class="form-control form-control-sm">
                                 @foreach(\App\Models\RevenueAndExpenditure::STATUS as $key => $status)
                                 <option value="{{$key}}" @if(!empty($currentItem) && $currentItem->type == $key) selected @endif>
@@ -36,7 +36,8 @@
                             </select>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentItem)) Cập nhật @else
+                            <button type="submit" class="btn btn-sm  @if(isset($currentItem)) btn-success @else
+                            btn-primary @endif">@if(isset($currentItem)) Cập nhật @else
                                     Tạo mới @endif</button>
                             @if(!empty($currentItem))
                                 <a href="{{route('revenue-and-expenditures.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
@@ -90,7 +91,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">Không có bản ghi nào</td>
+                                <td colspan="5">Không có dữ liệu</td>
                             </tr>
                         @endforelse
                         </tbody>

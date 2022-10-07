@@ -58,7 +58,7 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 					<form action="" id="form-login"> 
 						<div class="form-group"> 
 							<label>Tài khoản</label>
-							<input type="text" class="form-input" placeholder="Tên đăng nhập" name="uname">
+							<input type="text" autocomplete="off"  class="form-input" placeholder="Tên đăng nhập" name="uname">
 						</div>
 						<div class="form-group"> 
 							<label>Mật khẩu</label>

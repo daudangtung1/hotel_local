@@ -18,7 +18,7 @@ class TypeRoom extends Model
     {
         parent::boot();
         static::created(function ($item) {
-            create_log('Tạo mới loại');
+            create_log('Tạo mới loại phòng');
         });
 
         static::updated(function ($item) {

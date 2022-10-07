@@ -793,8 +793,9 @@ input[type=number]::-webkit-outer-spin-button {
 }
 }
 
-.datetime-picker{
-	background-color: #33aaff !important;
-	color:#fff !important;
-	border-color:  #33aaff !important;
+table thead{
+	background-color: #ececec;
+}
+td[colspan] {
+	text-align: center;
 }
