@@ -14,8 +14,8 @@ class AddColumnDateBookingRoomService extends Migration
     public function up()
     {
         Schema::table('booking_room_services', function (Blueprint $table) {
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
         });
     }
 

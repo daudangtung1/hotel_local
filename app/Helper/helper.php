@@ -27,9 +27,9 @@ function create_revenue_expenditures($name, $money = 0, $type = 1)
 
 function get_branch_id()
 {
-    if (!Auth::check()) {
+    if (!\Auth::check()) {
         return false;
     }
 
-    return Auth::user()->branch_id ?? null;
+    return \Auth::user()->branch_id ?? null;
 }

@@ -9,6 +9,9 @@
 
     <title>{{ $title ?? '' }}</title>
     <style>
+        .datetime-picker {
+            width: 130px !important;
+        }
         .site-footer{
             position: fixed;
             left: 0;
@@ -426,29 +429,34 @@
         });
 
         var debounce = null;
-        $('body').on('keyup', '#customer_name', function(e) {
-            clearTimeout(debounce);
-            var customer_name = $(this).val();
-            var modal = $(this).closest('.modal');
-            var room_id = modal.find('input[name="room_id"]').val();
-            debounce = setTimeout(function() {
-                $.ajax({
-                type: 'GET',
-                url: "{{route('customers.search')}}",
-                data: {
-                    name: customer_name
-                },
-                success: function (data) {
-                    modal.find('#list-item-customer').html('').html(data)
-                },
-                error: function (e) {
-                    console.log(e)
-                }
-            })
-            }, 500);
-        });
+        // $('body').on('keyup', '#customer_name', function(e) {
+        //     clearTimeout(debounce);
+        //     var customer_name = $(this).val();
+        //     var modal = $(this).closest('.modal');
+        //     var room_id = modal.find('input[name="room_id"]').val();
+        //     debounce = setTimeout(function() {
+        //         $.ajax({
+        //         type: 'GET',
+        //         url: "{{route('customers.search')}}",
+        //         data: {
+        //             name: customer_name
+        //         },
+        //         success: function (data) {
+        //             modal.find('#list-item-customer').html('').html(data)
+        //         },
+        //         error: function (e) {
+        //             console.log(e)
+        //         }
+        //     })
+        //     }, 500);
+        // });
 
         $('body').on('keyup', '#customer_name', function(e) {
+            var _this = $(this);
+            var form = _this.closest('.form-user');
+            if(form.find('#customer_id_card').val() != '' && form.find('#customer_phone').val() != '') {
+                return false;
+            }
             clearTimeout(debounce);
             var customer_name = $(this).val();
             var modal = $(this).closest('.modal');
@@ -472,6 +480,13 @@
         });
 
         $('body').on('keyup', '#customer_id_card', function(e) {
+
+            var _this = $(this);
+            var form = _this.closest('.form-user');
+            if(form.find('#customer_name').val() != '' && form.find('#customer_phone').val() != '') {
+                return false;
+            }
+
             clearTimeout(debounce);
             var customer_name = $(this).val();
             var modal = $(this).closest('.modal');
@@ -495,6 +510,13 @@
         });
 
         $('body').on('keyup', '#customer_phone', function(e) {
+
+            var _this = $(this);
+            var form = _this.closest('.form-user');
+            if(form.find('#customer_id_card').val() != '' && form.find('#customer_name').val() != '') {
+                return false;
+            }
+
             clearTimeout(debounce);
             var customer_name = $(this).val();
             var modal = $(this).closest('.modal');
@@ -773,8 +795,71 @@
             console.log(serviceId);
 
         });
+        
 
-        var debounce = null;
+        $('body').on('click', '.model-btn-update-service', function (e) {
+            var _this = $(this);
+            var modal = _this.closest('.modal');
+            var serviceId = _this.data('service-id');
+            var tr = _this.closest('tr');
+            var modalStartDate = tr.find('.modal_start_date').val();
+            var modalEndDate = tr.find('.modal_end_date').val();
+            var href = _this.data('url_update');
+            var roomId = modal.find('input[name="room_id"]').val();
+
+            if(modalStartDate == '' || modalEndDate == '') {
+                _this.closest('tr').find('td .row').removeClass('d-none');
+                $.toast({
+                    text: 'Vui lòng nhập ngày bắt đầu và kết thúc',
+                    icon: 'error',
+                    position: 'top-right'
+                });
+                return false;
+            }
+
+            if( modalStartDate == modalEndDate) {
+                _this.closest('tr').find('td .row').removeClass('d-none');
+                $.toast({
+                    text: 'Ngày bắt đầu phải bé thua ngày kết thúc',
+                    icon: 'error',
+                    position: 'top-right'
+                });
+                return false;
+            }
+
+                $.ajax({
+                    type: "POST",
+                    url: href,
+                    data: {
+                        "_method": 'PUT',
+                        modalStartDate: modalStartDate,
+                        modalEndDate: modalEndDate,
+                    },
+                    success: function (data) {
+                        if (typeof data.response !== 'undefined') {
+                            $.toast({
+                                text: data.response.message,
+                                icon: 'error',
+                                position: 'top-right'
+                            });
+                            return false;
+                        }
+                        _this.closest('.modal').find('.modal-dialog').html(data);
+
+                        changeBgLi(_this, roomId);
+                        refreshView();
+                        $.toast({
+                            text: 'Cập nhật thành công',
+                            icon: 'success',
+                            position: 'top-right'
+                        });
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                })
+        });
+
         $('body').on('keyup', 'input[name="quantity_service"]', function (e) {
             var _this = $(this);
             var modal = _this.closest('.modal');
@@ -787,39 +872,36 @@
                 quantityService = 1;
             }
 
-            clearTimeout(debounce);
-            debounce = setTimeout(function(){
                 $.ajax({
-                            type: "POST",
-                            url: href,
-                            data: {
-                                "_method": 'PUT',
-                                quantity: quantityService,
-                            },
-                            success: function (data) {
-                                if (typeof data.response !== 'undefined') {
-                                    $.toast({
-                                        text: data.response.message,
-                                        icon: 'error',
-                                        position: 'top-right'
-                                    });
-                                    return false;
-                                }
-                                _this.closest('.modal').find('.modal-dialog').html(data);
+                    type: "POST",
+                    url: href,
+                    data: {
+                        "_method": 'PUT',
+                        quantity: quantityService,
+                    },
+                    success: function (data) {
+                        if (typeof data.response !== 'undefined') {
+                            $.toast({
+                                text: data.response.message,
+                                icon: 'error',
+                                position: 'top-right'
+                            });
+                            return false;
+                        }
+                        _this.closest('.modal').find('.modal-dialog').html(data);
 
-                                changeBgLi(_this, roomId);
-                                refreshView();
-                                $.toast({
-                                    text: 'Cập nhật thành công',
-                                    icon: 'success',
-                                    position: 'top-right'
-                                });
-                            },
-                            error: function (e) {
-                                console.log(e);
-                            }
-                        })
-            }, 1000);
+                        changeBgLi(_this, roomId);
+                        refreshView();
+                        $.toast({
+                            text: 'Cập nhật thành công',
+                            icon: 'success',
+                            position: 'top-right'
+                        });
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                })
         });
 
         $('body').on('click', '.modal tr .model-btn-add-service', function (e) {
@@ -827,7 +909,7 @@
 
             var _this = $(this);
             var modal = _this.closest('.modal');
-            var td = _this.closest('td');
+            var td = _this.closest('tr');
 
             var roomId = modal.find('input[name="room_id"]').val();
             var modalStartDate = td.find('.modal_start_date').val();
@@ -838,17 +920,16 @@
                 _this.closest('tr').find('td .row').removeClass('d-none');
                 $.toast({
                     text: 'Vui lòng nhập ngày bắt đầu và kết thúc',
-                    icon: 'warning',
+                    icon: 'error',
                     position: 'top-right'
                 });
                 return false;
-
             }
 
             if(modalEndDate <= modalStartDate ) {
                 $.toast({
                     text: 'Ngày bắt đầu phải bé thua ngày kết thúc',
-                    icon: 'warning',
+                    icon: 'error',
                     position: 'top-right'
                 });
                 return false;
@@ -885,6 +966,7 @@
 
             var _this = $(this);
             var modal = _this.closest('.modal');
+            var tr = _this.closest('tr');
             var saleType = _this.attr('data-sale_type');
 
 
@@ -898,8 +980,8 @@
             var customerAddress = modal.find('#customer_address').val();
             var startDate = modal.find('#start_date').val();
             var endDate = modal.find('#end_date').val();
-            var modalStartDate = modal.find('.modal_start_date').val();
-            var modalEndDate = modal.find('.modal_end_date').val();
+            var modalStartDate = tr.find('.modal_start_date').val();
+            var modalEndDate = tr.find('.modal_end_date').val();
 
             _this.closest('tbody').find('td .row').addClass('d-none');
             _this.closest('tbody').find('.modal_end_date').val('');
@@ -1022,7 +1104,7 @@
                     if (data.status == 0) {
                         $.toast({
                             text: data.massage,
-                            icon: 'warning',
+                            icon: 'error',
                             position: 'top-right'
                         });
                         return false;
@@ -1386,7 +1468,7 @@
 <style>
     @media (min-width: 1200px) {
         .modal-xl {
-            max-width: 1300px;
+            max-width: 90vw;
         }
     }
 

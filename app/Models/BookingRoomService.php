@@ -27,6 +27,21 @@ class BookingRoomService extends Model
         return $this->belongsTo(Service::class);
     }
 
+    public function getPrice()
+    {
+        if (!empty($this->start_date) && !empty($this->end_date)) {
+            return $this->getTotalDate(false) * $this->price;
+        }
+        return $this->price * $this->quantity;
+    }
+    public function getQuantity()
+    {
+        if (!empty($this->start_date) && !empty($this->end_date)) {
+            return $this->getTotalDate(false);
+        }
+        return $this->quantity ?? 0;
+    }
+
     public function bookingRoom()
     {
         return $this->belongsTo(BookingRoom::class);

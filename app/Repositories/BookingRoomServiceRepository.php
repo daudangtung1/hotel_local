@@ -93,8 +93,12 @@ class BookingRoomServiceRepository extends ModelRepository
             $service = $bookingRoomService->service;
             $totalQuantity = $oldQuantity + $service->stock;
 
-            $bookingRoomService->service->update(['stock' => ($totalQuantity - $request->quantity)]);
-            $bookingRoomService->update(['quantity' => $request->quantity]);
+            if (!empty($request->quantity)) {
+                $bookingRoomService->service->update(['stock' => ($totalQuantity - $request->quantity)]);
+                $bookingRoomService->update(['quantity' => $request->quantity]);
+            } else {
+                $bookingRoomService->update(['start_date' => $request->modalStartDate, 'end_date' => $request->modalEndDate]);
+            }
         }
     }
 

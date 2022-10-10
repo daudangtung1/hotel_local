@@ -30,7 +30,7 @@
             if (bookingRoomId == '' || note == '' ) {
                 $.toast({
                     text: 'Vui lòng nhập đầy đủ thông tin.',
-                    icon: 'warning',
+                    icon: 'error',
                     position: 'top-right'
                 });
                 return false;

@@ -33,6 +33,8 @@ class BookingRoomController extends Controller
         $this->optionRepository = $optionRepository;
         $this->typeRoomRepository = $typeRoomRepository;
         $this->groupRepository = $groupRepository;
+
+       
     }
 
     public function index(Request $request)
@@ -46,7 +48,7 @@ class BookingRoomController extends Controller
         }
 
         $menuCategoryManager = true;
-        return view('booking-room.index', compact('title', 'menuCategoryManager'));
+        return view('booking-room.index', compact('title', 'bookingRooms', 'menuCategoryManager'));
     }
 
     public function store(Request $request)

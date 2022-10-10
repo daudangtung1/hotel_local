@@ -46,26 +46,23 @@ class BookingRoomServiceController extends Controller
         try {
             DB::beginTransaction();
             $bookingRoomService = $this->bookingRoomServiceRepository->getById($id);
-            if (empty($request->quantity)) {
-                return [
-                    'response' => [
-                        'code' => 400,
-                        'message' => "Số lượng không được để trống"
-                    ]
-                ];
+          
+            if (!empty($request->quantity)) {
+                
+                if (
+                    empty($bookingRoomService) ||
+                    empty($bookingRoomService->service) ||
+                    ($bookingRoomService->quantity + $bookingRoomService->service->stock) < $request->quantity
+                ) {
+                    return [
+                        'response' => [
+                            'code' => 400,
+                            'message' => "Vượt quá số lượng tồn kho"
+                        ]
+                    ];
+                }
             }
-            if (
-                empty($bookingRoomService) ||
-                empty($bookingRoomService->service) ||
-                ($bookingRoomService->quantity + $bookingRoomService->service->stock) < $request->quantity
-            ) {
-                return [
-                    'response' => [
-                        'code' => 400,
-                        'message' => "Vượt quá số lượng tồn kho"
-                    ]
-                ];
-            }
+            
             $this->bookingRoomServiceRepository->update($request, $id);
 
             DB::commit();

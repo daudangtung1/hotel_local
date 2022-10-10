@@ -155,7 +155,7 @@ class BookingRoomRepository extends ModelRepository
     public function bookingRooms($request)
     {
         $customer = $this->customers->firstOrCreate(
-            ['name' => $request->customer_name, 'id_card' => $request->customer_id_card, 'brach_id' => get_branch_id()],
+            ['name' => $request->customer_name, 'id_card' => $request->customer_id_card, 'branch_id' => get_branch_id()],
             ['address' => $request->customer_address, 'phone' => $request->customer_phone],
         );
 
@@ -262,7 +262,7 @@ class BookingRoomRepository extends ModelRepository
                 'price'      => $request->price ?? 0,
                 'status'     => 1,
                 'user_id'    => \Auth::user()->id,
-                'branch_id' => get_branch_id(),
+                'branch_id'  => get_branch_id(),
             ]);
         }
 
@@ -432,6 +432,7 @@ class BookingRoomRepository extends ModelRepository
         $roomId = $request->get('room_id');
         $data = $this->bookingRoom->where('room_id', $roomId)
             ->where('branch_id', get_branch_id())
+            ->where('status', '<>', $this->room::CLOSED)
             ->where(\DB::raw("DATE_FORMAT(start_date, '%Y-%m-%d')"), '<=', $startDate)
             ->where(\DB::raw("DATE_FORMAT(end_date, '%Y-%m-%d')"), '>=', $startDate)
             ->first();

@@ -94,13 +94,13 @@
                                                 </tr>
                                                 @foreach($bookingRoom->bookingRoomServices()->get() as $bookingRoomService)
                                                     @php
-                                                        $total = $total + $bookingRoomService->quantity * $bookingRoomService->price;
+                                                        $total = $total +  $bookingRoomService->getPrice();
                                                     @endphp
                                                     <tr>
                                                         <td>{{$bookingRoomService->service->name ??''}}</td>
-                                                        <td>{{$bookingRoomService->quantity ?? ''}} </td>
+                                                        <td>{{$bookingRoomService->getQuantity() ?? ''}} </td>
                                                         <td>{{get_price($bookingRoomService->price ?? 0, 'đ')}}</td>
-                                                        <td>{{get_price(($bookingRoomService->price ?? 0) * ($bookingRoomService->quantity ?? 0), 'đ') ??''}}</td>
+                                                        <td>{{get_price($bookingRoomService->getPrice() ?? 0, 'đ') }}</td>
                                                     </tr>
                                                 @endforeach
                                                 <tr>

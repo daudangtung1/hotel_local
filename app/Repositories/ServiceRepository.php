@@ -61,7 +61,7 @@ class ServiceRepository extends ModelRepository
 
         return $this->model->create([
             'name'    => $request->name ?? '',
-            'stock'   => $request->stock ?? 0,
+            'stock'   => $request->stock ?? 1,
             'price'   => $request->price ?? 0,
             'type'    => $request->type ?? 0,
             'sale_type'    => $request->sale_type,
