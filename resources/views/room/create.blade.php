@@ -7,7 +7,6 @@
                 <h5>Quản lý loại phòng</h5>
             </div>
             <div class="col-md-4">
-
                 <form class="row g-3" method="POST" action="@if(!empty($currentTypeRoom)){{route('type-rooms.update', ['type_room'=>$currentTypeRoom])}} @else{{route('type-rooms.store')}}@endif">
                     @if(!empty($currentTypeRoom))
                     {{method_field('PUT')}}

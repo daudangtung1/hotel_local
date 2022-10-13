@@ -78,6 +78,12 @@
 @section('script')
 <script>
     $(document).ready(function() {
+        // $('body').find('.datetime-picker').datetimepicker({
+        //     todayHighlight: true,
+        //     format: 'Y-m-d H:i',
+        //     startDate: new Date()
+        // });
+    
         $('body').on('click', '#btn-infor-booking-room', function() {
             var room_id = $(this).closest('.room').data('room-id');
             setTimeout(() => {

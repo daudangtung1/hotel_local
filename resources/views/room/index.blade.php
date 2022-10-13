@@ -7,7 +7,7 @@
     </div>
     @foreach($floors as $k => $rooms)
         @foreach($rooms as $room)
-            @include('room.modal-room')
+            @include('room.modal-room', ['room' => $room])
         @endforeach
     @endforeach
 @endsection
