@@ -101,7 +101,7 @@ class RoomController extends Controller
         $floors = $this->roomRepository->getAll();
         $services = $this->serviceRepository->getAll();
         $room = $this->roomRepository->find($request);
-
+     
         return view('room.modal-content-room', compact('room', 'services', 'floors'))->render();
     }
 
@@ -126,5 +126,12 @@ class RoomController extends Controller
         }
 
         return redirect()->back()->withErrors('Vui lòng thử lại');
+    }
+
+    public function show(Request $request, $room)
+    {
+        $request->merge(['room_id' => $room]);
+        $room = $this->roomRepository->find($request);
+        return view('room.modal-room', compact('room'))->render();
     }
 }

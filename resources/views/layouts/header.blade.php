@@ -271,6 +271,11 @@
                             <span>QL Tài khoản</span>
                         </div>
                         <div class="ql_tk">
+                            <a href="{{route('roles.index')}}"><img class="image-svg" alt=""
+                                             src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qltaikhoan.png"></a>
+                            <span>QL Quyền hạn</span>
+                        </div>
+                        <div class="ql_tk">
                             <a href="{{route('rooms.create')}}"><img class="image-svg" alt=""
                                                                      src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qlphong.png"></a>
                             <span>QL Phòng</span>

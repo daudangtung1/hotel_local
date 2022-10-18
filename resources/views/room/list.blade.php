@@ -3,8 +3,8 @@
     <h3>{{$k}}</h3>
     <ul style="padding-left: 0px">
         @foreach($rooms as $room)
-        <li id="room-{{$room->id}}" class="position-relative @if($room->status != \App\Models\Room::NOT_FOR_RENT) booking-room @endif bg-{{$room->getBgButton()}}" data-room-id="{{$room->id}}">
-            <div @if($room->status != \App\Models\Room::NOT_FOR_RENT) data-bs-toggle="modal" data-bs-target="#booking-modal-{{$room->id}}" @endif>
+        <li id="room-{{$room->id}}" class="show-room-popup position-relative @if($room->status != \App\Models\Room::NOT_FOR_RENT) booking-room @endif bg-{{$room->getBgButton()}}" data-room_id="{{$room->id}}" data-room_url="{{route('rooms.show', ['room' => $room])}}"> 
+            <div @if($room->status != \App\Models\Room::NOT_FOR_RENT)data-room_id="{{$room->id}}" @endif>
                 <h5 class="room-title">{{$room->name ?? ''}}</h5>
                 <div class="in-room align-items-start">
                     <div class="icon">
@@ -78,12 +78,6 @@
 @section('script')
 <script>
     $(document).ready(function() {
-        // $('body').find('.datetime-picker').datetimepicker({
-        //     todayHighlight: true,
-        //     format: 'Y-m-d H:i',
-        //     startDate: new Date()
-        // });
-    
         $('body').on('click', '#btn-infor-booking-room', function() {
             var room_id = $(this).closest('.room').data('room-id');
             setTimeout(() => {

@@ -197,6 +197,10 @@
         @include('room.model-booking-room', ['bookingRoom' => null])
     </div>
 
+    <div id="poup-booking-room">
+       
+    </div>
+
     <script>
         $(window).on('load', function() {
             closeLoading();
@@ -798,6 +802,11 @@
                         changeBgLi(_this, roomId);
                         refreshView();
                         removeStopButton();
+                        $('.datetime-picker').datetimepicker({
+                            todayHighlight: true,
+                            format: 'Y-m-d H:i',
+                            startDate: new Date()
+                        });
                         $.toast({
                             text: 'Cập nhật thành công',
                             icon: 'success',
@@ -1399,6 +1408,48 @@
                 }
             })
         })
+        $('body').on('click', '.filter_room', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "get",
+                url: "{{route('rooms.index')}}",
+                data: {
+                    type_room: $('#select-type-room').val(),
+                    area: $('#select-area').val(),
+                    order_by: $('#select-order').val()
+                },
+                success: function (data) {
+                  $('#room-list').html('').html(data)
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        });
+
+        $('body').on('click', '.show-room-popup', function(e) {
+            var roomUrl = $(this).data('room_url');
+            stopButton();
+            $.ajax({
+                type: "get",
+                url: roomUrl,
+                success: function (data) {
+                  $('#poup-booking-room').html('').html(data);
+                  $('#poup-booking-room .modal').modal('show');
+                  removeStopButton();
+                },
+                error: function (e) {
+                    console.log(e);
+                    removeStopButton();
+                    $('#poup-booking-room .modal').modal('hide');
+                }
+            })
+        });
+
+        $('.modal').on('hide.bs.modal', function (e) {
+            console.log('Modal close event.')
+            $(this).closest('#poup-booking-room').html('');
+        });
 
         $('body').on('click', '#list-group-booking a', function(e) {
             var groupId = $(this).data('id');

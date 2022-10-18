@@ -7,6 +7,7 @@ use App\Repositories\RoomRepository;
 use App\Repositories\ServiceRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -17,8 +18,8 @@ class UserController extends Controller
     public function __construct(
         Request $request,
         UserRepository $userRepository
-        )
-    {
+    ) {
+        // $this->middleware('permission:edit articles');
         $this->request = $request;
         $this->userRepository = $userRepository;
     }
@@ -27,10 +28,11 @@ class UserController extends Controller
     {
         $users = $this->userRepository->getAll();
         $menuSetup = true;
+        $roles = Role::pluck('name','name')->all();
 
         $title = 'Quản lý người dùng';
 
-        return view('user.create', compact('users', 'menuSetup', 'title'));
+        return view('user.create', compact('users', 'roles', 'menuSetup', 'title'));
     }
 
     public function store(Request $request)
@@ -50,8 +52,10 @@ class UserController extends Controller
         $menuSystem = true;
         $users = $this->userRepository->getAll();
         $title = 'Cập nhật người dùng';
+        $roles = Role::pluck('name','name')->all();
+        $userRole = $currentItem->roles->pluck('name','name')->all();
 
-        return view('user.create', compact('menuSystem', 'users', 'currentItem', 'title'));
+        return view('user.create', compact('menuSystem', 'users', 'roles', 'userRole', 'currentItem', 'title'));
     }
 
     public function update(Request $request)

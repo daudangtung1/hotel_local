@@ -68,7 +68,9 @@ class UserRepository extends ModelRepository
         if (!empty($request->password) && !empty($request->re_password)) {
             $data['password'] = bcrypt($request->password);
         }
-        return $this->model->create($data);
+        $user = $this->model->create($data);
+        $user->assignRole($request->input('roles'));
+        return $user;
     }
 
     public function update($request)
@@ -92,7 +94,9 @@ class UserRepository extends ModelRepository
         if (!empty($request->password) && !empty($request->re_password)) {
             $data['password'] = bcrypt($request->password);
         }
-
-        return $this->model->where('id', $request->user_id)->update($data);
+        $user = $this->model->where('id', $request->user_id)->update($data);
+        DB::table('model_has_roles')->where('model_id', $request->user_id)->delete();
+        $this->model->find($request->user_id)->assignRole($request->input('roles'));
+        return $user;
     }
 }

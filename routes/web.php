@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth','checkDate']], function () {
         'shifts'                   => \App\Http\Controllers\ShiftController::class,
         'groups'                   => \App\Http\Controllers\GroupController::class,
         'branchs'                   => \App\Http\Controllers\BranchController::class,
+        'roles'                   => \App\Http\Controllers\RoleController::class,
+        'permissions'                   => \App\Http\Controllers\PermissionController::class,
     ]);
 
     Route::get('history', [\App\Http\Controllers\BookingRoomController::class, 'getHistory'])->name('booking-room.history');

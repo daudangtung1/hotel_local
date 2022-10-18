@@ -46,6 +46,10 @@
 
                             </select>
                         </div>
+                        <div class="col-md-12">
+                            <label for="branch_id" class="form-label fw-bold">Quyền hạn</label>
+                            {!! Form::select('roles[]', $roles,$userRole ?? [], array('value' => '{{ old("roles") }}', 'class' => 'form-control','multiple')) !!}
+                        </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else btn-primary @endif">@if(isset($currentItem)) Cập nhật @else Tạo
                                 phòng @endif</button>
@@ -78,6 +82,7 @@
                             <th scope="col">Tên</th>
                             <th scope="col">Email</th>
                             <th scope="col">Chi nhánh</th>
+                            <th scope="col">Quyền hạn</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
@@ -88,6 +93,13 @@
                                 <td>{{$user->name ??''}}</td>
                                 <td>{{$user->email ??''}}</td>
                                 <td>{{$user->branch->name ??''}}</td>
+                                <td>
+                                @if(!empty($user->getRoleNames()))
+                                    @foreach($user->getRoleNames() as $v)
+                                        <label class="badge rounded-pill bg-primary">{{ $v }}</label>
+                                    @endforeach
+                                    @endif
+                                </td>
                                 <td style="width:40px">
                                     <div class="d-flex">
                                         <a class=" text-warning mr-2 d-inline-block" style="margin-right: 5px;"
