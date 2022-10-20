@@ -19,7 +19,7 @@ class UserController extends Controller
         Request $request,
         UserRepository $userRepository
     ) {
-        // $this->middleware('permission:edit articles');
+        // $this->middleware('permission:role-delete');
         $this->request = $request;
         $this->userRepository = $userRepository;
     }

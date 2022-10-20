@@ -86,7 +86,7 @@ class RoleController extends Controller
         $role->save();
 
         $role->syncPermissions($request->input('permission'));
-
+        return redirect()->back();
         return redirect()->route('roles.index')
             ->with('success', 'Cập nhật thành công.');
     }

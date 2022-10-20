@@ -286,7 +286,9 @@ img:focus {
 }
 
 
-
+a{
+    text-decoration: none !important;
+}
 
 /* ==========================================================================
    Base styles

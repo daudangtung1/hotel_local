@@ -20,10 +20,7 @@ class ServiceController extends Controller
 
     public function index()
     {
-        $floors = $this->serviceRepository->getAll(true);
-        $title = 'Quản lý dịch vụ';
-
-        return view('service.index', compact('floors', 'title'));
+       abort(404);
     }
 
     public function create()

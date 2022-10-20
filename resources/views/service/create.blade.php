@@ -3,7 +3,8 @@
 <div class="wrap-main">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            @can('Quản lý dịch vụ-create')
+            <div class="col">
                 <form class="row g-3" method="POST" action="@if(!empty($currentItem)){{route('services.update', ['service'=>$currentItem])}} @else{{route('services.store')}}@endif">
                     @if(!empty($currentItem))
                     {{method_field('PUT')}}
@@ -55,7 +56,9 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-6">
+            @endcan
+            @can('Quản lý dịch vụ-list')
+            <div class="col">
                 <table class="table table-sm table-bordered table-hover">
                     <thead>
                         <tr>
@@ -76,19 +79,22 @@
                             </td>
                             <td>
                                 @if($service->sale_type)
-                                    {{$service->stock ??''}}
+                                {{$service->stock ??''}}
                                 @else
-                                    Không giới hạn
+                                Không giới hạn
                                 @endif
                             </td>
                             <td>{{get_price($service->price, 'đ') ??''}}</td>
                             <td style="width:40px">
                                 <div class="d-flex">
+                                    @can('Quản lý dịch vụ-update')
                                     <a class=" text-warning mr-2 d-inline-block" style="margin-right: 5px;" href="{{route('services.edit',['service' => $service])}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                         </svg>
                                     </a>
+                                    @endcan
+                                    @can('Quản lý dịch vụ-delete')
                                     <form action="{{route('services.destroy',['service' => $service])}}" method="POST">
                                         @csrf
                                         {{ method_field('DELETE') }}
@@ -99,6 +105,7 @@
                                             </svg>
                                         </a>
                                     </form>
+                                    @endcan
                                 </div>
                             </td>
                         </tr>
@@ -142,6 +149,7 @@
                     });
                 </script>
             </div>
+            @endcan
         </div>
     </div>
 </div>

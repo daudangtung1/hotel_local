@@ -25,25 +25,23 @@
             <div class="content-tab">
                 <div class="info-content @if(!empty($menuSystem)) active  @endif">
                     <div class="inner-info-content">
+                        @can('Quản lý dịch vụ-list')
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
                                     <a href="{{route('services.create')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/nhaphang.png"></a>
                                     <span>Nhập hàng</span>
                                 </li>
-                                {{-- <li>--}}
-                                {{-- <a href="{{route('services.create')}}"><img class="image-svg" alt="" --}} {{--                                                                                src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/banhang.png"></a>--}} {{--                                    <span>Bán hàng</span>--}} {{--                                </li>--}} </ul>
-                                <span class="text_tlc">Quản lý kho</span>
+                            </ul>
+                            <span class="text_tlc">Quản lý kho</span>
                         </div>
+                        @endcan
+                        @can('Quản lý hóa đơn-prinf')
                         <div class="ql_tk">
                             <a href="{{ route('booking-room.booking_room_used') }}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/inhoadon.png"></a>
                             <span>In hóa đơn</span>
                         </div>
-                        {{-- <div class="ql_tk">--}}
-                        {{-- <a href="#"><img class="image-svg" alt=""--}}
-                        {{-- src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/giaodien.png"></a>--}}
-                        {{-- <span>Giao diện</span>--}}
-                        {{-- </div>--}}
+                        @endcan
                         <div class="ql_tk tl_chung">
                             <ul>
                                 @if ( auth()->check())
@@ -102,8 +100,6 @@
                                         </svg>
                                         <span>Khu vực</span>
                                     </a>
-                                    {{-- <a class="dropdown" href="#" role="button" id="dropdownFloor" data-bs-toggle="dropdown" aria-expanded="false"><img class="image-svg" alt=""
-                                                         src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/loaiphong.png"></a><span>Khu vuc</span> --}}
                                     <ul id="list-floor" class="dropdown-menu" aria-labelledby="dropdownFloor">
                                         <li><a class="dropdown-item">Tất cả</a></li>
                                         @foreach(\App\Models\Room::getUniqueFloor() as $floor)
@@ -148,49 +144,70 @@
                     <div class="inner-info-content">
                         <div class="ql_tk tl_chung">
                             <ul>
+                                @can('Quản lý thu chi-list')
                                 <li>
                                     <a href="{{route('revenue-and-expenditures.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/thuchi01.png"></a>
                                     <span>Thu chi</span>
                                 </li>
+                                @endcan
+                                @can('Quản lý quỹ-list')
                                 <li>
                                     <a href="{{route('funds.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qlquy01.png"></a>
                                     <span>QL Quỹ</span>
                                 </li>
+                                @endcan
+                                @can('Quản lý giao ca-list')
                                 <li>
                                     <a href="{{route('shifts.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/giaoca01.png"></a>
                                     <span>Giao ca</span>
                                 </li>
+                                @endcan
                             </ul>
+                            @can('Quản lý thu chi-list')
                             <span class="text_tlc">Quản lý thu chi</span>
+                            @endcan
                         </div>
                         <div class="ql_tk tl_chung">
                             <ul>
+                                @can('Quản lý khách hàng-list')
                                 <li>
                                     <a href="{{route('customers.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/danhsach01.png"></a>
                                     <span>Danh sách</span>
                                 </li>
+                                @endcan
+                                @can('Quản lý báo cáo-Báo cáo')
                                 <li>
                                     <a href="{{ route('customers.report') }}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/bckhach01.png"></a>
                                     <span>BC khách</span>
                                 </li>
+                                @endcan
+                                @can('Quản lý đồ thất lạc-list')
                                 <li>
                                     <a href="{{route('lost-items.create')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/dothatlac01.png"></a>
                                     <span>Đồ thất lạc</span>
                                 </li>
+                                @endcan
                             </ul>
+                            @can('Quản lý khách hàng-list')
                             <span class="text_tlc">Khách hàng</span>
+                            @endcan
                         </div>
 
                         <div class="ql_tk tl_chung">
                             <ul>
+                                @can('Quản lý chi nhánh-list')
                                 <li>
                                     <a href="{{route('branchs.create')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qldatphong01.png"></a>
                                     <span>QL chi nhánh</span>
                                 </li>
+                                @endcan
+                                @can('Quản lý đặt phòng-list')
                                 <li>
                                     <a href="{{route('rooms.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qldatphong01.png"></a>
                                     <span>QL Đặt Phòng</span>
                                 </li>
+                                @endcan
+                                @can('Quản lý khách đoàn-list')
                                 <li class="group-customer-booking">
                                     <a href="#"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/khachdoan01.png"></a>
                                     <span>Khách đoàn</span>
@@ -199,16 +216,21 @@
                                     <a href="{{route('groups.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/tradoan01.png"></a>
                                     <span>Trả đoàn</span>
                                 </li>
+                                @endcan
                             </ul>
+                            @can('Quản lý đặt phòng-list')
                             <span class="text_tlc">Đặt phòng và khách đoàn</span>
+                            @endcan
                         </div>
 
                     </div>
                 </div>
                 <div class="info-content @if(!empty($menuReport)) active  @endif">
                     <div class="inner-info-content">
+                    @can('Quản lý báo cáo-Báo cáo')
                         <div class="ql_tk tl_chung">
                             <ul>
+                                
                                 <li>
                                     <a href="{{route('reports.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/bgtonghop.png"></a>
                                     <span>BC Tổng hợp</span>
@@ -217,6 +239,7 @@
                                     <a href="#"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/congno.png"></a>
                                     <span>Công nợ</span>
                                 </li>
+                                
                             </ul>
                             <span class="text_tlc">Báo cáo</span>
                         </div>
@@ -237,7 +260,8 @@
                             </ul>
                             <span class="text_tlc">Quản lý kho</span>
                         </div>
-
+                        @endcan
+                        @can('Quản lý nhật ký-Nhật ký')
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
@@ -247,46 +271,40 @@
                             </ul>
                             <span class="text_tlc">Nhật ký</span>
                         </div>
+                        @endcan
                     </div>
                 </div>
                 <div class="info-content @if(!empty($menuSetup)) active  @endif">
                     <div class="inner-info-content">
+                        @can('Quản lý tài khoản-list')
                         <div class="ql_tk">
                             <a href="{{route('users.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qltaikhoan.png"></a>
                             <span>QL Tài khoản</span>
                         </div>
+                        @endcan
+                        @can('Quản lý quyền-list')
                         <div class="ql_tk">
                             <a href="{{route('roles.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qltaikhoan.png"></a>
                             <span>QL Quyền hạn</span>
                         </div>
+                        @endcan
+                        @can('Quản lý phòng-list')
                         <div class="ql_tk">
                             <a href="{{route('rooms.create')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qlphong.png"></a>
                             <span>QL Phòng</span>
                         </div>
+                        @endcan
+                        @can('Quản lý thông tin chung-Thông tin cơ sở')
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>
                                     <a href="{{route('options.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/ttcoso.png"></a>
                                     <span>TT Cơ sở</span>
                                 </li>
-                                <!-- <li>
-                                    <a href="#"><img class="image-svg" alt=""
-                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/email.png"></a>
-                                    <span>E-Mail</span>
-                                </li>
-                                <li>
-                                    <a href="#"><img class="image-svg" alt=""
-                                                     src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/caidat.png"></a>
-                                    <span>Cài đặt</span>
-                                </li> -->
                             </ul>
                             <span class="text_tlc">Thiết lập chung</span>
                         </div>
-                        {{-- <div class="ql_tk">--}}
-                        {{-- <a href="#"><img class="image-svg" alt=""--}}
-                        {{-- src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/sos.png"></a>--}}
-                        {{-- <span>SOS</span>--}}
-                        {{-- </div>--}}
+                        @endcan
                     </div>
                 </div>
                 <div class="info-content @if(!empty($menuHelp)) active  @endif">
@@ -304,27 +322,6 @@
                             </ul>
                             <span class="text_tlc">Thông tin sử dụng</span>
                         </div>
-                        {{-- <div class="ql_tk tl_chung">--}}
-                        {{-- <ul>--}}
-                        {{-- <li>--}}
-                        {{-- <a href="#"><img class="image-svg" alt=""--}}
-                        {{-- src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/phanmem01.png"></a>--}}
-                        {{-- <span>Phần mềm</span>--}}
-                        {{-- </li>--}}
-                        {{-- <li>--}}
-                        {{-- <a href="#"><img class="image-svg" alt=""--}}
-                        {{-- src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/banquyen.png"></a>--}}
-                        {{-- <span>Bản quyền</span>--}}
-                        {{-- </li>--}}
-                        {{-- <li>--}}
-                        {{-- <a href="#"><img class="image-svg" alt=""--}}
-                        {{-- src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/capnhat.png"></a>--}}
-                        {{-- <span>Cập nhật</span>--}}
-                        {{-- </li>--}}
-                        {{-- </ul>--}}
-                        {{-- <span class="text_tlc">Thông tin phần mềm</span>--}}
-                        {{-- </div>--}}
-
                         <div class="ql_tk tl_chung">
                             <ul>
                                 <li>

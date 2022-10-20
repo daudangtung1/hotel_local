@@ -17,17 +17,22 @@
                         <div class="tab-pane" id="settings">
                             <div class="form-horizontal">
                                 <div class="form-group row">
-                                    <label for="inputName" class="col-md-2 col-form-label">Name</label>
+                                    <label for="inputName" class="col-md-2 col-form-label">Tên chức vụ</label>
                                     <div class="col-md-10">
                                         {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row">
-                                    <label for="inputPermission" class="col-md-2 col-form-label">Permission</label>
+                                    <label for="inputPermission" class="col-md-2 col-form-label">Quyền hạn</label>
                                     <div class="col-md-10">
 
                                         <div class="row">
+                                        <div class="col-lg-12">
+                                                <label class="fw-bold mb-5 all" style="cursor:pointer;">
+                                                    Toàn bộ
+                                                </label>
+                                            </div>
                                             <?php
                                             $abc = "";
                                             $len = count($permission);
@@ -41,11 +46,11 @@
                                             if ($abc != substr($value->name, 0, strpos($value->name, "-")) && $key === 0) {
                                                 $abc = substr($value->name, 0, strpos($value->name, "-"));
 
-                                                echo '<label>' . $abc . '</label><div class="block">';
+                                                echo '<label class="fw-bold mb-2 parent" style="cursor:pointer;">' . $abc . '</label><div class="block">';
                                             } else if ($abc != substr($value->name, 0, strpos($value->name, "-")) && $key !== 0) {
                                                 $abc = substr($value->name, 0, strpos($value->name, "-"));
                                                 echo '</div></div><div class="col-md-4">';
-                                                echo '<label>' . $abc . '</label><div class="block">';
+                                                echo '<label class="fw-bold mb-2 parent" style="cursor:pointer;">' . $abc . '</label><div class="block">';
                                             }
                                             ?>
                                             <label for="{{$value->id}}">
@@ -76,4 +81,20 @@
     </div>
 </div>
 
+@endsection
+@section('script')
+<script>
+    $(document).ready(function() {
+        $(".parent").click(function() {
+            console.log(1);
+            var checkBoxes = $(this).closest('.col-md-4').find("input[name=permission\\[\\]]");
+            checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+        });  
+        
+        $(".all").click(function() {
+            var checkBoxes = $(this).closest('.row').find("input[name=permission\\[\\]]");
+            checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+        });  
+    });
+</script>
 @endsection
