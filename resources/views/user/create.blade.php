@@ -6,7 +6,8 @@
                 <div class="col-md-12">
                     <h5>Quản lý tài khoản</h5>
                 </div>
-                <div class="col-md-4">
+                @can('Quản lý tài khoản-create')
+                <div class="col">
                     <form class="row g-3" method="POST"
                           action="@if(!empty($currentItem)){{route('users.update', ['user'=>$currentItem])}} @else{{route('users.store')}}@endif">
                         @if(!empty($currentItem))
@@ -74,7 +75,9 @@
                         </script>
                     </form>
                 </div>
-                <div class="col-md-8">
+                @endcan
+                @can('Quản lý tài khoản-list')
+                <div class="col">
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                         <tr>
@@ -102,6 +105,7 @@
                                 </td>
                                 <td style="width:40px">
                                     <div class="d-flex">
+                                    @can('Quản lý tài khoản-update')
                                         <a class=" text-warning mr-2 d-inline-block" style="margin-right: 5px;"
                                            href="{{route('users.edit',['user' => $user])}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -110,6 +114,8 @@
                                                     d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                             </svg>
                                         </a>
+                                        @endcan
+                                        @can('Quản lý tài khoản-delete')
                                         <form action="{{route('users.destroy',['user' => $user])}}" method="POST">
                                             @csrf
                                             {{ method_field('DELETE') }}
@@ -123,6 +129,7 @@
                                                 </svg>
                                             </a>
                                         </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>
@@ -149,6 +156,7 @@
                         });
                     </script>
                 </div>
+                @endcan
             </div>
         </div>
     </div>

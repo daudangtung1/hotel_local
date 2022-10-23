@@ -30,6 +30,7 @@
                                 </td>
                                 <td style="width:40px">
                                     <div class="d-flex">
+                                    @can('Quản lý khách đoàn-update')
                                         <form action="{{route('groups.booking_info')}}">
                                             <input type="hidden" id="group_id" name="group_id"  value="{{$group->id}}">
                                             <input type="hidden" id="customer_id" name="customer_id"  value="{{$group->customer_id}}">
@@ -43,6 +44,8 @@
                                                 </svg>
                                             </a>
                                         </form>
+                                        @endcan
+                                        @can('Quản lý khách đoàn-delete')
                                         <form action="{{route('groups.show',['group' => $group])}}"
                                               method="POST">
                                             @csrf
@@ -57,6 +60,7 @@
                                                 </svg>
                                             </a>
                                         </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

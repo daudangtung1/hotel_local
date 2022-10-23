@@ -6,7 +6,8 @@
             <div class="col-md-12">
                 <h5>Quản lý loại phòng</h5>
             </div>
-            <div class="col-md-4">
+            @can('Quản lý loại phòng-create')
+            <div class="col">
                 <form class="row g-3" method="POST" action="@if(!empty($currentTypeRoom)){{route('type-rooms.update', ['type_room'=>$currentTypeRoom])}} @else{{route('type-rooms.store')}}@endif">
                     @if(!empty($currentTypeRoom))
                     {{method_field('PUT')}}
@@ -24,7 +25,9 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-8">
+            @endcan
+            @can('Quản lý loại phòng-list')
+            <div class="col">
                 <table class="table table-sm table-bordered table-hover">
                     <thead>
                         <tr>
@@ -38,11 +41,14 @@
                             <td>{{$typeRoom->name ??''}}</td>
                             <td style="width:40px">
                                 <div class="d-flex">
+                                    @can('Quản lý loại phòng-update')
                                     <a class=" text-warning mr-2 d-inline-block" style="margin-right: 5px;" href="{{route('type-rooms.edit',['type_room' => $typeRoom])}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                         </svg>
                                     </a>
+                                    @endcan
+                                    @can('Quản lý loại phòng-delete')
                                     <form action="{{route('type-rooms.destroy',['type_room' => $typeRoom])}}" method="POST">
                                         @csrf
                                         {{ method_field('DELETE') }}
@@ -53,6 +59,7 @@
                                             </svg>
                                         </a>
                                     </form>
+                                    @endcan
                                 </div>
                             </td>
                         </tr>
@@ -68,13 +75,15 @@
                     {{ $typeRooms->links('pagination::bootstrap-4') }}
                 </div>
             </div>
+            @endcan
         </div>
         <hr>
         <div class="row">
             <div class="col-md-12">
                 <h5>Quản lý phòng</h5>
             </div>
-            <div class="col-md-4">
+            @can('Quản lý phòng-create')
+            <div class="col">
                 <form class="row g-3" method="POST" action="@if(!empty($currentRoom)){{route('rooms.update', ['room'=>$currentRoom])}} @else{{route('rooms.store')}}@endif">
                     @if(!empty($currentRoom))
                     {{method_field('PUT')}}
@@ -134,7 +143,9 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-8">
+            @endcan
+            @can('Quản lý phòng-list')
+            <div class="col">
                 <table class="table table-sm table-bordered table-hover">
                     <thead>
                         <tr>
@@ -160,11 +171,14 @@
                             <td><span class="badge badge-light bg-{{$room->getBgButton()}}">{{\App\Models\Room::ARRAY_STATUS[$room->status ?? 0]}}</span></td>
                             <td style="width:40px">
                                 <div class="d-flex">
+                                    @can('Quản lý phòng-update')
                                     <a class=" text-warning mr-2 d-inline-block" style="margin-right: 5px;" href="{{route('rooms.edit',['room' => $room])}}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                         </svg>
                                     </a>
+                                    @endcan
+                                    @can('Quản lý phòng-delete')
                                     <form action="{{route('rooms.destroy',['room' => $room])}}" method="POST">
                                         @csrf
                                         {{ method_field('DELETE') }}
@@ -175,6 +189,7 @@
                                             </svg>
                                         </a>
                                     </form>
+                                    @endcan
                                 </div>
                             </td>
                         </tr>
@@ -201,6 +216,7 @@
                     });
                 </script>
             </div>
+            @endcan
         </div>
     </div>
 </div>

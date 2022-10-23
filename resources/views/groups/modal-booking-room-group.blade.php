@@ -210,7 +210,9 @@
                 <button class="btn btn-sm btn-danger btn-cancel-booking-group">Hủy phòng</button>
                 <button class="btn btn-sm btn-success btn-update-booking-group">Cập nhật phòng</button>
             @else
-                <button class="btn btn-sm btn-primary btn-booking-group">Đặt phòng</button>
+                @can('Quản lý khách đoàn-create')
+                    <button class="btn btn-sm btn-primary btn-booking-group">Đặt phòng</button>
+                @endcan
             @endif
         </div>
         @endif;

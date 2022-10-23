@@ -134,9 +134,12 @@
                 @if(!empty($bookingRoom))
                 <button class="btn btn-sm btn-warning " type="submit">Cập nhật</button>
                 @else
-                <a href="{{route('booking-room.index')}}" class="btn btn-sm btn-success">Quản lý đặt phòng</a>
-
+                @can('Quản lý đặt phòng-list')
+                    <a href="{{route('booking-room.index')}}" class="btn btn-sm btn-success">Quản lý đặt phòng</a>
+                @endcan
+                @can('Quản lý đặt phòng-create')
                 <button class="btn btn-sm btn-primary btn-booking-multiple-room">Đặt phòng</button>
+                @endcan
                 @endif
             </div>
         </div>

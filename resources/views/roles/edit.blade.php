@@ -40,7 +40,7 @@
                                             @foreach($permission as $key => $value)
                                             <?php
                                             if ($key === 0) {
-                                                echo '<div class="col-md-4">';
+                                                echo '<div class="col-md-4 mb-3">';
                                             }
 
                                             if ($abc != substr($value->name, 0, strpos($value->name, "-")) && $key === 0) {
@@ -49,7 +49,7 @@
                                                 echo '<label class="fw-bold mb-2 parent" style="cursor:pointer;">' . $abc . '</label><div class="block">';
                                             } else if ($abc != substr($value->name, 0, strpos($value->name, "-")) && $key !== 0) {
                                                 $abc = substr($value->name, 0, strpos($value->name, "-"));
-                                                echo '</div></div><div class="col-md-4">';
+                                                echo '</div></div><div class="col-md-4 mb-3">';
                                                 echo '<label class="fw-bold mb-2 parent" style="cursor:pointer;">' . $abc . '</label><div class="block">';
                                             }
                                             ?>

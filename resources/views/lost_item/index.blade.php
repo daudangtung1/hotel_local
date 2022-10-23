@@ -6,13 +6,17 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5>Đồ thất lạc</h5>
+                        @can('Quản lý đồ thất lạc-create')
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-toggle="modal" data-bs-target="#exampleModalLong">
                             Tạo mới
                         </button>
+                        @endcan
                     </div>
+                    @can('Quản lý đồ thất lạc-list')
                     <div class="table-ajax">
                         @include('lost_item.table')
                     </div>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -56,7 +60,7 @@
                 }
             })
         });
-
+        @can('Quản lý đồ thất lạc-update')
         $('body').on('change', '.note', function (e) {
             e.preventDefault();
 
@@ -116,5 +120,6 @@
                 }
             })
         });
+        @endcan
     </script>
 @endsection

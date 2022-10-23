@@ -811,3 +811,7 @@ div.dv-main-navigation ul ul ul {
 .whitespace-nowrap{
     white-space: nowrap;
 }
+
+.modal-lg, .modal-xl {
+    max-width: 90vw !important;
+}
