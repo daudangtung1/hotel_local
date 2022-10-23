@@ -1,3 +1,4 @@
+@can('Quản lý đặt phòng-create')
 @foreach($floors as $k => $rooms)
 <div class="row-room">
     <h3>{{$k}}</h3>
@@ -101,3 +102,4 @@
     })
 </script>
 @endsection
+@endcan

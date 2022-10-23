@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::group(['middleware' => ['auth','checkDate']], function () {
+Route::group(['middleware' => ['auth','checkDate', 'checkPermissionMiddleware']], function () {
     Route::get('reports/filter-form', [\App\Http\Controllers\ReportController::class, 'filterForm'])->name('reports.filter_form');
     Route::get('customers/search', [\App\Http\Controllers\CustomersController::class, 'searchByCustomerName'])->name('customers.search');
     Route::get('booking-room/booking', [\App\Http\Controllers\BookingRoomController::class, 'booking'])->name('booking-room.booking');

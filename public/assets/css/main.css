@@ -802,7 +802,7 @@ div.dv-main-navigation ul ul ul {
 -------------------------------------------------------------------------- */
 /*Start Main css */
 
-.form-control form-control-sm{
+.form-control {
     -webkit-appearance: auto !important;
     -moz-appearance: auto !important;
  appearance: auto !important;
@@ -814,4 +814,9 @@ div.dv-main-navigation ul ul ul {
 
 .modal-lg, .modal-xl {
     max-width: 90vw !important;
+}
+@media screen and (max-width: 992px) {
+    .row-room ul li{
+        width: calc(50% - 20px);
+    }
 }
