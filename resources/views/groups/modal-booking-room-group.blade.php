@@ -132,7 +132,7 @@
                     </div>
                 </div>
                 <h5>Thông tin người đặt</h5>
-                <div class="row mt-3" id="form-booking-group">
+                <div class="row mt-3 form-user" id="form-booking-group">
                     <div class="col-md-6 mb-3 position-relative">
                         <input type="text" autocomplete="off"  class="form-control  form-control-sm validate" id="customer_name"
                                name="customer_name" required

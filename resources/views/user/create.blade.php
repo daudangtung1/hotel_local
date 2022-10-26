@@ -49,11 +49,11 @@
                         </div>
                         <div class="col-md-12">
                             <label for="branch_id" class="form-label fw-bold">Quyền hạn</label>
-                            {!! Form::select('roles[]', $roles,$userRole ?? [], array('value' => '{{ old("roles") }}', 'class' => 'form-control','multiple')) !!}
+                            {!! Form::select('roles[]', $roles,$userRole ?? [], array('value' => '{{ old("roles") }}', 'class' => 'form-control')) !!}
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else btn-primary @endif">@if(isset($currentItem)) Cập nhật @else Tạo
-                                phòng @endif</button>
+                                tài khoản @endif</button>
                             @if(!empty($currentItem))
                                 <a href="{{route('users.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
                             @endif

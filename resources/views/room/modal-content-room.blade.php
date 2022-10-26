@@ -327,3 +327,11 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
             </div>
         </div>
     </div>
+
+    <script>
+        $('.datetime-picker').datetimepicker({
+                todayHighlight: true,
+                format: 'Y-m-d H:i',
+                startDate: new Date()
+            });
+    </script>

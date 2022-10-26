@@ -417,9 +417,11 @@
 
             var debounce = null;
 
-            $('body').on('keyup', '#customer_name', function(e) {
+            $('body').on('keyup', 'input[name="customer_name"]', function(e) {
+              
                 var _this = $(this);
                 var form = _this.closest('.form-user');
+                console.log(form.find('#customer_id_card').val(),form.find('#customer_phone').val());
                 if (form.find('#customer_id_card').val() != '' && form.find('#customer_phone').val() != '') {
                     return false;
                 }
@@ -1235,7 +1237,6 @@
                 type: "get",
                 url: "{{route('groups.index')}}",
                 success: function(data) {
-                    console.log('data', data)
                     $('#group-customer-booking').html('').html(data);
                     $('#group-customer-booking').modal('show');
                     var start_date = $('#group-customer-booking').find('#start_date');
@@ -1394,6 +1395,7 @@
 
         $('body').on('keyup', '#group_name', function(e) {
             var groupName = $(this).val();
+            var _this = $(this);
             $.ajax({
                 type: "GET",
                 url: "{{route('groups.filter')}}",
@@ -1401,7 +1403,7 @@
                     group_name: groupName
                 },
                 success: function(data) {
-                    $('#list-item-group').html('').html(data);
+                    _this.closest('.modal').find('.list-ajax').html('').html(data);
                 },
                 error: function(error) {
                     console.log(error);

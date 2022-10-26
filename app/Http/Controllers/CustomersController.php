@@ -113,7 +113,6 @@ class CustomersController extends Controller
     public function SearchByCustomerName(Request $request)
     {
         $customers = $this->customerRepository->SearchByCustomerName($request->get('name'), $request->get('type'));
-
         return view('customers.user-booking-form', compact('customers'))->render();
     }
 }
