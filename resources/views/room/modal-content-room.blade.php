@@ -281,7 +281,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm price" name="price" id="price" value="" min="0">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm price" name="money_received"  value="" min="0">
                             <div class="input-group-append">
                                 <span class="input-group-text">đ</span>
                             </div>
@@ -291,7 +291,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm price" name="price" id="price" value="" min="0">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm price" name="money_unpaid" value="" min="0">
                             <div class="input-group-append">
                                 <span class="input-group-text">đ</span>
                             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Debt;
 use App\Models\Room;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -136,15 +137,49 @@ class RoomRepository extends ModelRepository
                 if ($room->status == $this->model::HAVE_GUEST) {
                     DBTransaction::beginTransaction();
                     $room->update(['status' => $this->model::DIRTY]);
-                    $room->bookingRooms()->where('status', $this->model::HAVE_GUEST)->update([
+
+                    if (empty($request->money_received) && empty($request->money_unpaid) ) {
+                        return 'Vui lòng nhập số tiền nhận hoặc số tiền nợ.';
+                    } 
+
+                    $data = [
                         'status'        => $this->model::DIRTY,
                         'end_date'      => Carbon::now(),
                         'checkout_date' => Carbon::now()
-                    ]);
-                    $bookingRoom = $room->bookingRooms()->where('status', $this->model::HAVE_GUEST)->first();
+                    ];
+
+                    if (!empty($request->money_received)) {
+                        $data['money_received'] = $request->money_received ?? 0;
+                    } 
+                    
+                    if (!empty($request->money_unpaid) && $request->money_unpaid > 0) {
+                        $data['money_unpaid'] = $request->money_unpaid ?? 0;
+                    } 
+
+                    $room->bookingRooms()->where('status', $this->model::HAVE_GUEST)->update($data);
+                    $bookingRoom = $room->bookingRooms()->where('status', $this->model::DIRTY)->first();
                     if ($bookingRoom) {
                         create_revenue_expenditures('Thanh toán tiền phòng', $bookingRoom->getTotalPrice(false, false), 2);
                     }
+
+                    if (!empty($request->money_unpaid) && $request->money_unpaid > 0 && !empty($bookingRoom)) {
+                        $str = '';
+                        foreach ($bookingRoom->bookingRoomCustomers()->get() as $bookingRoomCustomer) {
+                            $str .="<p>";
+                            $str .= $bookingRoomCustomer->Customer->name . ' - ';
+                            $str .=$bookingRoomCustomer->Customer->id_card . ' - ';
+                            $str .=$bookingRoomCustomer->Customer->phone . ' - ';
+                            $str .=$bookingRoomCustomer->Customer->address ;
+                            $str .="</p>";
+                        }
+                        Debt::create([
+                            'name' => $str,
+                            'booking_room_id' => $bookingRoom->id,
+                            'price' => $request->money_unpaid ?? 0,
+                            'status' => 0,
+                            'branch_id' => get_branch_id()
+                        ]);
+                    } 
                     DBTransaction::commit();
                 } else if (in_array($room->status, [2, 3, 5])) {
                     $room->update(['status' => $this->model::READY]);
@@ -156,6 +191,7 @@ class RoomRepository extends ModelRepository
                 }
             } catch (\Throwable $e) {
                 DBTransaction::rollBack();
+                dd($e->getMessage());
                 return 'Có lỗi xảy ra, vui lòng thử lại sau!';
             }
         }

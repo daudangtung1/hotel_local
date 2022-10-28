@@ -1050,6 +1050,8 @@
                 var _this = $(this);
                 var modal = _this.closest('.modal');
                 var roomId = modal.find('input[name="room_id"]').val();
+                var moneyReceived = modal.find('input[name="money_received"]').val();
+                var moneyUnpaid = modal.find('input[name="money_unpaid"]').val();
                 var href = _this.data('action');
 
                 stopButton();
@@ -1058,6 +1060,8 @@
                     url: href,
                     data: {
                         room_id: roomId,
+                        money_received: moneyReceived,
+                        money_unpaid: moneyUnpaid,
                     },
                     success: function(data) {
                         if (data.status == 0) {
@@ -1066,6 +1070,7 @@
                                 icon: 'error',
                                 position: 'top-right'
                             });
+                            removeStopButton();
                             return false;
                         }
                         _this.closest('.modal').find('.modal-dialog').html(data);

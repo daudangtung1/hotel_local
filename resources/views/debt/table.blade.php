@@ -13,9 +13,9 @@
         @forelse($items as $key => $item)
         <tr>
             <td>{{$item->id}}</td>
-            <td>{{$item->name ?? '-'}}</td>
+            <td>{!!$item->name ?? '-'!!}</td>
             <td>
-                <p><b>Phòng</b> {{$item->bookingRoom->room->name ?? ''}}</p>
+                <p><b>Phòng</b> {!! $item->bookingRoom->room->name ?? '' !!}</p>
                 <p><b>Tầng:</b> {{$item->bookingRoom->room->floor ?? ''}}</p>
                 <p><b>Ngày vào: </b>{{$item->bookingRoom->start_date ?? ''}}</p>
                 <p><b>Ngày ra: </b>{{$item->bookingRoom->end_date ?? ''}}</p>

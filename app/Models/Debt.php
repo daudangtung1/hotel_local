@@ -15,6 +15,14 @@ class Debt extends Model
         0 => 'Chưa thanh toán',
         1 => 'Đã thanh toán',
     ];
+    
+    protected $fillable = [
+        'name',
+        'booking_room_id',
+        'price',
+        'status',
+        'branch_id' 
+    ];
 
     public function bookingRoom()
     {
