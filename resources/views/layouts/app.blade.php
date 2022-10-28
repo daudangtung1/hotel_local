@@ -415,10 +415,10 @@
             var debounce = null;
 
             $('body').on('keyup', 'input[name="customer_name"]', function(e) {
-              
+
                 var _this = $(this);
                 var form = _this.closest('.form-user');
-                console.log(form.find('#customer_id_card').val(),form.find('#customer_phone').val());
+                console.log(form.find('#customer_id_card').val(), form.find('#customer_phone').val());
                 if (form.find('#customer_id_card').val() != '' && form.find('#customer_phone').val() != '') {
                     return false;
                 }
@@ -1422,10 +1422,10 @@
                     area: $('#select-area').val(),
                     order_by: $('#select-order').val()
                 },
-                success: function (data) {
-                  $('#room-list').html('').html(data)
+                success: function(data) {
+                    $('#room-list').html('').html(data)
                 },
-                error: function (e) {
+                error: function(e) {
                     console.log(e);
                 }
             })
@@ -1437,20 +1437,20 @@
             $.ajax({
                 type: "get",
                 url: roomUrl,
-                success: function (data) {
-                  $('#poup-booking-room').html('').html(data);
-                  $('#poup-booking-room .modal').modal('show');
-                  removeStopButton();
+                success: function(data) {
+                    $('#poup-booking-room').html('').html(data);
+                    $('#poup-booking-room .modal.modal_parent').modal('show');
+                    removeStopButton();
                 },
-                error: function (e) {
+                error: function(e) {
                     console.log(e);
                     removeStopButton();
-                    $('#poup-booking-room .modal').modal('hide');
+                    $('#poup-booking-room .modal.modal_parent').modal('hide');
                 }
             })
         });
 
-        $('.modal').on('hide.bs.modal', function (e) {
+        $('.modal.modal_parent').on('hide.bs.modal', function(e) {
             console.log('Modal close event.')
             $(this).closest('#poup-booking-room').html('');
         });
@@ -1474,7 +1474,7 @@
                     removeStopButton();
                 }
             })
-        })
+        });
 
         function getParamsFilter() {
             var area = $('#list-floor .item-active').data('value');
