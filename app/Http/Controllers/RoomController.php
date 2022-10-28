@@ -132,6 +132,7 @@ class RoomController extends Controller
     {
         $request->merge(['room_id' => $room]);
         $room = $this->roomRepository->find($request);
-        return view('room.modal-room', compact('room'))->render();
+        $services = $this->serviceRepository->getAll();
+        return view('room.modal-room', compact('room', 'services'))->render();
     }
 }

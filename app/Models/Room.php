@@ -32,8 +32,8 @@ class Room extends Model
     ];
 
     const ARRAY_UPDATE_STATUS = [
+        self::HAVE_GUEST => "Có khách",
         self::GUEST_OUTDOOR => "Khách ra ngoài",
-        self::FIXING_ROOM => "Đang sửa",
     ];
 
     const FILTER_BY_ROOM = 0;

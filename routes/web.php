@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::group(['middleware' => ['auth','checkDate', 'checkPermissionMiddleware']], function () {
+Route::group(['middleware' => ['auth', 'checkDate', 'checkPermissionMiddleware']], function () {
     Route::get('reports/filter-form', [\App\Http\Controllers\ReportController::class, 'filterForm'])->name('reports.filter_form');
     Route::get('customers/search', [\App\Http\Controllers\CustomersController::class, 'searchByCustomerName'])->name('customers.search');
     Route::get('booking-room/booking', [\App\Http\Controllers\BookingRoomController::class, 'booking'])->name('booking-room.booking');
@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth','checkDate', 'checkPermissionMiddleware']]
         'branchs'                   => \App\Http\Controllers\BranchController::class,
         'roles'                   => \App\Http\Controllers\RoleController::class,
         'permissions'                   => \App\Http\Controllers\PermissionController::class,
+        'debts' => \App\Http\Controllers\DebtController::class,
     ]);
 
     Route::get('history', [\App\Http\Controllers\BookingRoomController::class, 'getHistory'])->name('booking-room.history');

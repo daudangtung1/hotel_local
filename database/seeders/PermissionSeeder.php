@@ -61,6 +61,8 @@ class PermissionSeeder extends Seeder
             'Quản lý phòng-create',
             'Quản lý phòng-update',
             'Quản lý phòng-delete',
+            'Quản lý công nợ-list',
+            'Quản lý công nợ-update',
             'Quản lý loại phòng-list',
             'Quản lý loại phòng-create',
             'Quản lý loại phòng-update',

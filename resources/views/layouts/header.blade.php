@@ -236,7 +236,7 @@
                                     <span>BC Tổng hợp</span>
                                 </li>
                                 <li>
-                                    <a href="#"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/congno.png"></a>
+                                    <a href="{{route('debts.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/congno.png"></a>
                                     <span>Công nợ</span>
                                 </li>
                                 

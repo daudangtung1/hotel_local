@@ -33,8 +33,6 @@ class BookingRoomController extends Controller
         $this->optionRepository = $optionRepository;
         $this->typeRoomRepository = $typeRoomRepository;
         $this->groupRepository = $groupRepository;
-
-       
     }
 
     public function index(Request $request)
@@ -78,7 +76,6 @@ class BookingRoomController extends Controller
         if (isset($result['status']) && $result['status'] == false) {
             return $result;
         }
-
         $floors = $this->roomRepository->getAll(true, false);
         $services = $this->serviceRepository->getAll();
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking();
