@@ -185,7 +185,6 @@
     <script src="{{asset('js/datepicker.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
 
-
     @yield('script')
     <div class="modal fade" id="option-contact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
@@ -197,9 +196,7 @@
         @include('room.model-booking-room', ['bookingRoom' => null])
     </div>
 
-    <div id="poup-booking-room">
-       
-    </div>
+    <div id="poup-booking-room"></div>
 
     <script>
         $(window).on('load', function() {
@@ -1054,6 +1051,7 @@
                 var modal = _this.closest('.modal');
                 var roomId = modal.find('input[name="room_id"]').val();
                 var href = _this.data('action');
+
                 stopButton();
                 $.ajax({
                     type: "POST",
@@ -1062,7 +1060,6 @@
                         room_id: roomId,
                     },
                     success: function(data) {
-                        console.log(data);
                         if (data.status == 0) {
                             $.toast({
                                 text: data.massage,
@@ -1084,7 +1081,7 @@
                         console.log(e);
                         removeStopButton();
                     }
-                })
+                });
             });
 
 

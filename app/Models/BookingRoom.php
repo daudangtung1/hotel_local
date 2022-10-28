@@ -36,7 +36,9 @@ class BookingRoom extends Model
         'rent_type',
         'checkout_date',
         'extra_price',
-        'user_id'
+        'user_id',
+        'money_received',
+        'money_unpaid',
     ];
     /**
      * The attributes that should be mutated to dates.
