@@ -418,7 +418,6 @@
 
                 var _this = $(this);
                 var form = _this.closest('.form-user');
-                console.log(form.find('#customer_id_card').val(), form.find('#customer_phone').val());
                 if (form.find('#customer_id_card').val() != '' && form.find('#customer_phone').val() != '') {
                     return false;
                 }
@@ -1052,6 +1051,15 @@
                 var roomId = modal.find('input[name="room_id"]').val();
                 var moneyReceived = modal.find('input[name="money_received"]').val();
                 var moneyUnpaid = modal.find('input[name="money_unpaid"]').val();
+
+                if (moneyReceived == '') {
+                    $.toast({
+                                text: 'Vui lòng số tiền nhận.',
+                                icon: 'error',
+                                position: 'top-right'
+                            });
+                            return false;
+                }
                 var href = _this.data('action');
 
                 stopButton();
