@@ -1,11 +1,12 @@
-@if($room->status == \App\Models\Room::HAVE_GUEST)
+
+@if(!empty($bookingRoom) && $room->status == \App\Models\Room::HAVE_GUEST)
 <div class="modal fade modal_child" id="modal_check_form_{{$room->id}}" aria-labelledby="booking-modalLabel" aria-hidden="true">
-    @include('room.modal-content-room-check')
+    @include('room.modal-content-room-check', ['bookingRoom' => $bookingRoom ?? null])
 </div>
 @endif
 <div class="modal fade modal_parent" id="booking-modal-{{$room->id}}" aria-labelledby="booking-modalLabel" aria-hidden="true">
     <input type="hidden" name="room_id" value="{{$room->id}}">
-    @include('room.modal-content-room')
+    @include('room.modal-content-room', ['bookingRoom' => $bookingRoom?? null])
 </div>
 <script>
     $('.datetime-picker').datetimepicker({

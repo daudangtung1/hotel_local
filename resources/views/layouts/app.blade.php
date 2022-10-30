@@ -824,7 +824,7 @@
                 var quantityService = _this.val().replace(/^\s+|\s+$/g, "");
                 var href = _this.data('url_update');
                 var roomId = modal.find('input[name="room_id"]').val();
-
+                stopButton();
                 if (quantityService == '0') {
                     $(this).val(1);
                     quantityService = 1;
@@ -838,25 +838,30 @@
                     },
                     success: function(data) {
                         if (typeof data.response !== 'undefined') {
+                            removeStopButton();
                             $.toast({
                                 text: data.response.message,
                                 icon: 'error',
                                 position: 'top-right'
                             });
+                            
                             return false;
                         }
                         _this.closest('.modal').find('.modal-dialog').html(data);
 
                         changeBgLi(_this, roomId);
                         refreshView();
+                        removeStopButton();
                         $.toast({
                             text: 'Cập nhật thành công',
                             icon: 'success',
                             position: 'top-right'
                         });
+                        
                     },
                     error: function(e) {
                         console.log(e);
+                        removeStopButton();
                     }
                 })
             });
@@ -1044,6 +1049,21 @@
                 })
             });
 
+            $('body').on('keyup', 'input[name="money_received"]', function(e) {
+            var val = $(this).val();
+            var _this = $(this);
+            var maxPrice = _this.closest('.modal ').find('input[name="money_unpaid_hidden"]').val();
+            _this.closest('.modal').find('input[name="money_unpaid"]').val(maxPrice-val);
+            if(parseInt(val) > parseInt(maxPrice)) {
+                $.toast({
+                    text: 'Số tiền nhận không được lớn hơn tổng tiền khách phải trả.',
+                    icon: 'error',
+                    position: 'top-right'
+                });
+                return false;
+            }
+        })
+
             $('body').on('click', '.btn-change-status', function(e) {
                 e.preventDefault();
                 var _this = $(this);
@@ -1051,18 +1071,29 @@
                 var roomId = modal.find('input[name="room_id"]').val();
                 var moneyReceived = modal.find('input[name="money_received"]').val();
                 var moneyUnpaid = modal.find('input[name="money_unpaid"]').val();
-
+                stopButton();
                 if (moneyReceived == '') {
                     $.toast({
-                                text: 'Vui lòng số tiền nhận.',
-                                icon: 'error',
-                                position: 'top-right'
-                            });
-                            return false;
+                        text: 'Vui lòng số tiền nhận.',
+                        icon: 'error',
+                        position: 'top-right'
+                    });
+                    removeStopButton();
+                    return false;
                 }
                 var href = _this.data('action');
 
-                stopButton();
+                var maxPrice = modal.find('input[name="money_unpaid_hidden"]').val();
+                if(parseInt(moneyReceived) > parseInt(maxPrice)) {
+                    $.toast({
+                        text: 'Số tiền nhận không được lớn hơn tổng tiền khách phải trả.',
+                        icon: 'error',
+                        position: 'top-right'
+                    });
+                    removeStopButton();
+                    return false;
+                }
+                
                 $.ajax({
                     type: "POST",
                     url: href,
@@ -1402,6 +1433,8 @@
                 }
             })
         });
+
+
 
         $('body').on('keyup', '#group_name', function(e) {
             var groupName = $(this).val();

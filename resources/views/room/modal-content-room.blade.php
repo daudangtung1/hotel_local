@@ -325,7 +325,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                 </a>
                 @endif
                 @if($room->status == \App\Models\Room::HAVE_GUEST)
-                <a id="modal_check_btn_{{$room->id}}" href="#modal_check_form_{{$room->id}}" data-bg="{{$room->getBgButton()}}" class="btn btn-sm btn-{{$room->getBgButtonSubmit()}} btn-change-status " data-toggle="modal">{{$room->getTextButton()}}</a>
+                <a id="modal_check_btn_{{$room->id}}" href="#modal_check_form_{{$room->id}}" data-bg="{{$room->getBgButton()}}" class="btn btn-sm btn-{{$room->getBgButtonSubmit()}} " data-toggle="modal">{{$room->getTextButton()}}</a>
                 @else
                 <button data-bg="{{$room->getBgButton()}}" type="submit" @if($room->status != \App\Models\Room::READY || $room->status != \App\Models\Room::HAVE_GUEST) data-action="{{route('room.change-status', ['room_id' => $room->id])}}"
                     @endif class="btn btn-sm btn-{{$room->getBgButtonSubmit()}} @if($room->status == \App\Models\Room::READY) btn-booking-room @else btn-change-status @endif" >{{$room->getTextButton()}}</button>

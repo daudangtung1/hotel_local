@@ -7,7 +7,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm price" name="money_received" value="" min="0">
+                        <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm price" name="money_received" value="" min="0" max="{{ $bookingRoom->getTotalPrice(true, false)}}">
                         <div class="input-group-append">
                             <span class="input-group-text">đ</span>
                         </div>
@@ -17,7 +17,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                         </div>
-                        <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm price" name="money_unpaid" value="" min="0">
+                        <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm price" name="money_unpaid" value="{{ $bookingRoom->getTotalPrice(true, false)}}" min="0" max="{{ $bookingRoom->getTotalPrice(true, false)}}">
+                        <input type="hidden" autocomplete="off" class="total-price-hiđen" name="money_unpaid_hidden" value="{{ $bookingRoom->getTotalPrice(true, false)}}" min="0" max="{{ $bookingRoom->getTotalPrice(true, false)}}">
                         <div class="input-group-append">
                             <span class="input-group-text">đ</span>
                         </div>

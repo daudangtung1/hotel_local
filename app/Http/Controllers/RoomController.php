@@ -133,6 +133,7 @@ class RoomController extends Controller
         $request->merge(['room_id' => $room]);
         $room = $this->roomRepository->find($request);
         $services = $this->serviceRepository->getAll();
-        return view('room.modal-room', compact('room', 'services'))->render();
+        $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->whereIn('status', [1,3,5])->where('status', '<>', 7)->first();
+        return view('room.modal-room', compact('room', 'bookingRoom', 'services'))->render();
     }
 }

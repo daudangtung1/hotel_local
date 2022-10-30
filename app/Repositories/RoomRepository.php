@@ -134,13 +134,26 @@ class RoomRepository extends ModelRepository
 
         if (!empty($room) && $room->status > 0) {
             try {
+                $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->whereIn('status', [1,3,5])->where('status', '<>', 7)->first();
+
                 if ($room->status == $this->model::HAVE_GUEST) {
                     DBTransaction::beginTransaction();
-                    $room->update(['status' => $this->model::DIRTY]);
-
-                    if (empty($request->money_received) && empty($request->money_unpaid) ) {
+                    if (empty($request->money_received) && empty($request->money_unpaid)) {
                         return 'Vui lòng nhập số tiền nhận hoặc số tiền nợ.';
-                    } 
+                    }
+
+                    if (!empty($request->money_received) && $request->money_received > $bookingRoom->getTotalPrice(true, false)) {
+                        return 'Số tiền nhận không được lớn hơn tổng tiền khách phải trả.';
+                    }
+
+                    if (
+                        !empty($request->money_received) &&
+                        !empty($request->money_unpaid) &&
+                        ($request->money_received +  $request->money_unpaid) != $bookingRoom->getTotalPrice(true, false)
+                    ) {
+                        return 'Tổng số tiền nhận và nợ không trùng khớp với số tiền khách phải trả, vui lòng refresh trình duyệt.';
+                    }
+                    $room->update(['status' => $this->model::DIRTY]);
 
                     $data = [
                         'status'        => $this->model::DIRTY,
@@ -150,11 +163,11 @@ class RoomRepository extends ModelRepository
 
                     if (!empty($request->money_received)) {
                         $data['money_received'] = $request->money_received ?? 0;
-                    } 
-                    
+                    }
+
                     if (!empty($request->money_unpaid) && $request->money_unpaid > 0) {
                         $data['money_unpaid'] = $request->money_unpaid ?? 0;
-                    } 
+                    }
 
                     $room->bookingRooms()->where('status', $this->model::HAVE_GUEST)->update($data);
                     $bookingRoom = $room->bookingRooms()->where('status', $this->model::DIRTY)->first();
@@ -165,12 +178,12 @@ class RoomRepository extends ModelRepository
                     if (!empty($request->money_unpaid) && $request->money_unpaid > 0 && !empty($bookingRoom)) {
                         $str = '';
                         foreach ($bookingRoom->bookingRoomCustomers()->get() as $bookingRoomCustomer) {
-                            $str .="<p>";
+                            $str .= "<p>";
                             $str .= $bookingRoomCustomer->Customer->name . ' - ';
-                            $str .=$bookingRoomCustomer->Customer->id_card . ' - ';
-                            $str .=$bookingRoomCustomer->Customer->phone . ' - ';
-                            $str .=$bookingRoomCustomer->Customer->address ;
-                            $str .="</p>";
+                            $str .= $bookingRoomCustomer->Customer->id_card . ' - ';
+                            $str .= $bookingRoomCustomer->Customer->phone . ' - ';
+                            $str .= $bookingRoomCustomer->Customer->address;
+                            $str .= "</p>";
                         }
                         Debt::create([
                             'name' => $str,
@@ -179,7 +192,7 @@ class RoomRepository extends ModelRepository
                             'status' => 0,
                             'branch_id' => get_branch_id()
                         ]);
-                    } 
+                    }
                     DBTransaction::commit();
                 } else if (in_array($room->status, [2, 3, 5])) {
                     $room->update(['status' => $this->model::READY]);
@@ -191,7 +204,6 @@ class RoomRepository extends ModelRepository
                 }
             } catch (\Throwable $e) {
                 DBTransaction::rollBack();
-                dd($e->getMessage());
                 return 'Có lỗi xảy ra, vui lòng thử lại sau!';
             }
         }
