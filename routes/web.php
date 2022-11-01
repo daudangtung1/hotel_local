@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth', 'checkDate', 'checkPermissionMiddleware']
     Route::post('booking-room/group-booking', [\App\Http\Controllers\BookingRoomController::class, 'bookingRoomGroup'])->name('booking-room.booking_room_group');
     Route::get('reports/filter', [\App\Http\Controllers\ReportController::class, 'filter'])->name('reports.filter');
     Route::get('lost-items/update-status/{id}', [\App\Http\Controllers\LostItemController::class, 'updateStatus'])->name('lost-items.update_status');
+    Route::get('debts/update-status/{id}', [\App\Http\Controllers\DebtController::class, 'updateStatus'])->name('debts.update_status');
 
     Route::get('customers/report/filter', [\App\Http\Controllers\CustomersController::class, 'report'])->name('customers.report');
     Route::get('booking-room-service/report/filter', [\App\Http\Controllers\BookingRoomServiceController::class, 'report'])->name('booking-room-service.report');

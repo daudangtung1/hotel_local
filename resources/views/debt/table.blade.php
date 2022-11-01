@@ -11,7 +11,7 @@
     <tbody>
         @if(!empty($items))
         @forelse($items as $key => $item)
-        <tr>
+        <tr data-item_id="{{$item->id}}">
             <td>{{$item->id}}</td>
             <td>{!!$item->name ?? '-'!!}</td>
             <td>
@@ -21,7 +21,19 @@
                 <p><b>Ngày ra: </b>{{$item->bookingRoom->end_date ?? ''}}</p>
             </td>
             <td>{{get_price($item->price ?? 0, 'đ')}}</td>
-            <td>{{\App\Models\Debt::ARRAY_STATUS[$item->status]}}</td>
+            <td>
+                @if(empty($item->status))
+                    <select name="status" id="status" class="form-control form-control-sm status">
+                        <option value="0">Chưa trả</option>
+                        <option value="1">Đã trả</option>
+                    </select>
+                @else
+                    <b class="text-success">{{\App\Models\Debt::ARRAY_STATUS[$item->status]}}</b> <br />
+                    @if ($item->status == 1)
+                    <b>Ngày thanh toán: {{$item->updated_at}}</b>
+                    @endif
+                @endif
+            </td>
         </tr>
         @empty
         <tr>

@@ -214,31 +214,39 @@
         function stopButton() {
             $('.btn').prop('disabled', true);
             loading();
+            renderDatePicker();
         }
 
         function removeStopButton() {
             $('.btn').prop('disabled', false);
             closeLoading();
+            renderDatePicker();
         }
+        function renderDatePicker()
+            {
+                var dateTime = $('.datetime-picker');
+                if (dateTime) {
+                    dateTime.datetimepicker({
+                        todayHighlight: true,
+                        format: 'Y-m-d H:i',
+                        startDate: new Date()
+                    });
+                }
+
+                var date = $('.filter-date');
+                if (date) {
+                    date.datetimepicker({
+                        todayHighlight: true,
+                        format: 'Y-m-d',
+                        startDate: new Date()
+                    });
+                }
+            }
+
 
         $(document).ready(function() {
-            var dateTime = $('.datetime-picker');
-            if (dateTime) {
-                dateTime.datetimepicker({
-                    todayHighlight: true,
-                    format: 'Y-m-d H:i',
-                    startDate: new Date()
-                });
-            }
-
-            var date = $('.filter-date');
-            if (date) {
-                date.datetimepicker({
-                    todayHighlight: true,
-                    format: 'Y-m-d',
-                    startDate: new Date()
-                });
-            }
+            
+            renderDatePicker();
 
             $('body').on('click', '.btn-booking-multiple-room', function() {
                 var _this = $(this);
@@ -868,7 +876,7 @@
 
             $('body').on('click', '.modal tr .model-btn-add-service', function(e) {
                 e.preventDefault();
-
+                stopButton();
                 var _this = $(this);
                 var modal = _this.closest('.modal');
                 var td = _this.closest('tr');
@@ -885,6 +893,7 @@
                         icon: 'error',
                         position: 'top-right'
                     });
+                    removeStopButton();
                     return false;
                 }
 
@@ -894,9 +903,10 @@
                         icon: 'error',
                         position: 'top-right'
                     });
+                    removeStopButton();
                     return false;
                 }
-                stopButton();
+               
                 $.ajax({
                     type: "POST",
                     url: "{{route('booking-room.store')}}",

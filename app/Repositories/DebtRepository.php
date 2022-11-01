@@ -47,4 +47,18 @@ class DebtRepository extends ModelRepository
             'branch_id'         => get_branch_id(),
         ]);
     }
+
+    public function updateStatus($request, $id)
+    {
+        $debtItem = $this->model->find($id);
+
+        if (empty($debtItem->status)) {
+            $data = [
+                'updated_at' => Carbon::now(),
+                'status' => 1,
+            ];
+        }
+
+        $this->model->where('id', $id)->update($data);
+    }
 }

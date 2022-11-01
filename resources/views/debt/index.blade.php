@@ -17,3 +17,35 @@
         </div>
     </div>
 @endsection
+@section('script')
+    <script>
+        $('body').on('change', 'tr .status', function (e) {
+            e.preventDefault();
+
+            var _this = $(this);
+            var tr = _this.closest('tr');
+            var id = tr.data('item_id');
+            var status = _this.val();
+
+            $.ajax({
+                type: "GET",
+                url: "/debts/update-status/" + id,
+                data: {
+                    id: id,
+                    status: status,
+                },
+                success: function (data) {
+                    $('.table-ajax').html(data);
+                    $.toast({
+                        text: 'Cập nhật thành công',
+                        icon: 'success',
+                        position: 'top-right'
+                    });
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        });
+    </script>
+@endsection

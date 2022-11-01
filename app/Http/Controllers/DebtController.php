@@ -23,19 +23,11 @@ class DebtController extends Controller
 
         return view('debt.index', compact('items', 'menuCategoryManager', 'title'));
     }
-
-    public function store(Request $request)
-    {
-        $this->lostItemRepository->store($request);
-        $items = $this->lostItemRepository->getAll();
-
-        return view('debt.table', compact('items'));
-    }
-
+  
     public function updateStatus(Request $request, $id)
     {
-        $this->lostItemRepository->updateStatus($request, $id);
-        $items = $this->lostItemRepository->getAll();
+        $this->debtRepository->updateStatus($request, $id);
+        $items = $this->debtRepository->getAll();
 
         return view('debt.table', compact('items'));
     }
