@@ -1527,6 +1527,49 @@
                 order_by: order_by
             };
         }
+
+        function addCommas(nStr){
+            nStr += '';
+            x = nStr.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+            return x1 + x2;
+        }
+
+        $('body').on('input', 'input[name=price]', function(){
+            var val=$(this).val();
+            var find_price_el=$(this).parent();
+            if($(this).val().length) {
+                $(this).parent().css("position", "relative");
+                $(this).parent().parent().find('small').remove();
+                if($(this).parent().hasClass('input-group')) var small_el = "<small style='position: absolute; bottom: -15px; left: 30px; font-size: 11px !important'>" + addCommas(val)+"</small>";
+                else small_el = "<small style='position: absolute; bottom: -15px; left: 15px; font-size: 11px !important'>" + addCommas(val)+"</small>";
+                $(this).after(function(){
+                    return small_el;
+                });
+            } else {
+                $(this).parent().find('small').remove();
+            }
+        });
+
+        $('body').on('input', 'input[name=extra_price]', function(){
+            var val=$(this).val();
+            var find_price_el=$(this).parent();
+            if($(this).val().length) {
+                $(this).parent().css("position", "relative");
+                $(this).parent().parent().find('small').remove();
+                var small_el="<small style='position: absolute; bottom: -15px; left: 30px; font-size: 11px !important'>" + addCommas(val)+"</small>";
+                $(this).after(function(){
+                    return small_el;
+                });
+            } else {
+                $(this).parent().find('small').remove();
+            }
+        });
     </script>
     <style>
         @media (min-width: 1200px) {
