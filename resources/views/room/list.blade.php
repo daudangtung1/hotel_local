@@ -4,8 +4,8 @@
     <h3>{{$k}}</h3>
     <ul style="padding-left: 0px">
         @foreach($rooms as $room)
-        <li id="room-{{$room->id}}" class="show-room-popup position-relative @if($room->status != \App\Models\Room::NOT_FOR_RENT) booking-room @endif bg-{{$room->getBgButton()}}" data-room_id="{{$room->id}}" data-room_url="{{route('rooms.show', ['room' => $room])}}"> 
-            <div @if($room->status != \App\Models\Room::NOT_FOR_RENT)data-room_id="{{$room->id}}" @endif>
+        <li class="@if($room->status != \App\Models\Room::NOT_FOR_RENT) booking-room @endif bg-{{$room->getBgButton()}}  position-relative" data-room_id="{{$room->id}}" data-room_url="{{route('rooms.show', ['room' => $room])}}"> 
+            <div @if($room->status != \App\Models\Room::NOT_FOR_RENT)data-room_id="{{$room->id}}" @endif  id="room-{{$room->id}}" class="show-room-popup" data-room_id="{{$room->id}}" data-room_url="{{route('rooms.show', ['room' => $room])}}">
                 <h5 class="room-title">{{$room->name ?? ''}}</h5>
                 <div class="in-room align-items-start">
                     <div class="icon">

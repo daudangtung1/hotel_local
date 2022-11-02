@@ -569,11 +569,13 @@
                     },
                     success: function(data) {
                         if (data.status == false && data.message) {
+                            removeStopButton();
                             $.toast({
                                 text: data.message,
                                 icon: 'error',
                                 position: 'top-right'
                             });
+                            
                             return false;
                         } else {
                             $('#room-list').html('').html(data);
@@ -631,16 +633,17 @@
                 var customerAddress = modal.find('#customer_address').val();
                 var startDate = modal.find('#start_date').val();
                 var endDate = modal.find('#end_date').val();
-
+                stopButton();
                 if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '') {
                     $.toast({
                         text: 'Vui lòng nhập thông tin khách hàng',
                         icon: 'error',
                         position: 'top-right'
                     });
+                    removeStopButton();
                     return false;
                 }
-                stopButton();
+                
                 $.ajax({
                     type: "post",
                     url: "{{route('booking-room.store')}}",
@@ -685,7 +688,7 @@
                 var price = modal.find('.price').val();
                 var rentType = modal.find('input[name="rent_type"]:checked').val();
                 var extraPrice = modal.find('input[name="extra_price"]').val();
-
+                stopButton();
                 if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '') {
                     $.toast({
                         text: 'Vui lòng nhập thông tin khách hàng',
@@ -701,9 +704,11 @@
                             }
                         }
                     });
+
+                    removeStopButton();
                     return false;
                 }
-                stopButton();
+               
                 $.ajax({
                     type: "post",
                     url: "{{route('booking-room.store')}}",
@@ -727,6 +732,7 @@
                                 icon: 'error',
                                 position: 'top-right'
                             });
+                            removeStopButton();
                             return false;
                         }
                         _this.closest('.modal').find('.modal-dialog').html(data);
@@ -765,7 +771,7 @@
                 var modalEndDate = tr.find('.modal_end_date').val();
                 var href = _this.data('url_update');
                 var roomId = modal.find('input[name="room_id"]').val();
-
+                stopButton();
                 if (modalStartDate == '' || modalEndDate == '') {
                     _this.closest('tr').find('td .row').removeClass('d-none');
                     $.toast({
@@ -773,6 +779,7 @@
                         icon: 'error',
                         position: 'top-right'
                     });
+                    removeStopButton();
                     return false;
                 }
 
@@ -783,9 +790,10 @@
                         icon: 'error',
                         position: 'top-right'
                     });
+                    removeStopButton();
                     return false;
                 }
-                stopButton();
+                
                 $.ajax({
                     type: "POST",
                     url: href,
@@ -801,6 +809,7 @@
                                 icon: 'error',
                                 position: 'top-right'
                             });
+                            removeStopButton();
                             return false;
                         }
                         _this.closest('.modal').find('.modal-dialog').html(data);
@@ -957,13 +966,14 @@
                 _this.closest('tbody').find('td .row').addClass('d-none');
                 _this.closest('tbody').find('.modal_end_date').val('');
                 _this.closest('tbody').find('.modal_start_date').val('');
-
+                stopButton();
 
                 if (saleType == 0 && (modalStartDate == '' || modalEndDate == '' || modalEndDate == modalStartDate)) {
                     _this.closest('tr').find('td .row').removeClass('d-none');
+                    removeStopButton();
                     return false;
                 }
-                stopButton();
+                
                 $.ajax({
                     type: "POST",
                     url: "{{route('booking-room.store')}}",
@@ -1070,6 +1080,7 @@
                     icon: 'error',
                     position: 'top-right'
                 });
+                
                 return false;
             }
         })
