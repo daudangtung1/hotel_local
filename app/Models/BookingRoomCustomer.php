@@ -19,7 +19,7 @@ class BookingRoomCustomer extends Model
         'created_at',
     ];
 
-    public function customer()
+     public function customer()
     {
         return $this->belongsTo(Customers::class);
     }

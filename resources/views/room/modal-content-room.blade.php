@@ -26,10 +26,10 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                         <tbody>
                             @forelse($bookingRoom->bookingRoomCustomers()->get() as $key => $bookingRoomCustomer)
                             <tr>
-                                <td>{{$bookingRoomCustomer->Customer->name ??''}}</td>
-                                <td>{{$bookingRoomCustomer->Customer->id_card ??''}}</td>
-                                <td>{{$bookingRoomCustomer->Customer->phone ??''}}</td>
-                                <td>{{$bookingRoomCustomer->Customer->address ??''}}</td>
+                                <td>{{$bookingRoomCustomer->customer->name ??''}}</td>
+                                <td>{{$bookingRoomCustomer->customer->id_card ??''}}</td>
+                                <td>{{$bookingRoomCustomer->customer->phone ??''}}</td>
+                                <td>{{$bookingRoomCustomer->customer->address ??''}}</td>
                                 @if($bookingRoom->bookingRoomCustomers()->count() > 1)
                                 <td>
                                     <a href="{{route('booking-room-customers.destroy', ['booking_room_customer' => $bookingRoomCustomer])}}" class="btn-ajax-delete-customer text-danger  btn-sm ">

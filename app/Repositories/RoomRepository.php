@@ -176,14 +176,17 @@ class RoomRepository extends ModelRepository
                     }
 
                     if (!empty($request->money_unpaid) && $request->money_unpaid > 0 && !empty($bookingRoom)) {
+
                         $str = '';
                         foreach ($bookingRoom->bookingRoomCustomers()->get() as $bookingRoomCustomer) {
-                            $str .= "<p>";
-                            $str .= $bookingRoomCustomer->Customer->name . ' - ';
-                            $str .= $bookingRoomCustomer->Customer->id_card . ' - ';
-                            $str .= $bookingRoomCustomer->Customer->phone . ' - ';
-                            $str .= $bookingRoomCustomer->Customer->address;
-                            $str .= "</p>";
+                            if (!empty($bookingRoomCustomer->customer)) {
+                                $str .= "<p>";
+                                $str .= $bookingRoomCustomer->customer->name . ' - ';
+                                $str .= $bookingRoomCustomer->customer->id_card . ' - ';
+                                $str .= $bookingRoomCustomer->customer->phone . ' - ';
+                                $str .= $bookingRoomCustomer->customer->address;
+                                $str .= "</p>";
+                            }
                         }
                         Debt::create([
                             'name' => $str,
