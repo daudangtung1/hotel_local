@@ -76,8 +76,8 @@
                         @forelse($items as $key => $item)
                         <tr>
                             <td>{{$item->id ??''}}</td>
-                            <td>{{$item->fromUser->name ??''}}</td>
-                            <td>{{$item->toUser->name ??''}}</td>
+                            <td>{{$item->fromUser->name ??'Không tồn tại'}}</td>
+                            <td>{{$item->toUser->name ??'Không tồn tại'}}</td>
                             <td>{{$item->hold_money ??''}}</td>
                             <td>{{$item->send_money ??''}}</td>
                             <td>{{$item->balance_number ??''}}</td>

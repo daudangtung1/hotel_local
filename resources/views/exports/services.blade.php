@@ -18,7 +18,7 @@
             <td>{{ $service->stock }}</td>
             <td>{{ $service->price }}</td>
             <td>{{ \App\Models\Service::ARRAY_SERVICE_TYPE[$service->type] }}</td>
-            <td>{{ $service->user->name ?? '' }}</td>
+            <td>{{ $service->user->name ?? 'Không tồn tại' }}</td>
             <td>{{ \Carbon\Carbon::parse($service->created_at)->format('Y-m-d H:i:s') }}</td>
         </tr>
         @endforeach

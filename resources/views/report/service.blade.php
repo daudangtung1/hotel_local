@@ -34,12 +34,12 @@
                 <tr>
                     <td>{{$bookingRoomService->id}}</td>
                     <td>
-                        <p><b>Phòng</b> {{$bookingRoomService->bookingRoom->room->name ?? ''}}</p>
-                        <p><b>Tầng:</b> {{$bookingRoomService->bookingRoom->room->floor ?? ''}}</p>
-                        <p><b>Ngày thuê phòng:</b> {{$bookingRoomService->bookingRoom->start_date ?? ''}}</p>
+                        <p><b>Phòng</b> {{$bookingRoomService->bookingRoom->room->name ?? 'Không tồn tại'}}</p>
+                        <p><b>Tầng:</b> {{$bookingRoomService->bookingRoom->room->floor ?? 'Không tồn tại'}}</p>
+                        <p><b>Ngày thuê phòng:</b> {{$bookingRoomService->bookingRoom->start_date ?? 'Không tồn tại'}}</p>
                     </td>
                     <td>
-                        <p><b>{{$bookingRoomService->service->name ?? '-'}}</b></p>
+                        <p><b>{{$bookingRoomService->service->name ?? 'Không tồn tại'}}</b></p>
                         <p><b>Ngày đặt:</b> {{$bookingRoomService->created_at ?? '-'}}</p>
                     </td>
                     <td>{{get_price($bookingRoomService->price ?? 0, 'đ')}}</td>

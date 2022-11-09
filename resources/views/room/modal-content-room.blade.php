@@ -26,10 +26,10 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                         <tbody>
                             @forelse($bookingRoom->bookingRoomCustomers()->get() as $key => $bookingRoomCustomer)
                             <tr>
-                                <td>{{$bookingRoomCustomer->customer->name ??''}}</td>
-                                <td>{{$bookingRoomCustomer->customer->id_card ??''}}</td>
-                                <td>{{$bookingRoomCustomer->customer->phone ??''}}</td>
-                                <td>{{$bookingRoomCustomer->customer->address ??''}}</td>
+                                <td>{{$bookingRoomCustomer->customer->name ??'Không tồn tại'}}</td>
+                                <td>{{$bookingRoomCustomer->customer->id_card ??'Không tồn tại'}}</td>
+                                <td>{{$bookingRoomCustomer->customer->phone ??'Không tồn tại'}}</td>
+                                <td>{{$bookingRoomCustomer->customer->address ??'Không tồn tại'}}</td>
                                 @if($bookingRoom->bookingRoomCustomers()->count() > 1)
                                 <td>
                                     <a href="{{route('booking-room-customers.destroy', ['booking_room_customer' => $bookingRoomCustomer])}}" class="btn-ajax-delete-customer text-danger  btn-sm ">
@@ -127,7 +127,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                             <tr>
                                 <td>{{$key++}}</td>
                                 <td>
-                                    {{$bookingRoomService->service->name ??''}}
+                                    {{$bookingRoomService->service->name ??'Không tồn tại'}}
                                 </td>
                                 <td>
                                     @if($bookingRoomService->start_date)

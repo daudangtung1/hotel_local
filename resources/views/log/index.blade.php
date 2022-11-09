@@ -22,7 +22,7 @@
                                     <td>{{ $log->subject ?? '' }}</td>
                                     <td class="text-success">{{ $log->url ?? '' }}</td>
                                     <td class="text-warning">{{ $log->ip ?? '' }}</td>
-                                    <td>{{ $log->user->name ?? '' }}</td>
+                                    <td>{{ $log->user->name ?? 'Không tồn tại' }}</td>
                                     <td>{{ $log->created_at ?? ''}}</td>
                                 </tr>
                             @endforeach

@@ -14,8 +14,8 @@
     @foreach($bookingRoomServices as $bookingRoomService)
         <tr>
             <td>{{ $bookingRoomService->id }}</td>
-            <td>{{ $bookingRoomService->service->name ?? '' }}</td>
-            <td>{{ $bookingRoomService->bookingRoom->room->name ?? '' }}</td>
+            <td>{{ $bookingRoomService->service->name ?? 'Không tồn tại' }}</td>
+            <td>{{ $bookingRoomService->bookingRoom->room->name ?? 'Không tồn tại' }}</td>
             <td>{{ number_format($bookingRoomService->quantity) }}</td>
             <td>{{ number_format($bookingRoomService->price) }}</td>
             <td>{{ number_format($bookingRoomService->quantity * $bookingRoomService->price) }}</td>

@@ -95,7 +95,7 @@
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->name ??''}}</td>
                                 <td>{{$user->email ??''}}</td>
-                                <td>{{$user->branch->name ??''}}</td>
+                                <td>{{$user->branch->name ?? 'Không tồn tại'}}</td>
                                 <td>
                                 @if(!empty($user->getRoleNames()))
                                     @foreach($user->getRoleNames() as $v)

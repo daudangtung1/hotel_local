@@ -39,25 +39,25 @@
                     <div class="row mt-3 form-user" id="form-booking-multiple">
                         @if(!empty($bookingRoomCustomer->group_id))
                         <div class="col-md-12 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off" name="customer_name" required placeholder="Tên nhóm" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->group->name ?? ''}}@endif">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off" name="customer_name" required placeholder="Tên nhóm" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->group->name ?? 'Không tồn tại'}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-customer"></div>
                         </div>
                         @else
                         <div class="col-md-6 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off" name="customer_name" required placeholder="Tên khách hàng" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->name ?? ''}}@endif">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off" name="customer_name" required placeholder="Tên khách hàng" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->name ?? 'Không tồn tại'}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-customer"></div>
                         </div>
                         <div class="col-md-6 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_id_card" name="customer_id_card" required placeholder="Số giấy tờ" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->id_card ?? ''}}@endif">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_id_card" name="customer_id_card" required placeholder="Số giấy tờ" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->id_card ?? 'Không tồn tại'}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-id_card"></div>
                         </div>
 
                         <div class="col-md-6 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_phone" name="customer_phone" required placeholder="Điện thoại" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->phone ?? ''}}@endif">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_phone" name="customer_phone" required placeholder="Điện thoại" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->phone ?? 'Không tồn tại'}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-phone"></div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_address" name="customer_address" required placeholder="Địa chỉ" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->address ?? ''}}@endif">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_address" name="customer_address" required placeholder="Địa chỉ" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->address ?? 'Không tồn tại'}}@endif">
                         </div>
                         @endif
 

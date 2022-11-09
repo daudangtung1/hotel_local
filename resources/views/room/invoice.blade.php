@@ -81,7 +81,7 @@
                                                 <tr>
                                                     <td colspan="1">
                                                         <p>Tiền phòng</p>
-                                                        <p> {{$bookingRoom->room->name ?? ''}}</p>
+                                                        <p> {{$bookingRoom->room->name ?? 'Không tồn tại'}}</p>
                                                         @if(!empty($bookingRoom->start_date))<p> Giờ vào: {{$bookingRoom->start_date ?? ''}}</p>@endif
                                                         @if(!empty($bookingRoom->checkout_date))<p> Giờ ra: {{$bookingRoom->checkout_date ?? ''}}</p>@endif
                                                     </td>
@@ -97,7 +97,7 @@
                                                         $total = $total +  $bookingRoomService->getPrice();
                                                     @endphp
                                                     <tr>
-                                                        <td>{{$bookingRoomService->service->name ??''}}</td>
+                                                        <td>{{$bookingRoomService->service->name ??'Không tồn tại'}}</td>
                                                         <td>{{$bookingRoomService->getQuantity() ?? ''}} </td>
                                                         <td>{{get_price($bookingRoomService->price ?? 0, 'đ')}}</td>
                                                         <td>{{get_price($bookingRoomService->getPrice() ?? 0, 'đ') }}</td>
