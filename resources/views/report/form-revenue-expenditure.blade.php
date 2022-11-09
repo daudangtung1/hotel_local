@@ -43,7 +43,7 @@
                 <td>{{$item->name ??''}}</td>
                 <td>{{get_price($item->money ?? 0, 'đ')}}</td>
                 <td>{{\App\Models\RevenueAndExpenditure::STATUS[$item->type]}}</td>
-                <td>{{$item->user->name ?? ''}}</td>
+                <td>{{$item->user->name ?? 'Không tồn tại'}}</td>
                 <td>{{$item->created_at ?? ''}}</td>
             </tr>
         @empty

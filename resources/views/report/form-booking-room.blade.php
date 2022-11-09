@@ -39,13 +39,13 @@
             @forelse($items as $key => $item)
                 <tr>
                     <td>{{$item->id}}</td>
-                    <td>{{$item->room->name ?? '-'}}</td>
-                    <td>{{$item->room->floor ?? '-'}}</td>
+                    <td>{{$item->room->name ?? 'Không tồn tại'}}</td>
+                    <td>{{$item->room->floor ?? 'Không tồn tại'}}</td>
                     <td>{{$item->start_date ?? '-'}}</td>
                     <td>{{$item->end_date ?? '-'}}</td>
                     <td>
                         @foreach($item->bookingRoomCustomers()->get() as $customer)
-                            <p>{{$customer->customer->name ?? '-'}}</p>
+                            <p>{{$customer->customer->name ?? 'Không tồn tại'}}</p>
                         @endforeach
                     </td>
                     <td>{{$item->note ?? '-'}}</td>

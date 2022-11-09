@@ -12,8 +12,8 @@
                         <option value="">Chọn phòng</option>
                         @forelse($bookingRooms as $key => $bookingRoom)
                             <option value="{{$bookingRoom->id}}">
-                                {{$bookingRoom->room->name ?? ''}} -
-                                {{$bookingRoom->room->floor ?? ''}} -
+                                {{$bookingRoom->room->name ?? 'Không tồn tại'}} -
+                                {{$bookingRoom->room->floor ?? 'Không tồn tại'}} -
                                 {{$bookingRoom->start_date ?? ''}} -
                                 {{$bookingRoom->end_date ?? ''}}
                             </option>
@@ -48,8 +48,8 @@
         @forelse($lostItems as $key => $lostItem)
             <tr data-lost_item_id="{{$lostItem->id}}">
                 <td>{{$lostItem->id}}</td>
-                <td>{{$lostItem->bookingRoom->room->name ?? '-'}}</td>
-                <td>{{$lostItem->bookingRoom->room->floor ?? '-'}}</td>
+                <td>{{$lostItem->bookingRoom->room->name ?? 'Không tồn tại'}}</td>
+                <td>{{$lostItem->bookingRoom->room->floor ?? 'Không tồn tại'}}</td>
                 <td style="width: 200px">{{$lostItem->pay_date ?? '-'}}</td>
                 <td>
                     <textarea name="note" class="form-control form-control-sm note" cols="30"

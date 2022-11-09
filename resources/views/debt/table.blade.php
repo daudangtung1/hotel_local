@@ -15,10 +15,10 @@
             <td>{{$item->id}}</td>
             <td>{!!$item->name ?? '-'!!}</td>
             <td>
-                <p><b>Phòng</b> {!! $item->bookingRoom->room->name ?? '' !!}</p>
-                <p><b>Tầng:</b> {{$item->bookingRoom->room->floor ?? ''}}</p>
-                <p><b>Ngày vào: </b>{{$item->bookingRoom->start_date ?? ''}}</p>
-                <p><b>Ngày ra: </b>{{$item->bookingRoom->end_date ?? ''}}</p>
+                <p><b>Phòng</b> {!! $item->bookingRoom->room->name ?? 'Không tồn tại' !!}</p>
+                <p><b>Tầng:</b> {{$item->bookingRoom->room->floor ?? 'Không tồn tại'}}</p>
+                <p><b>Ngày vào: </b>{{$item->bookingRoom->start_date ?? 'Không tồn tại'}}</p>
+                <p><b>Ngày ra: </b>{{$item->bookingRoom->end_date ?? 'Không tồn tại'}}</p>
             </td>
             <td>{{get_price($item->price ?? 0, 'đ')}}</td>
             <td>

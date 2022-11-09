@@ -25,8 +25,8 @@
                         <tr>
                             <td>{{$bookingRoom->id}}</td>
                             <td>
-                                <p><b>Phòng</b> {{$bookingRoom->room->name ?? ''}}</p>
-                                <p><b>Tầng:</b> {{$bookingRoom->room->floor ?? ''}}</p>
+                                <p><b>Phòng</b> {{$bookingRoom->room->name ?? 'Không tồn tại'}}</p>
+                                <p><b>Tầng:</b> {{$bookingRoom->room->floor ?? 'Không tồn tại'}}</p>
                             </td>
                             <td>
                                 <p><b>Ngày vào: </b>{{$bookingRoom->start_date ?? ''}}</p>
@@ -34,7 +34,7 @@
                             </td>
                             <td>
                                 @foreach($bookingRoom->bookingRoomCustomers()->get() as $customer)
-                                <p>{{$customer->customer->name ?? ''}}</p>
+                                <p>{{$customer->customer->name ?? 'Không tồn tại'}}</p>
                                 @endforeach
                             </td>
                             <td>{{$bookingRoom->note ?? ''}}</td>
