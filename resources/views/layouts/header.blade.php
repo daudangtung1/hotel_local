@@ -19,9 +19,14 @@
                     </li>
                     <li class="@if(!empty($menuHelp)) is_active  @endif"><a href="#"><img class="" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/icon-trogiup.png"><span>Trợ giúp</span></a>
                     </li>
-                    <li>Xin chào: <b>{{\Auth::user()->name ?? ''}}</b>!</li>
+                    <li>{{__('Hello')}}: <b>{{\Auth::user()->name ?? ''}}</b>!</li>
+
                 </ul>
             </div>
+            <ul>
+                <li><a href="{{route('changeLanguage')}}?language=en"><img src="{{asset('assets/images/en.png')}}" width="25px" alt=""></a></li>
+                <li><a href="{{route('changeLanguage')}}?language=vi"><img src="{{asset('assets/images/vi.png')}}" width="25px" alt=""></a></li>
+            </ul>
             <div class="content-tab">
                 <div class="info-content @if(!empty($menuSystem)) active  @endif">
                     <div class="inner-info-content">
@@ -195,6 +200,12 @@
 
                         <div class="ql_tk tl_chung">
                             <ul>
+                                @can('Quản lý ngôn ngữ-list')
+                                <li>
+                                    <a href="{{route('languages.create')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qldatphong01.png"></a>
+                                    <span>QL ngôn ngữ</span>
+                                </li>
+                                @endcan
                                 @can('Quản lý chi nhánh-list')
                                 <li>
                                     <a href="{{route('branchs.create')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/qldatphong01.png"></a>
@@ -227,10 +238,10 @@
                 </div>
                 <div class="info-content @if(!empty($menuReport)) active  @endif">
                     <div class="inner-info-content">
-                    @can('Quản lý báo cáo-Báo cáo')
+                        @can('Quản lý báo cáo-Báo cáo')
                         <div class="ql_tk tl_chung">
                             <ul>
-                                
+
                                 <li>
                                     <a href="{{route('reports.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/bgtonghop.png"></a>
                                     <span>BC Tổng hợp</span>
@@ -239,7 +250,7 @@
                                     <a href="{{route('debts.index')}}"><img class="image-svg" alt="" src="https://anovavn.com/wpdemo/Hotel/wp-content/themes/Hotel/assets/images/congno.png"></a>
                                     <span>Công nợ</span>
                                 </li>
-                                
+
                             </ul>
                             <span class="text_tlc">Báo cáo</span>
                         </div>

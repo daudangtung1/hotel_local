@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth', 'checkDate', 'checkPermissionMiddleware']
         'roles'                   => \App\Http\Controllers\RoleController::class,
         'permissions'                   => \App\Http\Controllers\PermissionController::class,
         'debts' => \App\Http\Controllers\DebtController::class,
+        'languages' => \App\Http\Controllers\LanguageController::class,
     ]);
 
     Route::get('history', [\App\Http\Controllers\BookingRoomController::class, 'getHistory'])->name('booking-room.history');
@@ -75,3 +76,4 @@ Route::group(['middleware' => ['auth', 'checkDate', 'checkPermissionMiddleware']
 });
 
 Route::get('booking-room/invoice/{id}', [\App\Http\Controllers\BookingRoomController::class, 'showInvoice'])->name('booking-room.show_invoice');
+Route::get('language-change', [\App\Http\Controllers\LanguageController::class, 'changeLanguage'])->name('changeLanguage');
