@@ -11,14 +11,14 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th scope="col">Tên khách hàng</th>
-                            <th scope="col">Sdt</th>
-                            <th scope="col">Thông tin giấy tờ</th>
-                            <th scope="col">Địa chỉ</th>
-                            <th scope="col">Phòng</th>
-                            <th scope="col">Ngày bắt đầu</th>
-                            <th scope="col">Ngày kết thúc</th>
-                            <th scope="col">Ghi chú</th>
+                            <th scope="col">{{__('Customer_name')}}</th>
+                            <th scope="col">{{__('Phone')}}</th>
+                            <th scope="col">{{__('Information')}}</th>
+                            <th scope="col">{{__('Address')}}</th>
+                            <th scope="col">{{__('Room')}}</th>
+                            <th scope="col">{{__('Start_date')}}</th>
+                            <th scope="col">{{__('End_date')}}</th>
+                            <th scope="col">{{__('Note')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -37,7 +37,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7">Không có dữ liệu</td>
+                                    <td colspan="7">{{__('No_data')}}</td>
                                 </tr>
                             @endforelse
                         @endif

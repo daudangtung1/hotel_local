@@ -4,16 +4,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h5>Quản lý nhật ký</h5>
+                    <h5>{{__('Log_management')}}</h5>
                     @include('log.form-filter')
                     <table class="table table-sm table-bordered table-hover">
                         <tr>
-                            <th>ID</th>
-                            <th>Tiêu đề</th>
-                            <th>URL</th>
-                            <th>Ip</th>
-                            <th>Người dùng</th>
-                            <th>Ngày tạo</th>
+                            <th>{{__('ID')}}</th>
+                            <th>{{__('Title')}}</th>
+                            <th>{{__('URL')}}</th>
+                            <th>{{__('Ip')}}</th>
+                            <th>{{__('User')}}</th>
+                            <th>{{__('Created_date')}}</th>
                         </tr>
                         @if($logs->count())
                             @foreach($logs as $key => $log)
@@ -22,7 +22,7 @@
                                     <td>{{ $log->subject ?? '' }}</td>
                                     <td class="text-success">{{ $log->url ?? '' }}</td>
                                     <td class="text-warning">{{ $log->ip ?? '' }}</td>
-                                    <td>{{ $log->user->name ?? 'Không tồn tại' }}</td>
+                                    <td>{{ $log->user->name ?? __('Not_exist') }}</td>
                                     <td>{{ $log->created_at ?? ''}}</td>
                                 </tr>
                             @endforeach
@@ -35,7 +35,7 @@
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {
                                 e.preventDefault();
-                                if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                                if (!confirm("{{__('Confirm_delete')}}")) {
                                     return false;
                                 }
 

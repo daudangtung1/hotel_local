@@ -9,62 +9,62 @@
                 <div class="row mt-3" id="form-booking-multiple">
                     <table class="table table-sm table-bordered table-hover">
                         <tr>
-                            <th>Tên khách hàng:</th>
+                            <th>{{__('Customer_name')}}:</th>
                             <td>{{$bookingRoomInfo->cusomter_name}}</td>
                         </tr>
                         <tr>
-                            <th>Số giấy tờ:</th>
+                            <th>{{__('ID_card_2')}}:</th>
                             <td>{{$bookingRoomInfo->id_card}}</td>
                         </tr>
                         <tr>
-                            <th>Điện thoại:</th>
+                            <th>{{__('Phone')}}:</th>
                             <td>{{$bookingRoomInfo->phone}}</td>
                         </tr>
                         <tr>
-                            <th>Địa chỉ:</th>
+                            <th>{{__('Address')}}:</th>
                             <td>{{$bookingRoomInfo->address}}</td>
                         </tr>
                         <tr>
-                            <th>Số giấy tờ:</th>
+                            <th>{{__('ID_card_2')}}:</th>
                             <td>{{$bookingRoomInfo->id_card}}</td>
                         </tr>
                         <tr>
-                            <th>Số giấy tờ:</th>
+                            <th>{{__('ID_card_2')}}:</th>
                             <td>{{$bookingRoomInfo->id_card}}</td>
                         </tr>
                         <tr>
-                            <th>Thời gian bắt đầu:</th>
+                            <th>{{__('Time_start')}}:</th>
                             <td>{{$bookingRoomInfo->start_date ?? \Carbon\Carbon::now()}}</td>
                         </tr>
                         <tr>
-                            <th>Thời gian kết thúc:</th>
+                            <th>{{__('Time_end')}}:</th>
                             <td>{{$bookingRoomInfo->end_date ?? \Carbon\Carbon::now()}}</td>
                         </tr>
                         <tr>
-                            <th>Ghi chú:</th>
+                            <th>{{__('Note')}}:</th>
                             <td>@if(!empty($bookingRoomInfo)) {!! $bookingRoomInfo->note ??'' !!} @endif </td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div class="col-md-6">
-                <h5>Thông tin phòng</h5>
+                <h5>{{__('Room_information')}}</h5>
                 <div class="max-height-300 mb-3" id="list-booking-room">
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th scope="col">Tên phòng</th>
-                                <th scope="col">Tầng</th>
-                                <th scope="col">Giá theo giờ</th>
-                                <th scope="col">Giá theo ngày</th>
+                                <th scope="col">{{__('Room_name')}}</th>
+                                <th scope="col">{{__('Level')}}</th>
+                                <th scope="col">{{__('Hourly_price')}}</th>
+                                <th scope="col">{{__('Daily_price')}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>{{$bookingRoomInfo->id}}</td>
-                                <td>{{$bookingRoomInfo->room_name ??'Đã xóa'}}</td>
-                                <td>{{$bookingRoomInfo->floor ??'Đã xóa'}}</td>
+                                <td>{{$bookingRoomInfo->room_name ?? __('Deleted')}}</td>
+                                <td>{{$bookingRoomInfo->floor ?? __('Deleted')}}</td>
                                 <td>{{get_price($bookingRoomInfo->hour_price ?? 0, 'đ')}}</td>
                                 <td>{{get_price($bookingRoomInfo->day_price ?? 0, 'đ')}}</td>
                             </tr>
@@ -75,15 +75,15 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
-                Đóng
+                {{__('Close')}}
             </button>
             <form method="get" action="{{route('customers.booking_info')}}">
                 <input type="hidden" name="room_id" value="{{$bookingRoomInfo->room_id}}" />
                 <button type="submit" class="btn btn-sm btn-primary">
-                    Danh sách
+                    {{__('List')}}
                 </button>
             </form>
-            <button data-booking_room_id="{{$bookingRoomInfo->id}}" data-bg="primary" type="submit" class="btn btn-sm btn-primary  btn-checkin ">Nhận phòng</button>
+            <button data-booking_room_id="{{$bookingRoomInfo->id}}" data-bg="primary" type="submit" class="btn btn-sm btn-primary  btn-checkin ">{{__('Get_room')}}</button>
         </div>
     </div>
 </div>

@@ -30,7 +30,7 @@ class UserController extends Controller
         $menuSetup = true;
         $roles = Role::pluck('name','name')->all();
 
-        $title = 'Quản lý người dùng';
+        $title = __('User_management');
 
         return view('user.create', compact('users', 'roles', 'menuSetup', 'title'));
     }
@@ -41,7 +41,7 @@ class UserController extends Controller
         if (isset($result['status']) && $result['status'] == false) {
             return redirect()->back()->withErrors($result['message']);
         }
-        return redirect()->back()->with('success', 'Đăng ký thành công');
+        return redirect()->back()->with('success', __('Msg_create_success'));
     }
 
     public function edit(Request $request, $user_id)
@@ -51,7 +51,7 @@ class UserController extends Controller
 
         $menuSystem = true;
         $users = $this->userRepository->getAll();
-        $title = 'Cập nhật người dùng';
+        $title = __('Update_user');
         $roles = Role::pluck('name','name')->all();
         $userRole = $currentItem->roles->pluck('name','name')->all();
 
@@ -65,7 +65,7 @@ class UserController extends Controller
             return redirect()->back()->withErrors($result['message']);
         }
 
-        return redirect()->back()->with('success', 'Cập nhật thành công');
+        return redirect()->back()->with('success', __('Msg_update_success'));
     }
 
     public function destroy(Request $request, $user_id)
@@ -75,9 +75,9 @@ class UserController extends Controller
         if (!empty($currentItem)) {
             $currentItem->delete();
 
-            return redirect()->back()->with('success', 'Đã xoá thành công');
+            return redirect()->back()->with('success', __('Msg_deleted_success'));
         }
 
-        return redirect()->back()->withErrors('Vui lòng thử lại');
+        return redirect()->back()->withErrors(__('Msg_try_again'));
     }
 }

@@ -5,7 +5,7 @@
         <div class="container">
             <div class="wrap-login">
                 <div class="top-login">
-                    <h3>Đăng Nhập</h3>
+                    <h3>{{__('Login')}}</h3>
                 </div>
                 <div class="bottom-login">
                     <div class="thumbnail">
@@ -16,12 +16,12 @@
                         <form method="POST" action="{{ route('login') }}"  id="form-login">
                             @csrf
                             <div class="form-group">
-                                <label>Tài khoản</label>
-                                <input id="email" type="email" class="form-control form-control-sm form-control-sm @error('email') is-invalid @enderror" name="email" placeholder="Tên đăng nhập" value="{{ old('email') }}" required autocomplete="off" autofocus>
+                                <label>{{__('Account')}}</label>
+                                <input id="email" type="email" class="form-control form-control-sm form-control-sm @error('email') is-invalid @enderror" name="email" placeholder="{{__('Username_2')}}" value="{{ old('email') }}" required autocomplete="off" autofocus>
                             </div>
                             <div class="form-group">
-                                <label>Mật khẩu</label>
-                                <input id="password" type="password" class="form-control form-control-sm form-control-sm @error('password') is-invalid @enderror" name="password" required autocomplete="off"  placeholder="Mật khẩu">
+                                <label>{{__('Password')}}</label>
+                                <input id="password" type="password" class="form-control form-control-sm form-control-sm @error('password') is-invalid @enderror" name="password" required autocomplete="off"  placeholder="{{__('Password')}}">
                                 <div class="in-form-group">
                                     <input class="form-check-input" type="checkbox" name="remember" id="luumatkhau" {{ old('remember') ? 'checked' : '' }}>
 
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="psnote">
-                    <p>- Vui lòng kiểm tra Capslock, Unikey, Vietkey... trước khi đăng nhập</p>
+                    <p>- {{__('Check_before_login')}}</p>
                     <div class="choose-sql">
                         <div style="display:none">
                             <div id="data">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="help-box">
-                    <p>Chương trình hỗ trợ từ xa :</p>
+                    <p>{{__('Remote_support_program')}} :</p>
                     <div class="inner-icon">
                         <a href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

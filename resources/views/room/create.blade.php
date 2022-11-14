@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h5>Quản lý loại phòng</h5>
+                <h5>{{__('Room_type_management')}}</h5>
             </div>
             @can('Quản lý loại phòng-create')
             <div class="col">
@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="col-12">
-                        <button type="submit" class="btn btn-sm  @if(isset($currentTypeRoom)) btn-success @else btn-primary  @endif">@if(isset($currentTypeRoom)) Cập nhật @else Tạo loại
+                        <button type="submit" class="btn btn-sm  @if(isset($currentTypeRoom)) btn-success @else btn-primary  @endif">@if(isset($currentTypeRoom)) {{__('Update')}} @else Tạo loại
                             phòng @endif</button>
                     </div>
                 </form>
@@ -65,7 +65,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4">Không có dữ liệu</td>
+                            <td colspan="4">{{__('No_data')}}</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -80,7 +80,7 @@
         <hr>
         <div class="row">
             <div class="col-md-12">
-                <h5>Quản lý phòng</h5>
+                <h5>{{__('Room_management_f')}}</h5>
             </div>
             @can('Quản lý phòng-create')
             <div class="col">
@@ -91,34 +91,34 @@
                     <input type="hidden" name="room_id" value="{{$currentRoom->id ??''}}" />
                     @csrf
                     <div class="col-md-12">
-                        <label for="name" class="form-label fw-bold">Tên phòng</label>
+                        <label for="name" class="form-label fw-bold">{{__('Room_name')}}</label>
                         <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm" id="name" name="name" value="{{$currentRoom->name ??''}}" required>
                     </div>
                     <div class="col-md-12">
-                        <label for="floor" class="form-label fw-bold">Tầng</label>
+                        <label for="floor" class="form-label fw-bold">{{__('Level')}}</label>
                         <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm" id="floor" name="floor" value="{{$currentRoom->floor ??''}}" required>
                     </div>
                     <div class="col-md-12">
-                        <label for="inputState" class="form-label fw-bold">Loại phòng</label>
+                        <label for="inputState" class="form-label fw-bold">{{__('Room_type')}}</label>
                         <select id="type" name="type" class="form-select" required>
                             @forelse($typeRoomsSelect as $key => $typeRoom)
                             <option @if(!empty($typeRoom) && !empty($currentRoom) && $typeRoom->id == $currentRoom->type_room_id) selected @endif value="{{$typeRoom->id}}">{{$typeRoom->name ?? ''}}</option>
                             @empty
-                            <option value="">Không có dữ liệu</option>
+                            <option value="">{{__('No_data')}}</option>
                             @endforelse
                         </select>
                     </div>
                     <div class="col-md-12">
-                        <label for="hour_price" class="form-label fw-bold">Giá phòng / giờ</label>
+                        <label for="hour_price" class="form-label fw-bold">{{__('Room_hour')}}</label>
                         <input type="number" min="0" class="form-control form-control-sm form-control-sm" id="hour_price" name="hour_price" value="{{$currentRoom->hour_price ??'0'}}" required>
                     </div>
                     <div class="col-md-12">
-                        <label for="day_price" class="form-label fw-bold">Giá phòng / ngày</label>
+                        <label for="day_price" class="form-label fw-bold">{{__('Room_day')}}</label>
                         <input type="number" min="0" class="form-control form-control-sm form-control-sm" id="day_price" name="day_price" value="{{$currentRoom->day_price ??'0'}}" required>
                     </div>
                     @if(!empty($currentRoom) && array_key_exists($currentRoom->status, \App\Models\Room::UPDATE_STATUS))
                     <div class="col-md-12">
-                        <label for="inputState" class="form-label fw-bold">Tình trạng phòng</label>
+                        <label for="inputState" class="form-label fw-bold">{{__('Room_status')}}</label>
                         <select id="status" name="status" class="form-select">
                             @foreach (\App\Models\Room::UPDATE_STATUS as $key => $item)
                             <option @if($key==$currentRoom->status) selected @endif value="{{$key}}">{{$item}}</option>
@@ -126,19 +126,18 @@
                         </select>
                     </div>
                     <div class="col-md-12">
-                        <label for="status_desc" class="form-label fw-bold">Mô tả tình trạng phòng</label>
+                        <label for="status_desc" class="form-label fw-bold">{{__('Room_status_description')}}</label>
                         <textarea type="text" class="form-control form-control-sm form-control-sm" id="status_desc" name="status_desc">{{$currentRoom->status_desc ??''}}</textarea>
                     </div>
                     @endif
                     <div class="col-md-12">
-                        <label for="day_price" class="form-label fw-bold">Giá phòng / tháng</label>
+                        <label for="day_price" class="form-label fw-bold">{{__('Room_month')}}</label>
                         <input type="number" min="0" class="form-control form-control-sm form-control-sm" id="month_price" name="month_price" value="{{$currentRoom->month_price ??'0'}}" required>
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-sm @if(isset($currentRoom)) btn-success @else btn-primary  @endif">@if(isset($currentRoom)) Cập nhật @else Tạo
-                            phòng @endif</button>
+                        <button type="submit" class="btn btn-sm @if(isset($currentRoom)) btn-success @else btn-primary  @endif">@if(isset($currentRoom)) {{__('Update')}} @else {{__('Create_room')}} @endif</button>
                         @if(!empty($currentRoom))
-                        <a href="{{route('rooms.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                        <a href="{{route('rooms.index')}}" class="btn btn-sm btn-primary">{{__('Create')}}</a>
                         @endif
                     </div>
                 </form>
@@ -149,9 +148,9 @@
                 <table class="table table-sm table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">Tên phòng</th>
-                            <th scope="col">giá</th>
-                            <th scope="col">Tình trạng</th>
+                            <th scope="col">{{__('Room_name')}}</th>
+                            <th scope="col">{{__('Price')}}</th>
+                            <th scope="col">{{__('Status')}}</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -159,14 +158,14 @@
                         @forelse($rooms as $key => $room)
                         <tr>
                             <td>
-                                <p><b>Phòng:</b> {{$room->name ??''}}</p>
-                                <p><b>Tầng:</b> {{$room->floor ??''}}</p>
-                                <p><b>Loại phòng:</b> {{$room->typeRoom->name ?? ''}}</p>
+                                <p><b>{{__('Room')}}:</b> {{$room->name ??''}}</p>
+                                <p><b>{{__('Level')}}:</b> {{$room->floor ??''}}</p>
+                                <p><b>{{__('Room_type')}}:</b> {{$room->typeRoom->name ?? ''}}</p>
                             </td>
                             <td>
-                                <p><b>Giá / giờ:</b> {{get_price($room->hour_price ?? '', 'đ') ??''}}</p>
-                                <p><b>Giá / ngày:</b>{{get_price($room->day_price ?? '', 'đ') ??''}}</p>
-                                <p><b>Giá / tháng:</b>{{get_price($room->month_price ?? '', 'đ') ??''}}</p>
+                                <p><b>{{__('Cost_hour')}}:</b> {{get_price($room->hour_price ?? '', 'đ') ??''}}</p>
+                                <p><b>{{__('Cost_day')}}:</b>{{get_price($room->day_price ?? '', 'đ') ??''}}</p>
+                                <p><b>{{__('Cost_month')}}:</b>{{get_price($room->month_price ?? '', 'đ') ??''}}</p>
                             </td>
                             <td><span class="badge badge-light bg-{{$room->getBgButton()}}">{{\App\Models\Room::ARRAY_STATUS[$room->status ?? 0]}}</span></td>
                             <td style="width:40px">
@@ -195,7 +194,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6">Không có dữ liệu</td>
+                            <td colspan="6">{{__('No_data')}}</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -207,7 +206,7 @@
                     $(document).ready(function() {
                         $('body').on('click', '.btn-ajax-delete', function(e) {
                             e.preventDefault();
-                            if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                            if (!confirm("{{__('Confirm_delete')}}")) {
                                 return false;
                             }
 

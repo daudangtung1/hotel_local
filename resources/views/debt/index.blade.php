@@ -37,7 +37,7 @@
                 success: function (data) {
                     $('.table-ajax').html(data);
                     $.toast({
-                        text: 'Cập nhật thành công',
+                        text: "{{__('Msg_update_success')}}",
                         icon: 'success',
                         position: 'top-right'
                     });

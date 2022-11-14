@@ -9,7 +9,7 @@
                     <h2 class="card-title mb-0">{{$title}}</h2>
                     @can('Quản lý quyền-create')
                     <div class="card-tools">
-                        <a class="btn btn-success" href="{{ route('roles.create') }}"><i class="fas fa-plus"></i> Tạo mới</a>
+                        <a class="btn btn-success" href="{{ route('roles.create') }}"><i class="fas fa-plus"></i> {{__('Create')}}</a>
                     </div>
                     @endcan
                 </div>
@@ -20,7 +20,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th scope="col">Role</th>
+                            <th scope="col">{{__('Role')}}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -55,7 +55,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="3">Không có dữ liệu</td>
+                            <td colspan="3">{{__('No_data')}}</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -67,7 +67,7 @@
                     $(document).ready(function() {
                         $('body').on('click', '.btn-ajax-delete', function(e) {
                             e.preventDefault();
-                            if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                            if (!confirm("{{__('Confirm_delete')}}")) {
                                 return false;
                             }
 

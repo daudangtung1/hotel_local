@@ -13,7 +13,7 @@
                     <div class="position-relative">
                         <input type="hidden" name="id" value="{{$currentItem->id ??''}}" />
                         <div class="col-md-12">
-                            <label for="name" class="form-label fw-bold">Tên dịch vụ</label>
+                            <label for="name" class="form-label fw-bold">{{__('Service_name')}}</label>
                             <input autocomplete="off" type="text" class="form-control form-control-sm form-control-sm service-name" id="name" name="name" value="{{$currentItem->name ??''}}" required>
                         </div>
                         <div class="col-md-12 col-service d-none list-ajax" style="margin-top: 3px; max-height:250px; overflow-y:scroll ">
@@ -25,33 +25,33 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <label for="floor" class="form-label fw-bold">Số lượng</label>
+                        <label for="floor" class="form-label fw-bold">{{__('Amount')}}</label>
                         <input type="number" min="0" max="1000" class="form-control form-control-sm form-control-sm" name="stock" id="stock" value="{{$currentItem->stock ??'100'}}" required>
                     </div>
                     <div class="col-md-12">
-                        <label for="inputState" class="form-label fw-bold">Loại dịch vụ</label>
+                        <label for="inputState" class="form-label fw-bold">{{__('Service_type')}}</label>
                         <select id="type" name="type" class="form-select" required>
-                            <option @if(!empty($currentItem) && $currentItem->type == 0) selected @endif value="0">Đồ ăn</option>
-                            <option @if(!empty($currentItem) && $currentItem->type == 1) selected @endif value="1">Đồ uống</option>
-                            <option @if(!empty($currentItem) && $currentItem->type == 2) selected @endif value="2">Dịch vụ khác</option>
+                            <option @if(!empty($currentItem) && $currentItem->type == 0) selected @endif value="0">{{__('Food')}}</option>
+                            <option @if(!empty($currentItem) && $currentItem->type == 1) selected @endif value="1">{{__('Drink')}}</option>
+                            <option @if(!empty($currentItem) && $currentItem->type == 2) selected @endif value="2">{{__('Another_service')}}</option>
                         </select>
                     </div>
 
                     <div class="col-md-12">
-                        <label for="sale_type" class="form-label fw-bold">Loại dịch vụ</label>
+                        <label for="sale_type" class="form-label fw-bold">{{__('Service_type')}}</label>
                         <select id="sale_type" name="sale_type" class="form-select" required>
-                            <option @if(!empty($currentItem) && $currentItem->sale_type == 0) selected @endif value="0">Dịch vụ theo ngày</option>
-                            <option @if(!empty($currentItem) && $currentItem->sale_type == 1) selected @endif value="1">dịch vụ theo lần sử dụng</option>
+                            <option @if(!empty($currentItem) && $currentItem->sale_type == 0) selected @endif value="0">{{__('Service_day')}}</option>
+                            <option @if(!empty($currentItem) && $currentItem->sale_type == 1) selected @endif value="1">{{__('Service_use')}}</option>
                         </select>
                     </div>
                     <div class="col-md-12">
-                        <label for="price" class="form-label fw-bold">Giá</label>
+                        <label for="price" class="form-label fw-bold">{{__('Price')}}</label>
                         <input type="number" class="form-control form-control-sm form-control-sm" id="price" name="price" value="{{$currentItem->price ??'0'}}" required>
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-sm  @if(isset($currentItem)) btn-success @else btn-primary @endif">@if(isset($currentItem)) Cập nhật @else Tạo mới @endif</button>
+                        <button type="submit" class="btn btn-sm  @if(isset($currentItem)) btn-success @else btn-primary @endif">@if(isset($currentItem)) {{__('Update')}} @else {{__('Create')}} @endif</button>
                         @if(!empty($currentItem))
-                        <a href="{{route('services.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                        <a href="{{route('services.index')}}" class="btn btn-sm btn-primary">{{__('Create')}}</a>
                         @endif
                     </div>
                 </form>
@@ -63,9 +63,9 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th scope="col">Tên dịch vụ</th>
-                            <th scope="col">Tồn kho</th>
-                            <th scope="col">Giá</th>
+                            <th scope="col">{{__('Service_name')}}</th>
+                            <th scope="col">{{__('Inventory')}}</th>
+                            <th scope="col">{{__('Price')}}</th>
                             <td></td>
                         </tr>
                     </thead>
@@ -74,14 +74,14 @@
                         <tr>
                             <td>{{$service->id ??''}}</td>
                             <td>
-                                <p><b>Tên dịch vụ:</b> {{$service->name ??''}}</p>
-                                <p><b>Loại dịch vụ:</b> {{$service->getSaleType() ??''}}</p>
+                                <p><b>{{__('Service_name')}}:</b> {{$service->name ??''}}</p>
+                                <p><b>{{__('Service_type')}} :</b> {{$service->getSaleType() ??''}}</p>
                             </td>
                             <td>
                                 @if($service->sale_type)
                                 {{$service->stock ??''}}
                                 @else
-                                Không giới hạn
+                                {{__('Unlimited')}}
                                 @endif
                             </td>
                             <td>{{get_price($service->price, 'đ') ??''}}</td>
@@ -111,7 +111,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5">Không có dữ liệu</td>
+                            <td colspan="5">{{__('No_data')}}</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -123,7 +123,7 @@
                     $(document).ready(function() {
                         $('body').on('click', '.btn-ajax-delete', function(e) {
                             e.preventDefault();
-                            if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                            if (!confirm("{{__('Confirm_delete')}}")) {
                                 return false;
                             }
 

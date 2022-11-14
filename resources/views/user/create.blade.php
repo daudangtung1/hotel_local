@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h5>Quản lý tài khoản</h5>
+                    <h5>{{__('Account_management_f')}}</h5>
                 </div>
                 @can('Quản lý tài khoản-create')
                 <div class="col">
@@ -16,27 +16,27 @@
                         <input type="hidden" name="user_id" value="{{$currentItem->id ??''}}"/>
                         @csrf
                         <div class="col-md-12">
-                            <label for="name" class="form-label fw-bold">Tên tài khoản</label>
+                            <label for="name" class="form-label fw-bold">{{__('Username')}}</label>
                             <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm" id="name" name="name"
                                    value="{{$currentItem->name ??''}}" required @if(!empty($currentItem)) readonly @endif>
                         </div>
                         <div class="col-md-12">
-                            <label for="email" class="form-label fw-bold">Email</label>
+                            <label for="email" class="form-label fw-bold">{{__('Email')}}</label>
                             <input type="email" class="form-control form-control-sm form-control-sm" id="email" name="email"
                                    value="{{$currentItem->email ??''}}" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="password" class="form-label fw-bold">Mật khẩu</label>
+                            <label for="password" class="form-label fw-bold">{{__('Password')}}</label>
                             <input type="password" class="form-control form-control-sm form-control-sm" id="password" name="password"
                                    value="" minlength="6">
                         </div>
                         <div class="col-md-12">
-                            <label for="re_password" class="form-label fw-bold">Xác nhận mật khẩu</label>
+                            <label for="re_password" class="form-label fw-bold">{{__('Confirm_password')}}</label>
                             <input type="password" class="form-control form-control-sm form-control-sm" id="re_password" name="re_password"
                                    value="" minlength="6">
                         </div>
                         <div class="col-md-12">
-                            <label for="branch_id" class="form-label fw-bold">Chi nhánh</label>
+                            <label for="branch_id" class="form-label fw-bold">{{__('Branch')}}</label>
                             <select name="branch_id" id="branch_id" class="form-control form-control-sm" require>
                             <option value="">Mặc định</option>
                                 @foreach(\App\Models\Branch::all() as $key => $branch)
@@ -48,14 +48,13 @@
                             </select>
                         </div>
                         <div class="col-md-12">
-                            <label for="branch_id" class="form-label fw-bold">Quyền hạn</label>
+                            <label for="branch_id" class="form-label fw-bold">{{__('Permission')}}</label>
                             {!! Form::select('roles[]', $roles,$userRole ?? [], array('value' => '{{ old("roles") }}', 'class' => 'form-control')) !!}
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else btn-primary @endif">@if(isset($currentItem)) Cập nhật @else Tạo
-                                tài khoản @endif</button>
+                            <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else btn-primary @endif">@if(isset($currentItem)) {{__('Update')}} @else {{__('Create_account')}} @endif</button>
                             @if(!empty($currentItem))
-                                <a href="{{route('users.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                                <a href="{{route('users.index')}}" class="btn btn-sm btn-primary">{{__('Create')}}</a>
                             @endif
                         </div>
                         <script>
@@ -64,7 +63,7 @@
 
                             function validatePassword() {
                                 if (password.value != confirm_password.value) {
-                                    confirm_password.setCustomValidity("Mật khẩu không trùng khớp.");
+                                    confirm_password.setCustomValidity("{{__('Msg_password_match')}}");
                                 } else {
                                     confirm_password.setCustomValidity('');
                                 }
@@ -82,10 +81,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th scope="col">Tên</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Chi nhánh</th>
-                            <th scope="col">Quyền hạn</th>
+                            <th scope="col">{{__('Name')}}</th>
+                            <th scope="col">{{__('Email')}}</th>
+                            <th scope="col">{{__('Branch')}}</th>
+                            <th scope="col">{{__('Permission')}}</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
@@ -95,7 +94,7 @@
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->name ??''}}</td>
                                 <td>{{$user->email ??''}}</td>
-                                <td>{{$user->branch->name ?? 'Không tồn tại'}}</td>
+                                <td>{{$user->branch->name ?? __('Not_exist')}}</td>
                                 <td>
                                 @if(!empty($user->getRoleNames()))
                                     @foreach($user->getRoleNames() as $v)
@@ -135,7 +134,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">Không có dữ liệu</td>
+                                <td colspan="4">{{__('No_data')}}</td>
                             </tr>
                         @endforelse
                         </tbody>
@@ -147,7 +146,7 @@
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {
                                 e.preventDefault();
-                                if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                                if (!confirm("{{__('Confirm_delete')}}")) {
                                     return false;
                                 }
 

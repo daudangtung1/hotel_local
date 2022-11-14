@@ -2,7 +2,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="col-md-12 mt-3">
-                    <label for="price" class="form-label fw-bold">Tiền nhận:</label>
+                    <label for="price" class="form-label fw-bold">{{__('Money_received')}}:</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
@@ -12,7 +12,7 @@
                             <span class="input-group-text">đ</span>
                         </div>
                     </div>
-                    <label for="price" class="form-label fw-bold">Tiền nợ:</label>
+                    <label for="price" class="form-label fw-bold">{{__('Debt')}}:</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
@@ -30,7 +30,7 @@
                     @endif class="btn btn-sm btn-{{$room->getBgButtonSubmit()}} @if($room->status == \App\Models\Room::READY) btn-booking-room @else btn-change-status @endif" >{{$room->getTextButton()}}
                 </button>
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
-                    Đóng
+                    {{__('Close')}}
                 </button>
             </div>
         </div>

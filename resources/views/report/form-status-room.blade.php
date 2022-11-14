@@ -2,20 +2,20 @@
     <div class="d-flex justify-content-end align-items-center mb-3">
         <div class="filter">
             <form action="{{route('reports.index')}}" class="d-flex" method="GET">
-                <input type="text" autocomplete="off"  class="form-control form-control-sm me-2 filter-date-not-time" placeholder="Chọn ngày" name="start_date" value="@if(!empty(request()->start_date)) {{request()->start_date}} @endif"  autocomplete="off">
+                <input type="text" autocomplete="off"  class="form-control form-control-sm me-2 filter-date-not-time" placeholder="{{__('Choose_date')}}" name="start_date" value="@if(!empty(request()->start_date)) {{request()->start_date}} @endif"  autocomplete="off">
                 <input type="hidden" name="by" value="{{request()->by ?? ''}}">
                 <button class="btn btn-success me-2  d-flex align-items-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
                         <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                    </svg>Lọc</button>
+                    </svg>{{__('Filter')}}</button>
             </form>
         </div>
     </div>
     <table class="table table-sm table-bordered table-hover">
         <thead>
         <tr>
-            <th scope="col">Phòng</th>
-            <th scope="col">Số lượng</th>
-            <th scope="col">Tổng</th>
+            <th scope="col">{{__('Room')}}</th>
+            <th scope="col">{{__('Amount')}}</th>
+            <th scope="col">{{__('Total_short')}}</th>
         </tr>
         </thead>
         <tbody>
@@ -51,7 +51,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="7">Không có dữ liệu</td>
+                <td colspan="7">{{__('No_data')}}</td>
             </tr>
         @endif
         </tbody>

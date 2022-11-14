@@ -37,7 +37,7 @@ class BookingRoomController extends Controller
 
     public function index(Request $request)
     {
-        $title = 'Quản lý đặt phòng';
+        $title = __('Booking_room_management');
         $floors = $this->roomRepository->filterRoomBookingByDate($request);
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBooking($request);
 
@@ -56,7 +56,7 @@ class BookingRoomController extends Controller
             return [
                 'response' => [
                     'code' => 400,
-                    'message' => "Ngày này đã được đặt trước, vui lòng chọn ngày khác!"
+                    'message' => __('Msg_date_booked')
                 ]
             ];
         }
@@ -93,7 +93,7 @@ class BookingRoomController extends Controller
             return [
                 'response' => [
                     'code' => 400,
-                    'message' => "Vui lòng nhập kết thúc lớn hơn ngày bắt đầu"
+                    'message' => __('Msg_enter_end')
                 ]
             ];
         }
@@ -109,14 +109,14 @@ class BookingRoomController extends Controller
     {  
         $menuSystem = true;
         $bookingRooms = $this->bookingRoomRepository->getHistory();
-        $title = 'Lịch sử đặt phòng';
+        $title = __('Booking_history');
 
         return view('booking-room.history', compact('menuSystem', 'bookingRooms', 'title'));
     }
 
     public function edit($id)
     {
-        $title = 'Cập nhật đặt phòng';
+        $title = __('Update_booking_room');
 
         $currentRoom = $this->bookingRoomRepository->find($id);
 
@@ -129,7 +129,7 @@ class BookingRoomController extends Controller
     {
         $this->bookingRoomRepository->update($request);
 
-        return redirect()->back()->with(['success' => 'Cập nhật thành công!']);
+        return redirect()->back()->with(['success' => __('Msg_update_success')]);
     }
 
     public function updateNote(Request $request)
@@ -169,7 +169,7 @@ class BookingRoomController extends Controller
         if ($bookingRoom) {
             $bookingRoom->delete();
 
-            return redirect()->back()->with('success', 'Xóa thành công');
+            return redirect()->back()->with('success', __('Msg_delete_success'));
         }
     }
 
@@ -180,7 +180,7 @@ class BookingRoomController extends Controller
         }
         $option = $this->optionRepository->find();
         $bookingRoom = $this->bookingRoomRepository->firstOrFail($request);
-        $title = 'Hóa đơn';
+        $title = __('Invoice');
 
         return view('room.invoice', compact('bookingRoom', 'option', 'title'));
     }
@@ -188,14 +188,14 @@ class BookingRoomController extends Controller
     public function getBookingRoomUsed(Request $request)
     {
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBookingUsed($request);
-        $title = 'Quản lý đặt phòng';
+        $title = __('Reservation_management');
         $menuSystem = true;
         return view('booking-room.used', compact('bookingRooms', 'menuSystem', 'title'));
     }
 
     public function getListBookingInfoClosest(Request $request)
     {
-        $title = 'Danh sách khách hàng đặt phòng';
+        $title = __('Booking_customers_list');
         $menuSystem = true;
         $customerInfoBookingRooms = $this->bookingRoomRepository->getListBookingInfoClosest($request);
 

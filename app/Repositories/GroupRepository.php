@@ -126,14 +126,14 @@ class GroupRepository extends ModelRepository
 
             return [
                 'code'    => 400,
-                'message' => 'Hủy thành công.'
+                'message' => __('Msg_cancel_success')
             ];
         } catch (Exception $exception) {
             DB::rollBack();
             Log::error($exception->getMessage());
             return [
                 'code'    => 400,
-                'message' => 'Hủy thất bại, vui lòng thử lại.'
+                'message' => __('Msg_cancel_fail')
             ];
         }
     }
@@ -223,7 +223,7 @@ class GroupRepository extends ModelRepository
             Log::info($exception->getMessage());
             return [
                 'code'    => 400,
-                'message' => 'Dat phong cho khach bi loi'
+                'message' => __('Msg_booking_fail')
             ];
         }
     }

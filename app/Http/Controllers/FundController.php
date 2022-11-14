@@ -39,7 +39,7 @@ class FundController extends Controller
 
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBookingUsed();
 
-        $title = 'Quản lý quỹ';
+        $title = __('Fund_management_f');
 
         return view('fund.index', compact('items', 'bookingRooms', 'menuCategoryManager', 'title'));
     }

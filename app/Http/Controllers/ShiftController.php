@@ -42,7 +42,7 @@ class ShiftController extends Controller
      */
     public function index(Request $request)
     {
-        $title = 'Quản lý giao ca';
+        $title = __('Shift_management');
         $menuCategoryManager = true;
         $users = User::where('branch_id', get_branch_id())->get();
         $items = $this->shiftRepository->getAll();
@@ -59,7 +59,7 @@ class ShiftController extends Controller
     {
         $this->shiftRepository->store($request);
 
-        return redirect()->route('shifts.index')->with('success', 'Tạo mới thành công');
+        return redirect()->route('shifts.index')->with('success', __('Msg_new_creation_successul'));
     }
 
     /**
@@ -72,7 +72,7 @@ class ShiftController extends Controller
     {
         $request->merge(['shift_id' => $shift_id]);
         $currentItem = $this->shiftRepository->find($request);
-        $title = 'Quản lý giao ca';
+        $title = __('Shift_management');
         $menuCategoryManager = true;
         $users = User::all();
         $items = $this->shiftRepository->getAll();
@@ -90,6 +90,6 @@ class ShiftController extends Controller
     {
         $this->shiftRepository->update($request);
 
-        return redirect()->route('shifts.index')->with('success', 'Cập nhật thành công');
+        return redirect()->route('shifts.index')->with('success', __('Msg_update_success'));
     }
 }

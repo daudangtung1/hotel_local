@@ -8,7 +8,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h2 class="card-title mb-0">{{$title}}</h2>
                         <div class="card-tools">
-                            <a class="btn btn-default" href="{{ route('roles.index') }}"><i class="fas fa-angle-double-left"></i> Danh sách</a>
+                            <a class="btn btn-default" href="{{ route('roles.index') }}"><i class="fas fa-angle-double-left"></i> {{__('List')}}</a>
                         </div>
                     </div>
                     {!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
@@ -16,20 +16,20 @@
                         <div class="tab-pane" id="settings">
                             <div class="form-horizontal">
                                 <div class="form-group row">
-                                    <label for="inputName" class="col-md-2 col-form-label">Tên chức vụ</label>
+                                    <label for="inputName" class="col-md-2 col-form-label">{{__('Job_title')}}</label>
                                     <div class="col-md-10">
                                         {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row">
-                                    <label for="inputPermission" class="col-md-2 col-form-label">Quyền hạn</label>
+                                    <label for="inputPermission" class="col-md-2 col-form-label">{{__('Permission')}}</label>
                                     <div class="col-md-10">
 
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <label class="fw-bold mb-5 all" style="cursor:pointer;">
-                                                    Toàn bộ
+                                                    {{__('Total_2')}}
                                                 </label>
                                             </div>
                                             <?php
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Thêm</button>
+                        <button type="submit" class="btn btn-primary">{{__('Add')}}</button>
                     </div>
                     {!! Form::close() !!}
                 </div>

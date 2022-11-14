@@ -10,14 +10,14 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
             <div class="modal-body row " id="form-booking">
                 <div class="col-md-6">
                     @if(!empty($bookingRoom))
-                    <h2>Khách hàng thuê phòng</h2>
+                    <h2>{{__('Customer_renting_room')}}</h2>
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">Tên khách hàng̣</th>
-                                <th scope="col">Số giấy tờ</th>
-                                <th scope="col">Điện thoại</th>
-                                <th>Địa chỉ</th>
+                                <th scope="col">{{__('Customer_name')}}</th>
+                                <th scope="col">{{__('ID_card_2')}}</th>
+                                <th scope="col">{{__('Phone_f')}}</th>
+                                <th>{{__('Address')}}</th>
                                 @if($bookingRoom->bookingRoomCustomers()->count() > 1)
                                 <th></th>
                                 @endif
@@ -26,10 +26,10 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                         <tbody>
                             @forelse($bookingRoom->bookingRoomCustomers()->get() as $key => $bookingRoomCustomer)
                             <tr>
-                                <td>{{$bookingRoomCustomer->customer->name ??'Không tồn tại'}}</td>
-                                <td>{{$bookingRoomCustomer->customer->id_card ??'Không tồn tại'}}</td>
-                                <td>{{$bookingRoomCustomer->customer->phone ??'Không tồn tại'}}</td>
-                                <td>{{$bookingRoomCustomer->customer->address ??'Không tồn tại'}}</td>
+                                <td>{{$bookingRoomCustomer->customer->name ?? __('Not_exist')}}</td>
+                                <td>{{$bookingRoomCustomer->customer->id_card ?? __('Not_exist')}}</td>
+                                <td>{{$bookingRoomCustomer->customer->phone ?? __('Not_exist')}}</td>
+                                <td>{{$bookingRoomCustomer->customer->address ?? __('Not_exist')}}</td>
                                 @if($bookingRoom->bookingRoomCustomers()->count() > 1)
                                 <td>
                                     <a href="{{route('booking-room-customers.destroy', ['booking_room_customer' => $bookingRoomCustomer])}}" class="btn-ajax-delete-customer text-danger  btn-sm ">
@@ -43,7 +43,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5">Không có dữ liệu</td>
+                                <td colspan="5">{{__('No_data')}}</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -53,26 +53,25 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                     <h2>Khách hàng</h2>
                     <div id="customer-booking" class="form-user">
                         <div class="col-md-12 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm validate " id="customer_name" name="customer_name" required placeholder="Tên khách hàng" autocomplete="Off">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm validate " id="customer_name" name="customer_name" required placeholder="{{__('Customer_name')}}" autocomplete="Off">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-customer"></div>
                         </div>
                         <div class="col-md-12 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm validate " id="customer_id_card" name="customer_id_card" required placeholder="Số giấy tờ" autocomplete="Off">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm validate " id="customer_id_card" name="customer_id_card" required placeholder="{{__('ID_card_2')}}" autocomplete="Off">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-id_card"></div>
                         </div>
 
                         <div class="col-md-12 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm validate " id="customer_phone" name="customer_phone" required placeholder="Điện thoại" autocomplete="Off">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm validate " id="customer_phone" name="customer_phone" required placeholder="{{__('Phone_f')}}" autocomplete="Off">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-phone"></div>
                         </div>
                         <div class="col-md-12 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm validate " id="customer_address" name="customer_address" required placeholder="Địa chỉ">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm validate " id="customer_address" name="customer_address" required placeholder="{{__('Address')}}">
                         </div>
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="start_date" class="form-label fw-bold">Thời gian bắt
-                                        đầu:</label>
+                                    <label for="start_date" class="form-label fw-bold">{{__('Time_start')}}:</label>
                                     <div class="form-group">
                                         <div class="input-group date">
                                             <span class="input-group-text">
@@ -86,8 +85,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                                     </div>
                                 </div>
                                 <div class="col-md-6 @if(empty($bookingRoom) || empty($bookingRoom->end_date) ) d-none @endif" id="box-end-date">
-                                    <label for="end_date" class="form-label fw-bold">Thời gian kết
-                                        thúc:</label>
+                                    <label for="end_date" class="form-label fw-bold">{{__('Time_end')}}:</label>
                                     <div class="input-group date">
                                         <span class="input-group-text">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
@@ -103,7 +101,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                     </div>
                     @if(!empty($bookingRoom))
                     <div class="col-md-12 mt-3">
-                        <button class="btn btn-sm btn-primary btn-add-customer">Thêm khách hàng</button>
+                        <button class="btn btn-sm btn-primary btn-add-customer">{{__('Add_customer')}}</button>
                     </div>
                     @endif
                 </div>
@@ -111,14 +109,14 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                     @if($bookingRoom)
                     <input type="hidden" name="booking_room_id" value="{{$bookingRoom->id}}">
                     @if($bookingRoom->bookingRoomServices()->count() > 0)
-                    <h2>Dịch vụ đang sử dụng</h2>
+                    <h2>{{__('Service_in_use')}}</h2>
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th scope="col">Tên dịch vụ</th>
-                                <th scope="col">Số lượng/ngày thuê</th>
-                                <th scope="col">Tổng tiền</th>
+                                <th scope="col">{{__('Service_name')}}</th>
+                                <th scope="col">{{__('Quantity_rental')}}</th>
+                                <th scope="col">{{__('Total')}}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -127,13 +125,13 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                             <tr>
                                 <td>{{$key++}}</td>
                                 <td>
-                                    {{$bookingRoomService->service->name ??'Không tồn tại'}}
+                                    {{$bookingRoomService->service->name ?? __('Not_exist')}}
                                 </td>
                                 <td>
                                     @if($bookingRoomService->start_date)
                                     <div class="row">
                                         <div class="col-12">
-                                            <span class="me-5 d-inline-block"><b>Tổng:</b> {{$bookingRoomService->getTotalDate(true)}}</span>
+                                            <span class="me-5 d-inline-block"><b>{{__('Total_short')}}:</b> {{$bookingRoomService->getTotalDate(true)}}</span>
                                         </div>
                                         <div class="col-12 d-flex">
                                             <div class="input-group date">
@@ -154,7 +152,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                                                 </span>
                                                 <input type="text" autocomplete="off" value="{{\Carbon\Carbon::parse($bookingRoomService->end_date)->format('Y-m-d H:i')}}" readonly class="me-2 datetime-picker form-control form-control-sm modal_end_date" name="modal_end_date">
                                             </div>
-                                            <button class="btn btn-sm btn-success model-btn-update-service" data-url_update="{{route('booking-room-service.update', ['booking_room_service' => $bookingRoomService])}}" data_service-id="{{$bookingRoomService->id}}">Cập nhật</button>
+                                            <button class="btn btn-sm btn-success model-btn-update-service" data-url_update="{{route('booking-room-service.update', ['booking_room_service' => $bookingRoomService])}}" data_service-id="{{$bookingRoomService->id}}">{{__('Update')}}</button>
                                         </div>
                                     </div>
                                     @else
@@ -178,7 +176,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="4">Không có dịch vụ nào</td>
+                                <td colspan="4">{{__('No_service ')}}</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -187,14 +185,14 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                     <hr>
                     @endif
 
-                    <h2>Dịch vụ</h2>
+                    <h2>{{__('Service')}}</h2>
                     <table class="table table-sm table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th scope="col">Tên dịch vụ</th>
-                                <th scope="col">Tồn kho</th>
-                                <th scope="col">Giá</th>
+                                <th scope="col">{{__('Service_name')}}</th>
+                                <th scope="col">{{__('Inventory')}}</th>
+                                <th scope="col">{{__('Price')}}</th>
                                 @if($bookingRoom)
                                 <th></th>
                                 @endif
@@ -210,7 +208,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                                         <div class="col-12 d-flex">
                                             <input type="text" autocomplete="off" value="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}" readonly class="datetime-picker form-control form-control-sm modal_start_date me-2" name="modal_start_date">
                                             <input type="text" autocomplete="off" value="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}" min="{{\Carbon\Carbon::now()->format('Y-m-d H:i')}}" readonly class="datetime-picker form-control form-control-sm modal_end_date me-2" name="modal_end_date">
-                                            <button class="btn btn-sm btn-primary model-btn-add-service">Thêm</button>
+                                            <button class="btn btn-sm btn-primary model-btn-add-service">{{__('Add')}}</button>
                                         </div>
                                         <input type="hidden" name="modal_service_id" class="modal_service_id" value="{{$service->id}}">
                                     </div>
@@ -218,7 +216,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                                 </td>
                                 <td>
                                     @if($service->sale_type == 0)
-                                    <b class="whitespace-nowrap">Thuê theo ngày</b>
+                                    <b class="whitespace-nowrap">{{__('Rent_by_day')}}</b>
                                     @else
                                     {{$service->stock ??''}}
                                     @endif
@@ -235,7 +233,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="4">Không có dữ liệu</td>
+                                <td colspan="4">{{__('No_data')}}</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -246,25 +244,25 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                         <div class="form-check">
                             <input class="form-check-input rentType" type="radio" name="rent_type" id="exampleRadios2{{$room->id}}" value="0" @if($bookingRoom && $bookingRoom->rent_type == 0) checked @endif >
                             <label class="form-check-label" for="exampleRadios2{{$room->id}}">
-                                Thuê theo giờ ({{get_price($room->hour_price ?? 0, 'đ')}}/giờ)
+                                {{__('Rent_by_hour')}} ({{get_price($room->hour_price ?? 0, 'đ')}}/giờ)
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input rentType" type="radio" name="rent_type" id="exampleRadios1{{$room->id}}" value="1" @if($bookingRoom && $bookingRoom->rent_type == 1) checked @endif>
                             <label class="form-check-label" for="exampleRadios1{{$room->id}}">
-                                Thuê theo ngày ({{get_price($room->day_price ?? 0, 'đ') }}/ngày)
+                                {{__('Rent_by_day')}} ({{get_price($room->day_price ?? 0, 'đ') }}/ngày)
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input rentType" type="radio" name="rent_type" id="exampleRadios3{{$room->id}}" value="2" @if($bookingRoom && $bookingRoom->rent_type == 2) checked @endif>
                             <label class="form-check-label" for="exampleRadios3{{$room->id}}">
-                                Thuê theo tháng ({{get_price($room->month_price ?? 0, 'đ') }}/tháng)
+                                {{__('Rent_by_month')}} ({{get_price($room->month_price ?? 0, 'đ') }}/tháng)
                             </label>
                         </div>
                     </div>
                     @endif
                     <div class="col-md-12 mt-3">
-                        <label for="price" class="form-label fw-bold">Giá thuê mới:</label>
+                        <label for="price" class="form-label fw-bold">{{__('New_rental_price')}}:</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
@@ -277,7 +275,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                     </div>
                    
                     <div class="col-md-12 extra-price-box  @if(!empty($bookingRoom) && !empty($bookingRoom->end_date)) d-block @else d-none @endif" id="box-extra-price">
-                        <label for="extra_price" class="form-label fw-bold">Số tiền quá giờ̀:</label>
+                        <label for="extra_price" class="form-label fw-bold">{{__('Overtime_amount̀')}}:</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
@@ -290,14 +288,14 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                     </div>
 
                     <div class="col-md-12 mt-3">
-                        <label for="price" class="form-label fw-bold">Ghi chú:</label>
-                        <textarea name="note" class="form-control form-control-sm form-control-sm note" cols="30" rows="2" placeholder="Ghi chú">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
+                        <label for="price" class="form-label fw-bold">{{__('Note')}}:</label>
+                        <textarea name="note" class="form-control form-control-sm form-control-sm note" cols="30" rows="2" placeholder="{{__('Note')}}">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
                     </div>
                     @if(!empty($bookingRoom) && in_array($bookingRoom->status, [1,3,5]))
                     <div class="col-md-12 mt-3">
-                        <label for="price" class="form-label fw-bold">Tình trạng:</label>
+                        <label for="price" class="form-label fw-bold">{{__('Status')}}:</label>
                         <select name="booking_room_status" id="booking_room_status" class="form-control form-control-sm">
-                            <option value="" selected>Không</option>
+                            <option value="" selected>{{__('No')}}</option>
                             @foreach(\App\Models\Room::ARRAY_UPDATE_STATUS as $key => $status)
                             <option @if($bookingRoom->status == $key) selected
                                 @endif value="{{$key}}">{{$status}}</option>
@@ -309,11 +307,11 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
-                    Đóng
+                    {{__('Close')}}
                 </button>
                 @if(!empty($bookingRoom))
                 <button type="button" class="btn btn-sm btn-default btn-success btn-update btn-warning" data-booking_room_id="{{$bookingRoom->id}}">
-                    Cập nhật
+                    {{__('Update')}}
                 </button>
                 @endif
                 @php
@@ -321,7 +319,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                 @endphp
                 @if(!empty($bookingRoomCleaning ))
                 <a href="{{route('booking-room.show_invoice',['id' => $bookingRoomCleaning->id])}}" target="_blank" class="btn btn-sm btn-default btn-success">
-                    Xem hóa đơn
+                    {{__('Show_invoice')}}
                 </a>
                 @endif
                 @if($room->status == \App\Models\Room::HAVE_GUEST)

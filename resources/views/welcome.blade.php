@@ -58,11 +58,11 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 					<form action="" id="form-login"> 
 						<div class="form-group"> 
 							<label>Tài khoản</label>
-							<input type="text" autocomplete="off"  class="form-input" placeholder="Tên đăng nhập" name="uname">
+							<input type="text" autocomplete="off"  class="form-input" placeholder="{{__('Username_2')}}" name="uname">
 						</div>
 						<div class="form-group"> 
 							<label>Mật khẩu</label>
-							<input type="password" class="form-input" placeholder="Mật khẩu" name="psw"> 
+							<input type="password" class="form-input" placeholder="{{__('Password')}}" name="psw"> 
 							<div class="in-form-group">
 								<input type="checkbox" id="luumatkhau" name="luumatkhau" value="Bike">
 								<label for="luumatkhau"> Lưu mật khẩu</label>

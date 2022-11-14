@@ -8,12 +8,12 @@
                         <h5>{{$title ?? ''}}</h5>
                         <div class="filter">
                             <form action="" class="d-flex" method="GET">
-                                <input type="text" autocomplete="off"  name="name" class="form-control form-control-sm me-2" placeholder="Tên khách hàng" value="@if(!empty(request()->name)) {{request()->name}} @endif">
-                                <input type="text" autocomplete="off"  class="form-control form-control-sm me-2 " placeholder="Phòng" name="room" value="@if(!empty(request()->room)) {{request()->room}} @endif"  autocomplete="off">
+                                <input type="text" autocomplete="off"  name="name" class="form-control form-control-sm me-2" placeholder="{{__('Customer_name')}}" value="@if(!empty(request()->name)) {{request()->name}} @endif">
+                                <input type="text" autocomplete="off"  class="form-control form-control-sm me-2 " placeholder="{{__('Room')}}" name="room" value="@if(!empty(request()->room)) {{request()->room}} @endif"  autocomplete="off">
 
                                 <button class="btn btn-success me-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
                                         <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
-                                    </svg>Lọc</button>
+                                    </svg>{{__('Filter')}}</button>
                             </form>
                         </div>
                     </div>
@@ -21,10 +21,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th scope="col">Tên phòng</th>
-                            <th scope="col">Thời gian</th>
-                            <th scope="col">Tên khách hàng</th>
-                            <th scope="col">Ghi chú</th>
+                            <th scope="col">{{__('Room_name')}}</th>
+                            <th scope="col">{{__('Time')}}</th>
+                            <th scope="col">{{__('Customer_name')}}</th>
+                            <th scope="col">{{__('Note')}}</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
@@ -34,16 +34,16 @@
                                 <tr>
                                     <td>{{$bookingRoom->id}}</td>
                                     <td>
-                                        <p><b>Phòng</b> {{$bookingRoom->room->name ?? 'Không tồn tại'}}</p>
-                                        <p><b>Tầng:</b> {{$bookingRoom->room->floor ?? 'Không tồn tại'}}</p>
+                                        <p><b>{{__('Room')}}</b> {{$bookingRoom->room->name ?? __('Not_exist')}}</p>
+                                        <p><b>{{__('Level')}}:</b> {{$bookingRoom->room->floor ?? __('Not_exist')}}</p>
                                     </td>
                                     <td>
-                                        <p><b>Ngày vào: </b>{{$bookingRoom->start_date ?? ''}}</p>
-                                        <p><b>Ngày ra: </b>{{$bookingRoom->end_date ?? ''}}</p>
+                                        <p><b>{{__('Check_in')}}: </b>{{$bookingRoom->start_date ?? ''}}</p>
+                                        <p><b>{{__('Check_out')}}: </b>{{$bookingRoom->end_date ?? ''}}</p>
                                     </td>
                                     <td>
                                         @foreach($bookingRoom->bookingRoomCustomers()->get() as $customer)
-                                            <p>{{$customer->customer->name ?? 'Không tồn tại'}}</p>
+                                            <p>{{$customer->customer->name ?? __('Not_exist')}}</p>
                                         @endforeach
                                     </td>
                                     <td>{{$bookingRoom->note ?? ''}}</td>
@@ -58,7 +58,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8">Không có dữ liệu</td>
+                                    <td colspan="8">{{__('No_data')}}</td>
                                 </tr>
                             @endforelse
                         @endif
@@ -71,7 +71,7 @@
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {
                                 e.preventDefault();
-                                if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                                if (!confirm("{{__('Confirm_delete')}}")) {
                                     return false;
                                 }
 

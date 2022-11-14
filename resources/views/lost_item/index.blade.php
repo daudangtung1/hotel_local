@@ -5,10 +5,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5>Đồ thất lạc</h5>
+                        <h5>{{__('Lost_item')}}</h5>
                         @can('Quản lý đồ thất lạc-create')
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-toggle="modal" data-bs-target="#exampleModalLong">
-                            Tạo mới
+                            {{__('Create')}}
                         </button>
                         @endcan
                     </div>
@@ -33,7 +33,7 @@
             var note = modal.find('.note').val();
             if (bookingRoomId == '' || note == '' ) {
                 $.toast({
-                    text: 'Vui lòng nhập đầy đủ thông tin.',
+                    text: "{{__('Msg_enter_full_information')}}",
                     icon: 'error',
                     position: 'top-right'
                 });
@@ -81,7 +81,7 @@
                 success: function (data) {
                     $('.table-ajax').html(data);
                     $.toast({
-                        text: 'Cập nhật thành công',
+                        text: "{{__('Msg_update_success')}}",
                         icon: 'success',
                         position: 'top-right'
                     });
@@ -110,7 +110,7 @@
                 success: function (data) {
                     $('.table-ajax').html(data);
                     $.toast({
-                        text: 'Cập nhật thành công',
+                        text: "{{__('Msg_update_success')}}",
                         icon: 'success',
                         position: 'top-right'
                     });

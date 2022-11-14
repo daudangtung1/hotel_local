@@ -51,7 +51,7 @@ class TypeRoomRepository extends ModelRepository
         if ($typeRoomExists) {
             return [
                 'status'  => false,
-                'message' => 'Loại phòng đã tồn tại'
+                'message' => __('Msg_room_type_exist')
             ];
         }
 
@@ -71,7 +71,7 @@ class TypeRoomRepository extends ModelRepository
         if ($typeRoomExists) {
             return [
                 'status'  => false,
-                'message' => 'Loại phòng đã tồn tại'
+                'message' => __('Room_type_exists')
             ];
         }
 

@@ -27,10 +27,10 @@
                         
                         <div class="col-12">
                             <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else
-                            btn-primary @endif">@if(isset($currentItem)) Cập nhật @else
-                                    Tạo mới @endif</button>
+                            btn-primary @endif">@if(isset($currentItem)) {{__('Update')}} @else
+                            {{__('Create')}} @endif</button>
                             @if(!empty($currentItem))
-                                <a href="{{route('languages.create')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                                <a href="{{route('languages.create')}}" class="btn btn-sm btn-primary">{{__('Create')}}</a>
                             @endif
                         </div>
                     </form>
@@ -85,7 +85,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">Không có dữ liệu</td>
+                                <td colspan="5">{{__('No_data')}}</td>
                             </tr>
                         @endforelse
                         </tbody>
@@ -97,7 +97,7 @@
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {
                                 e.preventDefault();
-                                if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                                if (!confirm("{{__('Confirm_delete')}}")) {
                                     return false;
                                 }
 

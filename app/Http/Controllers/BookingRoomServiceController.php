@@ -57,7 +57,7 @@ class BookingRoomServiceController extends Controller
                     return [
                         'response' => [
                             'code' => 400,
-                            'message' => "Vượt quá số lượng tồn kho"
+                            'message' => __('Msg_exceed_inventory')
                         ]
                     ];
                 }
@@ -78,7 +78,7 @@ class BookingRoomServiceController extends Controller
             return [
                 'response' => [
                     'code' => 400,
-                    'message' => "Quá trình cập nhật bị lỗi!"
+                    'message' => __('Msg_update_fail_2')
                 ]
             ];
         }
@@ -86,7 +86,7 @@ class BookingRoomServiceController extends Controller
 
     public function report(Request $request)
     {
-        $title = 'Báo cáo bán hàng';
+        $title = __('Sales_report_f');
         $menuReport = true;
         if (!empty($request->export)) {
             return (app(BookingRoomServiceExport::class))->download('booking-room-services.xlsx');

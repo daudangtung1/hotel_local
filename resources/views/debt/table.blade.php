@@ -1,11 +1,11 @@
 <table class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Tên công nợ</th>
-            <th scope="col">Đặt phòng</th>
-            <th scope="col">Số tiền nợ</th>
-            <th scope="col">Tình trạng</th>
+            <th scope="col">{{__('ID')}}</th>
+            <th scope="col">{{__('Debit_name')}}</th>
+            <th scope="col">{{__('Booking_room')}}</th>
+            <th scope="col">{{__('Debit_number')}}</th>
+            <th scope="col">{{__('Status')}}</th>
         </tr>
     </thead>
     <tbody>
@@ -15,34 +15,34 @@
             <td>{{$item->id}}</td>
             <td>{!!$item->name ?? '-'!!}</td>
             <td>
-                <p><b>Phòng</b> {!! $item->bookingRoom->room->name ?? 'Không tồn tại' !!}</p>
-                <p><b>Tầng:</b> {{$item->bookingRoom->room->floor ?? 'Không tồn tại'}}</p>
-                <p><b>Ngày vào: </b>{{$item->bookingRoom->start_date ?? 'Không tồn tại'}}</p>
-                <p><b>Ngày ra: </b>{{$item->bookingRoom->end_date ?? 'Không tồn tại'}}</p>
+                <p><b>{{__('Room')}}</b> {!! $item->bookingRoom->room->name ?? __('Not_exist') !!}</p>
+                <p><b>{{__('Level')}}:</b> {{$item->bookingRoom->room->floor ?? __('Not_exist')}}</p>
+                <p><b>{{__('Check_in')}}: </b>{{$item->bookingRoom->start_date ?? __('Not_exist')}}</p>
+                <p><b>{{__('Check_out')}}: </b>{{$item->bookingRoom->end_date ?? __('Not_exist')}}</p>
             </td>
             <td>{{get_price($item->price ?? 0, 'đ')}}</td>
             <td>
                 @if(empty($item->status))
                     <select name="status" id="status" class="form-control form-control-sm status">
-                        <option value="0">Chưa trả</option>
-                        <option value="1">Đã trả</option>
+                        <option value="0">{{__('Unpaid')}}</option>
+                        <option value="1">{{__('Paid')}}</option>
                     </select>
                 @else
                     <b class="text-success">{{\App\Models\Debt::ARRAY_STATUS[$item->status]}}</b> <br />
                     @if ($item->status == 1)
-                    <b>Ngày thanh toán: {{$item->updated_at}}</b>
+                    <b>{{__('Date_payment')}}: {{$item->updated_at}}</b>
                     @endif
                 @endif
             </td>
         </tr>
         @empty
         <tr>
-            <td colspan="5">Không có dữ liệu</td>
+            <td colspan="5">{{__('No_data')}}</td>
         </tr>
         @endforelse
         @else
         <tr>
-            <td colspan="5">Không có dữ liệu</td>
+            <td colspan="5">{{__('No_data')}}</td>
         </tr>
         @endif
     </tbody>

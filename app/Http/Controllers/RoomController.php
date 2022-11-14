@@ -40,7 +40,7 @@ class RoomController extends Controller
         $typeRoomsSelect = $this->typeRoomRepository->getAll(false);
         $menuCategoryManager = true;
         $currentRoom = null;
-        $title = 'Quản lý phòng';
+        $title = __('Room_management_f');
 
         if ($request->ajax()) {
             return view('room.list', compact('typeRoomsSelect', 'typeRooms', 'floors', 'services', 'menuCategoryManager', 'bookingRooms', 'currentRoom'))->render();
@@ -55,7 +55,7 @@ class RoomController extends Controller
         $rooms = $this->roomRepository->getAll(false, true);
         $typeRooms = $this->typeRoomRepository->getAll();
         $typeRoomsSelect = $this->typeRoomRepository->getAll(false);
-        $title = 'Tạo mới phòng';
+        $title = __('Create_new_room');
 
         return view('room.create', compact('typeRoomsSelect', 'typeRooms', 'menuSetup', 'rooms', 'title'));
     }
@@ -65,7 +65,7 @@ class RoomController extends Controller
         // TODO: validate
         $result = $this->roomRepository->store($request);
         if ($result) {
-            return redirect()->back()->with('success', 'Đăng ký thành công');
+            return redirect()->back()->with('success', __('Msg_create_success'));
         }
     }
 
@@ -74,7 +74,7 @@ class RoomController extends Controller
         // TODO: validate
         $result = $this->roomRepository->update($request);
         if ($result) {
-            return redirect()->back()->with('success', 'Cập nhật thành công');
+            return redirect()->back()->with('success', __('Msg_update_success'));
         }
     }
 
@@ -86,7 +86,7 @@ class RoomController extends Controller
         $menuSetup = true;
         $rooms = $this->roomRepository->getAll(false, true);
         $typeRoomsSelect = $this->typeRoomRepository->getAll(false);
-        $title = 'Cập nhật phòng';
+        $title = __('Update_room');
 
         return view('room.create', compact('typeRoomsSelect', 'menuSetup', 'typeRooms', 'rooms', 'currentRoom', 'title'));
     }
@@ -123,10 +123,10 @@ class RoomController extends Controller
             }
             $currentRoom->delete();
 
-            return redirect()->back()->with('success', 'Đã xoá thành công');
+            return redirect()->back()->with('success', __('Msg_deleted_success'));
         }
 
-        return redirect()->back()->withErrors('Vui lòng thử lại');
+        return redirect()->back()->withErrors(__('Msg_try_again'));
     }
 
     public function show(Request $request, $room)

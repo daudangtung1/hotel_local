@@ -28,7 +28,7 @@ class RevenueAndExpenditureController extends Controller
         $items = $this->revenueAndExpenditureRepository->getAll();
         $menuCategoryManager = true;
 
-        $title = 'Quản lý thu chi';
+        $title = __('Revenue_management');
 
         return view('revenue_and_expenditure.index', compact('items', 'menuCategoryManager', 'title'));
     }
@@ -37,7 +37,7 @@ class RevenueAndExpenditureController extends Controller
     {
         $this->revenueAndExpenditureRepository->store($request);
 
-        return redirect()->back()->with('success', 'Đăng ký thành công');
+        return redirect()->back()->with('success', __('Msg_create_success'));
     }
 
     public function edit(Request $request, $id)
@@ -45,7 +45,7 @@ class RevenueAndExpenditureController extends Controller
         $currentItem = $this->revenueAndExpenditureRepository->find($id);
         $menuCategoryManager = true;
         $items = $this->revenueAndExpenditureRepository->getAll();
-        $title = 'Cập nhật thu chi';
+        $title = __('Update_revenue_expenditure');
 
         return view('revenue_and_expenditure.index', compact('menuCategoryManager', 'items', 'currentItem', 'title'));
     }
@@ -55,9 +55,9 @@ class RevenueAndExpenditureController extends Controller
         $result = $this->revenueAndExpenditureRepository->update($id, $request);
 
         if ($result) {
-            return redirect()->back()->with('success', 'Cập nhật thành công');
+            return redirect()->back()->with('success', __('Msg_update_success'));
         }
-        return redirect()->back()->withErrors('Cập nhật thất bại.');
+        return redirect()->back()->withErrors(__('Msg_update_fail'));
     }
 
     public function destroy(Request $request, $id)
@@ -67,9 +67,9 @@ class RevenueAndExpenditureController extends Controller
         if (!empty($currentItem)) {
             $currentItem->delete();
 
-            return redirect()->back()->with('success', 'Đã xoá thành công');
+            return redirect()->back()->with('success', __('Msg_deleted_success'));
         }
 
-        return redirect()->back()->withErrors('Vui lòng thử lại');
+        return redirect()->back()->withErrors(__('Msg_try_again'));
     }
 }

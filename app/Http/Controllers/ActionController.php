@@ -52,7 +52,7 @@ class ActionController extends Controller
     public function show($id)
     {
         $items = $this->actionRepository->getAll($id);
-        $title = 'Danh sách thu/chi';
+        $title = __('Revenue_expenditure_list');
         $menuCategoryManager = true;
         return view('action.index', compact('items', 'title', 'menuCategoryManager'));
     }
