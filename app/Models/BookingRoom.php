@@ -99,19 +99,19 @@ class BookingRoom extends Model
     {
         switch ($this->status) {
             case self::BOOKING_ROOM:
-                return 'Đặt phòng';
+                return 'Booking_room';
             case self::BUSY:
-                return 'Có khách';
+                return 'Have_guest';
             case self::GUEST_OUT:
-                return 'Khách ra ngoài';
+                return 'Guest_out';
             case self::DIRTY:
-                return 'Bẩn';
+                return 'Dirty';
             case self::CLEANING:
-                return 'Đang dọn';
+                return 'Cleaning';
             case self::FIXING:
-                return 'Đang sửa';
+                return 'Fixing';
             default:
-                return 'Phòng trống';
+                return 'Ready';
         }
     }
 
@@ -187,11 +187,11 @@ class BookingRoom extends Model
 
         if ($suffixes) {
             if ($this->rent_type == 1) {
-                $suffixes = ' ngày';
+                $suffixes = __('day');
             } elseif ($this->rent_type == 2) {
-                $suffixes = ' tháng';
+                $suffixes = __('month');
             } else {
-                $suffixes = ' giờ';
+                $suffixes = __('hour');
             }
 
             return $time . ' ' . $suffixes;
@@ -202,11 +202,11 @@ class BookingRoom extends Model
     public function getRentType()
     {
         if ($this->rent_type == 1) {
-            return 'Thuê theo ngày';
+            return 'Rent_by_day';
         } elseif ($this->rent_type == 2) {
-            return 'Thuê theo tháng';
+            return 'Rent_by_month';
         } else {
-            return 'Thuê theo giờ';
+            return 'Rent_by_hour';
         }
     }
 

@@ -28,4 +28,20 @@ class LostItem extends Model
     {
         return $this->belongsTo(Customers::class);
     }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::created(function ($item) {
+            create_log('Tạo mới đồ thất lạc');
+        });
+
+        static::updated(function ($item) {
+            create_log('Cập nhật đồ thất lạc');
+        });
+
+        static::deleted(function ($item) {
+            create_log('Xóa đồ thất lạc');
+        });
+    }
 }

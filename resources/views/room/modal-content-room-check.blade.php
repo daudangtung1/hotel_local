@@ -27,7 +27,7 @@
             </div>
             <div class="modal-footer">
                 <button data-bg="{{$room->getBgButton()}}" type="button" @if($room->status != \App\Models\Room::READY) data-action="{{route('room.change-status', ['room_id' => $room->id])}}"
-                    @endif class="btn btn-sm btn-{{$room->getBgButtonSubmit()}} @if($room->status == \App\Models\Room::READY) btn-booking-room @else btn-change-status @endif" >{{$room->getTextButton()}}
+                    @endif class="btn btn-sm btn-{{$room->getBgButtonSubmit()}} @if($room->status == \App\Models\Room::READY) btn-booking-room @else btn-change-status @endif" >{{__($room->getTextButton())}}
                 </button>
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
                     {{__('Close')}}

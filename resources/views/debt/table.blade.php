@@ -28,7 +28,7 @@
                         <option value="1">{{__('Paid')}}</option>
                     </select>
                 @else
-                    <b class="text-success">{{\App\Models\Debt::ARRAY_STATUS[$item->status]}}</b> <br />
+                    <b class="text-success">{{__(\App\Models\Debt::ARRAY_STATUS[$item->status])}}</b> <br />
                     @if ($item->status == 1)
                     <b>{{__('Date_payment')}}: {{$item->updated_at}}</b>
                     @endif

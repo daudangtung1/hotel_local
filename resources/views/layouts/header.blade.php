@@ -22,11 +22,12 @@
                     <li>{{__('Hello')}}: <b>{{\Auth::user()->name ?? ''}}</b>!</li>
 
                 </ul>
+                <ul class="language-ul">
+                    <li><a href="{{route('changeLanguage')}}?language=en"><img src="{{asset('assets/images/en.png')}}" width="25px" alt=""></a></li>
+                    <li><a href="{{route('changeLanguage')}}?language=vi"><img src="{{asset('assets/images/vi.png')}}" width="25px" alt=""></a></li>
+                </ul>
             </div>
-            <ul>
-                <li><a href="{{route('changeLanguage')}}?language=en"><img src="{{asset('assets/images/en.png')}}" width="25px" alt=""></a></li>
-                <li><a href="{{route('changeLanguage')}}?language=vi"><img src="{{asset('assets/images/vi.png')}}" width="25px" alt=""></a></li>
-            </ul>
+           
             <div class="content-tab">
                 <div class="info-content @if(!empty($menuSystem)) active  @endif">
                     <div class="inner-info-content">

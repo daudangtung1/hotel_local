@@ -32,4 +32,20 @@ class Shift extends Model
     {
         return $this->belongsTo(User::class, 'to_user_id', 'id');
     }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::created(function ($item) {
+            create_log('Tạo mới giao ca');
+        });
+
+        static::updated(function ($item) {
+            create_log('Cập nhật giao ca');
+        });
+
+        static::deleted(function ($item) {
+            create_log('Xóa giao ca');
+        });
+    }
 }

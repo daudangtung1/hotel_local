@@ -10,7 +10,7 @@
                     <option value="">{{__('All')}}</option>
                     @foreach(\App\Models\RevenueAndExpenditure::STATUS as $key => $status)
                     <option value="{{$key}}" @if(!empty(request()->type) && request()->type == $key) selected @endif>
-                        {{$status}}
+                        {{__($status)}}
                     </option>
                         @endforeach
 

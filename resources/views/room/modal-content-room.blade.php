@@ -50,7 +50,7 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                     </table>
                     <hr>
                     @endif
-                    <h2>Khách hàng</h2>
+                    <h2>{{__('Customer')}}</h2>
                     <div id="customer-booking" class="form-user">
                         <div class="col-md-12 mb-3 position-relative">
                             <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm validate " id="customer_name" name="customer_name" required placeholder="{{__('Customer_name')}}" autocomplete="Off">
@@ -323,10 +323,10 @@ $bookingRoom = $room->bookingRooms()->where('branch_id', get_branch_id())->where
                 </a>
                 @endif
                 @if($room->status == \App\Models\Room::HAVE_GUEST)
-                <a id="modal_check_btn_{{$room->id}}" href="#modal_check_form_{{$room->id}}" data-bg="{{$room->getBgButton()}}" class="btn btn-sm btn-{{$room->getBgButtonSubmit()}} " data-toggle="modal">{{$room->getTextButton()}}</a>
+                <a id="modal_check_btn_{{$room->id}}" href="#modal_check_form_{{$room->id}}" data-bg="{{$room->getBgButton()}}" class="btn btn-sm btn-{{$room->getBgButtonSubmit()}} " data-toggle="modal">{{__($room->getTextButton())}}</a>
                 @else
                 <button data-bg="{{$room->getBgButton()}}" type="submit" @if($room->status != \App\Models\Room::READY || $room->status != \App\Models\Room::HAVE_GUEST) data-action="{{route('room.change-status', ['room_id' => $room->id])}}"
-                    @endif class="btn btn-sm btn-{{$room->getBgButtonSubmit()}} @if($room->status == \App\Models\Room::READY) btn-booking-room @else btn-change-status @endif" >{{$room->getTextButton()}}</button>
+                    @endif class="btn btn-sm btn-{{$room->getBgButtonSubmit()}} @if($room->status == \App\Models\Room::READY) btn-booking-room @else btn-change-status @endif" >{{__($room->getTextButton())}}</button>
                 @endif
             </div>
         </div>

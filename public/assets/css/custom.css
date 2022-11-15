@@ -17,6 +17,8 @@ body {
 	border-bottom: 1px solid #3b5a82;
 }
 .wrap-tab .top-tab {
+	display: flex;
+    justify-content: space-between;
 	min-height:40px;
 	background:#bfdbff;
 	border-top:1px solid #3b5a82;

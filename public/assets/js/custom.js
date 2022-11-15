@@ -1,7 +1,7 @@
 (function ($) {
 	'use strict';
 	$(function () {
-		var btn = $('.wrap-tab .top-tab ul li'),
+		var btn = $('.wrap-tab .top-tab ul:not(.language-ul) li'),
 			info = $('.wrap-tab .info-content');
 
 		btn.click(function (e) {
@@ -9,7 +9,7 @@
 			var index = $(this).index();
 			$(this).parents('.wrap-tab').find('.info-content').hide();
 			$(this).parents('.wrap-tab').find('.info-content').eq(index).show();
-			$(this).parents('.wrap-tab').find('.top-tab ul li').removeClass('is-active');
+			$(this).parents('.wrap-tab').find('.top-tab ul:not(.language-ul) li').removeClass('is-active');
 			$(this).addClass('is-active');
 		});
 		$(".remove").click(function (event) {

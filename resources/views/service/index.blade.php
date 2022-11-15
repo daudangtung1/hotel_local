@@ -26,7 +26,7 @@
                                         </a>
                                     </div>
                                     <div class="info-room">
-                                        <a href="#"><span>{{$room->getStatus()}}</span></a>
+                                        <a href="#"><span>{{__($room->getStatus())}}</span></a>
                                         @php
                                         $bookingRoom = $room->bookingRooms()->orderBy('id','DESC')->first();
                                         @endphp

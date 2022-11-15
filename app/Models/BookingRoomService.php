@@ -54,7 +54,7 @@ class BookingRoomService extends Model
         $diffInHours = $endDate->diffInHours($startDate);
         $total = round(($diffInHours / 24), 1, PHP_ROUND_HALF_UP);
         if ($showDate) {
-            return $total . ' ngày';
+            return $total . ' ' . __('day');
         }
         return $total;
     }

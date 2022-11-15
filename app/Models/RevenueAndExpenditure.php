@@ -12,8 +12,8 @@ class RevenueAndExpenditure extends Model
     use SoftDeletes;
 
     const STATUS = [
-        0 => 'Khoản thu',
-        1 => 'Khoản chi',
+        0 => 'Receivables',
+        1 => 'Expense',
     ];
 
     protected $fillable = [
@@ -29,5 +29,21 @@ class RevenueAndExpenditure extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::created(function ($item) {
+            create_log('Tạo mới thu chi');
+        });
+
+        static::updated(function ($item) {
+            create_log('Cập nhật thu chi');
+        });
+
+        static::deleted(function ($item) {
+            create_log('Xóa thu chi');
+        });
     }
 }

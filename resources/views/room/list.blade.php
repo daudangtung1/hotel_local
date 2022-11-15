@@ -29,12 +29,12 @@
                         $bookingRoom = $room->bookingRooms()->orderBy('id','DESC')->first();
                         $bookingRoomFirstOrder = $room->bookingRooms()->whereNull('checkout_date')->orderBy('start_date','ASC')->first();
                         @endphp
-                        <span>{{$room->getStatusText()}}</span>
+                        <span>{{__($room->getStatusText())}}</span>
                         @if($room->status == \App\Models\Room::NOT_FOR_RENT)
                         <p>Lý do: {{$room->status_desc ?? ''}}</p>
                         @endif
                         @if(!empty($bookingRoom) && $room->status == \App\Models\Room::DIRTY)
-                        <span>Tổng tiền: <b>{{$bookingRoom->getTotalPrice()}}</b></span>
+                        <span>{{__('Total')}}: <b>{{$bookingRoom->getTotalPrice()}}</b></span>
                         @endif
                         @if(!empty($bookingRoom))
                         @if($room->status == \App\Models\Room::HAVE_GUEST)

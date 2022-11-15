@@ -52,7 +52,7 @@
                             {!! Form::select('roles[]', $roles,$userRole ?? [], array('value' => '{{ old("roles") }}', 'class' => 'form-control')) !!}
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else btn-primary @endif">@if(isset($currentItem)) {{__('Update')}} @else {{__('Create_account')}} @endif</button>
+                            <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else btn-primary @endif">@if(isset($currentItem)) {{__('Update')}} @else {{__('Create')}} @endif</button>
                             @if(!empty($currentItem))
                                 <a href="{{route('users.index')}}" class="btn btn-sm btn-primary">{{__('Create')}}</a>
                             @endif

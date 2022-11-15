@@ -15,9 +15,9 @@ class Service extends Model
     const DO_UONG = 1;
     const DICH_VU_KHAC = 2;
     const ARRAY_SERVICE_TYPE = [
-        self::DO_AN        => 'Đồ ăn',
-        self::DO_UONG      => 'Đồ uống',
-        self::DICH_VU_KHAC => 'Dịch vụ khác',
+        self::DO_AN        => 'Food',
+        self::DO_UONG      => 'Drinks',
+        self::DICH_VU_KHAC => 'Other services',
     ];
 
     protected $fillable = [

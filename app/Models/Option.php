@@ -17,4 +17,12 @@ class Option extends Model
         'email',
         'fax',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::updated(function ($item) {
+            create_log('Cập nhật thông tin cơ sở');
+        });
+    }
 }

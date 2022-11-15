@@ -6,7 +6,7 @@
                 <select class="form-control form-control-sm me-2" name="status">
                     <option value="">{{__('Room_type')}}</option>
                     @foreach(\App\Models\Room::ARRAY_STATUS as $key => $status)
-                        <option @if(!empty(request()->status) && request()->status == $key) selected @endif value="{{$key}}">{{$status}}</option>
+                        <option @if(!empty(request()->status) && request()->status == $key) selected @endif value="{{$key}}">{{__($status)}}</option>
                     @endforeach
                 </select>
                 <input type="text" autocomplete="off"  class="form-control form-control-sm me-2 filter-date" placeholder="{{__('Start_date')}}" name="start_date" value="@if(!empty(request()->start_date)) {{request()->start_date}} @endif"  autocomplete="off">

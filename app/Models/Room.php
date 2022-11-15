@@ -21,19 +21,19 @@ class Room extends Model
     const FILTER_FREQUENCY = 9;
     const SERVICE = 10;
     const ARRAY_STATUS = [
-        self::READY => "Sẵn sàng",
-        self::HAVE_GUEST => "Có khách",
-        self::GUEST_OUTDOOR => "Khách ra ngoài",
-        self::DIRTY => "Bẩn",
-        self::CLEAN_ROOM => "Đang dọn",
-        self::FIXING_ROOM => "Đang sửa",
-        self::BOOKED => "Đã đặt",
-        self::NOT_FOR_RENT => "Phòng không cho thuê",
+        self::READY => 'Ready',
+        self::HAVE_GUEST => 'Have_guest',
+        self::GUEST_OUTDOOR => 'Guest_out',
+        self::DIRTY => 'Dirty',
+        self::CLEAN_ROOM => 'Cleaning',
+        self::FIXING_ROOM => 'Fixing',
+        self::BOOKED => 'Booking_room',
+        self::NOT_FOR_RENT => "Room_not_for_rent",
     ];
 
     const ARRAY_UPDATE_STATUS = [
-        self::HAVE_GUEST => "Có khách",
-        self::GUEST_OUTDOOR => "Khách ra ngoài",
+        self::HAVE_GUEST =>'Have_guest',
+        self::GUEST_OUTDOOR => 'Guest_out',
     ];
 
     const FILTER_BY_ROOM = 0;
@@ -42,18 +42,18 @@ class Room extends Model
     const FILTER_BY_STATUS_ROOM_EMPTY = 3;
 
     const Filter = [
-        self::FILTER_BY_ROOM => "Phòng đã sử dụng",
-        self::FILTER_BY_RAE => "Thu chi",
-        self::FILTER_BY_STATUS_ROOM => "Tình trạng phòng",
-        self::FILTER_BY_STATUS_ROOM_EMPTY => "Tình trạng phòng trống",
-        self::FILTER_FREQUENCY => "Tần suất phòng",
-        self::SERVICE => "Dịch vụ",
+        self::FILTER_BY_ROOM => "Room used",
+        self::FILTER_BY_RAE => "Revenue",
+        self::FILTER_BY_STATUS_ROOM => "Room status",
+        self::FILTER_BY_STATUS_ROOM_EMPTY => "Room empty status",
+        self::FILTER_FREQUENCY => "Room frequency",
+        self::SERVICE => "Service",
     ];
 
     const UPDATE_STATUS = [
-        self::READY => "Sẵn sàng",
-        self::FIXING_ROOM => "Phòng đang sửa",
-        self::NOT_FOR_RENT => "Không cho thuê",
+        self::READY => 'Ready',
+        self::FIXING_ROOM => 'Fixing',
+        self::NOT_FOR_RENT => "Room_not_for_rent",
     ];
 
     const IN = 'in';
@@ -64,10 +64,30 @@ class Room extends Model
     const ARRAY_ROOM = [
         self::IN => 'IN',
         self::OUT => 'OUT',
-        self::IN_GUEST => 'Khách ở',
-        self::ROOM_EMPTY => 'Phòng trống',
-        self::NOT_FOR_RENT_TEXT => '',
+        self::IN_GUEST => 'Have_guest',
+        self::ROOM_EMPTY => 'Ready',
+        self::NOT_FOR_RENT_TEXT => 'Room_not_for_rent',
     ];
+
+    public function getStatusText()
+    {
+        switch ($this->status) {
+            case self::READY:
+                return 'Ready';
+            case self::HAVE_GUEST:
+                return 'Have_guest';
+            case self::GUEST_OUTDOOR:
+                return 'Guest_out';
+            case self::DIRTY:
+                return 'Dirty';
+            case self::CLEAN_ROOM:
+                return 'Cleaning';
+            case self::NOT_FOR_RENT:
+                return 'Room_not_for_rent';
+            default:
+                return 'Fixing';
+        }
+    }
 
     use HasFactory;
     use SoftDeletes;
@@ -102,26 +122,6 @@ class Room extends Model
         return $this->belongsTo(TypeRoom::class);
     }
 
-    public function getStatusText()
-    {
-        switch ($this->status) {
-            case self::READY:
-                return 'Phòng trống';
-            case self::HAVE_GUEST:
-                return 'Đang có khách';
-            case self::GUEST_OUTDOOR:
-                return 'Khách ra ngoài';
-            case self::DIRTY:
-                return 'Phòng bẩn';
-            case self::CLEAN_ROOM:
-                return 'Phòng đang dọn';
-            case self::NOT_FOR_RENT:
-                return 'Phòng Không cho thuê';
-            default:
-                return 'Phòng đang sửa';
-        }
-    }
-
     public function getBgButton()
     {
         switch ($this->status) {
@@ -147,15 +147,15 @@ class Room extends Model
     public function getTextButton()
     {
         if ($this->status == 0) {
-            return 'Đặt phòng';
+            return 'Booking_room';
         } else if ($this->status == 1) {
-            return 'Trả phòng';
+            return 'Checkout';
         } else if ($this->status == 2) {
-            return 'Dọn xong';
+            return 'Done cleaning';
         } else if (in_array($this->status, [3, 5])) {
-            return 'Trả phòng';
+            return 'Checkout';
         } else if (in_array($this->status, [8])) {
-            return 'Phòng không cho thuê';
+            return 'Room_not_for_rent';
         }
     }
 

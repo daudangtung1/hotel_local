@@ -20,4 +20,20 @@ class Groups extends Model
     {
         return $this->belongsToMany(Customers::class, 'group_customers', 'group_id', 'customer_id');
     }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::created(function ($item) {
+            create_log('Tạo mới khách đoàn');
+        });
+
+        static::updated(function ($item) {
+            create_log('Cập nhật khách đoàn');
+        });
+
+        static::deleted(function ($item) {
+            create_log('Xóa khách đoàn');
+        });
+    }
 }

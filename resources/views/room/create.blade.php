@@ -15,13 +15,12 @@
                     <input type="hidden" name="type_room_id" value="{{$currentTypeRoom->id ??''}}" />
                     @csrf
                     <div class="col-md-12">
-                        <label for="name" class="form-label fw-bold">Tên loại phòng</label>
+                        <label for="name" class="form-label fw-bold">{{__('Room_type')}}</label>
                         <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm" id="name" name="name" value="{{$currentTypeRoom->name ??''}}" required>
                     </div>
 
                     <div class="col-12">
-                        <button type="submit" class="btn btn-sm  @if(isset($currentTypeRoom)) btn-success @else btn-primary  @endif">@if(isset($currentTypeRoom)) {{__('Update')}} @else Tạo loại
-                            phòng @endif</button>
+                        <button type="submit" class="btn btn-sm  @if(isset($currentTypeRoom)) btn-success @else btn-primary  @endif">@if(isset($currentTypeRoom)) {{__('Update')}} @else{{__('Create')}} @endif</button>
                     </div>
                 </form>
             </div>
@@ -31,7 +30,7 @@
                 <table class="table table-sm table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">Tên loại phòng</th>
+                            <th scope="col">{{__('Room_type')}}</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
