@@ -52,7 +52,7 @@ class RoomRepository extends ModelRepository
             $rooms = $rooms->orderBy('id', $orderBy);
         }
 
-        $rooms = $rooms->orderBy('floor', 'ASC')->whereNotNull('floor');
+        $rooms = $rooms->orderBy('id', 'ASC')->whereNotNull('floor');
 
         if ($paginate) {
             $rooms = $rooms->paginate(10);
