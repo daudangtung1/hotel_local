@@ -11,10 +11,10 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Tên</th>
-                            <th scope="col">Số tiền</th>
-                            <th scope="col">Phân loại</th>
-                            <th scope="col" style="width: 200px">Thời gian</th>
+                            <th scope="col">{{__('Name')}}</th>
+                            <th scope="col">{{__('Amount_money')}}</th>
+                            <th scope="col">{{__('Classify')}}</th>
+                            <th scope="col" style="width: 200px">{{__('Time')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -24,11 +24,11 @@
                                 <td>{{$item->name ??''}}</td>
                                 <td>{{get_price($item->money ?? 0, 'đ')}}</td>
                                 <td>{{\App\Models\RevenueAndExpenditure::STATUS[$item->type]}}</td>
-                                <td><b>Ngày tạo</b> {{$item->created_at ?? ''}}</td>
+                                <td><b>{{__('Created_date')}}</b> {{$item->created_at ?? ''}}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">Không có dữ liệu</td>
+                                <td colspan="5">{{__('No_data')}}</td>
                             </tr>
                         @endforelse
                         </tbody>
@@ -40,7 +40,7 @@
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {
                                 e.preventDefault();
-                                if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                                if (!confirm("{{__('Confirm_delete')}}")) {
                                     return false;
                                 }
 

@@ -19,7 +19,7 @@ class LanguageController extends Controller
         $items = $this->LanguageRepository->getAll(false);
         $menuCategoryManager = true;
 
-        $title = 'Quản lý ngôn ngữ';
+        $title = __('Language_management_f');
 
         return view('language.list', compact('items', 'menuCategoryManager', 'title'));
     }
@@ -29,7 +29,7 @@ class LanguageController extends Controller
         $items = $this->LanguageRepository->getAll();
         $menuCategoryManager = true;
 
-        $title = 'Quản lý ngôn ngữ';
+        $title = __('Language_management_f');
 
         return view('language.index', compact('items', 'menuCategoryManager', 'title'));
     }
@@ -38,7 +38,7 @@ class LanguageController extends Controller
     {
         $this->LanguageRepository->store($request);
 
-        return redirect()->back()->with('success', 'Đăng ký thành công');
+        return redirect()->back()->with('success', __('Msg_create_success'));
     }
 
     public function edit(Request $request, $id)
@@ -46,7 +46,7 @@ class LanguageController extends Controller
         $currentItem = $this->LanguageRepository->find($id);
         $menuCategoryManager = true;
         $items = $this->LanguageRepository->getAll();
-        $title = 'Cập nhật chi nhánh';
+        $title = __('Update_branch');
 
         return view('language.index', compact('menuCategoryManager', 'items', 'currentItem', 'title'));
     }
@@ -56,9 +56,9 @@ class LanguageController extends Controller
         $result = $this->LanguageRepository->update($id, $request);
 
         if ($result) {
-            return redirect()->back()->with('success', 'Cập nhật thành công');
+            return redirect()->back()->with('success', __('Msg_update_success'));
         }
-        return redirect()->back()->withErrors('Cập nhật thất bại.');
+        return redirect()->back()->withErrors(__('Msg_update_fail'));
     }
 
     public function destroy(Request $request, $id)
@@ -68,10 +68,10 @@ class LanguageController extends Controller
         if (!empty($currentItem)) {
             $currentItem->delete();
 
-            return redirect()->back()->with('success', 'Đã xoá thành công');
+            return redirect()->back()->with('success', __('Msg_deleted_success'));
         }
 
-        return redirect()->back()->withErrors('Vui lòng thử lại');
+        return redirect()->back()->withErrors(__('Msg_try_again'));
     }
     
     public function changeLanguage(Request $request)

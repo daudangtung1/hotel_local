@@ -47,7 +47,7 @@ class ReportController extends Controller
 
     public function index(Request $request)
     {
-        $title = 'Quản lý báo cáo';
+        $title = __('Report_management');
         $menuReport = true;
 
         switch ($request->by) {

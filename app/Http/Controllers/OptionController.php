@@ -49,6 +49,6 @@ class OptionController extends Controller
     {
         $this->optionRepository->update($request);
 
-        return redirect()->route('options.index')->with('success', 'Cập nhật thành công');
+        return redirect()->route('options.index')->with('success', __('Msg_update_success'));
     }
 }

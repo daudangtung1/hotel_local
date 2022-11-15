@@ -5,17 +5,17 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5>Quản lý đặt phòng</h5>
-                    <a href="{{route('booking-room.history')}}" class="btn btn-dark">Lịch sử đặt phòng</a>
+                    <h5>{{__('Reservation_management')}}</h5>
+                    <a href="{{route('booking-room.history')}}" class="btn btn-dark">{{__('Booking_history')}}</a>
                 </div>
                 <table class="table table-sm table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th scope="col">Tên phòng</th>
-                            <th scope="col">Thời gian</th>
-                            <th scope="col">Tên khách hàng</th>
-                            <th scope="col">Ghi chú</th>
+                            <th scope="col">{{__('Room_name')}}</th>
+                            <th scope="col">{{__('Time')}}</th>
+                            <th scope="col">{{__('Customer_name')}}</th>
+                            <th scope="col">{{__('Note')}}</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -25,16 +25,16 @@
                         <tr>
                             <td>{{$bookingRoom->id}}</td>
                             <td>
-                                <p><b>Phòng</b> {{$bookingRoom->room->name ?? 'Không tồn tại'}}</p>
-                                <p><b>Tầng:</b> {{$bookingRoom->room->floor ?? 'Không tồn tại'}}</p>
+                                <p><b>{{__('Room')}}</b> {{$bookingRoom->room->name ?? __('Not_exist')}}</p>
+                                <p><b>{{__('Level')}}:</b> {{$bookingRoom->room->floor ?? __('Not_exist')}}</p>
                             </td>
                             <td>
-                                <p><b>Ngày vào: </b>{{$bookingRoom->start_date ?? ''}}</p>
-                                <p><b>Ngày ra: </b>{{$bookingRoom->end_date ?? ''}}</p>
+                                <p><b>{{__('Check_in')}}: </b>{{$bookingRoom->start_date ?? ''}}</p>
+                                <p><b>{{__('Check_out')}}: </b>{{$bookingRoom->end_date ?? ''}}</p>
                             </td>
                             <td>
                                 @foreach($bookingRoom->bookingRoomCustomers()->get() as $customer)
-                                <p>{{$customer->customer->name ?? 'Không tồn tại'}}</p>
+                                <p>{{$customer->customer->name ?? __('Not_exist')}}</p>
                                 @endforeach
                             </td>
                             <td>{{$bookingRoom->note ?? ''}}</td>
@@ -67,7 +67,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="7">Không có dữ liệu</td>
+                            <td colspan="7">{{__('No_data')}}</td>
                         </tr>
                         @endforelse
                         @endif
@@ -80,7 +80,7 @@
                     $(document).ready(function() {
                         $('body').on('click', '.btn-ajax-delete', function(e) {
                             e.preventDefault();
-                            if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                            if (!confirm("{{__('Confirm_delete')}}")) {
                                 return false;
                             }
 

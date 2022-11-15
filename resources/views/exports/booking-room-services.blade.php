@@ -1,21 +1,21 @@
 <table>
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Tên dịch vụ</th>
-        <th>Tên phòng</th>
-        <th>Số lượng</th>
-        <th>Đơn giá</th>
-        <th>Thành tiền</th>
-        <th>Ngày tạo</th>
+        <th>{{__('ID')}}</th>
+        <th>{{__('Service_name')}}</th>
+        <th>{{__('Room_name')}}</th>
+        <th>{{__('Amount')}}</th>
+        <th>{{__('Unit_price')}}</th>
+        <th>{{__('Into_money')}}</th>
+        <th>{{__('Created_date')}}</th>
     </tr>
     </thead>
     <tbody>
     @foreach($bookingRoomServices as $bookingRoomService)
         <tr>
             <td>{{ $bookingRoomService->id }}</td>
-            <td>{{ $bookingRoomService->service->name ?? 'Không tồn tại' }}</td>
-            <td>{{ $bookingRoomService->bookingRoom->room->name ?? 'Không tồn tại' }}</td>
+            <td>{{ $bookingRoomService->service->name ?? __('Not_exist') }}</td>
+            <td>{{ $bookingRoomService->bookingRoom->room->name ?? __('Not_exist') }}</td>
             <td>{{ number_format($bookingRoomService->quantity) }}</td>
             <td>{{ number_format($bookingRoomService->price) }}</td>
             <td>{{ number_format($bookingRoomService->quantity * $bookingRoomService->price) }}</td>

@@ -15,21 +15,21 @@
                         @endif
                         @csrf
                         <div class="col-md-12">
-                            <label for="name" class="form-label fw-bold">Tên chi nhánh</label>
+                            <label for="name" class="form-label fw-bold">{{__('Branch_name')}}</label>
                             <textarea type="text" class="form-control form-control-sm form-control-sm" id="name" name="name"
                                       required>{{$currentItem->name ??''}}</textarea>
                         </div>
                         <div class="col-md-12">
-                            <label for="note" class="form-label fw-bold">Mô tả</label>
+                            <label for="note" class="form-label fw-bold">{{__('Description')}}</label>
                                    <textarea type="text" class="form-control form-control-sm form-control-sm" rows="4" id="note" name="note"
                                       required>{{$currentItem->note ??''}}</textarea>
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else
-                            btn-primary @endif">@if(isset($currentItem)) Cập nhật @else
-                                    Tạo mới @endif</button>
+                            btn-primary @endif">@if(isset($currentItem)) {{__('Update')}} @else
+                                    {{__('Create')}} @endif</button>
                             @if(!empty($currentItem))
-                                <a href="{{route('branchs.create')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                                <a href="{{route('branchs.create')}}" class="btn btn-sm btn-primary">{{__('Create')}}</a>
                             @endif
                         </div>
                     </form>
@@ -41,8 +41,8 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Tên</th>
-                            <th scope="col">Mô tả</th>
+                            <th scope="col">{{__('Name')}}</th>
+                            <th scope="col">{{__('Description')}}</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
@@ -84,7 +84,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">Không có dữ liệu</td>
+                                <td colspan="5">{{__('No_data')}}</td>
                             </tr>
                         @endforelse
                         </tbody>
@@ -96,7 +96,7 @@
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {
                                 e.preventDefault();
-                                if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                                if (!confirm("{{__('Confirm_delete')}}")) {
                                     return false;
                                 }
 

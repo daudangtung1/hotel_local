@@ -11,10 +11,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th scope="col">Tên đoàn</th>
-                            <th scope="col">Ghi chú</th>
-                            <th scope="col">Ngày đặt phòng</th>
-                            <th scope="col">Khách hàng</th>
+                            <th scope="col">{{__('Group_name')}}</th>
+                            <th scope="col">{{__('Note')}}</th>
+                            <th scope="col">{{__('Booking_date')}}</th>
+                            <th scope="col">{{__('Customer')}}</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -66,7 +66,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6">Không có đoàn nào</td>
+                                <td colspan="6">{{__('No_group')}}</td>
                             </tr>
                         @endforelse
                         </tbody>
@@ -78,7 +78,7 @@
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {
                                 e.preventDefault();
-                                if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                                if (!confirm("{{__('Confirm_delete')}}")) {
                                     return false;
                                 }
 
@@ -154,7 +154,7 @@
                                         }
                                         modal.modal('hide');
                                         $.toast({
-                                            text: 'Hủy phòng thành công',
+                                            text: "{{__('Msg_cancel_room')}}",
                                             icon: 'success',
                                             position: 'top-right'
                                         });

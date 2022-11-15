@@ -35,7 +35,7 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                         <div class="custom-actions-btns mb-5"><a href="#"
                                                                                  class="btn btn-sm btn-secondary noPrint" onclick="window.print();" >
-                                                <i class="icon-printer"></i> In hóa đơn </a></div>
+                                                <i class="icon-printer"></i> {{__('Print_invoice')}} </a></div>
                                     </div>
                                 </div>
                                 <div class="row gutters">
@@ -50,10 +50,10 @@
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="invoice-details d-flex justify-content-between">
                                             <div>
-                                                <address>Địa chỉ: {{$option->address ??''}}</address>
-                                                <address>Số điện thoại: {{$option->phone ??''}}, Email: {{$option->email ??''}}, Fax: {{$option->fax ??''}}</address>
-                                                <address>Hóa đơn sử dụng - #00{{$bookingRoom->id}}</address>
-                                                <address>Thời gian: {{\Carbon\Carbon::now()->format('d-m-Y')}}</address>
+                                                <address>{{__('Address')}}: {{$option->address ??''}}</address>
+                                                <address>{{__('Phone_number_f')}}: {{$option->phone ??''}}, {{__('Email')}}: {{$option->email ??''}}, {{__('Fax')}}: {{$option->fax ??''}}</address>
+                                                <address>{{__('Invoice_use')}} - #00{{$bookingRoom->id}}</address>
+                                                <address>{{__('Time')}}: {{\Carbon\Carbon::now()->format('d-m-Y')}}</address>
                                             </div>
                                             <img class="momo-special-code" style="max-width:120px;display:inline-block;" alt="" src="https://chart.googleapis.com/chart?chs=350x350&amp;cht=qr&amp;choe=UTF-8&amp;chl=https://khachsan.sbaygroup.net/booking-room/invoice/{{$bookingRoom->id ?? 0}}">
 
@@ -68,10 +68,10 @@
                                             <table class="table table-sm custom-table m-0">
                                                 <thead>
                                                 <tr>
-                                                    <th>Dịch vụ</th>
-                                                    <th>SL</th>
-                                                    <th>Đơn giá</th>
-                                                    <th>Tổng tiền</th>
+                                                    <th>{{__('Service')}}</th>
+                                                    <th>{{__('Amount_s')}}</th>
+                                                    <th>{{__('Unit_price')}}</th>
+                                                    <th>{{__('Total')}}</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -80,8 +80,8 @@
                                                 @endphp
                                                 <tr>
                                                     <td colspan="1">
-                                                        <p>Tiền phòng</p>
-                                                        <p> {{$bookingRoom->room->name ?? 'Không tồn tại'}}</p>
+                                                        <p>{{__('Room_charge')}}</p>
+                                                        <p> {{$bookingRoom->room->name ?? __('Not_exist')}}</p>
                                                         @if(!empty($bookingRoom->start_date))<p> Giờ vào: {{$bookingRoom->start_date ?? ''}}</p>@endif
                                                         @if(!empty($bookingRoom->checkout_date))<p> Giờ ra: {{$bookingRoom->checkout_date ?? ''}}</p>@endif
                                                     </td>
@@ -97,19 +97,19 @@
                                                         $total = $total +  $bookingRoomService->getPrice();
                                                     @endphp
                                                     <tr>
-                                                        <td>{{$bookingRoomService->service->name ??'Không tồn tại'}}</td>
+                                                        <td>{{$bookingRoomService->service->name ?? __('Not_exist')}}</td>
                                                         <td>{{$bookingRoomService->getQuantity() ?? ''}} </td>
                                                         <td>{{get_price($bookingRoomService->price ?? 0, 'đ')}}</td>
                                                         <td>{{get_price($bookingRoomService->getPrice() ?? 0, 'đ') }}</td>
                                                     </tr>
                                                 @endforeach
                                                 <tr>
-                                                    <td>Ghi chú</td>
+                                                    <td>{{__('Note')}}</td>
                                                     <td colspan="3">{{$bookingRoom->note ?? ''}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="3">
-                                                        <h5 class="text-success"><strong>Tổng tiền dịch vụ</strong>
+                                                        <h5 class="text-success"><strong>{{__('Total_service_fee')}}</strong>
                                                         </h5>
                                                     </td>
                                                     <td><h5

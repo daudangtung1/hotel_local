@@ -31,7 +31,7 @@ class TypeRoomController extends Controller
             return redirect()->back()->withErrors($result['message']);
         }
 
-        return redirect()->back()->with('success', 'Đăng ký thành công');
+        return redirect()->back()->with('success', __('Msg_create_success'));
     }
 
     public function update(Request $request)
@@ -42,7 +42,7 @@ class TypeRoomController extends Controller
             return redirect()->back()->withErrors($result['message']);
         }
 
-        return redirect()->back()->with('success', 'Cập nhật thành công');
+        return redirect()->back()->with('success', __('Msg_update_success'));
     }
 
     public function edit(Request $request, $type_room_id)
@@ -53,7 +53,7 @@ class TypeRoomController extends Controller
         $rooms = $this->roomRepository->getAll(false, true);
         $typeRooms = $this->typeRoomRepository->getAll();
         $typeRoomsSelect = $this->typeRoomRepository->getAll(false);
-        $title = 'Quản lý phòng';
+        $title = __('Room_management_f');
         return view('room.create', compact('typeRoomsSelect', 'menuSetup', 'rooms', 'typeRooms', 'currentTypeRoom', 'title'));
     }
 
@@ -63,15 +63,15 @@ class TypeRoomController extends Controller
         $currentRoom = $this->typeRoomRepository->find($request);
 
         if ($this->roomRepository->findByTypeRoomId($type_room_id)) {
-            return redirect()->back()->withErrors('Không thể xóa loại phòng đang được sử dụng');
+            return redirect()->back()->withErrors(__('Msg_delete_in_use_room'));
         }
 
         if (!empty($currentRoom)) {
             $currentRoom->delete();
 
-            return redirect()->back()->with('success', 'Đã xoá thành công');
+            return redirect()->back()->with('success', __('Msg_deleted_success'));
         }
 
-        return redirect()->back()->withErrors('Vui lòng thử lại');
+        return redirect()->back()->withErrors(__('Msg_try_again'));
     }
 }

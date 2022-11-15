@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h5>Quản lý tài khoản</h5>
+                <h5>{{__('Account_management_f')}}</h5>
             </div>
             @can('Quản lý khách hàng-create')
             <div class="col">
@@ -15,27 +15,27 @@
                     <input type="hidden" name="customer_id" value="{{$currentItem->id ??''}}" />
                     @csrf
                     <div class="col-md-12">
-                        <label for="name" class="form-label fw-bold">Tên</label>
+                        <label for="name" class="form-label fw-bold">{{__('Name')}}</label>
                         <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm" id="name" name="name" value="{{$currentItem->name ??''}}" required @if(!empty($currentItem)) readonly @endif>
                     </div>
                     <div class="col-md-12">
-                        <label for="id_card" class="form-label fw-bold">CMND</label>
+                        <label for="id_card" class="form-label fw-bold">{{__('ID_card')}}</label>
                         <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm" id="id_card" name="id_card" value="{{$currentItem->id_card ??''}}" required>
                     </div>
 
                     <div class="col-md-12">
-                        <label for="phone" class="form-label fw-bold">Điện thoại</label>
+                        <label for="phone" class="form-label fw-bold">{{__('Phone')}}</label>
                         <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm" id="phone" name="phone" value="{{$currentItem->phone ??''}}" required>
                     </div>
                     <div class="col-md-12">
-                        <label for="address" class="form-label fw-bold">Địa chỉ</label>
+                        <label for="address" class="form-label fw-bold">{{__('Address')}}</label>
                         <input type="text" autocomplete="off" class="form-control form-control-sm form-control-sm" id="address" name="address" value="{{$currentItem->address ??''}}" required>
                     </div>
                     <div class="col-12">
-                        <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentItem)) Cập nhật @else
-                            Tạo khách hàng @endif</button>
+                        <button type="submit" class="btn btn-sm btn-primary">@if(isset($currentItem)) {{__('Update')}} @else
+                            {{__('Create_customer')}} @endif</button>
                         @if(!empty($currentItem))
-                        <a href="{{route('customers.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                        <a href="{{route('customers.index')}}" class="btn btn-sm btn-primary">{{__('Create')}}</a>
                         @endif
                     </div>
                 </form>
@@ -47,10 +47,10 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th scope="col">Tên</th>
-                            <th scope="col">CMND/HC</th>
-                            <th scope="col">Điện thoại</th>
-                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">{{__('Name')}}</th>
+                            <th scope="col">{{__('ID_card_passport')}}</th>
+                            <th scope="col">{{__('Phone')}}</th>
+                            <th scope="col">{{__('Address')}}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -88,7 +88,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6">Không có dữ liệu</td>
+                            <td colspan="6">{{__('No_data')}}</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -100,7 +100,7 @@
                     $(document).ready(function() {
                         $('body').on('click', '.btn-ajax-delete', function(e) {
                             e.preventDefault();
-                            if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                            if (!confirm("{{__('Confirm_delete')}}")) {
                                 return false;
                             }
 

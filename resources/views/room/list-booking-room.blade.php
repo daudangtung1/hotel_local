@@ -2,10 +2,10 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Tên phòng</th>
-            <th scope="col">Tầng</th>
-            <th scope="col">Giá theo giờ</th>
-            <th scope="col">Giá theo ngày</th>
+            <th scope="col">{{__('Room_name')}}</th>
+            <th scope="col">{{__('Level')}}</th>
+            <th scope="col">{{__('Hourly_price')}}</th>
+            <th scope="col">{{__('Daily_price')}}</th>
         </tr>
     </thead>
     <tbody>
@@ -24,15 +24,15 @@
         ?>
         <tr style="background-color: {{$bgColor}}">
             <td><input type="checkbox" {{$checked}} name="room_ids[]" value="{{$room->id ??''}}"></td>
-            <td>{{$room->name ??'Đã xóa'}}</td>
-            <td>{{$room->floor ??'Đã xóa'}}</td>
+            <td>{{$room->name ?? __('Deleted')}}</td>
+            <td>{{$room->floor ?? __('Deleted')}}</td>
             <td>{{get_price($room->hour_price ?? 0, 'đ')}}</td>
             <td>{{get_price($room->day_price ?? 0, 'đ')}}</td>
         </tr>
         @endforeach
         @empty
         <tr>
-            <td colspan="5">Không có dữ liệu</td>
+            <td colspan="5">{{__('No_data')}}</td>
         </tr>
         @endforelse
         @endif

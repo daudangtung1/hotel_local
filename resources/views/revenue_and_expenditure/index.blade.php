@@ -16,17 +16,17 @@
                         <input type="hidden" name="user_id" value="{{$currentItem->id ??''}}"/>
                         @csrf
                         <div class="col-md-12">
-                            <label for="name" class="form-label fw-bold">Tên khoản thu/chi</label>
+                            <label for="name" class="form-label fw-bold">{{__('Revenue_expenditure_name')}}</label>
                             <textarea type="text" class="form-control form-control-sm form-control-sm" id="name" name="name"
                                       required>{{$currentItem->name ??''}}</textarea>
                         </div>
                         <div class="col-md-12">
-                            <label for="money" class="form-label fw-bold">Số tiền</label>
+                            <label for="money" class="form-label fw-bold">{{__('Amount_money')}}</label>
                             <input type="number" class="form-control form-control-sm form-control-sm" id="money" name="money"
                                    value="{{$currentItem->money ??''}}" required>
                         </div>
                         <div class="col-md-12">
-                            <label for="type" class="form-label fw-bold">Loại</label>
+                            <label for="type" class="form-label fw-bold">{{__('Type')}}</label>
                             <select name="type" id="type" class="form-control form-control-sm">
                                 @foreach(\App\Models\RevenueAndExpenditure::STATUS as $key => $status)
                                 <option value="{{$key}}" @if(!empty($currentItem) && $currentItem->type == $key) selected @endif>
@@ -38,10 +38,10 @@
                         </div>
                         <div class="col-12">
                             <button type="submit" class="btn btn-sm  @if(isset($currentItem)) btn-success @else
-                            btn-primary @endif">@if(isset($currentItem)) Cập nhật @else
-                                    Tạo mới @endif</button>
+                            btn-primary @endif">@if(isset($currentItem)) {{__('Update')}} @else
+                            {{__('Create')}} @endif</button>
                             @if(!empty($currentItem))
-                                <a href="{{route('revenue-and-expenditures.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                                <a href="{{route('revenue-and-expenditures.index')}}" class="btn btn-sm btn-primary">{{__('Create')}}</a>
                             @endif
                         </div>
                     </form>
@@ -53,9 +53,9 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Tên</th>
-                            <th scope="col">Số tiền</th>
-                            <th scope="col">Phân loại</th>
+                            <th scope="col">{{__('Name')}}</th>
+                            <th scope="col">{{__('Amount_money')}}</th>
+                            <th scope="col">{{__('Classify')}}</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
@@ -98,7 +98,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">Không có dữ liệu</td>
+                                <td colspan="5">{{__('No_data')}}</td>
                             </tr>
                         @endforelse
                         </tbody>
@@ -110,7 +110,7 @@
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {
                                 e.preventDefault();
-                                if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                                if (!confirm("{{__('Confirm_delete')}}")) {
                                     return false;
                                 }
 

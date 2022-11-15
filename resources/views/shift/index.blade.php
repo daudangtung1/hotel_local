@@ -16,7 +16,7 @@
                     @csrf
 
                     <div class="col-md-12">
-                        <label for="from_user_id" class="form-label fw-bold">Nhân viên giao ca:</label>
+                        <label for="from_user_id" class="form-label fw-bold">{{__('Shift_staff')}}:</label>
                         <select id="from_user_id" name="from_user_id" class="form-select" required>
                             @foreach($users as $key => $user)
                             <option @if(!empty($currentItem) && $currentItem->from_user_id == $user->id) selected
@@ -25,20 +25,20 @@
                         </select>
                     </div>
                     <div class="col-md-12">
-                        <label for="hold_money" class="form-label fw-bold">Quỹ nhân viên giữ</label>
+                        <label for="hold_money" class="form-label fw-bold">{{__('Employee_fund')}}</label>
                         <input type="number" class="form-control form-control-sm form-control-sm" id="hold_money" name="hold_money" value="{{$currentItem->hold_money ??''}}" required>
                     </div>
                     <div class="col-md-12">
-                        <label for="send_money" class="form-label fw-bold">Số tiền giao ca</label>
+                        <label for="send_money" class="form-label fw-bold">{{__('Amount_money_shift')}}</label>
                         <input type="number" class="form-control form-control-sm form-control-sm" id="send_money" name="send_money" value="{{$currentItem->send_money ??''}}" required>
                     </div>
                     <div class="col-md-12">
-                        <label for="balance_number" class="form-label fw-bold">Còn lại</label>
+                        <label for="balance_number" class="form-label fw-bold">{{__('Remain')}}</label>
                         <input type="number" class="form-control form-control-sm form-control-sm" id="balance_number" name="balance_number" value="{{$currentItem->balance_number ??''}}" required>
                     </div>
 
                     <div class="col-md-12">
-                        <label for="to_user_id" class="form-label fw-bold">Nhân viên nhận ca:</label>
+                        <label for="to_user_id" class="form-label fw-bold">{{__('Shift_receive_staff')}}:</label>
                         <select id="to_user_id" name="to_user_id" class="form-select" required>
                             @foreach($users as $key => $user)
                             <option @if(!empty($currentItem) && $currentItem->to_user_id == $user->id) selected
@@ -48,10 +48,10 @@
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-sm @if(isset($currentItem)) btn-success @else
-                            btn-primary @endif">@if(isset($currentItem)) Cập nhật @else
-                            Tạo mới @endif</button>
+                            btn-primary @endif">@if(isset($currentItem)) {{__('Update')}} @else
+                            {{__('Create')}} @endif</button>
                         @if(!empty($currentItem))
-                        <a href="{{route('shifts.index')}}" class="btn btn-sm btn-primary">Tạo mới</a>
+                        <a href="{{route('shifts.index')}}" class="btn btn-sm btn-primary">{{__('Create')}}</a>
                         @endif
                     </div>
                 </form>
@@ -63,12 +63,12 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">NV giao ca</th>
-                            <th scope="col">NV nhận ca</th>
-                            <th scope="col">Số tiền giữ</th>
-                            <th scope="col">Số tiền giao ca</th>
-                            <th scope="col">Còn lại</th>
-                            <th scope="col">Ngày giao ca</th>
+                            <th scope="col">{{__('Shift_staff_s')}}</th>
+                            <th scope="col">{{__('Shift_receive_staff_s')}}</th>
+                            <th scope="col">{{__('Amount_keep')}}</th>
+                            <th scope="col">{{__('Amount_money_shift')}}</th>
+                            <th scope="col">{{__('Remain')}}</th>
+                            <th scope="col">{{__('Shift_date')}}</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -76,8 +76,8 @@
                         @forelse($items as $key => $item)
                         <tr>
                             <td>{{$item->id ??''}}</td>
-                            <td>{{$item->fromUser->name ??'Không tồn tại'}}</td>
-                            <td>{{$item->toUser->name ??'Không tồn tại'}}</td>
+                            <td>{{$item->fromUser->name ?? __('Not_exist')}}</td>
+                            <td>{{$item->toUser->name ?? __('Not_exist')}}</td>
                             <td>{{$item->hold_money ??''}}</td>
                             <td>{{$item->send_money ??''}}</td>
                             <td>{{$item->balance_number ??''}}</td>
@@ -116,7 +116,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="8">Không có dữ liệu</td>
+                            <td colspan="8">{{__('No_data')}}</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -128,7 +128,7 @@
                     $(document).ready(function() {
                         $('body').on('click', '.btn-ajax-delete', function(e) {
                             e.preventDefault();
-                            if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                            if (!confirm("{{__('Confirm_delete')}}")) {
                                 return false;
                             }
 

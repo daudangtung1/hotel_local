@@ -41,7 +41,7 @@ class LostItemController extends Controller
         $lostItems = $this->lostItemRepository->getAll();
         $menuCategoryManager = true;
         $bookingRooms = $this->bookingRoomRepository->getAllRoomsBookingFinish();
-        $title = 'Quản lý đồ thất lạc';
+        $title = __('Lost_item_management');
 
         return view('lost_item.index', compact('lostItems', 'menuCategoryManager', 'bookingRooms', 'title'));
     }

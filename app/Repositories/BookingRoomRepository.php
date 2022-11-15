@@ -113,21 +113,21 @@ class BookingRoomRepository extends ModelRepository
         if (!$bookingRoom) {
             return [
                 'status'  => false,
-                'message' => 'Có lỗi xảy ra vui lòng thử lại sau.'
+                'message' => __('Msg_error')
             ];
         }
 
         if (Carbon::parse($bookingRoom->start_date) < Carbon::now()) {
             return [
                 'status'  => false,
-                'message' => 'Chưa đến thời điểm nhận phòng, vui lòng thử lại sau'
+                'message' => __('Msg_checkin_not_arrived')
             ];
         }
 
         if ($bookingRoom->room->status != $this->room::READY) {
             return [
                 'status'  => false,
-                'message' => 'Phòng hiện tại chưa ở trạng thái hợp lệ, chưa thể nhận phòng'
+                'message' => __('Msg_room_invalid')
             ];
         }
 

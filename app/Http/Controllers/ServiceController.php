@@ -28,7 +28,7 @@ class ServiceController extends Controller
         $menuSystem = true;
         $services = $this->serviceRepository->getAll(true);
         $currentItem = null;
-        $title = 'Tạo dịch vụ';
+        $title = __('Create_service');
 
         return view('service.create', compact('menuSystem', 'services', 'currentItem', 'title'));
     }
@@ -37,7 +37,7 @@ class ServiceController extends Controller
     {
         $result = $this->serviceRepository->store($request);
         if ($result) {
-            return redirect()->back()->with('success', 'Đăng ký thành công');
+            return redirect()->back()->with('success', __('Msg_create_success'));
         }
     }
 
@@ -48,7 +48,7 @@ class ServiceController extends Controller
 
         $menuSetup = true;
         $services = $this->serviceRepository->getAll();
-        $title = 'Cập nhật dịch vụ';
+        $title = __('Update_service');
 
         return view('service.create', compact('menuSetup', 'services', 'currentItem', 'title'));
     }
@@ -61,10 +61,10 @@ class ServiceController extends Controller
         if (!empty($currentItem)) {
             $result = $currentItem->delete();
             if ($result) {
-                return redirect()->back()->with('success', 'Đã xoá thành công!');
+                return redirect()->back()->with('success', __('Msg_deleted_success'));
             }
         }
-        return redirect()->back()->with('success', 'Vui lòng thử lại!');
+        return redirect()->back()->with('success', __('Msg_try_again'));
     }
 
     public function update(Request $request, $service_id)
@@ -82,13 +82,13 @@ class ServiceController extends Controller
                     'sale_type'  => $request->sale_type ?? 0,
                 ]);
                 if ($result) {
-                    return redirect()->back()->with('success', 'Đã lưu lại');
+                    return redirect()->back()->with('success', __('Msg_saved'));
                 }
             }
         } else {
             $result = $this->serviceRepository->store($request);
             if ($result) {
-                return redirect()->back()->with('success', 'Đã lưu lại');
+                return redirect()->back()->with('success', __('Msg_saved'));
             }
         }
     }
@@ -99,7 +99,7 @@ class ServiceController extends Controller
         if (!empty($request->export)) {
             return (app(ServiceExport::class))->download('services.xlsx');
         }
-        $title = 'Báo cáo nhập hàng';
+        $title = __('Import_goods_report');
         $services = $this->serviceRepository->filter($request);
 
         return view('service.report', compact('services', 'menuReport', 'title'));

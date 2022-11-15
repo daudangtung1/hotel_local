@@ -266,7 +266,7 @@
                 });
                 if (roomIds == '') {
                     $.toast({
-                        text: 'Vui lòng chọn phòng cần đặt.',
+                        text: "{{__('Msg_select_room')}}",
                         icon: 'error',
                         position: 'top-right'
                     });
@@ -274,7 +274,7 @@
                 }
                 if (startDate >= endDate) {
                     $.toast({
-                        text: 'Vui lòng nhập kết thúc lớn hơn ngày bắt đầu',
+                        text: "{{__('Msg_enter_end')}}",
                         icon: 'error',
                         position: 'top-right'
                     });
@@ -290,7 +290,7 @@
 
                 if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '' || startDate == '' || endDate == '') {
                     $.toast({
-                        text: 'Vui lòng nhập thông tin khách hàng',
+                        text: "__('Msg_enter_guest_info')",
                         icon: 'error',
                         position: 'top-right'
                     });
@@ -332,7 +332,7 @@
                         }
                         resetFormBooking();
                         $.toast({
-                            text: 'Cập nhật thành công',
+                            text: "{{__('Msg_update_success')}}",
                             icon: 'success',
                             position: 'top-right'
                         });
@@ -636,7 +636,7 @@
                 stopButton();
                 if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '') {
                     $.toast({
-                        text: 'Vui lòng nhập thông tin khách hàng',
+                        text: "{{__('Msg_enter_guest_info')}}",
                         icon: 'error',
                         position: 'top-right'
                     });
@@ -659,7 +659,7 @@
                     success: function(data) {
                         _this.closest('.modal').find('.modal-dialog').html(data);
                         $.toast({
-                            text: 'Cập nhật thành công',
+                            text: "{{__('Msg_update_success')}}",
                             icon: 'success',
                             position: 'top-right'
                         });
@@ -691,7 +691,7 @@
                 stopButton();
                 if (customerName == '' || customerIdCard == '' || customerPhone == '' || customerAddress == '') {
                     $.toast({
-                        text: 'Vui lòng nhập thông tin khách hàng',
+                        text: "{{__('Msg_enter_guest_info')}}",
                         icon: 'error',
                         position: 'top-right'
                     });
@@ -737,7 +737,7 @@
                         }
                         _this.closest('.modal').find('.modal-dialog').html(data);
                         $.toast({
-                            text: 'Cập nhật thành công',
+                            text: "{{__('Msg_update_success')}}",
                             icon: 'success',
                             position: 'top-right'
                         });
@@ -775,7 +775,7 @@
                 if (modalStartDate == '' || modalEndDate == '') {
                     _this.closest('tr').find('td .row').removeClass('d-none');
                     $.toast({
-                        text: 'Vui lòng nhập ngày bắt đầu và kết thúc',
+                        text: "{{__('Msg_enter_2_date')}}",
                         icon: 'error',
                         position: 'top-right'
                     });
@@ -786,7 +786,7 @@
                 if (modalStartDate == modalEndDate) {
                     _this.closest('tr').find('td .row').removeClass('d-none');
                     $.toast({
-                        text: 'Ngày bắt đầu phải bé thua ngày kết thúc',
+                        text: "{{__('Msg_start_date_less')}}",
                         icon: 'error',
                         position: 'top-right'
                     });
@@ -823,7 +823,7 @@
                             startDate: new Date()
                         });
                         $.toast({
-                            text: 'Cập nhật thành công',
+                            text: "{{__('Msg_update_success')}}",
                             icon: 'success',
                             position: 'top-right'
                         });
@@ -870,7 +870,7 @@
                         refreshView();
                         removeStopButton();
                         $.toast({
-                            text: 'Cập nhật thành công',
+                            text: "{{__('Msg_update_success')}}",
                             icon: 'success',
                             position: 'top-right'
                         });
@@ -898,7 +898,7 @@
                 if (modalStartDate == '' || modalEndDate == '' || modalStartDate == modalEndDate) {
                     _this.closest('tr').find('td .row').removeClass('d-none');
                     $.toast({
-                        text: 'Vui lòng nhập ngày bắt đầu và kết thúc',
+                        text: "{{__('Msg_enter_2_date')}}",
                         icon: 'error',
                         position: 'top-right'
                     });
@@ -908,7 +908,7 @@
 
                 if (modalEndDate <= modalStartDate) {
                     $.toast({
-                        text: 'Ngày bắt đầu phải bé thua ngày kết thúc',
+                        text: "{{__('Msg_start_date_less')}}",
                         icon: 'error',
                         position: 'top-right'
                     });
@@ -931,7 +931,7 @@
                         refreshView();
                         removeStopButton();
                         $.toast({
-                            text: 'Cập nhật thành công',
+                            text: "{{__('Msg_update_success')}}",
                             icon: 'success',
                             position: 'top-right'
                         });
@@ -989,7 +989,7 @@
                         refreshView();
                         removeStopButton();
                         $.toast({
-                            text: 'Cập nhật thành công',
+                            text: "{{__('Msg_update_success')}}",
                             icon: 'success',
                             position: 'top-right'
                         });
@@ -1023,7 +1023,7 @@
                         refreshView();
                         removeStopButton();
                         $.toast({
-                            text: 'Cập nhật thành công',
+                            text: "{{__('Msg_update_success')}}",
                             icon: 'success',
                             position: 'top-right'
                         });
@@ -1057,7 +1057,7 @@
                         refreshView();
                         removeStopButton();
                         $.toast({
-                            text: 'Cập nhật thành công',
+                            text: "{{__('Msg_update_success')}}",
                             icon: 'success',
                             position: 'top-right'
                         });
@@ -1076,7 +1076,7 @@
             _this.closest('.modal').find('input[name="money_unpaid"]').val(maxPrice-val);
             if(parseInt(val) > parseInt(maxPrice)) {
                 $.toast({
-                    text: 'Số tiền nhận không được lớn hơn tổng tiền khách phải trả.',
+                    text: "{{__('Msg_amount')}}",
                     icon: 'error',
                     position: 'top-right'
                 });
@@ -1095,7 +1095,7 @@
                 stopButton();
                 if (moneyReceived == '') {
                     $.toast({
-                        text: 'Vui lòng số tiền nhận.',
+                        text: "{{__('Msg_enter_amount')}}",
                         icon: 'error',
                         position: 'top-right'
                     });
@@ -1107,7 +1107,7 @@
                 var maxPrice = modal.find('input[name="money_unpaid_hidden"]').val();
                 if(parseInt(moneyReceived) > parseInt(maxPrice)) {
                     $.toast({
-                        text: 'Số tiền nhận không được lớn hơn tổng tiền khách phải trả.',
+                        text: "{{__('Msg_amount')}}",
                         icon: 'error',
                         position: 'top-right'
                     });
@@ -1137,7 +1137,7 @@
                         refreshView();
                         removeStopButton();
                         $.toast({
-                            text: 'Cập nhật thành công',
+                            text: "{{__('Msg_update_success')}}",
                             icon: 'success',
                             position: 'top-right'
                         });
@@ -1181,7 +1181,7 @@
                         refreshView();
                         removeStopButton();
                         $.toast({
-                            text: 'Cập nhật thành công',
+                            text: "{{__('Msg_update_success')}}",
                             icon: 'success',
                             position: 'top-right'
                         });
@@ -1384,7 +1384,7 @@
 
             if (startDate >= endDate) {
                 $.toast({
-                    text: 'Vui lòng nhập kết thúc lớn hơn ngày bắt đầu',
+                    text: "{{__('Msg_enter_end')}}",
                     icon: 'error',
                     position: 'top-right'
                 });
@@ -1400,7 +1400,7 @@
 
             if (roomIds == '') {
                 $.toast({
-                    text: 'Vui lòng chọn phòng cần đặt.',
+                    text: "{{__('Msg_select_room')}}",
                     icon: 'error',
                     position: 'top-right'
                 });
@@ -1443,7 +1443,7 @@
                     refreshView();
                     removeStopButton();
                     $.toast({
-                        text: 'Thêm mới thành công',
+                        text: "{{__('Msg_add_success')}}",
                         icon: 'success',
                         position: 'top-right'
                     });

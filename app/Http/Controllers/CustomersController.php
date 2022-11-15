@@ -37,7 +37,7 @@ class CustomersController extends Controller
     {
         $customers = $this->customerRepository->getAll();
         $menuCategoryManager = true;
-        $title = 'Quản lý thành viên';
+        $title = __('Member_management');
 
         return view('customers.create', compact('customers', 'menuCategoryManager', 'title'));
     }
@@ -49,7 +49,7 @@ class CustomersController extends Controller
         if (isset($result['status']) && $result['status'] == false) {
             return redirect()->back()->withErrors($result['message']);
         }
-        return redirect()->back()->with('success', 'Đăng ký thành công');
+        return redirect()->back()->with('success', __('Msg_create_success'));
     }
 
     public function edit(Request $request, $customer_id)
@@ -59,7 +59,7 @@ class CustomersController extends Controller
 
         $menuCategoryManager = true;
         $customers = $this->customerRepository->getAll();
-        $title = 'Cập nhật thành viên';
+        $title = __('Member_update');
         return view('customers.create', compact('menuCategoryManager', 'customers', 'currentItem', 'title'));
     }
 
@@ -84,7 +84,7 @@ class CustomersController extends Controller
             return redirect()->back()->withErrors($result['message']);
         }
 
-        return redirect()->back()->with('success', 'Cập nhật thành công');
+        return redirect()->back()->with('success', __('Msg_update_success'));
     }
 
     public function destroy(Request $request, $customer_id)
@@ -94,10 +94,10 @@ class CustomersController extends Controller
         if (!empty($currentItem)) {
             $currentItem->delete();
 
-            return redirect()->back()->with('success', 'Đã xoá thành công');
+            return redirect()->back()->with('success', __('Msg_deleted_success'));
         }
 
-        return redirect()->back()->withErrors('Vui lòng thử lại');
+        return redirect()->back()->withErrors(__('Msg_try_again'));
     }
 
     public function report(Request $request)

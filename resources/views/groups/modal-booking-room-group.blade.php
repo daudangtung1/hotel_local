@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-xl">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" class="booking-modalLabel">Khách đoàn</h5>
+            <h5 class="modal-title" class="booking-modalLabel">{{__('Group')}}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
         </div>
@@ -11,7 +11,7 @@
             @csrf
             <div class="modal-body row">
                 <div class="col-md-6">
-                    <h5>Thông tin đoàn</h5>
+                    <h5>{{__('Group_information')}}</h5>
                     <div class="row mt-3" id="form-create-group">
                         <input type="hidden" name="group_id" value="{{$group->id}}">
                         <input type="hidden" name="customer_id" value="{{$group->customer_id}}">
@@ -19,48 +19,47 @@
                             <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm validate" id="group_name"
                                    name="group_name" required
                                    value="<?= !empty($group) ? $group->name : '' ?>"
-                                   placeholder="Tên đoàn">
+                                   placeholder="{{__('Group_name')}}">
                             <div class="col-md-12 mb-3" id="list-item-group"></div>
                             <input type="hidden" id="group_id" value="<?= !empty($group) ? $group->id : '' ?>" />
                         </div>
                         <div class="col-md-12 mb-3">
                     <textarea
                         name="note" class="form-control form-control-sm form-control form-control-sm note" cols="30" rows="2" id="note"
-                        placeholder="Ghi chú"><?= !empty($group) ? $group->note : '' ?></textarea>
+                        placeholder="{{__('Note')}}"><?= !empty($group) ? $group->note : '' ?></textarea>
                         </div>
                     </div>
-                    <h5>Thông tin người đặt</h5>
+                    <h5>{{__('Booking_user_information')}}</h5>
                     <div class="row mt-3 form-user" id="form-booking-group">
                         <div class="col-md-6 mb-3 position-relative">
                             <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm validate" id="customer_name"
                                    name="customer_name" required
                                    value="<?= !empty($group) ? $group->customer_name : '' ?>"
-                                   placeholder="Tên khách hàng">
+                                   placeholder="{{__('Customer_name')}}">
                             <div class="col-md-12 mb-3" id="list-item-customer"></div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm validate" id="customer_id_card"
                                    value="<?= !empty($group) ? $group->id_card : '' ?>"
                                    name="customer_id_card" required
-                                   placeholder="Số giấy tờ">
+                                   placeholder="{{__('ID_card_2')}}">
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm validate" id="customer_phone"
                                    value="<?= !empty($group) ? $group->customer_phone : '' ?>"
                                    name="customer_phone" required
-                                   placeholder="Điện thoại">
+                                   placeholder="{{__('Phone_f')}}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <input type="text" autocomplete="off"  class="form-control form-control-sm form-control-sm validate" id="customer_address"
                                    value="<?= !empty($group) ? $group->address : '' ?>"
-                                   name="customer_address" required placeholder="Địa chỉ">
+                                   name="customer_address" required placeholder="{{__('Address')}}">
                         </div>
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="start_date" class="form-label fw-bold">Thời gian bắt
-                                        đầu:</label>
+                                    <label for="start_date" class="form-label fw-bold">{{__('Time_start')}}:</label>
                                     <div class="form-group">
                                         <div class="input-group date">
                                         <span class="input-group-text">
@@ -78,8 +77,7 @@
                                 <div
                                     class="col-md-6 "
                                     id="box-end-date">
-                                    <label for="end_date" class="form-label fw-bold">Thời gian kết
-                                        thúc:</label>
+                                    <label for="end_date" class="form-label fw-bold">{{__('Time_end')}}:</label>
                                     <div class="input-group date">
                                     <span class="input-group-text">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
@@ -97,7 +95,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h5>Danh sách phòng</h5>
+                    <h5>{{__('Room_list')}}</h5>
                     <div class="div-scroll max-height-300 mb-3" id="list-booking-room">
                         @include('room.list-booking-room')
                     </div>
@@ -105,64 +103,63 @@
             </div>
             <div class="modal-footer">
                 @if(!empty($action) && $action == 'edit')
-                    <button class="btn btn-sm btn-danger btn-cancel-booking-group">Hủy phòng</button>
-                    <button class="btn btn-sm btn-success btn-update-booking-group">Cập nhật phòng</button>
+                    <button class="btn btn-sm btn-danger btn-cancel-booking-group">{{__('Cancel_room')}}</button>
+                    <button class="btn btn-sm btn-success btn-update-booking-group">{{__('Update_room')}}</button>
                 @else
-                    <button class="btn btn-sm btn-primary btn-booking-group">Đặt phòng</button>
+                    <button class="btn btn-sm btn-primary btn-booking-group">{{__('Booking_room')}}</button>
                 @endif
             </div>
         </form>
         @else
         <div class="modal-body row">
             <div class="col-md-6">
-                <h5>Thông tin đoàn</h5>
+                <h5>{{__('Group_information')}}</h5>
                 <div class="row mt-3" id="form-create-group">
                     <div class="col-md-6 mb-3 position-relative">
                         <input type="text" autocomplete="off"  class="form-control  form-control-sm validate" id="group_name"
                                name="group_name" required
                                value="<?= !empty($group) ? $group->name : '' ?>"
-                               placeholder="Tên đoàn">
+                               placeholder="{{__('Group_name')}}">
                         <div class="col-md-12 mb-3 list-ajax" id="list-item-group"></div>
                         <input type="hidden" id="group_id" value="<?= !empty($group) ? $group->id : '' ?>" />
                     </div>
                     <div class="col-md-12 mb-3">
                 <textarea
                     name="note" class="form-control form-control-sm note" cols="30" rows="2" id="note"
-                    placeholder="Ghi chú"><?= !empty($group) ? $group->note : '' ?></textarea>
+                    placeholder="{{__('Note')}}"><?= !empty($group) ? $group->note : '' ?></textarea>
                     </div>
                 </div>
-                <h5>Thông tin người đặt</h5>
+                <h5>{{__('Booking_user_information')}}</h5>
                 <div class="row mt-3 form-user" id="form-booking-group">
                     <div class="col-md-6 mb-3 position-relative">
                         <input type="text" autocomplete="off"  class="form-control  form-control-sm validate" id="customer_name"
                                name="customer_name" required
                                value="<?= !empty($group) ? $group->customer_name : '' ?>"
-                               placeholder="Tên khách hàng">
+                               placeholder="{{__('Customer_name')}}">
                         <div class="col-md-12 mb-3" id="list-item-customer"></div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <input type="text" autocomplete="off"  class="form-control  form-control-sm validate" id="customer_id_card"
                                value="<?= !empty($group) ? $group->id_card : '' ?>"
                                name="customer_id_card" required
-                               placeholder="Số giấy tờ">
+                               placeholder="{{__('ID_card_2')}}">
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <input type="text" autocomplete="off"  class="form-control  form-control-sm validate" id="customer_phone"
                                value="<?= !empty($group) ? $group->customer_phone : '' ?>"
                                name="customer_phone" required
-                               placeholder="Điện thoại">
+                               placeholder="{{__('Phone_f')}}">
                     </div>
                     <div class="col-md-6 mb-3">
                         <input type="text" autocomplete="off"  class="form-control  form-control-sm validate" id="customer_address"
                                value="<?= !empty($group) ? $group->address : '' ?>"
-                               name="customer_address" required placeholder="Địa chỉ">
+                               name="customer_address" required placeholder="{{__('Address')}}">
                     </div>
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="start_date" class="form-label fw-bold">Thời gian bắt
-                                    đầu:</label>
+                                <label for="start_date" class="form-label fw-bold">{{__('Time_start')}}:</label>
                                 <div class="form-group">
                                     <div class="input-group date">
                                     <span class="input-group-text">
@@ -180,8 +177,7 @@
                             <div
                                 class="col-md-6 "
                                 id="box-end-date">
-                                <label for="end_date" class="form-label fw-bold">Thời gian kết
-                                    thúc:</label>
+                                <label for="end_date" class="form-label fw-bold">{{__('Time_end')}}:</label>
                                 <div class="input-group date">
                                     <span class="input-group-text">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
@@ -199,7 +195,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <h5>Danh sách phòng</h5>
+                <h5>{{__('Room_list')}}</h5>
                 <div class="div-scroll max-height-300 mb-3" id="list-booking-room">
                     @include('room.list-booking-room')
                 </div>
@@ -207,11 +203,11 @@
         </div>
         <div class="modal-footer">
             @if(!empty($action) && $action == 'edit')
-                <button class="btn btn-sm btn-danger btn-cancel-booking-group">Hủy phòng</button>
-                <button class="btn btn-sm btn-success btn-update-booking-group">Cập nhật phòng</button>
+                <button class="btn btn-sm btn-danger btn-cancel-booking-group">{{__('Cancel_room')}}</button>
+                <button class="btn btn-sm btn-success btn-update-booking-group">{{__('Update_room')}}</button>
             @else
                 @can('Quản lý khách đoàn-create')
-                    <button class="btn btn-sm btn-primary btn-booking-group">Đặt phòng</button>
+                    <button class="btn btn-sm btn-primary btn-booking-group">{{__('Booking_room')}}</button>
                 @endcan
             @endif
         </div>

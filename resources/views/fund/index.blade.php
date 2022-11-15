@@ -10,7 +10,7 @@
                 <div class="col-md-12">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Quản lý doanh thu</button>
+                            <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">{{__('Revenue_management_f')}}</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link " id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Quản lý thu/chi</button>
@@ -22,13 +22,13 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Tên phòng</th>
-                                    <th scope="col">Thời gian</th>
-                                    <th scope="col">Tên khách hàng</th>
-                                    <th>Hình thức</th>
-                                    <th>Tiền phòng</th>
-                                    <th>Tiền dịch vụ</th>
-                                    <th>Tổng tiền</th>
+                                    <th scope="col">{{__('Room_name')}}</th>
+                                    <th scope="col">{{__('Time')}}</th>
+                                    <th scope="col">{{__('Customer_name')}}</th>
+                                    <th>{{__('Form')}}</th>
+                                    <th>{{__('Room_charge')}}</th>
+                                    <th>{{__('Service_fee')}}</th>
+                                    <th>{{__('Total')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -37,16 +37,16 @@
                                         <tr>
                                             <td>{{$bookingRoom->id}}</td>
                                             <td>
-                                                <p><b>Phòng</b> {{$bookingRoom->room->name ?? 'Không tồn tại'}}</p>
-                                                <p><b>Tầng:</b> {{$bookingRoom->room->floor ?? 'Không tồn tại'}}</p>
+                                                <p><b>{{__('Room')}}</b> {{$bookingRoom->room->name ?? __('Not_exist')}}</p>
+                                                <p><b>{{__('Level')}}:</b> {{$bookingRoom->room->floor ?? __('Not_exist')}}</p>
                                             </td>
                                             <td>
-                                                <p><b>Ngày vào: </b>{{$bookingRoom->start_date ?? ''}}</p>
-                                                <p><b>Ngày ra: </b>{{$bookingRoom->end_date ?? ''}}</p>
+                                                <p><b>{{__('Check_in')}}: </b>{{$bookingRoom->start_date ?? ''}}</p>
+                                                <p><b>{{__('Check_out')}}: </b>{{$bookingRoom->end_date ?? ''}}</p>
                                             </td>
                                             <td>
                                                 @foreach($bookingRoom->bookingRoomCustomers()->get() as $customer)
-                                                    <p>{{$customer->customer->name ?? 'Không tồn tại'}}</p>
+                                                    <p>{{$customer->customer->name ?? __('Not_exist')}}</p>
                                                 @endforeach
                                             </td>
                                             <td>{{$bookingRoom->getRentType()}}</td>
@@ -57,7 +57,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="8">Không có dữ liệu</td>
+                                            <td colspan="8">{{__('No_data')}}</td>
                                         </tr>
                                     @endforelse
                                 @endif
@@ -72,10 +72,10 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Tên</th>
-                                    <th scope="col">Số tiền</th>
-                                    <th scope="col">Ngày tạo</th>
-                                    <th scope="col">Phân loại</th>
+                                    <th scope="col">{{__('Name')}}</th>
+                                    <th scope="col">{{__('Amount_money')}}</th>
+                                    <th scope="col">{{__('Created_date')}}</th>
+                                    <th scope="col">{{__('Classify')}}</th>
                                     <th scope="col"></th>
                                 </tr>
                                 </thead>
@@ -115,7 +115,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5">Không có dữ liệu</td>
+                                        <td colspan="5">{{__('No_data')}}</td>
                                     </tr>
                                 @endforelse
                                 </tbody>
@@ -133,7 +133,7 @@
                         $(document).ready(function () {
                             $('body').on('click', '.btn-ajax-delete', function (e) {
                                 e.preventDefault();
-                                if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
+                                if (!confirm("{{__('Confirm_delete')}}")) {
                                     return false;
                                 }
 

@@ -25,7 +25,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $menuSystem = true;
-        $title = 'Quản lý chức vụ';
+        $title = __('Roles_management');
         $roles = Role::orderBy('id', 'DESC')->paginate(10);
         return view('roles.index', compact('roles', 'title', 'menuSystem'));
     }
@@ -34,7 +34,7 @@ class RoleController extends Controller
     {
         $menuSystem = true;
         $permission = Permission::get();
-        $title = 'Tạo mới chức vụ';
+        $title = __('Create_new_role');
         return view('roles.create', compact('title', 'menuSystem', 'permission'));
     }
 
@@ -49,7 +49,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->input('permission'));
 
         return redirect()->route('roles.index')
-            ->with('success', 'Tạo thành công chức vụ.');
+            ->with('success', __('Msg_create_role_success'));
     }
 
     public function show($id)
@@ -61,7 +61,7 @@ class RoleController extends Controller
     {
         $menuSystem = true;
         $role = Role::find($id);
-        $title = 'Cập nhật role';
+        $title = __('Update_role');
 
         $permission = Permission::get();
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
@@ -88,7 +88,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->input('permission'));
         return redirect()->back();
         return redirect()->route('roles.index')
-            ->with('success', 'Cập nhật thành công.');
+            ->with('success', __('Msg_update_success'));
     }
 
     public function destroy($id)
@@ -98,7 +98,7 @@ class RoleController extends Controller
         $role->delete();
 
         $notification = array(
-            'message' => 'Xóa thành công.',
+            'message' => __('Msg_delete_success'),
             'alert-type' => 'success'
         );
         return redirect()->route('roles.index')

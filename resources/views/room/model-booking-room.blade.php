@@ -6,12 +6,12 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" class="booking-modalLabel">Đặt phòng trước cho khách hàng</h5>
+                <h5 class="modal-title" class="booking-modalLabel">{{__('Reservations_customer')}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body row">
                 <div class="col-md-6">
-                    <h5>Thông tin khách hàng</h5>
+                    <h5>{{__('Customer_information')}}</h5>
                     @if(!empty($bookingRoom))
                     <input type="hidden" name="booking_room_id" value="{{$bookingRoom->id}}">
                     @php
@@ -39,25 +39,25 @@
                     <div class="row mt-3 form-user" id="form-booking-multiple">
                         @if(!empty($bookingRoomCustomer->group_id))
                         <div class="col-md-12 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off" name="customer_name" required placeholder="Tên nhóm" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->group->name ?? 'Không tồn tại'}}@endif">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off" name="customer_name" required placeholder="{{__('Group_name_2')}}" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->group->name ?? __('Not_exist')}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-customer"></div>
                         </div>
                         @else
                         <div class="col-md-6 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off" name="customer_name" required placeholder="Tên khách hàng" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->name ?? 'Không tồn tại'}}@endif">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_name" autocomplete="Off" name="customer_name" required placeholder="{{__('Customer_name')}}" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->name ?? __('Not_exist')}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-customer"></div>
                         </div>
                         <div class="col-md-6 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_id_card" name="customer_id_card" required placeholder="Số giấy tờ" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->id_card ?? 'Không tồn tại'}}@endif">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_id_card" name="customer_id_card" required placeholder="{{__('ID_card_2')}}" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->id_card ?? __('Not_exist')}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-id_card"></div>
                         </div>
 
                         <div class="col-md-6 mb-3 position-relative">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_phone" name="customer_phone" required placeholder="Điện thoại" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->phone ?? 'Không tồn tại'}}@endif">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_phone" name="customer_phone" required placeholder="{{__('Phone_f')}}" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->phone ?? __('Not_exist')}}@endif">
                             <div class="col-md-12 mb-3 list-ajax" id="list-item-phone"></div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_address" name="customer_address" required placeholder="Địa chỉ" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->address ?? 'Không tồn tại'}}@endif">
+                            <input type="text" autocomplete="off" class="form-control form-control-sm form-control form-control-sm validate" id="customer_address" name="customer_address" required placeholder="{{__('Address')}}" value="@if(!empty($bookingRoom) && !empty($bookingRoomCustomer)){{$bookingRoomCustomer->customer->address ?? __('Not_exist')}}@endif">
                         </div>
                         @endif
 
@@ -65,8 +65,7 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="start_date" class="form-label fw-bold">Thời gian bắt
-                                        đầu:</label>
+                                    <label for="start_date" class="form-label fw-bold">{{__('Time_start')}}:</label>
                                     <div class="form-group">
                                         <div class="input-group date">
                                             <span class="input-group-text">
@@ -80,8 +79,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 " id="box-end-date">
-                                    <label for="end_date" class="form-label fw-bold">Thời gian kết
-                                        thúc:</label>
+                                    <label for="end_date" class="form-label fw-bold">{{__('Time_end')}}:</label>
                                     <div class="input-group date">
                                         <span class="input-group-text">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
@@ -97,7 +95,7 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="price" class="form-label fw-bold">Giá thuê mới:</label>
+                                    <label for="price" class="form-label fw-bold">{{__('New_rental_price')}}:</label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">$</span>
@@ -114,13 +112,13 @@
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
-                            <label for="price" class="form-label fw-bold">Ghi chú:</label>
-                            <textarea name="note" class="form-control form-control-sm form-control-sm note" cols="30" rows="2" placeholder="Ghi chú">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
+                            <label for="price" class="form-label fw-bold">{{__('Note')}}:</label>
+                            <textarea name="note" class="form-control form-control-sm form-control-sm note" cols="30" rows="2" placeholder="{{__('Note')}}">@if(!empty($bookingRoom)) {!! $bookingRoom->note ??'' !!} @endif </textarea>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h5>Danh sách phòng</h5>
+                    <h5>{{__('Room_list')}}</h5>
                     <div class="div-scroll max-height-300 mb-3" id="list-booking-room">
                         @include('room.list-booking-room', ['roomIds' => $roomIds ?? null])
                     </div>
@@ -128,17 +126,17 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
-                    Đóng
+                    {{__('Close')}}
                 </button>
 
                 @if(!empty($bookingRoom))
-                <button class="btn btn-sm btn-warning " type="submit">Cập nhật</button>
+                <button class="btn btn-sm btn-warning " type="submit">{{__('Update')}}</button>
                 @else
                 @can('Quản lý đặt phòng-list')
-                    <a href="{{route('booking-room.index')}}" class="btn btn-sm btn-success">Quản lý đặt phòng</a>
+                    <a href="{{route('booking-room.index')}}" class="btn btn-sm btn-success">{{__('Reservation_management')}}</a>
                 @endcan
                 @can('Quản lý đặt phòng-create')
-                <button class="btn btn-sm btn-primary btn-booking-multiple-room">Đặt phòng</button>
+                <button class="btn btn-sm btn-primary btn-booking-multiple-room">{{__('Booking_room')}}</button>
                 @endcan
                 @endif
             </div>

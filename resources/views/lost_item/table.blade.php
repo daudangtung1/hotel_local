@@ -4,16 +4,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tạo mới đồ thất lạc</h5>
+                <h5 class="modal-title">{{__('Create_lost_item')}}</h5>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <select name="booking_room_id" id="booking_room_id" class="form-control form-control-sm booking_room_id mb-3" required>
-                        <option value="">Chọn phòng</option>
+                        <option value="">{{__('Select_room')}}</option>
                         @forelse($bookingRooms as $key => $bookingRoom)
                             <option value="{{$bookingRoom->id}}">
-                                {{$bookingRoom->room->name ?? 'Không tồn tại'}} -
-                                {{$bookingRoom->room->floor ?? 'Không tồn tại'}} -
+                                {{$bookingRoom->room->name ?? __('Not_exist')}} -
+                                {{$bookingRoom->room->floor ?? __('Not_exist')}} -
                                 {{$bookingRoom->start_date ?? ''}} -
                                 {{$bookingRoom->end_date ?? ''}}
                             </option>
@@ -23,11 +23,11 @@
                 </div>
                 <div class="form-group">
                     <textarea name="note" id="note" cols="30" rows="5" class="form-control form-control-sm validate note" required
-                              placeholder="Ghi chú"></textarea>
+                              placeholder="{{__('Note')}}"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-save">Tạo mới</button>
+                <button type="button" class="btn btn-primary btn-save">{{__('Create')}}</button>
             </div>
         </div>
     </div>
@@ -35,12 +35,12 @@
 <table class="table table-sm table-bordered table-hover">
     <thead>
     <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Tên phòng</th>
-        <th scope="col">Tầng</th>
-        <th scope="col">Ngày trả</th>
-        <th scope="col">Ghi chú</th>
-        <th scope="col">Tình trạng</th>
+        <th scope="col">{{__('ID')}}</th>
+        <th scope="col">{{__('Room_name')}}</th>
+        <th scope="col">{{__('Level')}}</th>
+        <th scope="col">{{__('Pay_day')}}</th>
+        <th scope="col">{{__('Note')}}</th>
+        <th scope="col">{{__('Status')}}</th>
     </tr>
     </thead>
     <tbody>
@@ -48,8 +48,8 @@
         @forelse($lostItems as $key => $lostItem)
             <tr data-lost_item_id="{{$lostItem->id}}">
                 <td>{{$lostItem->id}}</td>
-                <td>{{$lostItem->bookingRoom->room->name ?? 'Không tồn tại'}}</td>
-                <td>{{$lostItem->bookingRoom->room->floor ?? 'Không tồn tại'}}</td>
+                <td>{{$lostItem->bookingRoom->room->name ?? __('Not_exist')}}</td>
+                <td>{{$lostItem->bookingRoom->room->floor ?? __('Not_exist')}}</td>
                 <td style="width: 200px">{{$lostItem->pay_date ?? '-'}}</td>
                 <td>
                     <textarea name="note" class="form-control form-control-sm note" cols="30"
@@ -58,22 +58,22 @@
                 <td style="width: 120px">
                     @if(empty($lostItem->pay_date))
                         <select name="status" id="status" class="form-control form-control-sm status">
-                            <option value="0" @if(empty($lostItem->pay_date)) selected @endif>Chưa trả</option>
-                            <option value="1" @if(!empty($lostItem->pay_date)) selected @endif>Đã trả</option>
+                            <option value="0" @if(empty($lostItem->pay_date)) selected @endif>{{__('Unpaid')}}</option>
+                            <option value="1" @if(!empty($lostItem->pay_date)) selected @endif>{{__('Paid')}}</option>
                         </select>
                     @else
-                        <span class="text-success">Đã trả</span>
+                        <span class="text-success">{{__('Paid')}}</span>
                     @endif
                 </td>
             </tr>
         @empty
             <tr>
-                <td colspan="6">Không có dữ liệu</td>
+                <td colspan="6">{{__('No_data')}}</td>
             </tr>
         @endforelse
     @else
         <tr>
-            <td colspan="6">Không có dữ liệu</td>
+            <td colspan="6">{{__('No_data')}}</td>
         </tr>
     @endif
     </tbody>

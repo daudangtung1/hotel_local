@@ -39,9 +39,9 @@
                         @if(!empty($bookingRoom))
                         @if($room->status == \App\Models\Room::HAVE_GUEST)
                         <p>
-                            <span id="start_date" class="d-block time small"><small>Giờ vào: <span class="text">{{$bookingRoom->getTimeStartDate()}} {{$bookingRoom->getDateStartDate()}}</span></small></span>
-                            <span id="minutes" class="d-block time small"><small>Thời lượng: <span class="text">{{$bookingRoom->getTime(true)}}</span></small></span>
-                            <span id="total_price" class="d-block time small"><small>Tổng tiền: <span class="text">{{$bookingRoom->getTotalPrice()}}</span> </small></span>
+                            <span id="start_date" class="d-block time small"><small>{{__('Time_enter')}}: <span class="text">{{$bookingRoom->getTimeStartDate()}} {{$bookingRoom->getDateStartDate()}}</span></small></span>
+                            <span id="minutes" class="d-block time small"><small>{{__('Time_2')}}: <span class="text">{{$bookingRoom->getTime(true)}}</span></small></span>
+                            <span id="total_price" class="d-block time small"><small>{{__('Total')}}: <span class="text">{{$bookingRoom->getTotalPrice()}}</span> </small></span>
                         </p>
                         @else
                         <p>
@@ -65,7 +65,7 @@
             @endif
             @if($bookingRoomFirstOrder)
             <span class="d-block time small">
-                <small>Đặ̣t phòng:
+                <small>{{__('Booking_room')}}:
                     <span class="text">{{$bookingRoomFirstOrder->getTimeStartDate()}} {{$bookingRoomFirstOrder->getDateStartDate()}}</span>
                 </small>
             </span>

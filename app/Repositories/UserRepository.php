@@ -46,7 +46,7 @@ class UserRepository extends ModelRepository
         if ($emailExists) {
             return [
                 'status'  => false,
-                'message' => 'Email đã tồn tại'
+                'message' => __('Msg_email_exist')
             ];
         }
 
@@ -55,7 +55,7 @@ class UserRepository extends ModelRepository
         if ($emailExists) {
             return [
                 'status'  => false,
-                'message' => 'Tên tài khoản đã tồn tại'
+                'message' => __('Msg_username_exist')
             ];
         }
 
@@ -82,7 +82,7 @@ class UserRepository extends ModelRepository
         if ($emailExists) {
             return [
                 'status'  => false,
-                'message' => 'Email đã tồn tại'
+                'message' => __('Msg_email_exist')
             ];
         }
 

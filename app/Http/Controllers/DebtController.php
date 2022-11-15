@@ -19,7 +19,7 @@ class DebtController extends Controller
     {
         $items = $this->debtRepository->getAll();
         $menuCategoryManager = true;
-        $title = 'Quản lý công nợ';
+        $title = __('Debt_management');
 
         return view('debt.index', compact('items', 'menuCategoryManager', 'title'));
     }

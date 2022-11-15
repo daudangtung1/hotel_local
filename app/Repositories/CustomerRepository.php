@@ -54,7 +54,7 @@ class CustomerRepository extends ModelRepository
         if ($card) {
             return [
                 'status'  => false,
-                'message' => 'CMND/HC đã tồn tại'
+                'message' => __('ID_Passport_exist')
             ];
         }
 
@@ -63,7 +63,7 @@ class CustomerRepository extends ModelRepository
         if ($phone) {
             return [
                 'status'  => false,
-                'message' => 'Số điện thoại đã tồn tại'
+                'message' => __('Phone_exist')
             ];
         }
 
@@ -86,7 +86,7 @@ class CustomerRepository extends ModelRepository
         if ($card) {
             return [
                 'status'  => false,
-                'message' => 'CMND/HC đã tồn tại'
+                'message' => __('ID_Passport_exist')
             ];
         }
 
@@ -96,7 +96,7 @@ class CustomerRepository extends ModelRepository
         if ($phone) {
             return [
                 'status'  => false,
-                'message' => 'Số điện thoại đã tồn tại'
+                'message' => __('Phone_exist')
             ];
         }
 

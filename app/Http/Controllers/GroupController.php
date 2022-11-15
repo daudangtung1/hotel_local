@@ -41,7 +41,7 @@ class GroupController extends Controller
         $floors = $this->RoomRepository->filterRoomBookingByDate($request);
 
         $menuCategoryManager = true;
-        $title = 'Quản lý đoàn';
+        $title = __('Group_management');
 
         if ($request->ajax()) {
             return view('groups.modal-booking-room-group', compact('groups', 'menuCategoryManager', 'title'))->render();
@@ -77,7 +77,7 @@ class GroupController extends Controller
     {
         $this->groupRepository->update($request, $id);
 
-        return redirect()->back()->with('success', 'Cập nhật thành công');
+        return redirect()->back()->with('success', __('Msg_update_success'));
     }
 
     /**
@@ -102,10 +102,10 @@ class GroupController extends Controller
             $this->bookingRoomRepository->deleteByIds($bookingIds);
             $this->groupRepository->deleteGroupCustomer($group_id);
 
-            return redirect()->back()->with('success', 'Đã xoá thành công');
+            return redirect()->back()->with('success', __('Msg_deleted_success'));
         }
 
-        return redirect()->back()->withErrors('Vui lòng thử lại');
+        return redirect()->back()->withErrors(__('Msg_try_again'));
     }
 
     public function groupBookingInfo(Request $request)

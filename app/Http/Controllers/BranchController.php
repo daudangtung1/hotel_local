@@ -25,7 +25,7 @@ class BranchController extends Controller
         $items = $this->BranchRepository->getAll(false);
         $menuCategoryManager = true;
 
-        $title = 'Quản lý cho nhánh';
+        $title = __('Branch_management_f');
 
         return view('branch.list', compact('items', 'menuCategoryManager', 'title'));
     }
@@ -35,7 +35,7 @@ class BranchController extends Controller
         $items = $this->BranchRepository->getAll();
         $menuCategoryManager = true;
 
-        $title = 'Quản lý cho nhánh';
+        $title = __('Branch_management_f');
 
         return view('branch.index', compact('items', 'menuCategoryManager', 'title'));
     }
@@ -44,7 +44,7 @@ class BranchController extends Controller
     {
         $this->BranchRepository->store($request);
 
-        return redirect()->back()->with('success', 'Đăng ký thành công');
+        return redirect()->back()->with('success', __('Msg_create_success'));
     }
 
     public function edit(Request $request, $id)
@@ -52,7 +52,7 @@ class BranchController extends Controller
         $currentItem = $this->BranchRepository->find($id);
         $menuCategoryManager = true;
         $items = $this->BranchRepository->getAll();
-        $title = 'Cập nhật chi nhánh';
+        $title = __('Update_branch');
 
         return view('branch.index', compact('menuCategoryManager', 'items', 'currentItem', 'title'));
     }
@@ -62,9 +62,9 @@ class BranchController extends Controller
         $result = $this->BranchRepository->update($id, $request);
 
         if ($result) {
-            return redirect()->back()->with('success', 'Cập nhật thành công');
+            return redirect()->back()->with('success', __('Msg_update_success'));
         }
-        return redirect()->back()->withErrors('Cập nhật thất bại.');
+        return redirect()->back()->withErrors(__('Msg_update_fail'));
     }
 
     public function destroy(Request $request, $id)
@@ -74,9 +74,9 @@ class BranchController extends Controller
         if (!empty($currentItem)) {
             $currentItem->delete();
 
-            return redirect()->back()->with('success', 'Đã xoá thành công');
+            return redirect()->back()->with('success', __('Msg_deleted_success'));
         }
 
-        return redirect()->back()->withErrors('Vui lòng thử lại');
+        return redirect()->back()->withErrors(__('Msg_try_again'));
     }
 }
